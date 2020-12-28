@@ -1,11 +1,20 @@
 
 <script>
 import { chessboard }  from 'vue-chessboard'
+import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
 
 export default {
   name: 'newboard',
   extends: chessboard,
   methods: {
+    initialMove() {
+      setTimeout(() => {
+        // this.showMoves(); 
+        this.board.set({
+          movable: { events: { after: this.userPlay()} },
+        })
+       }, 1000);
+    },     
     userPlay() {
       return (orig, dest) => {
         if (this.isPromotion(orig, dest)) {
@@ -20,9 +29,10 @@ export default {
       };
     },
     aiNextMove() {
-      let moves = this.game.moves({verbose: true})
-      let randomMove = moves[Math.floor(Math.random() * moves.length)]
-      this.game.move(randomMove)
+     let enginemove = aiMoveExport (this.game.fen(), 3);    
+     // console.log(`Move ${enginemove}`);
+
+      this.game.move(enginemove);
 
       this.board.set({
         fen: this.game.fen(),
@@ -33,7 +43,7 @@ export default {
           events: { after: this.userPlay()},
         }
       });
-    },
+    },       
   },
   mounted() {
     this.board.set({

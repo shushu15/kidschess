@@ -86,8 +86,10 @@ export default {
         description: 'Ладья против пяти связанных пешек. Научиться побеждать за ВОЛКА',
         orientation: 'black'
       },
-    ]            
-                  
+    ];
+  },
+   mounted() {
+    this.loadTask(this.tasks[0]);             
   }
 }
 </script>

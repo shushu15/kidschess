@@ -1,9 +1,8 @@
 {
   "name": "vue-chessboard-examples",
-  "description": "Simple examples for vue-chessboard component",
   "version": "1.1.0",
+  "description": "Simple examples for vue-chessboard component",
   "author": "vitogit <vitogit@users.noreply.github.com>",
-  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -13,7 +12,8 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
-    "vue-chessboard": "^0.6.6"
+    "vue-chessboard": "^0.6.6",
+    "vuetify": "^2.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
@@ -22,6 +22,11 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
-    "vue-template-compiler": "^2.6.11"
-  }
+    "sass": "^1.32.0",
+    "sass-loader": "^10.0.0",
+    "vue-cli-plugin-vuetify": "^2.1.0",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.7.0"
+  },
+  "license": "MIT"
 }

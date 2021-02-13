@@ -38,22 +38,26 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <KidsArea/>
+      <TitleScreen v-if="isTitleShowing" v-on:title-screen-off="isTitleShowing=false"/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import TitleScreen from './components/TitleScreen.vue';
+import KidsArea from './components/KidsArea.vue';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    TitleScreen,
+    KidsArea,
   },
 
   data: () => ({
+    isTitleShowing: true,
     //
   }),
 };

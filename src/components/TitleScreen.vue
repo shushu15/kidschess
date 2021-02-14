@@ -20,7 +20,8 @@
 export default {
   mounted() {
     // setTimeout(() => { this.$root.isTitleShowing = false; }, 2000);
-    setTimeout(() => { this.$emit('title-screen-off'); }, 2000);
+    // setTimeout(() => { this.$emit('title-screen-off'); }, 2000);
+    setTimeout(() => { this.$store.commit('hideTitleScreen'); }, 2000); 
   },
 };
 </script>

@@ -17,7 +17,8 @@ export default {
         // this.showMoves(); 
         this.board.set({
           movable: { events: { after: this.userPlay()} },
-        })
+        });
+        this.$store.commit('setTurn', { turn: this.game.turn() });
        }, 1000);
     },     
     userPlay() {
@@ -30,11 +31,12 @@ export default {
           fen: this.game.fen()
         })
         this.calculatePromotions();
+        this.$store.commit('setTurn', { turn: this.game.turn() });
          setTimeout(() => {this.aiNextMove();}, 50); // allow redraw
       }
     },
     aiNextMove() {
-     let enginemove = aiMoveExport (this.game.fen(), 3);    
+      let enginemove = aiMoveExport (this.game.fen(), 3);    
      // console.log(`Move ${enginemove}`);
 
       this.game.move(enginemove);
@@ -48,6 +50,7 @@ export default {
           events: { after: this.userPlay()},
         }
       });
+      this.$store.commit('setTurn', { turn: this.game.turn() });
     },       
   },
   watch: {

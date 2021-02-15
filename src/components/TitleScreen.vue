@@ -1,12 +1,13 @@
 <template>
       <transition name="fade">
   <v-row>
-    <v-col cols="12" sm="6" offset-sm="3">
+    <v-col cols="12" justify-center>
         <v-card class="title-screen">
           <v-card-title primary-title  color="primary">
             <div>
-              <h1 class="display-3 mb-0">Шахматные игры для детей</h1>
-              <div>Обучение игры в шахматы для самых маленьких</div>
+              <h2>Шахматные игры для детей</h2>
+              <div class="d-flex justify-center">Обучение игры в шахматы для самых маленьких</div>
+              <div class="d-flex justify-center blue">шахматный клуб Рифата</div>
             </div>
           </v-card-title>
         </v-card>

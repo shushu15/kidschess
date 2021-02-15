@@ -12,5 +12,8 @@ export default {
   },
   setChild(state, {child}) {
     state.currentTask = child;
+  },
+  setTurn(state, {turn}) {
+    state.turn = turn;
   }
 };

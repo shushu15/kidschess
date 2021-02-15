@@ -12,7 +12,8 @@ const state = {
   version: '1.0.a1',
   isTitleShowing: true,
   showDrawer: false,
-  currentTask: {},      
+  currentTask: {}, 
+  turn: '',     
 };
 
 export default new Vuex.Store({

@@ -181,7 +181,7 @@ export default {
             service: {id: '8d243eac-f466-4472-9061-455c0a4e6b1e', active: false },
           },
           { 
-            title: {ru: 'Плавки для Слона', en: 'Плавки для Слона'},
+            title: {ru: 'Плавки для Слона 2', en: 'Плавки для Слона 2'},
             fen: '8/3pp3/8/8/8/8/8/5B2 w - - 0 1',
             description: { ru: 'Белые должны выиграть', en: 'Белые должны выиграть' },
             orientation: 'white',
@@ -195,7 +195,7 @@ export default {
             service: {id: 'c805e418-ed0c-4589-be9f-4be622cdf9a7', active: false },
           },
           {
-            title: {ru: 'Трусы для Слона', en: 'Трусы для Слона'},
+            title: {ru: 'Трусы для Слона 2', en: 'Трусы для Слона 2'},
             fen: '8/3p1p2/8/8/8/8/8/5B2 w - - 0 1',
             description: { ru: 'Белые легко выигрывают', en: 'Белые легко выигрывают' },
             orientation: 'white',
@@ -209,7 +209,7 @@ export default {
             service: {id: '2b414e79-9913-43ca-a813-41caca4209eb', active: false },
           },
           {
-            title: {ru: 'Шорты для Слона', en: 'Шорты для Слона'},
+            title: {ru: 'Шорты для Слона 2', en: 'Шорты для Слона 2'},
             fen: '8/2p2p2/8/8/8/8/8/5B2 w - - 0 1',
             description: { ru: 'При игре без ошибок белые легко выигрывают', en: 'При игре без ошибок белые легко выигрывают' },
             orientation: 'white',
@@ -223,7 +223,7 @@ export default {
             service: {id: 'c13703a7-e327-4aae-b366-70d76bcb4f57', active: false },
           },
           {
-            title: {ru: 'Бриджи для Слона', en: 'Бриджи для Слона'},
+            title: {ru: 'Бриджи для Слона 2', en: 'Бриджи для Слона 2'},
             fen: '8/1p4p1/8/8/8/8/8/5B2 w - - 0 1',
             description: { ru: 'При точной игре белые выигрывают', en: 'При точной игре белые выигрывают' },
             orientation: 'white',
@@ -237,7 +237,7 @@ export default {
             service: {id: 'b8c5216d-c40e-442a-8802-1248b43055a7', active: false },
           },
           {
-            title: {ru: 'Штаны для Слона', en: 'Штаны для Слона'},
+            title: {ru: 'Штаны для Слона 2', en: 'Штаны для Слона 2'},
             fen: '8/p6p/8/8/8/8/8/5B2 w - - 0 1',
             description: { ru: 'При точной игре белые выигрывают', en: 'При точной игре белые выигрывают' },
             orientation: 'white',
@@ -260,7 +260,7 @@ export default {
             service: {id: '6d67f327-1788-4bd5-87bf-51844af7e5fa', active: false },
           },
           { 
-            title: {ru: 'Битва', en: 'Битва'},
+            title: {ru: 'Битва 2', en: 'Битва 2'},
             fen: '7r/1p3ppp/8/8/8/8/PPP3P1/R7 w - - 0 1',
             description: { ru: '', en: '' },
             orientation: 'white',
@@ -274,7 +274,7 @@ export default {
             service: {id: 'f1351919-198f-420d-ae76-f2ff86de087b', active: false },
           },
           { 
-            title: {ru: 'Сражение', en: 'Сражение'},
+            title: {ru: 'Сражение 2', en: 'Сражение 2'},
             fen: '5b1r/1p3ppp/8/8/8/8/PPP3P1/R1B5 w - - 0 1',
             description: { ru: '', en: '' },
             orientation: 'white',
@@ -289,7 +289,7 @@ export default {
             service: {id: 'd04cd230-5ce6-4374-8abb-571676f4e4ef', active: false },
           },
            { 
-            title: {ru: 'Война', en: 'Война'},
+            title: {ru: 'Война 2', en: 'Война 2'},
             fen: '1n3b1rr/1p2pppp/8/8/8/8/PPPP2P1/R1B3N1 w - - 0 1',
             description: { ru: '', en: '' },
             orientation: 'white',

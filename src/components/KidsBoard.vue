@@ -6,6 +6,11 @@ import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
 export default {
   name: 'KidsBoard',
   extends: chessboard,
+  props: {
+    fen: String,
+    orientation: String,
+    id: String,
+  },
   methods: {
     initialMove() {
       setTimeout(() => {
@@ -24,9 +29,9 @@ export default {
         this.board.set({
           fen: this.game.fen()
         })
-        this.calculatePromotions()
-        this.aiNextMove()
-      };
+        this.calculatePromotions();
+         setTimeout(() => {this.aiNextMove();}, 50); // allow redraw
+      }
     },
     aiNextMove() {
      let enginemove = aiMoveExport (this.game.fen(), 3);    
@@ -45,10 +50,26 @@ export default {
       });
     },       
   },
+  watch: {
+    id: function() { this.initialMove(); console.log('change id'); } // eslint-disable-line no-console ,
+  },
+  /*
   mounted() {
     this.board.set({
       movable: { events: { after: this.userPlay()} },
     })
-  }
+  }*/
 }
 </script>
+
+
+<style>
+  .v-application .cg-board .black,
+  .v-application .cg-board .white, 
+  .v-application .kidsboard .blue
+  {
+    background-color: transparent !important;
+  } 
+
+
+</style> 

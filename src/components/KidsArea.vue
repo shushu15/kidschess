@@ -1,15 +1,13 @@
 <template>
   <v-container>
     <v-row class="text-center">
-      <v-col cols="12">
-        <h1 class="display-2 font-weight-bold mb-3">
-           {{this.$store.getters.getCurrentTask.title.ru}}   
-        </h1>
-      </v-col>
 
-      <v-col class="mb-4">
-        <KidsBoard ref="wrkBoard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' />
+      <v-col class="d-flex justify-center ma-4">
+        <KidsBoard ref="wrkBoard" class="kidsboard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
+              :id='this.$store.getters.getCurrentTask.service.id'/>
       </v-col>
+    </v-row>
+    <v-row class="text-center">
 
       <v-col
         class="mb-5"
@@ -45,14 +43,15 @@ import KidsBoard from './KidsBoard.vue';
     showInfo(data) {
       this.positionInfo = data
     },
+    /*
     loadFen(fen) {
       this.currentFen = fen
-    },
+    }, */
     loadTask(taskIdx, subIdx) {
        this.$store.commit('setChild', { child: this.tasks[taskIdx].data[subIdx] });
       // this.currentTask = this.tasks[taskIdx].data[subIdx];
-      this.$refs.wrkBoard.initialMove();
-    },    
+      // this.$refs.wrkBoard.initialMove();
+    },   
     promote() {
       if (confirm("Want to promote to rook? Queen by default") ) {
         return 'r'
@@ -65,9 +64,9 @@ import KidsBoard from './KidsBoard.vue';
    mounted() {
     this.loadTask(0, 0);             
   },
-   created() {
-       this.$store.commit('setChild', { child: this.tasks[0].data[0] });
-  } 
+//   created() {
+//       this.$store.commit('setChild', { child: this.tasks[0].data[0] });
+//  } 
 
   }
 </script>

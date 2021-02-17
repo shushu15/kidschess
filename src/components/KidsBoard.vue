@@ -1,7 +1,8 @@
 
 <script>
 import { chessboard }  from 'vue-chessboard'
-import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
+import {aiMoveExport} from '@/lib/ai/js-chess-engine/js-chess-engine';
+// import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
 
 export default {
   name: 'KidsBoard',
@@ -36,8 +37,14 @@ export default {
       }
     },
     aiNextMove() {
+/*      let obMove = aiMoveExport (this.game.fen(), 3);    
+      let arMove = Object.entries(obMove);
+      let enginemove = {};
+      if (arMove.lenth > 0) {
+        enginemove = { from: arMove[0][0], to: arMove[0][1] };
+      } */
       let enginemove = aiMoveExport (this.game.fen(), 3);    
-     // console.log(`Move ${enginemove}`);
+      console.log(`Move ${enginemove}`);
 
       this.game.move(enginemove);
 
@@ -56,12 +63,9 @@ export default {
   watch: {
     id: function() { this.initialMove(); console.log('change id'); } // eslint-disable-line no-console ,
   },
-  /*
   mounted() {
-    this.board.set({
-      movable: { events: { after: this.userPlay()} },
-    })
-  }*/
+    // this.AIgame = new jsChess.Game();
+  }
 }
 </script>
 

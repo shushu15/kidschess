@@ -1,6 +1,7 @@
 
 <script>
-import { chessboard }  from 'vue-chessboard'
+import { chessboard }  from '@/components/vendor/chessboard/index.js'
+// import { chessboard }  from 'vue-chessboard'
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine/js-chess-engine';
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
 
@@ -94,6 +95,12 @@ export default {
 <style>
   .v-application .cg-board .black,
   .v-application .cg-board .white, 
+  .v-application .kidsboard .blue
+  {
+    background-color: transparent !important;
+  } 
+  .v-application cg-board piece.black,
+  .v-application cg-board piece.white, 
   .v-application .kidsboard .blue
   {
     background-color: transparent !important;

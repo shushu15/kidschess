@@ -3,7 +3,7 @@
     <v-row class="text-center">
 
       <v-col class="d-flex justify-center">
-        <div class="layer1 blue pa-5 rounded-lg">       
+        <div class="layer1 pa-5 rounded-lg">       
         <KidsBoard ref="wrkBoard" class="kidsboard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
               :id='this.$store.getters.getCurrentTask.service.id'/>
          <div class="clock-opp"><v-icon  v-if="$store.getters.getTurn==='b'">

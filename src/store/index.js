@@ -17,7 +17,7 @@ const state = {
   turn: '',
   webWorkerAI: undefined, 
   moveAI: '', 
-  engineDeep: [1,5,9,12],
+  engineDeep: [1,5,8,10],
   engineLevel: 3,
 };
 

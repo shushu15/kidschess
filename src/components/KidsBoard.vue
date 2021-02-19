@@ -1,7 +1,7 @@
 
 <script>
 import { chessboard }  from 'vue-chessboard'
-import {aiMoveExport} from '@/lib/ai/js-chess-engine/js-chess-engine';
+// import {aiMoveExport} from '@/lib/ai/js-chess-engine/js-chess-engine';
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
 
 export default {
@@ -37,14 +37,9 @@ export default {
       }
     },
     aiNextMove() {
-/*      let obMove = aiMoveExport (this.game.fen(), 3);    
-      let arMove = Object.entries(obMove);
-      let enginemove = {};
-      if (arMove.lenth > 0) {
-        enginemove = { from: arMove[0][0], to: arMove[0][1] };
-      } */
+      /*
       let enginemove = aiMoveExport (this.game.fen(), 3);    
-      console.log(`Move ${enginemove}`);
+      console.log(`Move ${enginemove.from} ${enginemove.to}`);
 
       this.game.move(enginemove);
 
@@ -58,14 +53,40 @@ export default {
         }
       });
       this.$store.commit('setTurn', { turn: this.game.turn() });
-    },       
+      */
+      // WORKER
+      this.$store.dispatch('workerRequest', { message: this.game.fen() }); 
+    },  
+
   },
   watch: {
     id: function() { this.initialMove(); console.log('change id'); } // eslint-disable-line no-console ,
   },
-  mounted() {
-    // this.AIgame = new jsChess.Game();
-  }
+  created() {
+    this.unwatch = this.$store.watch(  // https://vuex.vuejs.org/api/#watch
+      (state, getters) => getters.moveAI,
+      (newValue, oldValue) => {
+        console.log(`Updating from ${oldValue} to ${newValue}`);
+        this.game.move(newValue, { sloppy: true }); 
+        this.board.set({
+          fen: this.game.fen(),
+          turnColor: this.toColor(),
+          movable: {
+            color: this.toColor(),
+            dests: this.possibleMoves(),
+            events: { after: this.userPlay()},
+          }
+        });
+        this.$store.commit('setTurn', { turn: this.game.turn() });
+      },
+    );
+  },
+  beforeDestroy() {
+    this.unwatch();
+  },
+//  mounted() {
+//    // this.AIgame = new jsChess.Game();
+//  }
 }
 </script>
 

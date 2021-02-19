@@ -1,4 +1,12 @@
-//"use strict"
+// "use strict"
+/* eslint no-redeclare: "off" */
+/* eslint no-unused-vars: "off" */
+/* eslint no-cond-assign: "off" */
+/* jshint -W069 */
+/* jshint -W004 */
+/* jshint -W084 */
+/* jshint -W038 */
+
 //
 // https://github.com/op12no2
 // results for history in testing/testing.log
@@ -212,15 +220,14 @@ var HOST_CONSOLE = 2;
 var HOSTS        = ['Web','Node','Console'];
 
 var lozzaHost = HOST_WEB;
-
-if ((typeof process) != 'undefined')
-
+/*
+if ((typeof process !== 'undefined') && (process.release.name === 'node')) {
   lozzaHost = HOST_NODEJS;
-
-else if ((typeof WorkerGlobalScope) == 'undefined')
+}
+else if ((typeof WorkerGlobalScope) == 'undefined') {
 
   lozzaHost = HOST_CONSOLE;
-
+}*/
 //}}}
 //{{{  funcs
 
@@ -416,9 +423,9 @@ var IS_K      = [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0];
 var IS_N      = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0];
 var IS_P      = [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0];
 
-var IS_NBRQKE = [1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0]
-var IS_RQKE   = [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0]
-var IS_QKE    = [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0]
+var IS_NBRQKE = [1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0];
+var IS_RQKE   = [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0];
+var IS_QKE    = [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0];
 
 var IS_W      = [0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var IS_WE     = [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -1421,7 +1428,7 @@ lozChess.prototype.init = function () {
 
   this.board.init();
   this.stats.init();
-}
+};
 
 //}}}
 //{{{  .newGameInit
@@ -1430,7 +1437,7 @@ lozChess.prototype.newGameInit = function () {
 
   this.board.ttInit();
   this.uci.numMoves = 0;
-}
+};
 
 //}}}
 //{{{  .position
@@ -1439,7 +1446,7 @@ lozChess.prototype.position = function () {
 
   this.init();
   return this.board.position();
-}
+};
 
 //}}}
 //{{{  .go
@@ -1565,7 +1572,7 @@ lozChess.prototype.go = function() {
     board.makeMove(this.rootNode,this.stats.bestMove);
 
   this.uci.send('bestmove',bestMoveStr);
-}
+};
 
 //}}}
 //{{{  .search
@@ -1740,7 +1747,7 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
     board.ttPut(TT_ALPHA, depth, oAlpha,    bestMove, node.ply, alpha, beta);
     return oAlpha;
   }
-}
+};
 
 //}}}
 //{{{  .alphabeta
@@ -2056,7 +2063,7 @@ lozChess.prototype.alphabeta = function (node, depth, turn, alpha, beta, nullOK,
     board.ttPut(TT_ALPHA, depth, oAlpha,    bestMove, node.ply, alpha, beta);
     return oAlpha;
   }
-}
+};
 
 //}}}
 //{{{  .quiescence
@@ -2169,7 +2176,7 @@ lozChess.prototype.qSearch = function (node, depth, turn, alpha, beta) {
   //}}}
 
   return alpha;
-}
+};
 
 //}}}
 //{{{  .perft
@@ -2192,7 +2199,7 @@ lozChess.prototype.perft = function () {
     var err = 'ERROR ' + error;
 
   this.uci.send('info string',spec.id,spec.depth,moves,spec.moves,err,this.board.fen());
-}
+};
 
 //}}}
 //{{{  .perftSearch
@@ -2260,7 +2267,7 @@ lozChess.prototype.perftSearch = function (node, depth, turn, inner) {
     this.stats.lazyUpdate();
 
   return totalNodes;
-}
+};
 
 //}}}
 
@@ -2392,14 +2399,14 @@ function lozBoard () {
   this.wCount  = 0;
   this.bCount  = 0;
 
-  this.wHistory = Array(7)
+  this.wHistory = Array(7);
   for (var i=0; i < 7; i++) {
     this.wHistory[i] = Array(144);
     for (var j=0; j < 144; j++)
       this.wHistory[i][j] = 0;
   }
 
-  this.bHistory = Array(7)
+  this.bHistory = Array(7);
   for (var i=0; i < 7; i++) {
     this.bHistory[i] = Array(144);
     for (var j=0; j < 144; j++)
@@ -2454,7 +2461,7 @@ lozBoard.prototype.init = function () {
     this.mvFmt = SAN_FMT;
   else
     this.mvFmt = UCI_FMT;
-}
+};
 
 //}}}
 //{{{  .position
@@ -2562,7 +2569,7 @@ lozBoard.prototype.position = function () {
   //{{{  board ep
   
   if (spec.ep.length == 2)
-    this.ep = COORDS.indexOf(spec.ep)
+    this.ep = COORDS.indexOf(spec.ep);
   else
     this.ep = 0;
   
@@ -2596,7 +2603,7 @@ lozBoard.prototype.position = function () {
     this.runningEvalE += WE_PST[piece][sq];
   
     count++;
-    next++
+    next++;
   }
   
   var next  = 0;
@@ -2619,7 +2626,7 @@ lozBoard.prototype.position = function () {
     this.runningEvalE -= BE_PST[piece][sq];
   
     count++;
-    next++
+    next++;
   }
   
   
@@ -2645,7 +2652,7 @@ lozBoard.prototype.position = function () {
   }
 
   return 1;
-}
+};
 
 //}}}
 //{{{  .compact
@@ -2734,7 +2741,7 @@ lozBoard.prototype.compact = function () {
     console.log('BLACK INDEX ERR');
   
   //}}}
-}
+};
 
 //}}}
 //{{{  .genMoves
@@ -2947,9 +2954,9 @@ lozBoard.prototype.genMoves = function(node, turn) {
     }
 
     next++;
-    count++
+    count++;
   }
-}
+};
 
 //}}}
 //{{{  .genEvasions
@@ -3113,9 +3120,9 @@ lozBoard.prototype.genEvasions = function(node, turn) {
     }
 
     next++;
-    count++
+    count++;
   }
-}
+};
 
 //}}}
 //{{{  .genQMoves
@@ -3285,9 +3292,9 @@ lozBoard.prototype.genQMoves = function(node, turn) {
     }
 
     next++;
-    count++
+    count++;
   }
-}
+};
 
 //}}}
 //{{{  .makeMove
@@ -3673,7 +3680,7 @@ lozBoard.prototype.makeMove = function (node,move) {
     this.repLo = this.repHi;
   
   //}}}
-}
+};
 
 //}}}
 //{{{  .unmakeMove
@@ -3825,7 +3832,7 @@ lozBoard.prototype.unmakeMove = function (node,move) {
     
     //}}}
   }
-}
+};
 
 //}}}
 //{{{  .isKingAttacked
@@ -3833,7 +3840,7 @@ lozBoard.prototype.unmakeMove = function (node,move) {
 lozBoard.prototype.isKingAttacked = function(byCol) {
 
   return this.isAttacked((byCol == WHITE) ? this.bList[0] : this.wList[0], byCol);
-}
+};
 
 //}}}
 //{{{  .isAttacked
@@ -3906,7 +3913,7 @@ lozBoard.prototype.isAttacked = function(to, byCol) {
   //}}}
 
   return 0;
-}
+};
 
 
 //}}}
@@ -3962,7 +3969,7 @@ lozBoard.prototype.formatMove = function (move, fmt) {
 
   return frName + toCoord;
 
-}
+};
 
 //}}}
 //{{{  .evaluate
@@ -4167,7 +4174,7 @@ lozBoard.prototype.evaluate = function (turn) {
         wHome = PTT_WHOME;
     
       count++;
-      next++
+      next++;
     }
     
     wLeastR = (wLeast >>> 4) | 0x90000000;
@@ -4214,7 +4221,7 @@ lozBoard.prototype.evaluate = function (turn) {
         bHome = PTT_BHOME;
     
       count++;
-      next++
+      next++;
     }
     
     bLeastR = bLeast >>> 4;
@@ -4299,7 +4306,7 @@ lozBoard.prototype.evaluate = function (turn) {
       }
     
       count++;
-      next++
+      next++;
     }
     
     //}}}
@@ -4374,7 +4381,7 @@ lozBoard.prototype.evaluate = function (turn) {
       }
     
       count++;
-      next++
+      next++;
     }
     
     //}}}
@@ -4473,7 +4480,7 @@ lozBoard.prototype.evaluate = function (turn) {
         }
       }
       count++;
-      next++
+      next++;
     }
   }
   
@@ -4545,7 +4552,7 @@ lozBoard.prototype.evaluate = function (turn) {
         }
       }
       count++;
-      next++
+      next++;
     }
   }
   
@@ -5283,7 +5290,7 @@ lozBoard.prototype.evaluate = function (turn) {
     return e;
   else
     return -e;
-}
+};
 
 //}}}
 //{{{  .rand32
@@ -5299,7 +5306,7 @@ lozBoard.prototype.rand32 = function () {
   }
 
   return r;
-}
+};
 
 //}}}
 //{{{  .ttPut
@@ -5327,7 +5334,7 @@ lozBoard.prototype.ttPut = function (type,depth,score,move,ply,alpha,beta) {
   this.ttDepth[idx] = depth;
   this.ttScore[idx] = score;
   this.ttMove[idx]  = move;
-}
+};
 
 //}}}
 //{{{  .ttGet
@@ -5382,7 +5389,7 @@ lozBoard.prototype.ttGet = function (node, depth, alpha, beta) {
   }
 
   return TTSCORE_UNKNOWN;
-}
+};
 
 //}}}
 //{{{  .ttGetMove
@@ -5395,7 +5402,7 @@ lozBoard.prototype.ttGetMove = function (node) {
     return this.ttMove[idx];
 
   return 0;
-}
+};
 
 //}}}
 //{{{  .ttInit
@@ -5415,7 +5422,7 @@ lozBoard.prototype.ttInit = function () {
     this.pttFlags[i] = TT_EMPTY;
 
   this.hashUsed = 0;
-}
+};
 
 //}}}
 //{{{  .hashCheck
@@ -5469,7 +5476,7 @@ lozBoard.prototype.hashCheck = function (turn) {
 
   if (this.phiHash != phiHash)
     lozza.uci.debug('************* PHI',this.phiHash,phiHash);
-}
+};
 
 //}}}
 //{{{  .fen
@@ -5481,7 +5488,7 @@ lozBoard.prototype.fen = function (turn) {
 
   for (var i=0; i < 8; i++) {
     for (var j=0; j < 8; j++) {
-      var sq  = B88[i*8 + j]
+      var sq  = B88[i*8 + j];
       var obj = this.b[sq];
       if (obj == NULL)
         n++;
@@ -5528,7 +5535,7 @@ lozBoard.prototype.fen = function (turn) {
   fen += ' 0 1';
 
   return fen;
-}
+};
 
 //}}}
 //{{{  .playMove
@@ -5569,7 +5576,7 @@ lozBoard.prototype.playMove = function (moveStr) {
   }
 
   return false;
-}
+};
 
 //}}}
 //{{{  .getPVStr
@@ -5595,7 +5602,7 @@ lozBoard.prototype.getPVStr = function(node,move,depth) {
   node.uncache();
 
   return mv + pv;
-}
+};
 
 //}}}
 //{{{  .addHistory
@@ -5612,7 +5619,7 @@ lozBoard.prototype.addHistory = function (x, move) {
   else {
     this.bHistory[frPiece][to] += x;
   }
-}
+};
 
 //}}}
 //{{{  .betaMate
@@ -5620,15 +5627,15 @@ lozBoard.prototype.addHistory = function (x, move) {
 lozBoard.prototype.betaMate = function (score) {
 
   return (score >= MINMATE && score <= MATE);
-}
+};
 
 //}}}
 //{{{  .alphaMate
 
 lozBoard.prototype.alphaMate = function (score) {
 
-  return (score <= -MINMATE && score >= -MATE)
-}
+  return (score <= -MINMATE && score >= -MATE);
+};
 
 //}}}
 //{{{  .cleanPhase
@@ -5642,7 +5649,7 @@ lozBoard.prototype.cleanPhase = function (p) {
     return TPHASE;
 
   return p;
-}
+};
 
 //}}}
 
@@ -5717,7 +5724,7 @@ lozNode.prototype.init = function() {
   this.toZ = 0;
   this.frZ = 0;
   this.epZ = 0;
-}
+};
 
 //}}}
 //{{{  .cache
@@ -5731,7 +5738,7 @@ lozNode.prototype.cache = function() {
   var board = this.board;
 
   this.C_runningEvalS = board.runningEvalS;
-  this.C_runningEvalE = board.runningEvalE
+  this.C_runningEvalE = board.runningEvalE;
   this.C_rights       = board.rights;
   this.C_ep           = board.ep;
   this.C_repLo        = board.repLo;
@@ -5740,7 +5747,7 @@ lozNode.prototype.cache = function() {
   this.C_hiHash       = board.hiHash;
   this.C_ploHash      = board.ploHash;
   this.C_phiHash      = board.phiHash;
-}
+};
 
 //}}}
 //{{{  .uncache
@@ -5759,7 +5766,7 @@ lozNode.prototype.uncache = function() {
   board.hiHash         = this.C_hiHash;
   board.ploHash        = this.C_ploHash;
   board.phiHash        = this.C_phiHash;
-}
+};
 
 //}}}
 //{{{  .getNextMove
@@ -5779,7 +5786,7 @@ lozNode.prototype.getNextMove = function () {
     }
   }
 
-  var maxM = this.moves[maxI]
+  var maxM = this.moves[maxI];
 
   this.moves[maxI] = this.moves[this.sortedIndex];
   this.ranks[maxI] = this.ranks[this.sortedIndex];
@@ -5789,7 +5796,7 @@ lozNode.prototype.getNextMove = function () {
   this.sortedIndex++;
 
   return maxM;
-}
+};
 
 //}}}
 //{{{  .addSlide
@@ -5820,7 +5827,7 @@ lozNode.prototype.addSlide = function (move) {
 
   else
     this.ranks[n] = this.slideBase(move);
-}
+};
 
 //}}}
 //{{{  .slideBase
@@ -5847,7 +5854,7 @@ lozNode.prototype.slideBase = function (move) {
 
     else
       return BASE_HISSLIDE + his;
-}
+};
 
 //}}}
 //{{{  .addCastle
@@ -5878,7 +5885,7 @@ lozNode.prototype.addCastle = function (move) {
 
   else
     this.ranks[n] = BASE_CASTLING;
-}
+};
 
 //}}}
 //{{{  .addCapture
@@ -5924,7 +5931,7 @@ lozNode.prototype.addCapture = function (move) {
         this.ranks[n] = BASE_BADTAKES  + victim * 64 - attack;
     }
   }
-}
+};
 
 //}}}
 //{{{  .addPromotion
@@ -5960,7 +5967,7 @@ lozNode.prototype.addPromotion = function (move) {
     this.ranks[n] = BASE_HASH;
   else
     this.ranks[n] = BASE_PROMOTES + KNIGHT;
-}
+};
 
 //}}}
 //{{{  .addEPTake
@@ -5975,7 +5982,7 @@ lozNode.prototype.addEPTake = function (move) {
     this.ranks[n] = BASE_HASH;
   else
     this.ranks[n] = BASE_EPTAKES;
-}
+};
 
 //}}}
 //{{{  .addQMove
@@ -6005,7 +6012,7 @@ lozNode.prototype.addQMove = function (move) {
     else
       this.ranks[n] = BASE_BADTAKES + victim * 64 - attack;
   }
-}
+};
 
 //}}}
 //{{{  .addQPromotion
@@ -6016,7 +6023,7 @@ lozNode.prototype.addQPromotion = function (move) {
   this.addQMove (move | (ROOK-2)   << MOVE_PROMAS_BITS);
   this.addQMove (move | (BISHOP-2) << MOVE_PROMAS_BITS);
   this.addQMove (move | (KNIGHT-2) << MOVE_PROMAS_BITS);
-}
+};
 
 //}}}
 //{{{  .addKiller
@@ -6064,7 +6071,7 @@ lozNode.prototype.addKiller = function (score, move) {
   var tmp      = this.killer1;
   this.killer1 = move;
   this.killer2 = tmp;
-}
+};
 
 //}}}
 
@@ -6091,7 +6098,7 @@ lozStats.prototype.init = function () {
   this.timeOut   = 0;
   this.selDepth  = 0;
   this.bestMove  = 0;
-}
+};
 
 //}}}
 //{{{  .lazyUpdate
@@ -6105,7 +6112,7 @@ lozStats.prototype.lazyUpdate = function () {
     this.update();
     this.splitTime = Date.now();
   }
-}
+};
 
 //}}}
 //{{{  .checkTime
@@ -6117,7 +6124,7 @@ lozStats.prototype.checkTime = function () {
 
   if (this.maxNodes > 0 && this.nodes >= this.maxNodes)
     this.timeOut = 1;
-}
+};
 
 //}}}
 //{{{  .nodeStr
@@ -6128,7 +6135,7 @@ lozStats.prototype.nodeStr = function () {
   var nps = (this.nodes * 1000) / tim | 0;
 
   return 'nodes ' + this.nodes + ' time ' + tim + ' nps ' + nps;
-}
+};
 
 //}}}
 //{{{  .update
@@ -6139,7 +6146,7 @@ lozStats.prototype.update = function () {
   var nps = (this.nodes * 1000) / tim | 0;
 
   lozza.uci.send('info',this.nodeStr());
-}
+};
 
 //}}}
 //{{{  .stop
@@ -6150,7 +6157,7 @@ lozStats.prototype.stop = function () {
   this.time      = this.stopTime - this.startTime;
   this.timeSec   = myround(this.time / 100) / 10;
   this.nodesMega = myround(this.nodes / 100000) / 10;
-}
+};
 
 //}}}
 
@@ -6185,7 +6192,7 @@ lozUCI.prototype.post = function (s) {
 
   else
     console.log(s);
-}
+};
 
 //}}}
 //{{{  .send
@@ -6198,7 +6205,7 @@ lozUCI.prototype.send = function () {
     s += arguments[i] + ' ';
 
   this.post(s);
-}
+};
 
 //}}}
 //{{{  .debug
@@ -6219,7 +6226,7 @@ lozUCI.prototype.debug = function () {
     this.post('info string debug ' + this.spec.id + ' ' + s);
   else
     this.post('info string debug ');
-}
+};
 
 //}}}
 //{{{  .getInt
@@ -6232,7 +6239,7 @@ lozUCI.prototype.getInt = function (key, def) {
         return parseInt(this.tokens[i+1]);
 
   return def;
-}
+};
 
 //}}}
 //{{{  .getStr
@@ -6245,7 +6252,7 @@ lozUCI.prototype.getStr = function (key, def) {
         return this.tokens[i+1];
 
   return def;
-}
+};
 
 //}}}
 //{{{  .getArr
@@ -6268,7 +6275,7 @@ lozUCI.prototype.getArr = function (key, to) {
   }
 
   return {lo:lo, hi:hi};
-}
+};
 
 //}}}
 //{{{  .onmessage
@@ -6413,7 +6420,7 @@ onmessage = function(e) {
       break;
       
       //}}}
-
+/*
     case 'bench':
       //{{{  bench
       
@@ -6423,12 +6430,12 @@ onmessage = function(e) {
         var wpst = WS_PST[i];
         var bpst = BS_PST[i];
         if (wpst.length != 144)
-          uci.debug('ws pst len err',i)
+          uci.debug('ws pst len err',i);
         if (bpst.length != 144)
-          uci.debug('bs pst len err',i)
+          uci.debug('bs pst len err',i);
         for (var j=0; j < wpst.length; j++) {
           if (wpst[j] != bpst[wbmap(j)])
-            uci.debug('s pst err',i,j,wpst[j],bpst[wbmap(j)])
+            uci.debug('s pst err',i,j,wpst[j],bpst[wbmap(j)]);
         }
       }
       
@@ -6436,39 +6443,39 @@ onmessage = function(e) {
         var wpst = WE_PST[i];
         var bpst = BE_PST[i];
         if (wpst.length != 144)
-          uci.debug('we pst len err',i)
+          uci.debug('we pst len err',i);
         if (bpst.length != 144)
-          uci.debug('be pst len err',i)
+          uci.debug('be pst len err',i);
         for (var j=0; j < wpst.length; j++) {
           if (wpst[j] != bpst[wbmap(j)])
-            uci.debug('e pst err',i,j,wpst[j],bpst[wbmap(j)])
+            uci.debug('e pst err',i,j,wpst[j],bpst[wbmap(j)]);
         }
       }
       
       if (WOUTPOST.length != 144)
-        uci.debug('w outpost len err',i)
+        uci.debug('w outpost len err',i);
       if (BOUTPOST.length != 144)
-        uci.debug('b outpost len err',i)
+        uci.debug('b outpost len err',i);
       for (var j=0; j < WOUTPOST.length; j++) {
         if (WOUTPOST[j] != BOUTPOST[wbmap(j)])
-          uci.debug('outpost err',j,WOUTPOST[j],BOUTPOST[wbmap(j)])
+          uci.debug('outpost err',j,WOUTPOST[j],BOUTPOST[wbmap(j)]);
       }
       
       for (var i=0; i < 144; i++) {
         for (var j=0; j < 144; j++) {
           if (WKZONES[i][j] != BKZONES[wbmap(i)][wbmap(j)])
-            uci.debug('kzones err',i,j,WKZONES[i][j],BKZONES[i][j])
+            uci.debug('kzones err',i,j,WKZONES[i][j],BKZONES[i][j]);
         }
       }
       
-      uci.debug('bench done ok')
+      uci.debug('bench done ok');
       
       uci.debugging = false;
       
       break;
       
       //}}}
-
+*/
     case 'debug':
       //{{{  debug
       
@@ -6576,13 +6583,13 @@ onmessage = function(e) {
       //}}}
     }
   }
-}
+};
 
 //}}}
 
 //}}}
 
-var lozza         = new lozChess()
+var lozza         = new lozChess();
 lozza.board.lozza = lozza;
 
 //{{{  node interface

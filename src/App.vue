@@ -42,6 +42,26 @@
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
+      <v-list-item 
+        :key="standard.service.id"
+        @click="selectChild(standard)"   
+      >
+        <v-list-item-content>
+            <v-list-item-title v-text="standard.title.ru"></v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
+      <v-list-item>
+        <v-slider
+          v-model="playLevel"
+          thumb-label
+          ticks
+          label="Уровень"
+          max=3
+          min=1
+        >
+        </v-slider>
+      </v-list-item >
     </v-list>    
     </v-navigation-drawer>    
 
@@ -53,6 +73,7 @@
 </template>
 
 <script>
+// import QueryableWorker from '@/lib/QueryableWorker'; 
 import TitleScreen from './components/TitleScreen.vue';
 import KidsArea from './components/KidsArea.vue';
 
@@ -67,6 +88,7 @@ export default {
   data: () => ({
     isTitleShowing: true,
     drawer: false,
+    playLevel: 1,
     //
   }),
   methods: {
@@ -300,9 +322,45 @@ export default {
       },
     ];
 
+    this.standard =  { 
+      title: {ru: 'Шахматы', en: 'Chess'},
+      fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+      description: { ru: 'Просто шахматы', en: 'Chess game' },
+      orientation: 'white',
+      service: {id: '118ccf0b-9c1e-4129-a6db-929b36010a02', active: false },
+    },
+
     this.$store.commit('setChild', { child: this.tasks[0].data[0] });
 
+   
+
   },
+  mounted() {
+    // WORKER
+    let myTask;
+    if (window.Worker) {
+     // myTask = new QueryableWorker(); // './workers/Task.worker.js');
+    // url MUST be a hard-coded string for worker-plugin - in the other case the file would not be found in runtime in webpack bundle
+     myTask = new Worker('./lib/ai/lozza/lozza.js', { type: 'module' });
+     // myTask = new Worker('./lib/ai/lozza/lozza.js');
+
+      myTask.onmessage = (event) => {
+        // console.log(`App  onmessage event ${event} data ${event.data} origin ${event.origin} source ${event.source}`); // eslint-disable-line no-console
+        this.$store.dispatch('workerReply', { message: event.data  }); 
+      };
+
+      this.$store.commit('setWorkerAI', { worker: myTask });
+    }
+    // END WORKER
+  },     
+  beforeDestroy() {
+    // WORKER
+    if (this.$store.state.webWorkerAI !== undefined) {
+      this.$store.state.webWorkerAI.terminate();
+      this.$store.commit('setWorkerAI', { worker: undefined });
+    }
+
+  }
 
 };
 </script>

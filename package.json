@@ -3,13 +3,20 @@
   "version": "0.1.1",
   "description": "Chess games for kids",
   "author": "Alexander Vasilev <alme20@yandex.ru>",
-  "keywords": ["chess","learn","kids","study"],
+  "keywords": [
+    "chess",
+    "learn",
+    "kids",
+    "study"
+  ],
   "repository": "github:shushu15/kidschess",
   "homepage": "http://www.ownlinks.com/kidschess/",
   "contributors": [
-    {"name": "Rifat Aysin"}
+    {
+      "name": "Rifat Aysin"
+    }
   ],
-    "scripts": {
+  "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -33,7 +40,8 @@
     "sass-loader": "^10.0.0",
     "vue-cli-plugin-vuetify": "^2.1.0",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
+    "vuetify-loader": "^1.7.0",
+    "worker-plugin": "^5.0.0"
   },
   "license": "MIT"
 }

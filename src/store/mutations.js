@@ -15,5 +15,11 @@ export default {
   },
   setTurn(state, {turn}) {
     state.turn = turn;
+  },
+  setWorkerAI(state, { worker }) {
+    state.webWorkerAI = worker;
+  },
+  bestMove(state, {move}) {
+    state.moveAI = move;
   }
 };

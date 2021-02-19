@@ -5,19 +5,19 @@ export default {
   /**
    * Worker methods
    */
-  workerRequest({state}, {message}) {
-    console.log(`dispatch workerRequest :${message}`); // eslint-disable-line no-console
+  workerRequest({state, getters}, {message}) {
     state.webWorkerAI.postMessage(`position fen ${message}`);
-    state.webWorkerAI.postMessage('go depth 10');
+    state.webWorkerAI.postMessage(`go depth ${getters.getEngineDeep}`);
+    console.log(`dispatch workerRequest:${message} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
   workerReply( {commit}, { message }) { // received discard from web worker
-      // console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
+      console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
         let arrTokens = message.split(' ');
         if (arrTokens.length > 0) {
           commit('bestMove', { move: arrTokens[1] });
-          console.log(`dispatch workerReply Move:${arrTokens[1]}`); // eslint-disable-line no-console
+          //console.log(`dispatch workerReply Move:${arrTokens[1]}`); // eslint-disable-line no-console
         }
       }
   },

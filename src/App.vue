@@ -62,6 +62,7 @@
         >
         </v-slider>
       </v-list-item >
+        <AboutDlg />       
     </v-list>    
     </v-navigation-drawer>    
 
@@ -76,6 +77,7 @@
 // import QueryableWorker from '@/lib/QueryableWorker'; 
 import TitleScreen from './components/TitleScreen.vue';
 import KidsArea from './components/KidsArea.vue';
+import AboutDlg from '@/components/AboutDlg'; 
 
 export default {
   name: 'App',
@@ -83,12 +85,13 @@ export default {
   components: {
     TitleScreen,
     KidsArea,
+    AboutDlg,     
   },
 
   data: () => ({
     isTitleShowing: true,
     drawer: false,
-    playLevel: 1,
+    // playLevel: 1,
     //
   }),
   methods: {
@@ -98,6 +101,16 @@ export default {
       this.drawer = false;
     }, 
   },
+  computed: {
+    playLevel: {
+      get () {
+        return this.$store.state.engineLevel;
+      },
+      set (value) {
+        this.$store.commit('updateEngineLevel', {value})
+      }
+    }
+  },  
   created() {
     this.tasks = [
       { title: {ru: 'Одежда для короля', en: "King's clothes"},
@@ -312,7 +325,7 @@ export default {
           },
            { 
             title: {ru: 'Война 2', en: 'Война 2'},
-            fen: '1n3b1rr/1p2pppp/8/8/8/8/PPPP2P1/R1B3N1 w - - 0 1',
+            fen: '1n3b1r/1p2pppp/8/8/8/8/PPPP2P1/R1B3N1 w - - 0 1',
             description: { ru: '', en: '' },
             orientation: 'white',
             service: {id: '45bf6f3d-c0d4-4c0d-8d9d-21cfe079fc54', active: false },

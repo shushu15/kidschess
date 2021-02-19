@@ -10,13 +10,15 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '1.0.a1',
+  version: '0.1.1',
   isTitleShowing: true,
   showDrawer: false,
   currentTask: {}, 
   turn: '',
   webWorkerAI: undefined, 
-  moveAI: '',    
+  moveAI: '', 
+  engineDeep: [1,5,9,12],
+  engineLevel: 3,
 };
 
 export default new Vuex.Store({

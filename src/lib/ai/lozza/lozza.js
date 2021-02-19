@@ -2696,9 +2696,10 @@ lozBoard.prototype.compact = function () {
   }
   */
   
+  /* SHU - remove message for non-king positions
   if (this.b[this.wList[0]] != W_KING)
     console.log('WHITE INDEX ERR');
-  
+  */
   //}}}
   //{{{  compact black list
   
@@ -2736,9 +2737,10 @@ lozBoard.prototype.compact = function () {
     console.log(this.b[this.bList[i]]);
   }
   */
-  
+  /* SHU - remove message for non-king positions
   if (this.b[this.bList[0]] != B_KING)
     console.log('BLACK INDEX ERR');
+  */  
   
   //}}}
 };

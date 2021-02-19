@@ -16,6 +16,9 @@ export default {
   setTurn(state, {turn}) {
     state.turn = turn;
   },
+  updateEngineLevel(state, {value}) {
+    state.engineLevel = value;
+  },
   setWorkerAI(state, { worker }) {
     state.webWorkerAI = worker;
   },

@@ -7,8 +7,14 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> 
 
-      <v-toolbar-title>Игра {{this.$store.getters.getCurrentTask.title.ru}}</v-toolbar-title>
+      <v-toolbar-title> {{$t('title.game')}} {{this.$store.getters.getCurrentTask.title.ru}}</v-toolbar-title>
 
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon v-if="flipToBlack" @click="actFlipBoard">mdi-arrange-send-backward</v-icon>
+        <v-icon v-if="flipToWhite" @click="actFlipBoard">mdi-arrange-bring-forward</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -74,6 +80,7 @@
 </template>
 
 <script>
+import {  mapGetters } from 'vuex'; 
 // import QueryableWorker from '@/lib/QueryableWorker'; 
 import TitleScreen from './components/TitleScreen.vue';
 import KidsArea from './components/KidsArea.vue';
@@ -100,8 +107,12 @@ export default {
       this.$store.commit('toggleDrawer', { show: false });
       this.drawer = false;
     }, 
+    actFlipBoard() {
+      this.$store.commit('flipBoard');  
+    }
   },
   computed: {
+    ...mapGetters(['flipToWhite','flipToBlack']),
     playLevel: {
       get () {
         return this.$store.state.engineLevel;
@@ -109,7 +120,7 @@ export default {
       set (value) {
         this.$store.commit('updateEngineLevel', {value})
       }
-    }
+    },
   },  
   created() {
     this.tasks = [
@@ -354,7 +365,9 @@ export default {
     if (window.Worker) {
      // myTask = new QueryableWorker(); // './workers/Task.worker.js');
     // url MUST be a hard-coded string for worker-plugin - in the other case the file would not be found in runtime in webpack bundle
-     myTask = new Worker('./lib/ai/lozza/lozza.js', { type: 'module' });
+
+     // myTask = new Worker('./lib/ai/lozza/lozza.js', { type: 'module' });
+     myTask = new Worker('./lib/ai/js-chess-engine/js-chess-worker.js', { type: 'module' });
      // myTask = new Worker('./lib/ai/lozza/lozza.js');
 
       myTask.onmessage = (event) => {

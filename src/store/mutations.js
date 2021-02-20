@@ -24,5 +24,10 @@ export default {
   },
   bestMove(state, {move}) {
     state.moveAI = move;
+  },
+  flipBoard(state) {
+    if (state.currentTask) {
+      state.currentTask.orientation =  (state.currentTask.orientation==='white'? 'black' : 'white');    
+    }
   }
 };

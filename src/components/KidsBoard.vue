@@ -101,7 +101,8 @@ export default {
   } 
   .v-application cg-board piece.black,
   .v-application cg-board piece.white, 
-  .v-application .kidsboard .blue
+  .v-application .kidsboard .blue,
+  .cg-board-wrap coords.ranks, .cg-board-wrap  coords.files
   {
     background-color: transparent !important;
   } 

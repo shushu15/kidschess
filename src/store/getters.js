@@ -13,4 +13,10 @@ export default {
 
     return state.engineDeep[state.engineLevel];
   },
+  flipToWhite(state) {
+    return (state.currentTask && state.currentTask.orientation === 'black');
+  },
+  flipToBlack(state) {
+    return (state.currentTask && state.currentTask.orientation === 'white');
+  }
 };

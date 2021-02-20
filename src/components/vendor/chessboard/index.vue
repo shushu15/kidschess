@@ -6,7 +6,9 @@
 
 <script>
 import Chess from 'chess.js';
-import {Chessground} from 'chessground';
+// import {Chessground} from 'chessground';
+import {Chessground} from '@/lib/vendor/chessground/chessground.js';
+// const Chessground = require('@/lib/vendor/chessground/chessground.js').Chessground;
 import {uniques} from './Util.js';
 
 export default {

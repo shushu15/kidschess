@@ -11,7 +11,10 @@ export default {
     state.showDrawer = show === undefined ? !state.showDrawer : show;
   },
   setChild(state, {child}) {
-    state.currentTask = child;
+   // if (Object.keys(state.currentTask).length !== 0 && state.currentTask.service.id === child.service.id ) // the same need force to redraw
+   //   state.currentTask.fen += ' ';
+   // else
+      state.currentTask = child;
   },
   setTurn(state, {turn}) {
     state.turn = turn;

@@ -10,6 +10,7 @@
   "game.won.you": "Вы победили ",
   "game.lose.you": "Вы проиграли",
   "game.draw.you": "Ничья или непонятный результат",
+  "menu.level": "Уровень",
   "menu.about": "О программе",
   "menu.about.text": "Козлята: шахматные обучающие игры",
   "menu.about.used": "Используются: Шахматный движок: lozza (github.com/op12no2/lozza); Визуализация доски: vue-chessboard (github.com/vitogit/vue-chessboard), chessground (github.com/ornicar/chessground); Проверка ходов: chess.js (github.com/jhlywa/chess.js)",

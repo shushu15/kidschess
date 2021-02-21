@@ -26,8 +26,16 @@ export default {
   showBtnStart(state, getters) {
     return !state.gameActive && (getters.getTurn === 'b' && state.currentTask.orientation === 'white' ||
     getters.getTurn === 'w' && state.currentTask.orientation === 'black');
+  },
+  reloadAllowed(state) {
+    return state.canReload;
+  },
+  // side here HUMAN of ROBOT. Robot is always on the NORTH
+  isMoveOf: (state, getters) => (side) => {
+    let forHuman = getters.getTurn === 'w' && state.currentTask.orientation === 'white' ||
+    getters.getTurn === 'b' && state.currentTask.orientation === 'black';
+    return side === state.HUMAN? forHuman: !forHuman;
   }
-
 };
 
 function op(side) {

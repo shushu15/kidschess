@@ -5,7 +5,7 @@
       <v-col class="d-flex justify-center">
         <div class="layer1 pa-5 rounded-lg">       
         <KidsBoard ref="wrkBoard" class="kidsboard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
-              :id='this.$store.getters.getCurrentTask.service.id'/>
+              :id='this.$store.getters.getCurrentTask.service.id' :forced="this.forced" @on-orientation="flippedBoard"/>
          <div class="clock-opp"><v-icon  v-if="showClock('b')">
             mdi-alarm
         </v-icon></div>     
@@ -46,6 +46,7 @@ import KidsBoard from './KidsBoard.vue';
     },
   props: {
     tasks: Array,
+    forced: Date,
   }, 
   data () {
     return {
@@ -59,6 +60,10 @@ import KidsBoard from './KidsBoard.vue';
     },
     bntGameStart() {
       this.$refs.wrkBoard.aiNextMove();
+    },
+    flippedBoard() {
+      if (this.$store.getters.isMoveOf(this.$store.state.HUMAN))
+        this.$refs.wrkBoard.initialMove();
     }, 
     /*
     loadFen(fen) {

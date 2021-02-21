@@ -62,8 +62,11 @@ onmessage = function(e) {
           else
             level = 3;  
           const moveObj = board.calculateAiMove(level);
-          const moveRep = `bestmove ${moveObj.from.toLowerCase()}${moveObj.to.toLowerCase()}`;
-          postMessage(moveRep);
+          if (moveObj) {
+            const moveRep = `bestmove ${moveObj.from.toLowerCase()}${moveObj.to.toLowerCase()}`;
+            postMessage(moveRep);
+          } else
+            postMessage('bestmove');
         }  
         break;
       }      

@@ -7,11 +7,12 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> 
 
-      <v-toolbar-title> {{$t('title.game')}} {{this.$store.getters.getCurrentTask.title.ru}}</v-toolbar-title>
+      <v-toolbar-title>{{$t('title.game')}} {{this.$store.getters.getCurrentTask.title.ru}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-btn icon>
+        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!isMyMove()">mdi-reload</v-icon>
         <v-icon v-if="flipToBlack" @click="actFlipBoard">mdi-arrange-send-backward</v-icon>
         <v-icon v-if="flipToWhite" @click="actFlipBoard">mdi-arrange-bring-forward</v-icon>
       </v-btn>
@@ -62,7 +63,7 @@
           v-model="playLevel"
           thumb-label
           ticks
-          label="Уровень"
+          :label="$t('menu.level')"
           max=3
           min=1
         >
@@ -73,7 +74,7 @@
     </v-navigation-drawer>    
 
     <v-main>
-      <KidsArea :tasks="this.tasks"/>
+      <KidsArea :tasks="this.tasks" :forced="this.forcedReload"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
     </v-main>
   </v-app>
@@ -98,6 +99,7 @@ export default {
   data: () => ({
     isTitleShowing: true,
     drawer: false,
+    forcedReload: new Date(),
     // playLevel: 1,
     //
   }),
@@ -111,10 +113,17 @@ export default {
     actFlipBoard() {
       this.$store.commit('flipBoard');  
       this.$store.commit('setGameActive', {value: false});
-    }
+    },
+    actReload() {
+      if (this.isMyMove())
+        this.forcedReload = new Date();
+    },
+    isMyMove() {
+      return  this.$store.getters.isMoveOf(this.$store.state.HUMAN);
+    },
   },
   computed: {
-    ...mapGetters(['flipToWhite','flipToBlack']),
+    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed']),
     playLevel: {
       get () {
         return this.$store.state.engineLevel;

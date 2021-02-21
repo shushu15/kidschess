@@ -12,22 +12,25 @@ export default {
     fen: String,
     orientation: String,
     id: String,
+    forced: Date,
   },
   methods: {
     initialMove() {
-      setTimeout(() => {
-        // this.showMoves(); 
+      this.gameLoaded();
+      // setTimeout(() => {
         this.board.set({
           movable: { events: { after: this.userPlay()} },
         });
         this.$store.commit('setTurn', { turn: this.game.turn() });
-       }, 1000);
+       // }, 1000);
     },     
     userPlay() {
       return (orig, dest) => {
+        // console.log(`userPlay ${orig} ${dest}`);
         this.$store.commit('setGameActive', {value: true})
         if (this.isPromotion(orig, dest)) {
-          this.promoteTo = this.onPromotion()
+          this.promoteTo = this.onPromotion();
+          this.$store.commit('canReload', {value: true});  // can reload close to finish game
         }
         this.game.move({from: orig, to: dest, promotion: this.promoteTo}) // promote to queen for simplicity
         this.board.set({
@@ -60,17 +63,39 @@ export default {
       // WORKER
       this.$store.dispatch('workerRequest', { message: this.game.fen() }); 
     },  
+    gameLoaded() {
+      this.$store.commit('canReload', {value: false})  
+    },
 
   },
   watch: {
-    id: function() { this.initialMove(); console.log('change id'); } // eslint-disable-line no-console ,
+    id: function() { 
+      this.initialMove();
+      // console.log('change id'); // eslint-disable-line no-console ,
+    }, 
+    forced: function() { 
+      this.loadPosition(); 
+      this.$store.commit('setGameActive', {value: false}); 
+      this.initialMove(); 
+      // console.log('board-reload'); // eslint-disable-line no-console ,
+    }, 
   },
   created() {
     this.unwatch = this.$store.watch(  // https://vuex.vuejs.org/api/#watch
       (state, getters) => getters.moveAI,
-      (newValue, oldValue) => {
-        console.log(`Updating from ${oldValue} to ${newValue}`);
-        this.game.move(newValue, { sloppy: true }); 
+      (newValue /*, oldValue*/) => {
+        // console.log(`Updating from ${oldValue} to ${newValue}`);
+        if (newValue.length === 4) {
+          let orig = newValue.slice(0,2);
+          let dest = newValue.slice(2);
+          if (this.isPromotion(orig, dest)) {
+            this.promoteTo = this.onPromotion();
+            this.$store.commit('canReload', {value: true});  // can reload close to finish game
+          }
+          this.game.move({from: orig, to: dest, promotion: this.promoteTo}) // promote to queen for simplicity
+        } else
+          this.game.move(newValue, { sloppy: true }); 
+
         this.board.set({
           fen: this.game.fen(),
           turnColor: this.toColor(),
@@ -80,6 +105,7 @@ export default {
             events: { after: this.userPlay()},
           }
         });
+        this.calculatePromotions();
         this.$store.commit('setTurn', { turn: this.game.turn() });
       },
     );

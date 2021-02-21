@@ -42,7 +42,8 @@ export default {
     },
     orientation: function (orientation) {
       this.orientation = orientation
-      this.loadPosition()
+      this.loadPosition();
+      this.$emit('on-orientation', orientation);
     },
     showThreats: function (st) {
       this.showThreats = st

@@ -11,6 +11,8 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
   version: '0.1.1',
+  HUMAN: 1,
+  ROBOT: 2,
   isTitleShowing: true,
   showDrawer: false,
   currentTask: {}, 
@@ -20,6 +22,7 @@ const state = {
   engineDeep: [1,5,8,10],
   engineLevel: 3,
   gameActive: false,
+  canReload: false
 };
 
 export default new Vuex.Store({

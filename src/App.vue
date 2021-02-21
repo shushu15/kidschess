@@ -105,10 +105,12 @@ export default {
     selectChild(child) {
       this.$store.commit('setChild', { child });
       this.$store.commit('toggleDrawer', { show: false });
+      this.$store.commit('setGameActive', {value: false});
       this.drawer = false;
     }, 
     actFlipBoard() {
       this.$store.commit('flipBoard');  
+      this.$store.commit('setGameActive', {value: false});
     }
   },
   computed: {
@@ -355,6 +357,7 @@ export default {
     },
 
     this.$store.commit('setChild', { child: this.tasks[0].data[0] });
+    this.$store.commit('setGameActive', {value: false});
 
    
 

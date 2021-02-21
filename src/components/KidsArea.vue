@@ -6,12 +6,17 @@
         <div class="layer1 pa-5 rounded-lg">       
         <KidsBoard ref="wrkBoard" class="kidsboard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
               :id='this.$store.getters.getCurrentTask.service.id'/>
-         <div class="clock-opp"><v-icon  v-if="$store.getters.getTurn==='b'">
+         <div class="clock-opp"><v-icon  v-if="showClock('b')">
             mdi-alarm
         </v-icon></div>     
-         <div class="clock-my"><v-icon v-if="$store.getters.getTurn==='w'">
+         <div class="clock-my"><v-icon v-if="showClock('w')">
             mdi-alarm
-        </v-icon></div>     
+        </v-icon></div> 
+        <v-fade-transition v-if="showBtnStart">
+          <div  class="action-buttons">
+            <v-btn v-if="showBtnStart" rounded color="primary"  @click="bntGameStart">{{ $t('btn.game.start') }}</v-btn>
+           </div>
+         </v-fade-transition>     
          </div>     
       </v-col>
     </v-row>
@@ -31,6 +36,7 @@
 </template>
 
 <script>
+import {  mapGetters } from 'vuex'; 
 import KidsBoard from './KidsBoard.vue';
   export default {
     name: 'KidsArea',
@@ -51,6 +57,9 @@ import KidsBoard from './KidsBoard.vue';
     showInfo(data) {
       this.positionInfo = data
     },
+    bntGameStart() {
+      this.$refs.wrkBoard.aiNextMove();
+    }, 
     /*
     loadFen(fen) {
       this.currentFen = fen
@@ -69,6 +78,9 @@ import KidsBoard from './KidsBoard.vue';
       }
     }
   }, 
+     computed: {
+    ...mapGetters(['showClock','showBtnStart']),
+  },
     
    mounted() {
     this.loadTask(0, 0);       

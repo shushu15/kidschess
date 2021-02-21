@@ -25,6 +25,7 @@ export default {
     },     
     userPlay() {
       return (orig, dest) => {
+        this.$store.commit('setGameActive', {value: true})
         if (this.isPromotion(orig, dest)) {
           this.promoteTo = this.onPromotion()
         }
@@ -55,6 +56,7 @@ export default {
       });
       this.$store.commit('setTurn', { turn: this.game.turn() });
       */
+      this.$store.commit('setGameActive', {value: true})
       // WORKER
       this.$store.dispatch('workerRequest', { message: this.game.fen() }); 
     },  

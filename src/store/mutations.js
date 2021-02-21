@@ -32,5 +32,8 @@ export default {
     if (state.currentTask) {
       state.currentTask.orientation =  (state.currentTask.orientation==='white'? 'black' : 'white');    
     }
+  },
+  setGameActive(state, {value}) {
+    state.gameActive = value;
   }
 };

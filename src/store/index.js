@@ -19,6 +19,7 @@ const state = {
   moveAI: '', 
   engineDeep: [1,5,8,10],
   engineLevel: 3,
+  gameActive: false,
 };
 
 export default new Vuex.Store({

@@ -28,7 +28,8 @@ export default {
     getters.getTurn === 'w' && state.currentTask.orientation === 'black');
   },
   reloadAllowed(state) {
-    return state.canReload;
+    // return state.canReload;
+    return state.gameActive;
   },
   // side here HUMAN of ROBOT. Robot is always on the NORTH
   isMoveOf: (state, getters) => (side) => {

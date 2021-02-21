@@ -36,7 +36,10 @@ export default {
   setGameActive(state, {value}) {
     state.gameActive = value;
   },
-  canReload(state, {value}) {
+  /* canReload(state, {value}) {
     state.canReload = value;
-  }
+  } */
+  setLastPromotion(state, {value}) {
+    state.lastPromotion = value;
+  } 
 };

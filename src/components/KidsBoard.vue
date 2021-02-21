@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     initialMove() {
-      this.gameLoaded();
+      // this.gameLoaded();
       // setTimeout(() => {
         this.board.set({
           movable: { events: { after: this.userPlay()} },
@@ -30,7 +30,7 @@ export default {
         this.$store.commit('setGameActive', {value: true})
         if (this.isPromotion(orig, dest)) {
           this.promoteTo = this.onPromotion();
-          this.$store.commit('canReload', {value: true});  // can reload close to finish game
+          // this.$store.commit('canReload', {value: true});  // can reload close to finish game
         }
         this.game.move({from: orig, to: dest, promotion: this.promoteTo}) // promote to queen for simplicity
         this.board.set({
@@ -63,9 +63,10 @@ export default {
       // WORKER
       this.$store.dispatch('workerRequest', { message: this.game.fen() }); 
     },  
+    /*
     gameLoaded() {
       this.$store.commit('canReload', {value: false})  
-    },
+    }, */
 
   },
   watch: {
@@ -90,7 +91,7 @@ export default {
           let dest = newValue.slice(2);
           if (this.isPromotion(orig, dest)) {
             this.promoteTo = this.onPromotion();
-            this.$store.commit('canReload', {value: true});  // can reload close to finish game
+            // this.$store.commit('canReload', {value: true});  // can reload close to finish game
           }
           this.game.move({from: orig, to: dest, promotion: this.promoteTo}) // promote to queen for simplicity
         } else

@@ -18,10 +18,10 @@ export default {
         if (arrTokens.length > 1) {
           commit('bestMove', { move: arrTokens[1] });
         }
-        else {
-          commit('canReload', {value: true});
+        //else {
+        //  commit('canReload', {value: true});
           // console.log(`dispatch workerReply nomove`); // eslint-disable-line no-console
-        }
+        //}
       }
   },
   /*

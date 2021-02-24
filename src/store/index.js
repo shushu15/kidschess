@@ -23,7 +23,8 @@ const state = {
   engineLevel: 3,
   gameActive: false,
   // canReload: false
-  lastPromotion: ''   // last cell promoted
+  lastPromotion: '',   // last cell promoted
+  finishedGame: false
 };
 
 export default new Vuex.Store({

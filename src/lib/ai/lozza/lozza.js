@@ -1575,7 +1575,7 @@ lozChess.prototype.go = function() {
   this.stats.update();
   this.stats.stop();
 
-  console.log (`stats.bestMove ${this.stats.bestMove}`);
+  // console.log (`stats.bestMove ${this.stats.bestMove}`);
   if (this.stats.bestMove) { //SHU
     bestMoveStr = board.formatMove(this.stats.bestMove,UCI_FMT);
     if (lozzaHost == HOST_WEB)
@@ -1625,7 +1625,7 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
   else
     board.genMoves(node, turn);
 
-  console.log(`moves test ${node.moves.join('|')}`);
+  // console.log(`moves test ${node.moves.join('|')}`);
   
   if (this.stats.timeOut)
     return;
@@ -1700,7 +1700,7 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
     if (this.stats.timeOut) {
       return;
     }
-    this.uci.send('move check',`move ${move} mv ${mv} score ${score} of best ${bestScore}`);
+    // this.uci.send('move check',`move ${move} mv ${mv} score ${score} of best ${bestScore}`);
 
     if (score > bestScore) {
       if (score > alpha) {
@@ -6226,7 +6226,7 @@ lozUCI.prototype.post = function (s) {
     postMessage(s);
 
   else
-    console.log(s);
+    console.log(s); // eslint-disable-line no-console
 };
 
 //}}}

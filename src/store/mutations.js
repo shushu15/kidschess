@@ -15,6 +15,7 @@ export default {
    //   state.currentTask.fen += ' ';
    // else
       state.currentTask = child;
+      state.finishedGame = false;  
   },
   setTurn(state, {turn}) {
     state.turn = turn;
@@ -30,7 +31,8 @@ export default {
   },
   flipBoard(state) {
     if (state.currentTask) {
-      state.currentTask.orientation =  (state.currentTask.orientation==='white'? 'black' : 'white');    
+      state.currentTask.orientation =  (state.currentTask.orientation==='white'? 'black' : 'white');  
+      state.finishedGame = false;  
     }
   },
   setGameActive(state, {value}) {
@@ -41,5 +43,8 @@ export default {
   } */
   setLastPromotion(state, {value}) {
     state.lastPromotion = value;
-  } 
+  },
+  finishedGame(state, {value}) {
+    state.finishedGame = value;
+  }
 };

@@ -12,7 +12,7 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!isMyMove()">mdi-reload</v-icon>
+        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()">mdi-reload</v-icon>
         <v-icon v-if="flipToBlack" @click="actFlipBoard">mdi-arrange-send-backward</v-icon>
         <v-icon v-if="flipToWhite" @click="actFlipBoard">mdi-arrange-bring-forward</v-icon>
       </v-btn>
@@ -115,15 +115,18 @@ export default {
       this.$store.commit('setGameActive', {value: false});
     },
     actReload() {
-      if (this.isMyMove())
+      if (this.canReload())
         this.forcedReload = new Date();
     },
     isMyMove() {
       return  this.$store.getters.isMoveOf(this.$store.state.HUMAN);
     },
+    canReload() {
+      return this.isMyMove() || this.finishedGame;
+    }
   },
   computed: {
-    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed']),
+    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame']),
     playLevel: {
       get () {
         return this.$store.state.engineLevel;

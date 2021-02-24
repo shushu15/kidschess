@@ -13,16 +13,16 @@ export default {
 
   },
   workerReply( {commit}, { message }) { // received discard from web worker
-      console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
+      // console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
-        let arrTokens = message.split(' ');
+        let arrTokens = message.trim().split(' ');
         if (arrTokens.length > 1) {
           commit('bestMove', { move: arrTokens[1] });
         }
-        //else {
-        //  commit('canReload', {value: true});
+        else {
+          commit('finishedGame', {value: true});
           // console.log(`dispatch workerReply nomove`); // eslint-disable-line no-console
-        //}
+        }
       }
   },
   /*

@@ -36,6 +36,9 @@ export default {
     let forHuman = getters.getTurn === 'w' && state.currentTask.orientation === 'white' ||
     getters.getTurn === 'b' && state.currentTask.orientation === 'black';
     return side === state.HUMAN? forHuman: !forHuman;
+  },
+  finishedGame(state) {
+    return state.finishedGame;
   }
 };
 

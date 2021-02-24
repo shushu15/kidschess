@@ -7,12 +7,13 @@ export default {
    */
   workerRequest({state, getters}, {message}) {
     state.webWorkerAI.postMessage(`position fen ${message}`);
+    // state.webWorkerAI.postMessage('setoption name nokings value true');
     state.webWorkerAI.postMessage(`go depth ${getters.getEngineDeep}`);
     // console.log(`dispatch workerRequest:${message} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
   workerReply( {commit}, { message }) { // received discard from web worker
-      // console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
+      console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
         let arrTokens = message.split(' ');
         if (arrTokens.length > 1) {

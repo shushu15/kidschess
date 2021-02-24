@@ -378,8 +378,8 @@ export default {
      // myTask = new QueryableWorker(); // './workers/Task.worker.js');
     // url MUST be a hard-coded string for worker-plugin - in the other case the file would not be found in runtime in webpack bundle
 
-     // myTask = new Worker('./lib/ai/lozza/lozza.js', { type: 'module' });
-     myTask = new Worker('./lib/ai/js-chess-engine/js-chess-worker.js', { type: 'module' });
+     myTask = new Worker('./lib/ai/lozza/lozza.js', { type: 'module' });
+     // myTask = new Worker('./lib/ai/js-chess-engine/js-chess-worker.js', { type: 'module' });
      // myTask = new Worker('./lib/ai/lozza/lozza.js');
 
       myTask.onmessage = (event) => {

@@ -227,7 +227,16 @@ if ((typeof process !== 'undefined') && (process.release.name === 'node')) {
 else if ((typeof WorkerGlobalScope) == 'undefined') {
 
   lozzaHost = HOST_CONSOLE;
-}*/
+}
+*/
+if (typeof self === 'undefined') {
+  lozzaHost = HOST_NODEJS;
+}
+else if ((typeof WorkerGlobalScope) == 'undefined') {
+
+  lozzaHost = HOST_CONSOLE;
+}
+
 //}}}
 //{{{  funcs
 
@@ -1566,10 +1575,12 @@ lozChess.prototype.go = function() {
   this.stats.update();
   this.stats.stop();
 
-  bestMoveStr = board.formatMove(this.stats.bestMove,UCI_FMT);
-
-  if (lozzaHost == HOST_WEB)
-    board.makeMove(this.rootNode,this.stats.bestMove);
+  console.log (`stats.bestMove ${this.stats.bestMove}`);
+  if (this.stats.bestMove) { //SHU
+    bestMoveStr = board.formatMove(this.stats.bestMove,UCI_FMT);
+    if (lozzaHost == HOST_WEB)
+      board.makeMove(this.rootNode,this.stats.bestMove);
+  }
 
   this.uci.send('bestmove',bestMoveStr);
 };
@@ -1614,11 +1625,12 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
   else
     board.genMoves(node, turn);
 
+  console.log(`moves test ${node.moves.join('|')}`);
+  
   if (this.stats.timeOut)
     return;
 
   while (move = node.getNextMove()) {
-
     board.makeMove(node,move);
 
     //{{{  legal?
@@ -1688,6 +1700,7 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
     if (this.stats.timeOut) {
       return;
     }
+    this.uci.send('move check',`move ${move} mv ${mv} score ${score} of best ${bestScore}`);
 
     if (score > bestScore) {
       if (score > alpha) {
@@ -1733,8 +1746,14 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
       board.addHistory(-depth, move);
   }
 
-  if (numLegalMoves == 0)
-    this.uci.debug('INVALID');
+  if (numLegalMoves == 0) {
+    if (board.wCounts[KING] && board.bCounts[KING])    // SHU
+      this.uci.debug('INVALID');
+    else { 
+      this.stats.timeOut = 1; // stop search
+      this.uci.debug('TIMEOUT=1');
+    }
+  }
 
   if (numLegalMoves == 1)
     this.stats.timeOut = 1;  // only one legal move so don't waste any more time.
@@ -2048,6 +2067,14 @@ lozChess.prototype.alphabeta = function (node, depth, turn, alpha, beta, nullOK,
     }
   
     else {
+      // SHU
+      if (!(board.wCounts[KING] && board.bCounts[KING])) {   // SHU
+        if ((turn == WHITE)? board.wCount == 0: board.bCount == 0) {
+          board.ttPut(TT_EXACT, depth, -MINMATE+ node.ply, 0, node.ply, alpha, beta);
+          return -MINMATE + node.ply;
+        }
+      }
+      // END SHU
       board.ttPut(TT_EXACT, depth, CONTEMPT, 0, node.ply, alpha, beta);
       return CONTEMPT;
     }
@@ -3840,8 +3867,10 @@ lozBoard.prototype.unmakeMove = function (node,move) {
 //{{{  .isKingAttacked
 
 lozBoard.prototype.isKingAttacked = function(byCol) {
-
-  return this.isAttacked((byCol == WHITE) ? this.bList[0] : this.wList[0], byCol);
+  if ((byCol == WHITE && this.bCounts[KING]) || (byCol == BLACK && this.wCounts[KING]))
+    return this.isAttacked((byCol == WHITE) ? this.bList[0] : this.wList[0], byCol);
+  else return false;  
+  // return this.isAttacked((byCol == WHITE) ? this.bList[0] : this.wList[0], byCol);
 };
 
 //}}}
@@ -4008,11 +4037,13 @@ lozBoard.prototype.evaluate = function (turn) {
   var bNumKnights = this.bCounts[KNIGHT];
   var bNumPawns   = this.bCounts[PAWN];
   
-  var wKingSq   = this.wList[0];
+  // var wKingSq   = this.wList[0];
+  var wKingSq   = this.wCounts[KING]? this.wList[0] : EMPTY;
   var wKingRank = RANK[wKingSq];
   var wKingFile = FILE[wKingSq];
   
-  var bKingSq   = this.bList[0];
+  // var bKingSq   = this.bList[0];
+  var bKingSq   = this.bCounts[KING]? this.bList[0]: EMPTY;
   var bKingRank = RANK[bKingSq];
   var bKingFile = FILE[bKingSq];
   
@@ -4035,36 +4066,38 @@ lozBoard.prototype.evaluate = function (turn) {
   //{{{  draw?
   
   //todo - lots more here and drawish.
-  
-  if (numPieces == 2)                                                                  // K v K.
-    return CONTEMPT;
-  
-  if (numPieces == 3 && (wNumKnights || wNumBishops || bNumKnights || bNumBishops))    // K v K+N|B.
-    return CONTEMPT;
-  
-  if (numPieces == 4 && (wNumKnights || wNumBishops) && (bNumKnights || bNumBishops))  // K+N|B v K+N|B.
-    return CONTEMPT;
-  
-  if (numPieces == 4 && (wNumKnights == 2 || bNumKnights == 2))                        // K v K+NN.
-    return CONTEMPT;
-  
-  if (numPieces == 5 && wNumKnights == 2 && (bNumKnights || bNumBishops))              //
-    return CONTEMPT;                                                                   //
-                                                                                       // K+N|B v K+NN
-  if (numPieces == 5 && bNumKnights == 2 && (wNumKnights || wNumBishops))              //
-    return CONTEMPT;                                                                   //
-  
-  if (numPieces == 5 && wNumBishops == 2 && bNumBishops)                               //
-    return CONTEMPT;                                                                   //
-                                                                                       // K+B v K+BB
-  if (numPieces == 5 && bNumBishops == 2 && wNumBishops)                               //
-    return CONTEMPT;                                                                   //
-  
-  if (numPieces == 4 && wNumRooks && bNumRooks)                                        // K+R v K+R.
-    return CONTEMPT;
-  
-  if (numPieces == 4 && wNumQueens && bNumQueens)                                      // K+Q v K+Q.
-    return CONTEMPT;
+  // if (!uci.options['nokings']) {
+  if (this.wCounts[KING] > 0 && this.bCounts[KING] > 0) { 
+    if (numPieces == 2)                                                                  // K v K.
+      return CONTEMPT;
+
+    if (numPieces == 3 && (wNumKnights || wNumBishops || bNumKnights || bNumBishops))    // K v K+N|B.
+      return CONTEMPT;
+
+    if (numPieces == 4 && (wNumKnights || wNumBishops) && (bNumKnights || bNumBishops))  // K+N|B v K+N|B.
+      return CONTEMPT;
+
+    if (numPieces == 4 && (wNumKnights == 2 || bNumKnights == 2))                        // K v K+NN.
+      return CONTEMPT;
+
+    if (numPieces == 5 && wNumKnights == 2 && (bNumKnights || bNumBishops))              //
+      return CONTEMPT;                                                                   //
+                                                                                          // K+N|B v K+NN
+    if (numPieces == 5 && bNumKnights == 2 && (wNumKnights || wNumBishops))              //
+      return CONTEMPT;                                                                   //
+
+    if (numPieces == 5 && wNumBishops == 2 && bNumBishops)                               //
+      return CONTEMPT;                                                                   //
+                                                                                          // K+B v K+BB
+    if (numPieces == 5 && bNumBishops == 2 && wNumBishops)                               //
+      return CONTEMPT;                                                                   //
+
+    if (numPieces == 4 && wNumRooks && bNumRooks)                                        // K+R v K+R.
+      return CONTEMPT;
+
+    if (numPieces == 4 && wNumQueens && bNumQueens)                                      // K+Q v K+Q.
+      return CONTEMPT;
+  }
   
   //}}}
 

@@ -5,9 +5,9 @@
         <v-card class="title-screen">
           <v-card-title primary-title  color="primary">
             <div>
-              <h2>Шахматные игры для детей</h2>
-              <div class="d-flex justify-center">Обучение игры в шахматы для самых маленьких</div>
-              <div class="d-flex justify-center blue">шахматный клуб Рифата</div>
+              <h2>{{ $t('title.kids') }}</h2>
+              <div class="d-flex justify-center body-1">{{ $t('title.1') }}</div>
+              <div class="d-flex justify-center body-1 blue">{{ $t('title.2') }}</div>
             </div>
           </v-card-title>
         </v-card>
@@ -22,7 +22,7 @@ export default {
   mounted() {
     // setTimeout(() => { this.$root.isTitleShowing = false; }, 2000);
     // setTimeout(() => { this.$emit('title-screen-off'); }, 2000);
-    setTimeout(() => { this.$store.commit('hideTitleScreen'); }, 2000); 
+    setTimeout(() => { this.$store.commit('hideTitleScreen'); }, 5000); 
   },
 };
 </script>

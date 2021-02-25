@@ -69,12 +69,16 @@ import KidsBoard from './KidsBoard.vue';
     loadFen(fen) {
       this.currentFen = fen
     }, */
-    
+    /*
     loadTask(taskIdx, subIdx) {
        this.$store.commit('setChild', { child: this.tasks[taskIdx].data[subIdx] });
       // this.currentTask = this.tasks[taskIdx].data[subIdx];
       this.$refs.wrkBoard.initialMove();
-    }, 
+    }, */
+    //reloadTask() {
+    //  this.$refs.wrkBoard.initialMove();
+    //},
+
     promote() {
       if (confirm("Want to promote to rook? Queen by default") ) {
         return 'r'
@@ -87,12 +91,16 @@ import KidsBoard from './KidsBoard.vue';
     ...mapGetters(['showClock','showBtnStart']),
   },
     
-   mounted() {
-    this.loadTask(0, 0);       
+  mounted() {
+    // this.loadTask(0, 0); 
+    // this.reloadTask();      
+    this.$refs.wrkBoard.initialMove();
+
   },
-//   created() {
+ //   created() {
 //       this.$store.commit('setChild', { child: this.tasks[0].data[0] });
-//  } 
+ //     this.reloadTask();      
+  //  } 
 
   }
 </script>

@@ -109,6 +109,7 @@ export default {
       this.$store.commit('toggleDrawer', { show: false });
       this.$store.commit('setGameActive', {value: false});
       this.drawer = false;
+      localStorage.taskID = child.service.id;
     }, 
     actFlipBoard() {
       this.$store.commit('flipBoard');  
@@ -123,6 +124,17 @@ export default {
     },
     canReload() {
       return this.isMyMove() || this.finishedGame;
+    },
+    childByID(id) {
+      // let child = this.tasks.find((task) => task.data.find((child) => child.service.id === id));
+      let childFound = undefined;
+      for (let i=0; i < this.tasks.length && childFound === undefined; i++) {
+        childFound = this.tasks[i].data.find((child) => child.service.id === id);
+      }
+      if (childFound === undefined ) {
+        childFound = (this.standard.service.id === id)? this.standard: undefined;
+      }
+      return childFound;
     }
   },
   computed: {
@@ -132,7 +144,8 @@ export default {
         return this.$store.state.engineLevel;
       },
       set (value) {
-        this.$store.commit('updateEngineLevel', {value})
+        this.$store.commit('updateEngineLevel', {value});
+        localStorage.playLevel = value;
       }
     },
   },  
@@ -366,15 +379,27 @@ export default {
       description: { ru: 'Просто шахматы', en: 'Chess game' },
       orientation: 'white',
       service: {id: '118ccf0b-9c1e-4129-a6db-929b36010a02', active: false },
-    },
+    };
 
-    this.$store.commit('setChild', { child: this.tasks[0].data[0] });
+    let childTo = undefined;
+    if (localStorage.taskID !== undefined) 
+    {
+      childTo = this.childByID(localStorage.taskID)
+      //console.log(`childTo=${JSON.stringify(childTo)}`);
+
+    }
+    if (childTo === undefined) childTo = this.tasks[0].data[0];
+    //console.log(`childTo.service.id=${childTo.service.id}`);
+    this.$store.commit('setChild', { child:  childTo});
     this.$store.commit('setGameActive', {value: false});
 
-   
+ 
 
   },
   mounted() {
+    if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= 3) {
+      this.playLevel = localStorage.playLevel;
+    }
     // WORKER
     let myTask;
     if (window.Worker) {

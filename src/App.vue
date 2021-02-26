@@ -21,6 +21,7 @@
       v-model="drawer"
       absolute
       temporary
+      width="310"
     >
 
     <v-list
@@ -34,6 +35,10 @@
         no-action
       >
         <template v-slot:activator>
+          <v-list-item-avatar size="35">
+            <inline-svg :src="task.avatar"/>
+          </v-list-item-avatar>
+            
           <v-list-item-content>
             <v-list-item-title v-text="task.title.ru"></v-list-item-title>
           </v-list-item-content>
@@ -53,6 +58,9 @@
         :key="standard.service.id"
         @click="selectChild(standard)"   
       >
+        <v-list-item-avatar size="35">
+          <inline-svg :src="standard.avatar"/>
+        </v-list-item-avatar>
         <v-list-item-content>
             <v-list-item-title v-text="standard.title.ru"></v-list-item-title>
         </v-list-item-content>
@@ -86,6 +94,8 @@ import {  mapGetters } from 'vuex';
 import TitleScreen from './components/TitleScreen.vue';
 import KidsArea from './components/KidsArea.vue';
 import AboutDlg from '@/components/AboutDlg'; 
+import InlineSvg from 'vue-inline-svg';
+
 
 export default {
   name: 'App',
@@ -93,7 +103,8 @@ export default {
   components: {
     TitleScreen,
     KidsArea,
-    AboutDlg,     
+    AboutDlg,
+    InlineSvg,
   },
 
   data: () => ({
@@ -155,7 +166,8 @@ export default {
         description: { ru: 'Цель игры: полное уничтожение пешек или безопасное достижение любой пешкой поля превращения', 
                       en: 'Цель игры: полное уничтожение пешек или безопасное достижение любой пешкой поля превращения.' 
                       },
-        active: 0,                
+        active: 0,
+        avatar: require("@/assets/img/046-lion.svg"),
         data: [
           { 
             title: {ru: 'Штаны для короля', en: "King's pants"},
@@ -200,6 +212,7 @@ export default {
                       en: 'Цель игры: полное уничтожение (или блокирование) противника или безопасное превращение пешки' 
                       },
         active: 0,                
+        avatar: require("@/assets/img/098-wolf.svg"),
         data: [
           { 
             title: {ru: 'Три Козленка', en: 'Three Kids'},
@@ -245,6 +258,7 @@ export default {
                       en: 'Цель игры: взаимное истребление или безопасное  достижение любой пешкой поля превращения. Белые начинают.' 
                       },
         active: 0,                
+        avatar: require("@/assets/img/022-elephant.svg"),
         data: [
           { 
             title: {ru: 'Плавки для Слона', en: 'Elephant swim trunks'},
@@ -324,6 +338,7 @@ export default {
                       en: 'Цель игры – полное уничтожение противника или безопасное превращение пешки,  (т.е. так, чтобы соперник ответным ходом не уничтожил эту пешку)', 
                       },
         active: 0,                
+        avatar: require("@/assets/img/heroe.svg"),
         data: [
           { 
             title: {ru: 'Битва', en: 'Battle'},
@@ -379,6 +394,8 @@ export default {
       description: { ru: 'Просто шахматы', en: 'Chess game' },
       orientation: 'white',
       service: {id: '118ccf0b-9c1e-4129-a6db-929b36010a02', active: false },
+      avatar: require("@/assets/img/crown.svg"),
+
     };
 
     let childTo = undefined;

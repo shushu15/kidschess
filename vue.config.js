@@ -7,6 +7,7 @@ module.exports = {
   transpileDependencies: [
     'vuetify'
   ],
+
   configureWebpack: {
     devtool: 'source-map',
     // plugins: [
@@ -19,6 +20,8 @@ module.exports = {
     ],
   },
 
-
-
+  pwa: {
+    name: 'KidsChess',
+    themeColor: '#6dc9f7'
+  }
 };

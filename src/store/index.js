@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '0.1.1b',
+  version: '0.1.1c',
   HUMAN: 1,
   ROBOT: 2,
   isTitleShowing: true,

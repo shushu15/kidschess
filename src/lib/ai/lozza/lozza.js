@@ -2607,6 +2607,12 @@ lozBoard.prototype.position = function () {
 
   //{{{  init running evals
   
+  // SHU
+  if (!(this.wCounts[KING] && this.bCounts[KING])) {   // SHU
+    VALUE_VECTOR[KING]  = 600;
+  }
+  // end SHU
+
   this.runningEvalS = 0;
   this.runningEvalE = 0;
   
@@ -2793,7 +2799,8 @@ lozBoard.prototype.genMoves = function(node, turn) {
     var pPromoteRank = 7;
     var rights       = this.rights & WHITE_RIGHTS;
     var pList        = this.wList;
-    var theirKingSq  = this.bList[0];
+    var theirKingSq  = this.bCounts[KING]? this.bList[0]: EMPTY;
+    //SHU var theirKingSq  = this.bList[0];
     var pCount       = this.wCount;
     var CAPTURE      = IS_B;
   
@@ -2816,7 +2823,8 @@ lozBoard.prototype.genMoves = function(node, turn) {
     var pPromoteRank = 2;
     var rights       = this.rights & BLACK_RIGHTS;
     var pList        = this.bList;
-    var theirKingSq  = this.wList[0];
+    var theirKingSq  = this.wCounts[KING]? this.wList[0]: EMPTY;
+    //SHU var theirKingSq  = this.wList[0];
     var pCount       = this.bCount;
     var CAPTURE      = IS_W;
   
@@ -3008,9 +3016,11 @@ lozBoard.prototype.genEvasions = function(node, turn) {
     var pPromoteRank = 8;
     var pList        = this.wList;
     var pCount       = this.wCount;
-    var ray          = STARRAY[this.wList[0]];
+    //SHU var ray          = STARRAY[this.wList[0]];
+    var ray          = STARRAY[this.wCounts[KING]? this.wList[0]: EMPTY];
     var myKing       = W_KING;
-    var theirKingSq  = this.bList[0];
+    var theirKingSq  = this.bCounts[KING]? this.bList[0]: EMPTY;
+    //SHU var theirKingSq  = this.bList[0];
   }
   
   else {
@@ -3022,9 +3032,11 @@ lozBoard.prototype.genEvasions = function(node, turn) {
     var pPromoteRank = 1;
     var pList        = this.bList;
     var pCount       = this.bCount;
-    var ray          = STARRAY[this.bList[0]];
+    var ray          = STARRAY[this.bCounts[KING]? this.bList[0]: EMPTY];
+    //SHU var ray          = STARRAY[this.bList[0]];
     var myKing       = B_KING;
-    var theirKingSq  = this.wList[0];
+    //SHU var theirKingSq  = this.wList[0];
+    var theirKingSq  = this.wCounts[KING]? this.wList[0]: EMPTY;
   }
   
   //}}}
@@ -3172,7 +3184,8 @@ lozBoard.prototype.genQMoves = function(node, turn) {
     var pOffsetDiag2 = WP_OFFSET_DIAG2;
     var pPromoteRank = 7;
     var pList        = this.wList;
-    var theirKingSq  = this.bList[0];
+    // SHU var theirKingSq  = this.bList[0];
+    var theirKingSq  = this.bCounts[KING]? this.bList[0]: EMPTY;  
     var pCount       = this.wCount;
     var CAPTURE      = IS_B;
   }
@@ -3184,7 +3197,8 @@ lozBoard.prototype.genQMoves = function(node, turn) {
     var pOffsetDiag2 = BP_OFFSET_DIAG2;
     var pPromoteRank = 2;
     var pList        = this.bList;
-    var theirKingSq  = this.wList[0];
+    //SHU var theirKingSq  = this.wList[0];
+    var theirKingSq  = this.wCounts[KING]? this.wList[0]: EMPTY;   
     var pCount       = this.bCount;
     var CAPTURE      = IS_W;
   }
@@ -4098,6 +4112,13 @@ lozBoard.prototype.evaluate = function (turn) {
     if (numPieces == 4 && wNumQueens && bNumQueens)                                      // K+Q v K+Q.
       return CONTEMPT;
   }
+// SHU - added and removed
+//  else {
+//    if (turn==WHITE && this.wCount > 0 && this.bCount === 0)
+//      return 2000;
+//    if (turn==BLACK && this.bCount > 0 && this.wCount === 0)
+//      return -2000;
+//  }
   
   //}}}
 

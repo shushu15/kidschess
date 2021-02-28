@@ -19,12 +19,13 @@ const state = {
   turn: '',
   webWorkerAI: undefined, 
   moveAI: '', 
-  engineDeep: [1,5,8,10],
+  engineDeep: [1,1,5,10],
   engineLevel: 3,
   gameActive: false,
   // canReload: false
   lastPromotion: '',   // last cell promoted
-  finishedGame: false
+  finishedGame: false,
+  flashAnimal: false
 };
 
 export default new Vuex.Store({

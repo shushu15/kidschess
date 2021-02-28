@@ -31,7 +31,6 @@
         v-for="task in tasks"
         :key="task.title.en"
         v-model="task.active"
-        :prepend-icon="task.action"
         no-action
       >
         <template v-slot:activator>
@@ -119,6 +118,7 @@ export default {
       this.$store.commit('setChild', { child });
       this.$store.commit('toggleDrawer', { show: false });
       this.$store.commit('setGameActive', {value: false});
+      this.$store.dispatch('flashAnimal');
       this.drawer = false;
       localStorage.taskID = child.service.id;
     }, 
@@ -146,7 +146,8 @@ export default {
         childFound = (this.standard.service.id === id)? this.standard: undefined;
       }
       return childFound;
-    }
+    },
+   
   },
   computed: {
     ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame']),
@@ -213,6 +214,7 @@ export default {
                       },
         active: 0,                
         avatar: require("@/assets/img/098-wolf.svg"),
+        cartoon: require("@/assets/img/029-goat.svg"),
         data: [
           { 
             title: {ru: 'Три Козленка', en: 'Three Kids'},
@@ -228,6 +230,7 @@ export default {
                            en: 'Змей Горыныч с восьмью головами (пешками) пытается пролезть хотя бы одной головой в царский дворец (последняя горизонталь),  а Иван – Царевич (ферзь) должен не допустить этого и отрубить все головы Змея  Горыныча.' },
             orientation: 'white',
             service: {id: '0a336aca-77e1-4a12-8c35-f5771538a0b4', active: false },
+            avatar: require("@/assets/img/046-lion.svg"), // change to some dragon-like
           },
           { 
             title: {ru: 'Четыре Козленка', en: 'Four Kids'},

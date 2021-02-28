@@ -39,6 +39,9 @@ export default {
   },
   finishedGame(state) {
     return state.finishedGame;
+  },
+  flashAnimal(state) {
+    return state.flashAnimal;
   }
 };
 

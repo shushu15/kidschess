@@ -46,5 +46,8 @@ export default {
   },
   finishedGame(state, {value}) {
     state.finishedGame = value;
+  },
+  flashAnimal(state, {value}) {
+    state.flashAnimal = value;
   }
 };

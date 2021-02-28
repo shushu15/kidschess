@@ -25,6 +25,14 @@ export default {
         }
       }
   },
+  flashAnimal( {state, commit} ) {
+    setTimeout(() => { 
+      if (!state.gameActive)
+        commit('flashAnimal', {value: true}); }, 2000); 
+    setTimeout(() => { 
+        commit('flashAnimal', {value: false}); }, 3000); 
+  }
+
   /*
   requestDiscard({ state, getters, rootState }, { side }) {
     const theHand = state.game.piles[side];

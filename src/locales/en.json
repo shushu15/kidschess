@@ -15,7 +15,10 @@
   "menu.level": "Level",
   "menu.about": "About a program",
   "menu.about.text": "Kids: chess learning games",
-  "menu.about.used": "Chess engine: lozza (github.com/op12no2/lozza); Board: vue-chessboard (github.com/vitogit/vue-chessboard), chessground (github.com/ornicar/chessground); Chess validation: chess.js (github.com/jhlywa/chess.js)",
+  "menu.about.used1": "Chess engine: lozza <a href='//github.com/op12no2/lozza'>github.com/op12no2/lozza</a> thanks to Colin Jenkins for help in adaptation" ,
+  "menu.about.used2": "Board: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
+  "menu.about.used3": "Chess validation: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
+
   "menu.about.contact": "Idea and games author Rifat Aysin, development Alex Vasilev: shu@rubl.com",
   "menu.about.version": "Version"
 }

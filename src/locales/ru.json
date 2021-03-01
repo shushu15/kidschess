@@ -15,7 +15,9 @@
   "menu.level": "Уровень",
   "menu.about": "О программе",
   "menu.about.text": "Козлята: шахматные обучающие игры",
-  "menu.about.used": "Используются: Шахматный движок: lozza (github.com/op12no2/lozza); Визуализация доски: vue-chessboard (github.com/vitogit/vue-chessboard), chessground (github.com/ornicar/chessground); Проверка ходов: chess.js (github.com/jhlywa/chess.js)",
+  "menu.about.used1": "Используются:<br> Шахматный движок: lozza <a href='//github.com/op12no2/lozza'>github.com/op12no2/lozza</a> благодарность автору Colin Jenkins за помощь в адаптации" ,
+  "menu.about.used2": "Визуализация доски: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
+  "menu.about.used3": "Проверка ходов: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.contact": "Идея и авторство игр: Рифат Айсин, разработка Александр Василёв: shu@rubl.com",
   "menu.about.version": "Версия"
 

@@ -42,7 +42,54 @@ export default {
   },
   flashAnimal(state) {
     return state.flashAnimal;
-  }
+  },
+  tasksData(state) {
+    return state.tasks;
+  },
+  standardData(state) {
+    return state.standard;
+  },
+  childByID: (state) => (id) => {
+    // jshint -W080
+    let childFound = undefined; 
+    // jshint +W080
+    for (let i=0; i < state.tasks.length && childFound === undefined; i++) {
+      // jshint -W083
+      childFound = state.tasks[i].data.find((child) => child.service.id === id);
+      // jshint +W083
+    }
+    if (childFound === undefined ) {
+      childFound = (state.standard.service.id === id)? state.standard: undefined;
+    }
+    return childFound;
+  },
+  cartoonByID: (state) => (id) => {
+    // jshint -W080
+    let childFound = undefined;
+    let cartoonFound = undefined;
+    // jshint +W080
+    for (let i=0; i < state.tasks.length && childFound === undefined; i++) {
+      // jshint -W083
+      childFound = state.tasks[i].data.find((child) => child.service.id === id);
+      // jshint +W083
+      if (childFound !== undefined) {
+        if(childFound.cartoon !== undefined)  // check first cartoon field inside task
+          cartoonFound = childFound.cartoon;
+        else if(childFound.avatar !== undefined)  // check then avatar field inside task
+          cartoonFound = childFound.avatar;
+        else if (state.tasks[i].cartoon !== undefined) // then specific cartoon field fo group
+          cartoonFound = state.tasks[i].cartoon;
+        else // then use avatar of the group
+          cartoonFound = state.tasks[i].avatar;
+        return cartoonFound;    
+      }
+    }
+    // standard game
+    cartoonFound = (state.standard.service.id === id)? (state.standard.cartoon !== undefined? state.standard.cartoon: state.standard.avatar) : ""; //undefined;
+    return cartoonFound;
+  },
+
+
 };
 
 function op(side) {

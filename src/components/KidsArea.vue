@@ -1,5 +1,10 @@
 <template>
   <v-container class="kidsarea">
+    <div class="cartoon">
+    <transition name="sliding">
+      <inline-svg v-if="flashAnimal"  :src="cartoonByID(this.$store.getters.getCurrentTask.service.id)" width="100" height="100" class="anim" />
+    </transition> 
+    </div>
     <v-row class="text-center">
 
       <v-col class="d-flex justify-center">
@@ -32,11 +37,6 @@
       </v-col>
 
     </v-row>
-    <div class="cartoon">
-    <transition name="sliding">
-      <inline-svg v-if="flashAnimal"  :src="this.cartoonByID(this.$store.getters.getCurrentTask.service.id)" width="100" height="100" class="anim" />
-    </transition> 
-    </div>
     
   </v-container>
 </template>
@@ -54,7 +54,7 @@ import InlineSvg from 'vue-inline-svg';
       InlineSvg,
     },
   props: {
-    tasks: Array,
+    // tasks: Array,
     forced: Date,
   }, 
   data () {
@@ -74,25 +74,6 @@ import InlineSvg from 'vue-inline-svg';
       if (this.$store.getters.isMoveOf(this.$store.state.HUMAN))
         this.$refs.wrkBoard.initialMove();
     }, 
-    cartoonByID(id) {
-      let childFound = undefined;
-      let cartoonFound = undefined;
-      for (let i=0; i < this.tasks.length && childFound === undefined; i++) {
-        childFound = this.tasks[i].data.find((child) => child.service.id === id);
-        if (childFound !== undefined) {
-          if(childFound.avatar !== undefined)  // check first avatar field inside task
-            cartoonFound = childFound.avatar;
-          else if (this.tasks[i].cartoon !== undefined) // then specific cartoon field fo group
-            cartoonFound = this.tasks[i].cartoon;
-          else // then use avatar of the group
-            cartoonFound = this.tasks[i].avatar;
-          return cartoonFound;    
-        }
-      }
-      // standard game
-      cartoonFound = (this.standard.service.id === id)? this.standard.avatar: ""; //undefined;
-      return cartoonFound;
-    },
 
     /*
     loadFen(fen) {
@@ -117,7 +98,7 @@ import InlineSvg from 'vue-inline-svg';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID']),
   },
     
   mounted() {

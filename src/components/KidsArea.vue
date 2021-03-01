@@ -32,7 +32,7 @@
         cols="12"
       >
         <h2 class="headline font-weight-medium mb-3">
-            {{this.$store.getters.getCurrentTask.description.ru}}        
+            {{this.$store.getters.getCurrentTask.description[$i18n.locale]}}        
         </h2>
       </v-col>
 

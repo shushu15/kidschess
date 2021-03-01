@@ -7,7 +7,7 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> 
 
-      <v-toolbar-title>{{$t('title.game')}} {{this.$store.getters.getCurrentTask.title.ru}}</v-toolbar-title>
+      <v-toolbar-title>{{$t('title.game')}} {{this.$store.getters.getCurrentTask.title[$i18n.locale]}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -38,7 +38,7 @@
           </v-list-item-avatar>
             
           <v-list-item-content>
-            <v-list-item-title v-text="task.title.ru"></v-list-item-title>
+            <v-list-item-title v-text="task.title[$i18n.locale]"></v-list-item-title>
           </v-list-item-content>
         </template>
 
@@ -48,7 +48,7 @@
            @click="selectChild(child)" 
         >
           <v-list-item-content>
-            <v-list-item-title v-text="child.title.ru"></v-list-item-title>
+            <v-list-item-title v-text="child.title[$i18n.locale]"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -60,7 +60,7 @@
           <inline-svg :src="standardData.avatar"/>
         </v-list-item-avatar>
         <v-list-item-content>
-            <v-list-item-title v-text="standardData.title.ru"></v-list-item-title>
+            <v-list-item-title v-text="standardData.title[$i18n.locale]"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>

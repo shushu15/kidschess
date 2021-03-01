@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '0.1.1d',
+  version: '0.1.2',
   HUMAN: 1,
   ROBOT: 2,
   isTitleShowing: true,
@@ -97,7 +97,7 @@ const state = {
                          en: 'The Fire Dragon with eight heads (pawns) is trying to crawl with at least one head into the royal palace (the last horizontal line), and Brave Princess (queen) must prevent this and cut off all the heads of the Fire Dragon.' },
           orientation: 'white',
           service: {id: '0a336aca-77e1-4a12-8c35-f5771538a0b4', active: false },
-          cartoon: require("@/assets/img/046-lion.svg"), // change to some dragon-like
+          cartoon: require("@/assets/img/dragon.svg"), // change to some dragon-like
         },
         { 
           title: {ru: 'Четыре Козленка', en: 'Four Kids'},
@@ -265,8 +265,7 @@ const state = {
     orientation: 'white',
     service: {id: '118ccf0b-9c1e-4129-a6db-929b36010a02', active: false },
     avatar: require("@/assets/img/crown.svg"),
-    cartoon: require("@/assets/img/046-lion.svg"), // change to some alive like
-
+    cartoon: require("@/assets/img/027-panda bear.svg"), // change to some alive like
 
   },
 

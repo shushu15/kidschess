@@ -7,9 +7,9 @@
     </div>
     <v-row class="text-center">
 
-      <v-col class="d-flex justify-center">
-        <div class="layer1 pa-5 rounded-lg">       
-        <KidsBoard ref="wrkBoard" class="kidsboard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
+      <v-col class="d-flex justify-center" cols="12">
+        <div class="layer1 pa-4 ma-0 rounded-lg">       
+        <KidsBoard ref="wrkBoard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
               :id='this.$store.getters.getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
          <div class="clock-opp"><v-icon  v-if="showClock('b')">
             mdi-alarm
@@ -17,17 +17,33 @@
          <div class="clock-my"><v-icon v-if="showClock('w')">
             mdi-alarm
         </v-icon></div>
-        <v-btn class="backward-my" icon  color="blue" @click="actBackward" :disabled="!canBackward" >
+         </div>  
+      </v-col>
+    </v-row>
+    <v-row class="ma-0 pa-0">
+      <v-col class="d-flex justify-center ma-0 pa-0" cols="12">
+        <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" >
             <v-icon>mdi-step-backward</v-icon>
         </v-btn> 
+        <v-tooltip v-model="showCopy" top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon class="mx-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on">
+              <v-icon>mdi-information</v-icon>
+            </v-btn> 
+          </template>
+          <span>Programmatic tooltip</span>
+        </v-tooltip>
+       </v-col> 
+    </v-row>
+    <v-row class="text-center">
+      <v-col cols="12" class="ma-0 pa-0">
         <v-fade-transition v-if="showBtnStart">
-          <div  class="action-buttons">
+          <div >
             <v-btn v-if="showBtnStart" rounded color="primary"  @click="bntGameStart">{{ $t('btn.game.start') }}</v-btn>
            </div>
          </v-fade-transition>     
-         </div>     
       </v-col>
-    </v-row>
+    </v-row>  
     <v-row class="text-center">
       <v-col
         cols="12"
@@ -58,6 +74,11 @@ import InlineSvg from 'vue-inline-svg';
     // tasks: Array,
     forced: Date,
   }, 
+  data () {
+    return {
+      showCopy: false,
+    }
+  },  
   /* data () {
     return {
       currentFen: '',
@@ -80,6 +101,28 @@ import InlineSvg from 'vue-inline-svg';
         this.$store.commit('actBackward');  
         this.$refs.wrkBoard.actBackward();
       }
+    },
+    actInfo() {
+      navigator.permissions.query({name: "clipboard-write"}).then(result => {
+        if (result.state == "granted" || result.state == "prompt") {
+          /* write to the clipboard now */
+          let s = `${this.$store.getters.getCurrentTask.title[this.$i18n.locale]}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
+          console.log(s);
+          this.updateClipboard(s);
+          
+        }
+      });
+      //console.log(this.$store.getters.getCurrentTask.title[this.$i18n.locale]);
+      //console.log(this.$store.getters.getCurrentTask.fen);
+      //console.log(this.$refs.wrkBoard.getHistory());
+    },
+    updateClipboard(newClip) {
+      navigator.clipboard.writeText(newClip).then(function() {
+          /* clipboard successfully set */
+          
+        }, function() {
+        /* clipboard write failed */
+      });
     },
 
     /*
@@ -147,18 +190,13 @@ import InlineSvg from 'vue-inline-svg';
   }
   .clock-opp {
     position: absolute;
-    top: 0px;
+    top: -10px;
     right: 0px;
   } 
   .clock-my {
     position: absolute;
-    bottom: 0px;
+    bottom: -10px;
     right:  0px;
-  } 
-  .backward-my {
-    position: absolute;
-    bottom: 0px;
-    left:  0px;
   } 
   .sliding-enter-active {
     animation: sliding 0.5s;

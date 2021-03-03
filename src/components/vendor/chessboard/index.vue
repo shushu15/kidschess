@@ -1,6 +1,6 @@
 <template>
   <div class="merida">
-    <div ref="board" class="cg-board-wrap"></div> <br>
+    <div ref="board" class="cg-board-wrap"></div>
   </div>
 </template>
 

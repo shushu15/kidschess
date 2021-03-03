@@ -44,7 +44,7 @@ export default {
         })
         this.calculatePromotions();
         this.$store.commit('setTurn', { turn: this.game.turn() });
-         setTimeout(() => {this.aiNextMove();}, 50); // allow redraw
+         setTimeout(() => {this.aiNextMove();}, 100); // allow redraw
       }
     },
     aiNextMove() {
@@ -65,6 +65,9 @@ export default {
         },
       });
       this.$store.commit('setTurn', { turn: this.game.turn() });
+    },
+    getHistory() {
+      return this.game.history();
     } 
     /*
     gameLoaded() {

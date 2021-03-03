@@ -55,11 +55,11 @@ export default {
     // jshint +W080
     for (let i=0; i < state.tasks.length && childFound === undefined; i++) {
       // jshint -W083
-      childFound = state.tasks[i].data.find((child) => child.service.id === id);
+      childFound = state.tasks[i].data.find((child) => child.id === id);
       // jshint +W083
     }
     if (childFound === undefined ) {
-      childFound = (state.standard.service.id === id)? state.standard: undefined;
+      childFound = (state.standard.id === id)? state.standard: undefined;
     }
     return childFound;
   },
@@ -70,7 +70,7 @@ export default {
     // jshint +W080
     for (let i=0; i < state.tasks.length && childFound === undefined; i++) {
       // jshint -W083
-      childFound = state.tasks[i].data.find((child) => child.service.id === id);
+      childFound = state.tasks[i].data.find((child) => child.id === id);
       // jshint +W083
       if (childFound !== undefined) {
         if(childFound.cartoon !== undefined)  // check first cartoon field inside task
@@ -85,9 +85,12 @@ export default {
       }
     }
     // standard game
-    cartoonFound = (state.standard.service.id === id)? (state.standard.cartoon !== undefined? state.standard.cartoon: state.standard.avatar) : ""; //undefined;
+    cartoonFound = (state.standard.id === id)? (state.standard.cartoon !== undefined? state.standard.cartoon: state.standard.avatar) : ""; //undefined;
     return cartoonFound;
   },
+  canBackward(state, getters) {
+    return getters.isMoveOf(state.HUMAN) && state.history.fen.length > 1;
+  }
 
 
 };

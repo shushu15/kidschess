@@ -44,7 +44,7 @@
 
         <v-list-item
           v-for="child in task.data"
-          :key="child.service.id"
+          :key="child.id"
            @click="selectChild(child)" 
         >
           <v-list-item-content>
@@ -53,7 +53,7 @@
         </v-list-item>
       </v-list-group>
       <v-list-item 
-        :key="standardData.service.id"
+        :key="standardData.id"
         @click="selectChild(standardData)"   
       >
         <v-list-item-avatar size="35">
@@ -120,11 +120,14 @@ export default {
       this.$store.commit('setGameActive', {value: false});
       this.$store.dispatch('flashAnimal');
       this.drawer = false;
-      localStorage.taskID = child.service.id;
+      localStorage.taskID = child.id;
     }, 
     actFlipBoard() {
       this.$store.commit('flipBoard');  
       this.$store.commit('setGameActive', {value: false});
+      // clear history if flipped to ROBOT
+      if (!this.isMyMove())
+        this.$store.commit('setHistoryFen');  // no paraneters - clear history
     },
     actReload() {
       if (this.canReload())
@@ -168,7 +171,7 @@ export default {
 
     }
     if (childTo === undefined) childTo = this.tasksData[0].data[0]; //this.tasks[0].data[0];
-    //console.log(`childTo.service.id=${childTo.service.id}`);
+    //console.log(`childTo.id=${childTo.id}`);
     this.$store.commit('setChild', { child:  childTo});
     this.$store.commit('setGameActive', {value: false});
 

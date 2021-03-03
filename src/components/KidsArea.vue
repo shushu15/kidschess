@@ -2,7 +2,7 @@
   <v-container class="kidsarea">
     <div class="cartoon">
     <transition name="sliding">
-      <inline-svg v-if="flashAnimal"  :src="cartoonByID(this.$store.getters.getCurrentTask.service.id)" width="100" height="100" class="anim" />
+      <inline-svg v-if="flashAnimal"  :src="cartoonByID(this.$store.getters.getCurrentTask.id)" width="100" height="100" class="anim" />
     </transition> 
     </div>
     <v-row class="text-center">
@@ -10,13 +10,16 @@
       <v-col class="d-flex justify-center">
         <div class="layer1 pa-5 rounded-lg">       
         <KidsBoard ref="wrkBoard" class="kidsboard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
-              :id='this.$store.getters.getCurrentTask.service.id' :forced="this.forced" @on-orientation="flippedBoard"/>
+              :id='this.$store.getters.getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
          <div class="clock-opp"><v-icon  v-if="showClock('b')">
             mdi-alarm
         </v-icon></div>     
          <div class="clock-my"><v-icon v-if="showClock('w')">
             mdi-alarm
-        </v-icon></div> 
+        </v-icon></div>
+        <v-btn class="backward-my" icon  color="blue" @click="actBackward" :disabled="!canBackward" >
+            <v-icon>mdi-step-backward</v-icon>
+        </v-btn> 
         <v-fade-transition v-if="showBtnStart">
           <div  class="action-buttons">
             <v-btn v-if="showBtnStart" rounded color="primary"  @click="bntGameStart">{{ $t('btn.game.start') }}</v-btn>
@@ -26,14 +29,12 @@
       </v-col>
     </v-row>
     <v-row class="text-center">
-
       <v-col
-        class="mb-5"
         cols="12"
       >
-        <h2 class="headline font-weight-medium mb-3">
+        <div class="text-subtitle-1">
             {{this.$store.getters.getCurrentTask.description[$i18n.locale]}}        
-        </h2>
+        </div>
       </v-col>
 
     </v-row>
@@ -57,16 +58,16 @@ import InlineSvg from 'vue-inline-svg';
     // tasks: Array,
     forced: Date,
   }, 
-  data () {
+  /* data () {
     return {
       currentFen: '',
       positionInfo: null,
     }
-  },
+  }, */
   methods: {
-    showInfo(data) {
+/*    showInfo(data) {
       this.positionInfo = data
-    },
+    }, */
     bntGameStart() {
       this.$refs.wrkBoard.aiNextMove();
     },
@@ -74,6 +75,12 @@ import InlineSvg from 'vue-inline-svg';
       if (this.$store.getters.isMoveOf(this.$store.state.HUMAN))
         this.$refs.wrkBoard.initialMove();
     }, 
+    actBackward() {
+      if (this.$store.state.history.fen.length > 1) {
+        this.$store.commit('actBackward');  
+        this.$refs.wrkBoard.actBackward();
+      }
+    },
 
     /*
     loadFen(fen) {
@@ -98,7 +105,7 @@ import InlineSvg from 'vue-inline-svg';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward']),
   },
     
   mounted() {
@@ -147,6 +154,11 @@ import InlineSvg from 'vue-inline-svg';
     position: absolute;
     bottom: 0px;
     right:  0px;
+  } 
+  .backward-my {
+    position: absolute;
+    bottom: 0px;
+    left:  0px;
   } 
   .sliding-enter-active {
     animation: sliding 0.5s;

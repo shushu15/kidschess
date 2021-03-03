@@ -11,11 +11,11 @@ export default {
     state.showDrawer = show === undefined ? !state.showDrawer : show;
   },
   setChild(state, {child}) {
-   // if (Object.keys(state.currentTask).length !== 0 && state.currentTask.service.id === child.service.id ) // the same need force to redraw
+   // if (Object.keys(state.currentTask).length !== 0 && state.currentTask.id === child.id ) // the same need force to redraw
    //   state.currentTask.fen += ' ';
    // else
       state.currentTask = child;
-      state.finishedGame = false;  
+      state.finishedGame = false;
   },
   setTurn(state, {turn}) {
     state.turn = turn;
@@ -32,9 +32,10 @@ export default {
   flipBoard(state) {
     if (state.currentTask) {
       state.currentTask.orientation =  (state.currentTask.orientation==='white'? 'black' : 'white');  
-      state.finishedGame = false;  
+      state.finishedGame = false; 
     }
   },
+
   setGameActive(state, {value}) {
     state.gameActive = value;
   },
@@ -49,5 +50,17 @@ export default {
   },
   flashAnimal(state, {value}) {
     state.flashAnimal = value;
-  }
+  },
+  setHistoryFen(state, payload) {
+    if (payload !== undefined && payload.fen !== undefined) { 
+      state.history.fen.push(payload.fen);
+    } else {
+      state.history.fen.length = 0;
+    }
+  },
+  // here we do not use 'fen' positions - will change to the counter
+  actBackward(state) {
+    if (state.history.fen.length > 1)
+      state.history.fen.pop();
+  },
 };

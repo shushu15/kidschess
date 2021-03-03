@@ -31,7 +31,7 @@ export default {
         commit('flashAnimal', {value: true}); }, 2000); 
     setTimeout(() => { 
         commit('flashAnimal', {value: false}); }, 4000); 
-  }
+  },
 
   /*
   requestDiscard({ state, getters, rootState }, { side }) {

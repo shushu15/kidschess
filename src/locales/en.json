@@ -20,5 +20,9 @@
   "menu.about.used3": "Chess validation: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
 
   "menu.about.contact": "Idea and games author Rifat Aysin, development Alex Vasilev: shu@rubl.com",
-  "menu.about.version": "Version"
+  "menu.about.version": "Version",
+  "message.copy.ok": "Copied",
+  "message.copy.error": "Not copied"
+
+
 }

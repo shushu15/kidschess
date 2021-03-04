@@ -25,13 +25,13 @@
         <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" >
             <v-icon>mdi-step-backward</v-icon>
         </v-btn> 
-        <v-tooltip v-model="showCopy" top>
+        <v-tooltip v-model="showCopy" top :open-on-hover="false" :open-on-click="false" >
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon class="mx-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on">
               <v-icon>mdi-information</v-icon>
             </v-btn> 
           </template>
-          <span>Programmatic tooltip</span>
+          <span>{{this.copyMessage}}</span>
         </v-tooltip>
        </v-col> 
     </v-row>
@@ -77,6 +77,7 @@ import InlineSvg from 'vue-inline-svg';
   data () {
     return {
       showCopy: false,
+      copyMessage: '',
     }
   },  
   /* data () {
@@ -103,12 +104,13 @@ import InlineSvg from 'vue-inline-svg';
       }
     },
     actInfo() {
+      let self = this;
       navigator.permissions.query({name: "clipboard-write"}).then(result => {
         if (result.state == "granted" || result.state == "prompt") {
           /* write to the clipboard now */
           let s = `${this.$store.getters.getCurrentTask.title[this.$i18n.locale]}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
           console.log(s);
-          this.updateClipboard(s);
+          this.updateClipboard(s, self);
           
         }
       });
@@ -116,12 +118,17 @@ import InlineSvg from 'vue-inline-svg';
       //console.log(this.$store.getters.getCurrentTask.fen);
       //console.log(this.$refs.wrkBoard.getHistory());
     },
-    updateClipboard(newClip) {
+    updateClipboard(newClip, self) {
       navigator.clipboard.writeText(newClip).then(function() {
           /* clipboard successfully set */
-          
+          self.copyMessage = self.$i18n.t('message.copy.ok');
+          self.showCopy = true;
+          setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 1000); 
         }, function() {
         /* clipboard write failed */
+          self.copyMessage = self.$i18n.t('message.copy.error');
+          self.showCopy = true;
+          setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 1000); 
       });
     },
 

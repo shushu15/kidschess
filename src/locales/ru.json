@@ -19,6 +19,10 @@
   "menu.about.used2": "Визуализация доски: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Проверка ходов: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.contact": "Идея и авторство игр: Рифат Айсин, разработка Александр Василёв: shu@rubl.com",
-  "menu.about.version": "Версия"
+  "menu.about.version": "Версия",
+
+  "message.copy.ok": "Скопировано",
+  "message.copy.error": "Не скопировано"
+
 
 }

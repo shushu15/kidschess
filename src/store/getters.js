@@ -9,9 +9,13 @@ export default {
     return state.moveAI;
   },
   getEngineDeep(state) {
-    console.log(`state.engineLevel :${state.engineLevel} state.engineDeep: ${state.engineDeep[state.engineLevel]} `); // eslint-disable-line no-console
+    console.log(`state.engineLevel :${state.engineLevel} state.engineDeep: ${state.engineDeep[state.engineLevel].depth} `); // eslint-disable-line no-console
 
-    return state.engineDeep[state.engineLevel];
+    return state.engineDeep[state.engineLevel].depth;
+  },
+  getEngineMistake(state) {
+    console.log(`state.engineLevel :${state.engineLevel} state.engineMistake: ${state.engineDeep[state.engineLevel].mistake} `); // eslint-disable-line no-console
+    return state.engineDeep[state.engineLevel].mistake;
   },
   flipToWhite(state) {
     return (state.currentTask && state.currentTask.orientation === 'black') && !state.gameActive;

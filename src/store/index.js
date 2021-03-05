@@ -19,8 +19,15 @@ const state = {
   turn: '',
   webWorkerAI: undefined, 
   moveAI: '', 
-  engineDeep: [1,2,6,10],
-  engineLevel: 3,
+  engineDeep: [ 
+    {depth: 1, mistake: 0.05},  // this entry is omitted, level starts from 1
+    {depth: 1, mistake: 0.05},
+    {depth: 1, mistake: 0.01},
+    {depth: 1, mistake: 0},
+    {depth: 4, mistake: 0},
+    {depth: 10, mistake: 0},
+  ],
+  engineLevel: 4,
   gameActive: false,
   // canReload: false
   lastPromotion: '',   // last cell promoted
@@ -88,7 +95,7 @@ const state = {
       data: [
         { 
           title: {ru: 'Три Козленка', en: 'Three Kids'},
-          fen: '7r/8/8/8/8/8/3PPP2/8 w - - 0 1',
+          fen: '4r3/8/8/8/8/8/3PPP2/8 w - - 0 1',
           description: { ru: 'Ладья против 3х связанных пешек. Ладья должна выигрывать', en: 'Rook against 3 connected pawns. The rook must win' },
           orientation: 'white',
           id: '157ca1d8-09eb-45dc-9529-668bb5562fa7',

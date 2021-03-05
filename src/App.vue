@@ -70,7 +70,7 @@
           thumb-label
           ticks
           :label="$t('menu.level')"
-          max=3
+          max=5
           min=1
         >
         </v-slider>
@@ -115,6 +115,7 @@ export default {
   }),
   methods: {
     selectChild(child) {
+      this.$store.dispatch('workerSendNewGame');
       this.$store.commit('setChild', { child });
       this.$store.commit('toggleDrawer', { show: false });
       this.$store.commit('setGameActive', {value: false});
@@ -130,8 +131,10 @@ export default {
         this.$store.commit('setHistoryFen');  // no paraneters - clear history
     },
     actReload() {
-      if (this.canReload())
+      if (this.canReload()) {
+        this.$store.dispatch('workerSendNewGame');
         this.forcedReload = new Date();
+      }
     },
     isMyMove() {
       return  this.$store.getters.isMoveOf(this.$store.state.HUMAN);
@@ -179,9 +182,9 @@ export default {
 
   },
   mounted() {
-    if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= 3) {
+    if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.lentgh-1) {
       this.playLevel = localStorage.playLevel;
-    }
+    } else this.playLevel =  this.$store.state.engineLevel;
     // WORKER
     let myTask;
     if (window.Worker) {
@@ -198,6 +201,7 @@ export default {
       };
 
       this.$store.commit('setWorkerAI', { worker: myTask });
+      //this.$store.dispatch('workerSendMistakeLevel'); 
     }
     // END WORKER
   },     

@@ -48,7 +48,9 @@ export default {
 
   mounted() {
     
-    setTimeout(() => { this.$store.commit('hideTitleScreen'); }, 5000); 
+    setTimeout(() => { this.$store.commit('hideTitleScreen'); 
+                      this.$store.dispatch('workerSendNewGame');
+                     }, 5000); 
     for (let i=1; i<8; i++) {
       setTimeout(() => { this.animalsList.push(i) }, 200*i); 
     }

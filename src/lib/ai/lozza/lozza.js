@@ -1688,6 +1688,15 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
         score = -this.alphabeta(node.childNode, depth+E-1, nextTurn, -beta, -alpha, NULL_Y, givesCheck);
       }
     }
+    // SHU
+    this.uci.send(`random score - mistakes ${this.uci.options.mistakes}`);
+    if (this.uci.options.mistakes && this.uci.options.mistakes != 0) {
+      let befroescore = score;
+      // let correction = this.uci.options.mistakes == 1? 0.05: 0.01;
+      score = board.randomScore(score, this.uci.options.mistakes);
+      this.uci.send('random score',`score ${score} score befroe ${befroescore}`);
+    }
+
 
     //{{{  unmake move
     
@@ -1700,7 +1709,7 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
     if (this.stats.timeOut) {
       return;
     }
-    // this.uci.send('move check',`move ${move} mv ${mv} score ${score} of best ${bestScore}`);
+    this.uci.send('move check',`move ${move} mv ${mv} score ${score} of best ${bestScore}`);
 
     if (score > bestScore) {
       if (score > alpha) {
@@ -1835,8 +1844,12 @@ lozChess.prototype.alphabeta = function (node, depth, turn, alpha, beta, nullOK,
     if (score != TTSCORE_UNKNOWN)
       return score;
   
-    score = this.qSearch(node, -1, turn, alpha, beta);
-  
+    //SHU add checking mistakes option
+    // if (!(this.uci.options.mistakes && this.uci.options.mistakes === 'on') ) {
+      score = this.qSearch(node, -1, turn, alpha, beta);
+    // } else {
+    //  this.uci.send('qSearch ignored');
+    //}
     return score;
   }
   
@@ -4080,7 +4093,7 @@ lozBoard.prototype.evaluate = function (turn) {
   //{{{  draw?
   
   //todo - lots more here and drawish.
-  // if (!uci.options['nokings']) {
+  // SHU
   if (this.wCounts[KING] > 0 && this.bCounts[KING] > 0) { 
     if (numPieces == 2)                                                                  // K v K.
       return CONTEMPT;
@@ -4112,13 +4125,6 @@ lozBoard.prototype.evaluate = function (turn) {
     if (numPieces == 4 && wNumQueens && bNumQueens)                                      // K+Q v K+Q.
       return CONTEMPT;
   }
-// SHU - added and removed
-//  else {
-//    if (turn==WHITE && this.wCount > 0 && this.bCount === 0)
-//      return 2000;
-//    if (turn==BLACK && this.bCount > 0 && this.wCount === 0)
-//      return -2000;
-//  }
   
   //}}}
 
@@ -5364,6 +5370,15 @@ lozBoard.prototype.rand32 = function () {
   return r;
 };
 
+/**
+* randomScore - adds a random part to score
+* @param score int - incoming score
+* @param part float - 0..1 what percent of score can be changed
+*****/
+lozBoard.prototype.randomScore = function(score, part) {
+  return score + Math.round(Math.abs(score) * part * (Math.random() - 0.5) * 2);
+};
+
 //}}}
 //{{{  .ttPut
 
@@ -6572,6 +6587,7 @@ onmessage = function(e) {
       var val = uci.getStr('value');
       
       uci.options[key] = val;
+      uci.send(`setoption ${key} to ${val}`);
       
       break;
       

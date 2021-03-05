@@ -50,7 +50,7 @@ export default {
     aiNextMove() {
       this.$store.commit('setGameActive', {value: true})
       // WORKER
-      this.$store.dispatch('workerRequest', { message: this.game.fen() }); 
+      this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
     }, 
     actBackward() {
       this.game.undo();

@@ -5,15 +5,23 @@ export default {
   /**
    * Worker methods
    */
-  workerRequest({state, getters}, {message}) {
-    state.webWorkerAI.postMessage(`position fen ${message}`);
-    // state.webWorkerAI.postMessage('setoption name nokings value true');
+  workerSendPosition({state, getters}, {position}) {
+    state.webWorkerAI.postMessage(`position fen ${position}`);
     state.webWorkerAI.postMessage(`go depth ${getters.getEngineDeep}`);
     // console.log(`dispatch workerRequest:${message} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
+  workerSendNewGame({state, dispatch}) {
+    state.webWorkerAI.postMessage('ucinewgame');
+    dispatch('workerSendMistakeLevel');
+//    state.webWorkerAI.postMessage(`debug on`);
+
+  },
+  workerSendMistakeLevel({state, getters}) {
+    state.webWorkerAI.postMessage(`setoption name mistakes value ${getters.getEngineMistake}`);
+  },
   workerReply( {commit}, { message }) { // received discard from web worker
-      // console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
+      console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
         let arrTokens = message.trim().split(' ');
         if (arrTokens.length > 1) {

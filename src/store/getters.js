@@ -17,6 +17,9 @@ export default {
     console.log(`state.engineLevel :${state.engineLevel} state.engineMistake: ${state.engineDeep[state.engineLevel].mistake} `); // eslint-disable-line no-console
     return state.engineDeep[state.engineLevel].mistake;
   },
+  getLevelHint(state) {
+    return state.engineDeep[state.engineLevel].hint;
+  },
   flipToWhite(state) {
     return (state.currentTask && state.currentTask.orientation === 'black') && !state.gameActive;
   },

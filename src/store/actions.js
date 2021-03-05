@@ -12,6 +12,7 @@ export default {
 
   },
   workerSendNewGame({state, dispatch}) {
+    console.log('dispatch workerSendNewGame'); // eslint-disable-line no-console
     state.webWorkerAI.postMessage('ucinewgame');
     dispatch('workerSendMistakeLevel');
 //    state.webWorkerAI.postMessage(`debug on`);

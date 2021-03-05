@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import getters from './getters';
 import mutations from './mutations';
 import actions from './actions';
-
+import i18n from '@/plugins/i18n'; 
 
 Vue.use(Vuex);
 
@@ -20,12 +20,11 @@ const state = {
   webWorkerAI: undefined, 
   moveAI: '', 
   engineDeep: [ 
-    {depth: 1, mistake: 5},  // this entry is omitted, level starts from 1
-    {depth: 1, mistake: 5},
-    {depth: 1, mistake: 1},
-    {depth: 1, mistake: 0},
-    {depth: 4, mistake: 0},
-    {depth: 10, mistake: 0},
+    {depth: 1, mistake: 5, hint: ''},  // this entry is omitted, level starts from 1
+    {depth: 1, mistake: 5, hint: i18n.t('level.1')}, 
+    {depth: 1, mistake: 0, hint: i18n.t('level.2')},
+    {depth: 4, mistake: 0, hint: i18n.t('level.3')},
+    {depth: 10, mistake: 0, hint: i18n.t('level.4')},
   ],
   engineLevel: 4,
   gameActive: false,

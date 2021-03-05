@@ -22,7 +22,14 @@
   "menu.about.contact": "Idea and games author Rifat Aysin, development Alex Vasilev: shu@rubl.com",
   "menu.about.version": "Version",
   "message.copy.ok": "Copied",
-  "message.copy.error": "Not copied"
+  "message.copy.error": "Not copied",
+  "level" : {
+    "1": "rookie",
+    "2": "simple",
+    "3": "difficult",
+    "4": "master"
+  }
+
 
 
 }

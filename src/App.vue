@@ -72,7 +72,9 @@
           :label="$t('menu.level')"
           :max= "this.$store.state.engineDeep.length-1"
           min=1
-          :tick-labels="[1,2,3,4,5]"
+          :tick-labels="[1,2,3,4]"
+          :hint="getLevelHint"
+          :persistent-hint="true"
         >
         </v-slider>
       </v-list-item >
@@ -146,7 +148,7 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','standardData','childByID']),
+    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','standardData','childByID','getLevelHint']),
     playLevel: {
       get () {
         return this.$store.state.engineLevel;
@@ -220,10 +222,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-input--slider .v-slider__ticks > span {
-  font-size: 8px;
-  font-weight: normal;
-  transform: translate(-50%);
-}
-</style>

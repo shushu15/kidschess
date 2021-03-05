@@ -152,7 +152,9 @@ export default {
       },
       set (value) {
         this.$store.commit('updateEngineLevel', {value});
+        this.$store.dispatch('workerSendMistakeLevel');
         localStorage.playLevel = value;
+
       }
     },
     drawer: {

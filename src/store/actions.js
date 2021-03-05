@@ -18,7 +18,8 @@ export default {
 
   },
   workerSendMistakeLevel({state, getters}) {
-    state.webWorkerAI.postMessage(`setoption name mistakes value ${getters.getEngineMistake}`);
+    if (state.webWorkerAI)
+      state.webWorkerAI.postMessage(`setoption name mistakes value ${getters.getEngineMistake}`);
   },
   workerReply( {commit}, { message }) { // received discard from web worker
       console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console

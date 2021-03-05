@@ -20,9 +20,9 @@ const state = {
   webWorkerAI: undefined, 
   moveAI: '', 
   engineDeep: [ 
-    {depth: 1, mistake: 0.05},  // this entry is omitted, level starts from 1
-    {depth: 1, mistake: 0.05},
-    {depth: 1, mistake: 0.01},
+    {depth: 1, mistake: 5},  // this entry is omitted, level starts from 1
+    {depth: 1, mistake: 5},
+    {depth: 1, mistake: 1},
     {depth: 1, mistake: 0},
     {depth: 4, mistake: 0},
     {depth: 10, mistake: 0},

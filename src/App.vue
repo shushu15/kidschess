@@ -70,8 +70,9 @@
           thumb-label
           ticks
           :label="$t('menu.level')"
-          max=5
+          :max= "this.$store.state.engineDeep.length-1"
           min=1
+          :tick-labels="[1,2,3,4,5]"
         >
         </v-slider>
       </v-list-item >
@@ -184,9 +185,6 @@ export default {
 
   },
   mounted() {
-    if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.lentgh-1) {
-      this.playLevel = localStorage.playLevel;
-    } else this.playLevel =  this.$store.state.engineLevel;
     // WORKER
     let myTask;
     if (window.Worker) {
@@ -206,6 +204,9 @@ export default {
       //this.$store.dispatch('workerSendMistakeLevel'); 
     }
     // END WORKER
+    if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.length-1) {
+      this.playLevel = localStorage.playLevel;
+    } 
   },     
   beforeDestroy() {
     // WORKER
@@ -218,3 +219,11 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.v-input--slider .v-slider__ticks > span {
+  font-size: 8px;
+  font-weight: normal;
+  transform: translate(-50%);
+}
+</style>

@@ -5376,7 +5376,8 @@ lozBoard.prototype.rand32 = function () {
 * @param part float - 0..1 what percent of score can be changed
 *****/
 lozBoard.prototype.randomScore = function(score, part) {
-  return score + Math.round(Math.abs(score) * part * (Math.random() - 0.5) * 2);
+  return score + Math.round((score==0? 0 : Math.log(Math.abs(score))) * part * (Math.random() - 0.5) * 2);
+  // return score + Math.round(Math.abs(score) * part * (Math.random() - 0.5) * 2);
 };
 
 //}}}

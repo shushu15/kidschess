@@ -72,7 +72,6 @@
           :label="$t('menu.level')"
           :max= "this.$store.state.engineDeep.length-1"
           min=1
-          :tick-labels="[1,2,3,4]"
           :hint="getLevelHint"
           :persistent-hint="true"
         >

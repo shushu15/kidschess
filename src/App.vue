@@ -81,8 +81,7 @@
     </v-list>    
     </v-navigation-drawer>    
 
-    <v-main>
-      <!-- KidsArea :tasks="this.tasks" :forced="this.forcedReload"/ -->
+    <v-main class="main-screen">
       <KidsArea :forced="this.forcedReload"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
     </v-main>
@@ -220,4 +219,11 @@ export default {
 
 };
 </script>
+<style scoped>
+
+.main-screen {
+  position: relative;
+}
+
+</style>
 

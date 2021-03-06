@@ -1,7 +1,5 @@
 <template>
       <transition name="fade">
-  <v-row>
-    <v-col cols="12" justify-center>
         <v-card class="title-screen">
           <v-card-text>
               <div class="d-flex justify-center text-center"><h2>{{ $t('title.2') }}</h2></div>
@@ -26,8 +24,6 @@
           </transition-group> 
           </div>
         </v-card>
-     </v-col>
-   </v-row>
       </transition>
 </template>
 
@@ -58,25 +54,20 @@ setTimeout(() => { this.$store.commit('hideTitleScreen');
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .title-screen {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: calc(100vh - 64px);
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
   border: 0;
- // font-size: 5rem;
- // font-weight: 100;
- // letter-spacing: 0.5rem;
   transition: all 0.2s;
   z-index: 200;
-  // background: $secondary-color;
-  //background: radial-gradient(#333 0,  #eee 100%), url("../assets/cribbage-title.jpg");
 }
 
 .animals {
@@ -99,10 +90,6 @@ setTimeout(() => { this.$store.commit('hideTitleScreen');
   border: 0;
   height: 200px;
   width: 400px;
-  // box-shadow: 0 0 20px 20px #444, inset 0 0 10px 20px #444;
-  // background: url("../assets/cribbage-title.jpg") no-repeat center, transparent radial-gradient(#333 0,  #eee 100%);
-  // background: radial-gradient(transparent 0, transparent 50%, var(--outer-color) 90%), url("../assets/cribbage-title.jpg") no-repeat center;
-
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;

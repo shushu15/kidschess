@@ -113,7 +113,7 @@ export default {
             },
           });
         } else {
-          console.log(`AI move unparced ${newValue}`);
+          console.log(`AI move unparced ${newValue}`); // eslint-disable-line no-console
           this.game.move(newValue, { sloppy: true }); 
 
           this.board.set({

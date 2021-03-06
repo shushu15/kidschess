@@ -12,7 +12,7 @@ export default {
 
   },
   workerSendNewGame({state, dispatch}) {
-    console.log('dispatch workerSendNewGame'); // eslint-disable-line no-console
+    // console.log('dispatch workerSendNewGame'); // eslint-disable-line no-console
     state.webWorkerAI.postMessage('ucinewgame');
     dispatch('workerSendMistakeLevel');
 //    state.webWorkerAI.postMessage(`debug on`);
@@ -23,7 +23,7 @@ export default {
       state.webWorkerAI.postMessage(`setoption name mistakes value ${getters.getEngineMistake}`);
   },
   workerReply( {commit}, { message }) { // received discard from web worker
-      console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
+      // console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
         let arrTokens = message.trim().split(' ');
         if (arrTokens.length > 1) {

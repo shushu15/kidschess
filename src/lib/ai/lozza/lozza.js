@@ -1689,7 +1689,7 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
       }
     }
     // SHU
-    this.uci.send(`random score - mistakes ${this.uci.options.mistakes}`);
+    // this.uci.send(`random score - mistakes ${this.uci.options.mistakes}`);
     if (this.uci.options.mistakes && this.uci.options.mistakes != 0) {
       let befroescore = score;
       // let correction = this.uci.options.mistakes == 1? 0.05: 0.01;
@@ -1709,7 +1709,7 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
     if (this.stats.timeOut) {
       return;
     }
-    this.uci.send('move check',`move ${move} mv ${mv} score ${score} of best ${bestScore}`);
+    // this.uci.send('move check',`move ${move} mv ${mv} score ${score} of best ${bestScore}`);
 
     if (score > bestScore) {
       if (score > alpha) {
@@ -1756,8 +1756,10 @@ lozChess.prototype.search = function (node, depth, turn, alpha, beta) {
   }
 
   if (numLegalMoves == 0) {
-    if (board.wCounts[KING] && board.bCounts[KING])    // SHU
+    if (board.wCounts[KING] && board.bCounts[KING]) {   // SHU
       this.uci.debug('INVALID');
+      this.stats.timeOut = 1; // SHU added stop search
+    }
     else { 
       this.stats.timeOut = 1; // stop search
       this.uci.debug('TIMEOUT=1');

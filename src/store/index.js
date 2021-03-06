@@ -20,8 +20,8 @@ const state = {
   webWorkerAI: undefined, 
   moveAI: '', 
   engineDeep: [ 
-    {depth: 1, mistake: 5, hint: ''},  // this entry is omitted, level starts from 1
-    {depth: 1, mistake: 5, hint: i18n.t('level.1')}, 
+    {depth: 1, mistake: 2, hint: ''},  // this entry is omitted, level starts from 1
+    {depth: 1, mistake: 2, hint: i18n.t('level.1')}, 
     {depth: 1, mistake: 0, hint: i18n.t('level.2')},
     {depth: 4, mistake: 0, hint: i18n.t('level.3')},
     {depth: 10, mistake: 0, hint: i18n.t('level.4')},

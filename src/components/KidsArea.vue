@@ -54,7 +54,23 @@
       </v-col>
 
     </v-row>
-    
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="3000"
+      color="blue-grey"
+    >
+      {{this.$store.state.snackbarMessage}}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          {{ $t('btn.close') }}
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -156,7 +172,18 @@ import InlineSvg from 'vue-inline-svg';
   }, 
      computed: {
     ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward']),
+    snackbar: {
+      get() {
+        console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
+        return this.$store.state.snackbarMessage !== '';
+      },
+      set(value) {
+        console.log(`snackbar set ${value}`);
+        this.$store.commit('snackbarMessage', { value });
+      },
+    }, 
   },
+  
     
   mounted() {
     // this.loadTask(0, 0); 

@@ -37,6 +37,7 @@ const state = {
   history: {
     fen: [],
   },
+  snackbarMessage: '',
   // ----------------
   tasks : [
     { title: {ru: 'Одежда для короля', en: "King's clothes"},

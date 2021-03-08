@@ -55,6 +55,7 @@ export default {
     actBackward() {
       this.game.undo();
       this.game.undo();
+      this.$store.commit('bestMove', { move: '' }); // clear last moveAI to watch 1 back move
       this.board.set({
         fen: this.game.fen(),
         turnColor: this.toColor(),
@@ -80,10 +81,11 @@ export default {
   },
    watch: {
     id: function() { 
+      console.log(`KidsBoard Watcher id`); // eslint-disable-line no-console ,
       this.initialMove();
-      // console.log('change id'); // eslint-disable-line no-console ,
     }, 
     forced: function() { 
+      console.log(`KidsBoard Watcher forced`); // eslint-disable-line no-console ,
       this.loadPosition(); 
       this.$store.commit('setGameActive', {value: false}); 
       this.initialMove(); 
@@ -94,7 +96,9 @@ export default {
     this.unwatch = this.$store.watch(  // https://vuex.vuejs.org/api/#watch
       (state, getters) => getters.moveAI,
       (newValue /*, oldValue*/) => {
-        // console.log(`Updating from ${oldValue} to ${newValue}`);
+        console.log(`KidsBoard Watcher MoveAI ${newValue}`); // eslint-disable-line no-console ,
+        if (newValue.length === 0) // '' clears on backmove
+          return;
         if (newValue.length === 4) {
           let orig = newValue.slice(0,2);
           let dest = newValue.slice(2);

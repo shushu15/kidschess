@@ -63,4 +63,10 @@ export default {
     if (state.history.fen.length > 1)
       state.history.fen.pop();
   },
+  snackbarMessage(state, {value}) {
+    if (typeof value === "boolean" && !value) 
+      state.snackbarMessage = '';
+    else  
+      state.snackbarMessage = value;
+  }
 };

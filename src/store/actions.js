@@ -1,5 +1,4 @@
-//const DEFAULT_DELAY = 250;
-//const DELAY_TIPS = 3000;
+import i18n from '@/plugins/i18n'; 
 
 export default {
   /**
@@ -8,22 +7,24 @@ export default {
   workerSendPosition({state, getters}, {position}) {
     state.webWorkerAI.postMessage(`position fen ${position}`);
     state.webWorkerAI.postMessage(`go depth ${getters.getEngineDeep}`);
-    // console.log(`dispatch workerRequest:${message} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
+    console.log(`dispatch workerRequest:${position} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
   workerSendNewGame({state, dispatch}) {
-    // console.log('dispatch workerSendNewGame'); // eslint-disable-line no-console
+    console.log('dispatch workerSendNewGame'); // eslint-disable-line no-console
     state.webWorkerAI.postMessage('ucinewgame');
     dispatch('workerSendMistakeLevel');
 //    state.webWorkerAI.postMessage(`debug on`);
 
   },
   workerSendMistakeLevel({state, getters}) {
-    if (state.webWorkerAI)
+    if (state.webWorkerAI) {
       state.webWorkerAI.postMessage(`setoption name mistakes value ${getters.getEngineMistake}`);
+      console.log(`dispatch workerSendMistakeLevel ${getters.getEngineMistake}`); // eslint-disable-line no-console
+    }
   },
   workerReply( {commit}, { message }) { // received discard from web worker
-      // console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
+      console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
         let arrTokens = message.trim().split(' ');
         if (arrTokens.length > 1) {
@@ -31,6 +32,7 @@ export default {
         }
         else {
           commit('finishedGame', {value: true});
+          commit('snackbarMessage', {value: i18n.t('result.won')});
           // console.log(`dispatch workerReply nomove`); // eslint-disable-line no-console
         }
       }

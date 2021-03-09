@@ -28,7 +28,13 @@
     "2": "simple",
     "3": "difficult",
     "4": "master"
+  },
+  "result" : {
+    "won": "You won",
+    "lost": "You lose",
+    "draw": "Draw game"
   }
+
 
 
 

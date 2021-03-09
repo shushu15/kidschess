@@ -95,6 +95,8 @@ import TitleScreen from './components/TitleScreen.vue';
 import KidsArea from './components/KidsArea.vue';
 import AboutDlg from '@/components/AboutDlg'; 
 import InlineSvg from 'vue-inline-svg';
+import * as KidsConst from '@/lib/const.js';
+
 
 
 export default {
@@ -138,7 +140,7 @@ export default {
       }
     },
     isMyMove() {
-      return  this.$store.getters.isMoveOf(this.$store.state.HUMAN);
+      return  this.$store.getters.isMoveOf(KidsConst.HUMAN);
     },
     canReload() {
       return this.isMyMove() || this.finishedGame;

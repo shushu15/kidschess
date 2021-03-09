@@ -59,6 +59,9 @@
       :timeout="3000"
       color="blue-grey"
     >
+      <v-avatar>
+        <inline-svg :src="cartoonByID(this.$store.getters.getCurrentTask.id)" />
+      </v-avatar>
       {{this.$store.state.snackbarMessage}}
 
       <template v-slot:action="{ attrs }">
@@ -78,6 +81,8 @@
 import {  mapGetters } from 'vuex'; 
 import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
+import * as KidsConst from '@/lib/const.js';
+
 
   export default {
     name: 'KidsArea',
@@ -110,7 +115,7 @@ import InlineSvg from 'vue-inline-svg';
       this.$refs.wrkBoard.aiNextMove();
     },
     flippedBoard() {
-      if (this.$store.getters.isMoveOf(this.$store.state.HUMAN))
+      if (this.$store.getters.isMoveOf(KidsConst.HUMAN))
         this.$refs.wrkBoard.initialMove();
     }, 
     actBackward() {

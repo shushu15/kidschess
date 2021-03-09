@@ -1,3 +1,5 @@
+import * as KidsConst from '@/lib/const.js';
+
 export default {
   getCurrentTask(state) {
     return state.currentTask;
@@ -42,7 +44,7 @@ export default {
   isMoveOf: (state, getters) => (side) => {
     let forHuman = getters.getTurn === 'w' && state.currentTask.orientation === 'white' ||
     getters.getTurn === 'b' && state.currentTask.orientation === 'black';
-    return side === state.HUMAN? forHuman: !forHuman;
+    return side === KidsConst.HUMAN? forHuman: !forHuman;
   },
   finishedGame(state) {
     return state.finishedGame;
@@ -96,7 +98,15 @@ export default {
     return cartoonFound;
   },
   canBackward(state, getters) {
-    return getters.isMoveOf(state.HUMAN) && state.history.fen.length > 1;
+    return getters.isMoveOf(KidsConst.HUMAN) && state.history.fen.length > 1;
+  },
+  getTaskRules(state, getters) {
+    if (getters.getCurrentTask().rules !== undefined)
+      return getters.getCurrentTask().rules;
+    else // TODO: read parent rules
+      return 'material_win';
+
+
   }
 
 

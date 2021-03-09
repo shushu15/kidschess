@@ -4,15 +4,14 @@ import getters from './getters';
 import mutations from './mutations';
 import actions from './actions';
 import i18n from '@/plugins/i18n'; 
+import * as KidsConst from '@/lib/const.js';
 
 Vue.use(Vuex);
 
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '0.1.3',
-  HUMAN: 1,
-  ROBOT: 2,
+  version: '0.1.4',
   isTitleShowing: true,
   showDrawer: false,
   currentTask: {}, 
@@ -46,6 +45,7 @@ const state = {
                     },
       active: 0,
       avatar: require("@/assets/img/046-lion.svg"),
+      rules: KidsConst.RULES_MATERIAL_WIN,
       data: [
         { 
           title: {ru: 'Штаны для короля', en: "King's pants"},
@@ -92,6 +92,7 @@ const state = {
       active: 0,                
       avatar: require("@/assets/img/098-wolf.svg"),
       cartoon: require("@/assets/img/029-goat.svg"),
+      rules: KidsConst.RULES_MATERIAL_WIN,
       data: [
         { 
           title: {ru: 'Три Козленка', en: 'Three Kids'},
@@ -139,6 +140,7 @@ const state = {
                     },
       active: 0,                
       avatar: require("@/assets/img/022-elephant.svg"),
+      rules: KidsConst.RULES_MATERIAL_WIN,
       data: [
         { 
           title: {ru: 'Плавки для Слона', en: 'Elephant swim trunks'},
@@ -219,6 +221,7 @@ const state = {
                     },
       active: 0,                
       avatar: require("@/assets/img/heroe.svg"),
+      rules: KidsConst.RULES_MATERIAL_WIN,
       data: [
         { 
           title: {ru: 'Битва', en: 'Battle'},
@@ -275,8 +278,8 @@ const state = {
     orientation: 'white',
     id: '118ccf0b-9c1e-4129-a6db-929b36010a02',
     avatar: require("@/assets/img/crown.svg"),
-    cartoon: require("@/assets/img/027-panda bear.svg"), // change to some alive like
-
+    cartoon: require("@/assets/img/027-panda bear.svg"), 
+    rules: KidsConst.RULES_CHESS,
   },
 
 };

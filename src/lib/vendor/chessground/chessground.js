@@ -135,8 +135,7 @@ export var Chessground = (function () {
     }
     function pawn(color) {
         return (x1, y1, x2, y2) => diff(x1, x2) < 2 &&
-            (color === 'white'
-                ?
+            (color === 'white' ?
                     y2 === y1 + 1 || (y1 <= 1 && y2 === y1 + 2 && x1 === x2)
                 : y2 === y1 - 1 || (y1 >= 6 && y2 === y1 - 2 && x1 === x2));
     }
@@ -180,16 +179,16 @@ export var Chessground = (function () {
         const piece = pieces.get(key);
         if (!piece)
             return [];
-        const pos = util.key2pos(key), r = piece.role, mobility = r === 'pawn'
-            ? pawn(piece.color)
-            : r === 'knight'
-                ? exports.knight
-                : r === 'bishop'
-                    ? bishop
-                    : r === 'rook'
-                        ? rook
-                        : r === 'queen'
-                            ? exports.queen
+        const pos = util.key2pos(key), r = piece.role, mobility = r === 'pawn' ?
+            pawn(piece.color)
+            : r === 'knight' ? 
+                exports.knight
+                : r === 'bishop' ?
+                     bishop
+                    : r === 'rook' ? 
+                        rook
+                        : r === 'queen' ? 
+                            exports.queen
                             : king(piece.color, rookFilesOf(pieces, piece.color), canCastle);
         return util.allPos
             .filter((pos2) => (pos[0] !== pos2[0] || pos[1] !== pos2[1]) &&
@@ -540,8 +539,8 @@ export var Chessground = (function () {
         let rank = 7 - Math.floor((8 * (pos[1] - bounds.top)) / bounds.height);
         if (!asWhite)
             rank = 7 - rank;
-        return file >= 0 && file < 8 && rank >= 0 && rank < 8
-            ? util.pos2key([file, rank])
+        return file >= 0 && file < 8 && rank >= 0 && rank < 8 ? 
+            util.pos2key([file, rank])
             : undefined;
     }
     exports.getKeyAtDomPos = getKeyAtDomPos;
@@ -699,8 +698,8 @@ export var Chessground = (function () {
     exports.render = exports.anim = void 0;
 
     function anim(mutation, state) {
-        return state.animation.enabled
-            ? animate(mutation, state)
+        return state.animation.enabled ? 
+            animate(mutation, state)
             : render(mutation, state);
     }
     exports.anim = anim;
@@ -840,8 +839,8 @@ export var Chessground = (function () {
                 if (!keyAtDomPos) {
                     cur.snapToValidMove = false;
                 }
-                const mouseSq = cur.snapToValidMove
-                    ? board.getSnappedKeyAtDomPos(cur.orig, cur.pos, board.whitePov(state), state.dom.bounds())
+                const mouseSq = cur.snapToValidMove ? 
+                    board.getSnappedKeyAtDomPos(cur.orig, cur.pos, board.whitePov(state), state.dom.bounds())
                     : keyAtDomPos;
                 if (mouseSq !== cur.mouseSq) {
                     cur.mouseSq = mouseSq;
@@ -1722,8 +1721,8 @@ export var Chessground = (function () {
 
     const util$1 = util;
     function render(s) {
-        const asWhite = board.whitePov(s), posToTranslate = s.dom.relative
-            ? util$1.posToTranslateRel
+        const asWhite = board.whitePov(s), posToTranslate = s.dom.relative ? 
+            util$1.posToTranslateRel
             : util$1.posToTranslateAbs(s.dom.bounds()), translate = s.dom.relative ? util$1.translateRel : util$1.translateAbs, boardEl = s.dom.elements.board, pieces = s.pieces, curAnim = s.animation.current, anims = curAnim ? curAnim.plan.anims : new Map(), fadings = curAnim ? curAnim.plan.fadings : new Map(), curDrag = s.draggable.current, squares = computeSquareClasses(s), samePieces = new Set(), sameSquares = new Set(), movedPieces = new Map(), movedSquares = new Map();
         let k, el, pieceAtKey, elPieceName, anim, fading, pMvdset, pMvd, sMvdset, sMvd;
         el = boardEl.firstChild;

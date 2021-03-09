@@ -1,7 +1,8 @@
 
 <script>
 import {  mapGetters } from 'vuex'; 
-import { chessboard }  from '@/components/vendor/chessboard/index.js'
+import { chessboard }  from '@/components/vendor/chessboard/index.js';
+import * as KidsConst from '@/lib/const.js';
 // import { chessboard }  from 'vue-chessboard'
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine/js-chess-engine';
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
@@ -25,7 +26,7 @@ export default {
         this.$store.commit('setTurn', { turn: this.game.turn() });
        // }, 1000);
        this.$store.commit('setHistoryFen');  // no paraneters - clear history
-       if (this.isMoveOf(this.$store.state.HUMAN)) { // if move of HUMAN save its fen
+       if (this.isMoveOf(KidsConst.HUMAN)) { // if move of HUMAN save its fen
         this.$store.commit('setHistoryFen', {fen: this.game.fen()});
        }
 
@@ -69,7 +70,20 @@ export default {
     },
     getHistory() {
       return this.game.history();
-    } 
+    },
+    // check for chess or specil rules game end
+    checkRules(){
+      if (this.$store.state.currentTask.rules !== undefined && (this.$store.state.currentTask.rules & KidsConst.RULES_CHESS)) {
+          // chess rules
+      } else //TODO: read .rules field from parent
+      { // RULES_MATERIAL_WIN
+        if (this.game.in_stalemate()) { // no moves
+          this.$store.commit('finishedGame', {value: true});
+          this.$store.commit('snackbarMessage', {value: this.$i18n.t('result.lost')});
+        }
+      }
+    }
+    //}
     /*
     gameLoaded() {
       this.$store.commit('canReload', {value: false})  
@@ -79,7 +93,7 @@ export default {
   computed: {
     ...mapGetters(['isMoveOf']),
   },
-   watch: {
+  watch: {
     id: function() { 
       console.log(`KidsBoard Watcher id`); // eslint-disable-line no-console ,
       this.initialMove();
@@ -132,17 +146,17 @@ export default {
         }
         this.calculatePromotions();
         this.$store.commit('setTurn', { turn: this.game.turn() });
+        // get FEN before HUMAN move
         this.$store.commit('setHistoryFen', {fen: this.game.fen()});
+        this.checkRules();
       },
     );
   },
+
   beforeDestroy() {
     this.unwatch();
   },
-//  mounted() {
-//    // this.AIgame = new jsChess.Game();
-//  }
-}
+};
 </script>
 
 

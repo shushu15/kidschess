@@ -45,7 +45,6 @@ const state = {
                     },
       active: 0,
       avatar: require("@/assets/img/046-lion.svg"),
-      rules: KidsConst.RULES_MATERIAL_WIN,
       data: [
         { 
           title: {ru: 'Штаны для короля', en: "King's pants"},
@@ -91,8 +90,10 @@ const state = {
                     },
       active: 0,                
       avatar: require("@/assets/img/098-wolf.svg"),
-      cartoon: require("@/assets/img/029-goat.svg"),
-      rules: KidsConst.RULES_MATERIAL_WIN,
+      cartoon: {
+        white: require("@/assets/img/029-goat.svg"),
+        black: require("@/assets/img/098-wolf.svg"),
+      },
       data: [
         { 
           title: {ru: 'Три Козленка', en: 'Three Kids'},
@@ -140,7 +141,6 @@ const state = {
                     },
       active: 0,                
       avatar: require("@/assets/img/022-elephant.svg"),
-      rules: KidsConst.RULES_MATERIAL_WIN,
       data: [
         { 
           title: {ru: 'Плавки для Слона', en: 'Elephant swim trunks'},
@@ -221,7 +221,7 @@ const state = {
                     },
       active: 0,                
       avatar: require("@/assets/img/heroe.svg"),
-      rules: KidsConst.RULES_MATERIAL_WIN,
+      rules: KidsConst.RULES_DEFAULT | KidsConst.RULES_3_REPETITION,
       data: [
         { 
           title: {ru: 'Битва', en: 'Battle'},
@@ -278,7 +278,10 @@ const state = {
     orientation: 'white',
     id: '118ccf0b-9c1e-4129-a6db-929b36010a02',
     avatar: require("@/assets/img/crown.svg"),
-    cartoon: require("@/assets/img/027-panda bear.svg"), 
+    cartoon: { 
+      white: require("@/assets/img/027-panda bear.svg"), 
+      black: require("@/assets/img/010-cat.svg"), 
+    },
     rules: KidsConst.RULES_CHESS,
   },
 

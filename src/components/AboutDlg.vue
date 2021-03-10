@@ -14,7 +14,8 @@
         <v-divider> </v-divider>
         <span v-html="$t('menu.about.used1')"></span><br />
         <span v-html="$t('menu.about.used2')"></span><br />
-        <span v-html="$t('menu.about.used3')"></span>
+        <span v-html="$t('menu.about.used3')"></span><br />
+        <span v-html="$t('menu.about.used4')"></span>
         <v-divider></v-divider>
         {{ $t('menu.about.contact') }}
         {{ $t('menu.about.version') }} : {{$store.state.version}}<br />

@@ -2,15 +2,15 @@
   <v-container class="kidsarea">
     <div class="cartoon">
     <transition name="sliding">
-      <inline-svg v-if="flashAnimal"  :src="cartoonByID(this.$store.getters.getCurrentTask.id)" width="100" height="100" class="anim" />
+      <inline-svg v-if="flashAnimal"  :src="cartoonByID(getCurrentTask.id, getCurrentTask.orientation)" width="100" height="100" class="anim" />
     </transition> 
     </div>
     <v-row class="text-center">
 
       <v-col class="d-flex justify-center" cols="12">
         <div class="layer1 pa-4 ma-0 rounded-lg">       
-        <KidsBoard ref="wrkBoard" :fen='this.$store.getters.getCurrentTask.fen' :orientation='this.$store.getters.getCurrentTask.orientation' 
-              :id='this.$store.getters.getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
+        <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
+              :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
          <div class="clock-opp"><v-icon  v-if="showClock('b')">
             mdi-alarm
         </v-icon></div>     
@@ -49,7 +49,7 @@
         cols="12"
       >
         <div class="text-subtitle-1">
-            {{this.$store.getters.getCurrentTask.description[$i18n.locale]}}        
+            {{getCurrentTask.description[$i18n.locale]}}        
         </div>
       </v-col>
 
@@ -60,7 +60,7 @@
       color="blue-grey"
     >
       <v-avatar>
-        <inline-svg :src="cartoonByID(this.$store.getters.getCurrentTask.id)" />
+        <inline-svg :src="cartoonByID(getCurrentTask.id,getCurrentTask.orientation)" />
       </v-avatar>
       {{this.$store.state.snackbarMessage}}
 
@@ -176,7 +176,7 @@ import * as KidsConst from '@/lib/const.js';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask']),
     snackbar: {
       get() {
         console.log(`snackbar get ${this.$store.state.snackbarMessage}`);

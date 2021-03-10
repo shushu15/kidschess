@@ -4,20 +4,17 @@
   "title.2" : "шахматный клуб Рифата",
   "title.game": "Игра",
   "btn.game.start": "Начать игру",
-  "btn.game.confirm": "Подтвертить криб",
   "btn.game.continue": "Продолжить",
   "btn.game.over": "Игра окончена",
   "btn.close": "Закрыть",
   "btn.rules": "Правила",
-  "game.won.you": "Вы победили ",
-  "game.lose.you": "Вы проиграли",
-  "game.draw.you": "Ничья или непонятный результат",
   "menu.level": "Уровень",
   "menu.about": "О программе",
   "menu.about.text": "Козлята: шахматные обучающие игры",
   "menu.about.used1": "Используются:<br> Шахматный движок: lozza <a href='//github.com/op12no2/lozza'>github.com/op12no2/lozza</a> благодарность автору Colin Jenkins за помощь в адаптации" ,
   "menu.about.used2": "Визуализация доски: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Проверка ходов: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
+  "menu.about.used4": "Картинки: <a href='https://www.flaticon.com/'>Flaticon</a> ",
   "menu.about.contact": "Идея и авторство игр: Рифат Айсин, разработка Александр Василёв: shu@rubl.com",
   "menu.about.version": "Версия",
 
@@ -32,7 +29,7 @@
   "result" : {
     "won": "Вы победили",
     "lost": "Вы проиграли",
-    "draw": "Ничья"
+    "draw": "Ничья или непонятный результат"
   }
 
 

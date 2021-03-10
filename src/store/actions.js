@@ -1,4 +1,4 @@
-import i18n from '@/plugins/i18n'; 
+// import i18n from '@/plugins/i18n'; 
 
 export default {
   /**
@@ -31,8 +31,9 @@ export default {
           commit('bestMove', { move: arrTokens[1] });
         }
         else {
+          // TODO: check if this is called at all after adding checkRules()
           commit('finishedGame', {value: true});
-          commit('snackbarMessage', {value: i18n.t('result.won')});
+          // commit('snackbarMessage', {value: i18n.t('result.won')});
           // console.log(`dispatch workerReply nomove`); // eslint-disable-line no-console
         }
       }

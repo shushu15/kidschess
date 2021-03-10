@@ -4,21 +4,17 @@
   "title.2" : "Rifat's Chess Club",
   "title.game": "Game",
   "btn.game.start": "Start game",
-  "btn.game.confirm": "Confirm crib",
   "btn.game.continue": "Continue",
   "btn.game.over": "Game over",
   "btn.close": "Close",
   "btn.rules": "Rules",
-  "game.won.you": "You won the game",
-  "game.lose.you": "You lose the game",
-  "game.draw.you": "Draw game or unknown result",
   "menu.level": "Level",
   "menu.about": "About a program",
   "menu.about.text": "Kids: chess learning games",
   "menu.about.used1": "Chess engine: lozza <a href='//github.com/op12no2/lozza'>github.com/op12no2/lozza</a> thanks to Colin Jenkins for help in adaptation" ,
   "menu.about.used2": "Board: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Chess validation: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
-
+  "menu.about.used4": "Icons: <a href='https://www.flaticon.com/'>Flaticon</a>",
   "menu.about.contact": "Idea and games author Rifat Aysin, development Alex Vasilev: shu@rubl.com",
   "menu.about.version": "Version",
   "message.copy.ok": "Copied",
@@ -32,7 +28,7 @@
   "result" : {
     "won": "You won",
     "lost": "You lose",
-    "draw": "Draw game"
+    "draw": "Draw game or unknown result"
   }
 
 

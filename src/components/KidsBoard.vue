@@ -50,6 +50,7 @@ export default {
     },
     aiNextMove() {
       this.$store.commit('setGameActive', {value: true})
+      this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
       // WORKER
       this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
     }, 
@@ -72,16 +73,23 @@ export default {
       return this.game.history();
     },
     // check for chess or specil rules game end
-    checkRules(){
-      if (this.$store.state.currentTask.rules !== undefined && (this.$store.state.currentTask.rules & KidsConst.RULES_CHESS)) {
-          // chess rules
-      } else //TODO: read .rules field from parent
-      { // RULES_MATERIAL_WIN
-        if (this.game.in_stalemate()) { // no moves
+    checkRules(side){
+      let rules = this.getTaskRules;
+      if (rules & KidsConst.RULES_CHESS) { // regular chess rules
+        if (this.game.in_checkmate()) {
           this.$store.commit('finishedGame', {value: true});
-          this.$store.commit('snackbarMessage', {value: this.$i18n.t('result.lost')});
+          this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won') });
+        } else if (this.game.in_draw()) {
+          this.$store.commit('finishedGame', {value: true});
+          this.$store.commit('snackbarMessage', {value: this.$i18n.t('result.draw')});
         }
+      } else if ((rules & KidsConst.RULES_STALEMATE_WIN) && this.game.in_stalemate()) {// Win on No-Move opponent
+        this.$store.commit('finishedGame', {value: true});
+        this.$store.commit('snackbarMessage', {value:  side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')});
+      } else if ((rules & KidsConst.RULES_MATERIAL_WIN) && this.game.in_stalemate()) {// Win on Material advantage
+        //TODO: MATERIAL_WIN
       }
+
     }
     //}
     /*
@@ -91,7 +99,7 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['isMoveOf']),
+    ...mapGetters(['isMoveOf', 'getTaskRules']),
   },
   watch: {
     id: function() { 
@@ -148,7 +156,7 @@ export default {
         this.$store.commit('setTurn', { turn: this.game.turn() });
         // get FEN before HUMAN move
         this.$store.commit('setHistoryFen', {fen: this.game.fen()});
-        this.checkRules();
+        this.checkRules(KidsConst.HUMAN);
       },
     );
   },

@@ -129,6 +129,7 @@ export default {
     actFlipBoard() {
       this.$store.commit('flipBoard');  
       this.$store.commit('setGameActive', {value: false});
+      this.$store.dispatch('flashAnimal');
       // clear history if flipped to ROBOT
       if (!this.isMyMove())
         this.$store.commit('setHistoryFen');  // no paraneters - clear history

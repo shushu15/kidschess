@@ -230,6 +230,7 @@ const state = {
           description: { ru: '', en: '' },
           orientation: 'white',
           id: '6d67f327-1788-4bd5-87bf-51844af7e5fa',
+          difficulty: 1,
         },
         { 
           title: {ru: 'Битва 2', en: 'Battle 2'},
@@ -237,6 +238,7 @@ const state = {
           description: { ru: '', en: '' },
           orientation: 'white',
           id: '487b9798-6a0a-4da7-a46b-fbdbebd39704',
+          difficulty: 1,
         },
         { 
           title: {ru: 'Сражение', en: 'Struggle'},
@@ -244,6 +246,7 @@ const state = {
           description: { ru: '', en: '' },
           orientation: 'white',
           id: 'f1351919-198f-420d-ae76-f2ff86de087b',
+          difficulty: 1,
         },
         { 
           title: {ru: 'Сражение 2', en: 'Struggle 2'},
@@ -251,6 +254,7 @@ const state = {
           description: { ru: '', en: '' },
           orientation: 'white',
           id: '57e2aeb8-e0eb-48c9-8f55-d94f26229ce1',
+          difficulty: 1,
         },
 
          { 
@@ -259,6 +263,7 @@ const state = {
           description: { ru: '', en: '' },
           orientation: 'white',
           id: 'd04cd230-5ce6-4374-8abb-571676f4e4ef',
+          difficulty: 1,
         },
          { 
           title: {ru: 'Война 2', en: 'War 2'},
@@ -266,6 +271,7 @@ const state = {
           description: { ru: '', en: '' },
           orientation: 'white',
           id: '45bf6f3d-c0d4-4c0d-8d9d-21cfe079fc54',
+          difficulty: 1,
         },
 
       ]

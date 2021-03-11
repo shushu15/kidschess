@@ -138,6 +138,7 @@ export default {
       if (this.canReload()) {
         this.$store.dispatch('workerSendNewGame');
         this.forcedReload = new Date();
+        this.$store.dispatch('flashAnimal');
       }
     },
     isMyMove() {

@@ -1,5 +1,6 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint prefer-const: "off" */
+import * as KidsConst from '@/lib/const.js';
 
 
 export default {
@@ -31,7 +32,7 @@ export default {
   },
   flipBoard(state) {
     if (state.currentTask) {
-      state.currentTask.orientation =  (state.currentTask.orientation==='white'? 'black' : 'white');  
+      state.currentTask.orientation =  (state.currentTask.orientation===KidsConst.WHITE? KidsConst.BLACK : KidsConst.WHITE);  
       state.finishedGame = false; 
     }
   },

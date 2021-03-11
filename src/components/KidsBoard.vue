@@ -94,21 +94,57 @@ export default {
       } 
       if ((rules & KidsConst.RULES_STALEMATE_WIN) && this.game.in_stalemate()) {// Win on No-Move opponent
         this.$store.commit('finishedGame', {value: true});
-        this.$store.commit('snackbarMessage', {value:  side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')});
+        this.$store.commit('snackbarMessage', 
+          {value:  `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}` });
         return true;
       } 
       if (rules & KidsConst.RULES_SAFE_PROMOTION) {
         let history = this.game.history({verbose: true});
         // console.log(`history ${JSON.stringify(history)}`);
         if (history.length > 1 && history[history.length-2].flags.indexOf('p') >=0 && history[history.length-1].flags.indexOf('p') == -1 &&
-            history[history.length-2].to !== history[history.length-1].to) {
+            history[history.length-2].to !== history[history.length-1].to && 
+            (history.length === 2 || (history.length > 2 && history[history.length-3].flags.indexOf('p') == -1))) { // no pair promotion
           this.$store.commit('finishedGame', {value: true});
-          this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost') });
+          this.$store.commit('snackbarMessage', 
+            {value: `${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}` });
           return true;
         }
       } 
-      if ((rules & KidsConst.RULES_MATERIAL_WIN) && this.game.in_stalemate()) {// Win on Material advantage
-        //TODO: MATERIAL_WIN
+      if (rules & KidsConst.RULES_MATERIAL_WIN) {// Win on Material advantage
+        let history = this.game.history({verbose: true});
+        if (history[history.length-1].flags.indexOf('p') == -1) {  // no promotion on the last move
+          let fen = this.game.fen().splice(' ')[0];
+          if ((fen.match(/p/gi) || []).length == 0) { // no pawns
+            let wWeight = (fen.match(/Q/g) || []).length * KidsConst.QUEEN_WEIGHT +
+                    (fen.match(/R/g) || []).length * KidsConst.ROOK_WEIGHT +
+                    (fen.match(/B/g) || []).length * KidsConst.BISHOP_WEIGHT +
+                    (fen.match(/N/g) || []).length * KidsConst.KNIGHT_WEIGHT;
+            let bWeight = (fen.match(/q/g) || []).length * KidsConst.QUEEN_WEIGHT +
+                    (fen.match(/r/g) || []).length * KidsConst.ROOK_WEIGHT +
+                    (fen.match(/b/g) || []).length * KidsConst.BISHOP_WEIGHT +
+                    (fen.match(/k/g) || []).length * KidsConst.KNIGHT_WEIGHT;
+            let mess = '';
+            if (wWeight === bWeight) {
+              mess = this.$i18n.t('result.draw');
+            } else if ((wWeight - bWeight > 0 && this.getOrientation === KidsConst.WHITE) ||
+              (wWeight - bWeight < 0 && this.getOrientation === KidsConst.BLACK)) {
+              mess = this.$i18n.t('result.won');
+            } else {
+              mess = this.$i18n.t('result.lost'); 
+            }
+            this.$store.commit('finishedGame', {value: true});
+            this.$store.commit('snackbarMessage', 
+              {value: `${mess} - ${this.$i18n.t('reason.material')}` });
+            return true;
+          }
+
+        }
+      }
+      if ((rules & KidsConst.RULES_3_REPETITION) && this.game.in_threefold_repetition())  {// Draw on threfold repetitionRULES_3_REPETITIONaterial advantage
+          this.$store.commit('finishedGame', {value: true});
+          this.$store.commit('snackbarMessage', 
+            {value: `${this.$i18n.t('result.draw')} - ${this.$i18n.t('reason.threefold')}` });
+          return true;
       }
       return false;
     }
@@ -120,7 +156,7 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['isMoveOf', 'getTaskRules']),
+    ...mapGetters(['isMoveOf', 'getTaskRules', 'getOrientation']),
   },
   watch: {
     id: function() { 

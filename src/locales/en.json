@@ -28,8 +28,15 @@
   "result" : {
     "won": "You won",
     "lost": "You lose",
-    "draw": "Draw game or unknown result"
+    "draw": "Draw game"
+  },
+  "reason": {
+    "threefold": "threefold repetition",
+    "nomoves": "stalemate",
+    "safe_promotion" : "safe pawn promotion",
+    "material" : "material on the board"
   }
+
 
 
 

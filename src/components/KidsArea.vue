@@ -11,10 +11,10 @@
         <div class="layer1 pa-4 ma-0 rounded-lg">       
         <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
               :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
-         <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame}" v-show="showClock('b')">
+         <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('b')">
             mdi-alarm
         </v-icon></div>     
-         <div class="clock-my"><v-icon v-bind:class="{glow: !finishedGame}" v-show="showClock('w')">
+         <div class="clock-my"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('w')">
             mdi-alarm
         </v-icon></div>
          </div>  
@@ -56,10 +56,10 @@
     </v-row>
     <v-snackbar
       v-model="snackbar"
-      :timeout="4000"
+      :timeout="6000"
       color="blue-grey"
     >
-      <v-avatar>
+      <v-avatar class="float-left">
         <inline-svg :src="cartoonByID(getCurrentTask.id,getCurrentTask.orientation)" />
       </v-avatar>
       {{this.$store.state.snackbarMessage}}
@@ -136,9 +136,6 @@ import * as KidsConst from '@/lib/const.js';
           
         }
       });
-      //console.log(this.$store.getters.getCurrentTask.title[this.$i18n.locale]);
-      //console.log(this.$store.getters.getCurrentTask.fen);
-      //console.log(this.$refs.wrkBoard.getHistory());
     },
     updateClipboard(newClip, self) {
       navigator.clipboard.writeText(newClip).then(function() {
@@ -154,20 +151,6 @@ import * as KidsConst from '@/lib/const.js';
       });
     },
 
-    /*
-    loadFen(fen) {
-      this.currentFen = fen
-    }, */
-    /*
-    loadTask(taskIdx, subIdx) {
-       this.$store.commit('setChild', { child: this.tasks[taskIdx].data[subIdx] });
-      // this.currentTask = this.tasks[taskIdx].data[subIdx];
-      this.$refs.wrkBoard.initialMove();
-    }, */
-    //reloadTask() {
-    //  this.$refs.wrkBoard.initialMove();
-    //},
-
     promote() {
       if (confirm("Want to promote to rook? Queen by default") ) {
         return 'r'
@@ -177,7 +160,7 @@ import * as KidsConst from '@/lib/const.js';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);

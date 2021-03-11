@@ -26,29 +26,35 @@ export default {
   getLevelHint(state) {
     return state.engineDeep[state.engineLevel].hint;
   },
-  flipToWhite(state) {
-    return (state.currentTask && state.currentTask.orientation === 'black') && !state.gameActive;
+  flipToWhite(state, getters) {
+    return (state.currentTask && getters.getOrientation === KidsConst.BLACK) && !state.gameActive;
   },
-  flipToBlack(state) {
-    return (state.currentTask && state.currentTask.orientation === 'white') && !state.gameActive;
+  flipToBlack(state, getters) {
+    return (state.currentTask && getters.getOrientation === KidsConst.WHITE) && !state.gameActive;
+  },
+  getOrientation(state) {
+    return state.currentTask.orientation;
   },
   
   showClock: (state, getters) => (side) => {
-    return getters.getTurn === side && state.currentTask.orientation === 'white' ||
-    getters.getTurn === op(side) && state.currentTask.orientation === 'black';
+    return getters.getTurn === side && getters.getOrientation === KidsConst.WHITE ||
+    getters.getTurn === op(side) && getters.getOrientation === KidsConst.BLACK;
   }, 
   showBtnStart(state, getters) {
-    return !state.gameActive && (getters.getTurn === 'b' && state.currentTask.orientation === 'white' ||
-    getters.getTurn === 'w' && state.currentTask.orientation === 'black');
+    return !state.gameActive && (getters.getTurn === 'b' && getters.getOrientation === KidsConst.WHITE ||
+    getters.getTurn === 'w' && getters.getOrientation === KidsConst.BLACK);
   },
   reloadAllowed(state) {
     // return state.canReload;
     return state.gameActive;
   },
+  gameActive(state) {
+    return state.gameActive;
+  },
   // side here HUMAN of ROBOT. Robot is always on the NORTH
   isMoveOf: (state, getters) => (side) => {
-    let forHuman = getters.getTurn === 'w' && state.currentTask.orientation === 'white' ||
-    getters.getTurn === 'b' && state.currentTask.orientation === 'black';
+    let forHuman = getters.getTurn === 'w' && getters.getOrientation === KidsConst.WHITE ||
+    getters.getTurn === 'b' && getters.getOrientation === KidsConst.BLACK;
     return side === KidsConst.HUMAN? forHuman: !forHuman;
   },
   finishedGame(state) {

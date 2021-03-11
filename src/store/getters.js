@@ -10,10 +10,14 @@ export default {
   moveAI(state) {
     return state.moveAI;
   },
-  getEngineDeep(state) {
-    console.log(`state.engineLevel :${state.engineLevel} state.engineDeep: ${state.engineDeep[state.engineLevel].depth} `); // eslint-disable-line no-console
+  // returns adapted depth, on difficult positions it reduce depth
+  getEngineDeep(state, getters) {
+    let depth  = state.engineDeep[state.engineLevel].depth;
+    if (getters.getCurrentTask.difficulty !== undefined) 
+      depth -= getters.getCurrentTask.difficulty * state.engineDeep[state.engineLevel].reduce;
+    console.log(`state.engineLevel :${state.engineLevel} state.engineDeep: ${depth} `); // eslint-disable-line no-console
 
-    return state.engineDeep[state.engineLevel].depth;
+    return depth;
   },
   getEngineMistake(state) {
     console.log(`state.engineLevel :${state.engineLevel} state.engineMistake: ${state.engineDeep[state.engineLevel].mistake} `); // eslint-disable-line no-console

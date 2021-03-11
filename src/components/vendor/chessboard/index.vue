@@ -37,18 +37,18 @@ export default {
   },
   watch: {
     fen: function (newFen) {
-      console.log(`chessboard Watcher fen ${newFen}`); // eslint-disable-line no-console ,
+      //console.log(`chessboard Watcher fen ${newFen}`); // eslint-disable-line no-console ,
       this.fen = newFen
       this.loadPosition()
     },
     orientation: function (orientation) {
-      console.log(`chessboard Watcher orientation ${orientation}`); // eslint-disable-line no-console ,
+      //console.log(`chessboard Watcher orientation ${orientation}`); // eslint-disable-line no-console ,
       this.orientation = orientation
       this.loadPosition();
       this.$emit('on-orientation', orientation);
     },
     showThreats: function (st) {
-      console.log(`chessboard Watcher showThreats ${st}`); // eslint-disable-line no-console ,
+      //console.log(`chessboard Watcher showThreats ${st}`); // eslint-disable-line no-console ,
       this.showThreats = st
       if (this.showThreats) {
         this.paintThreats()

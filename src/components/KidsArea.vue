@@ -56,7 +56,7 @@
     </v-row>
     <v-snackbar
       v-model="snackbar"
-      :timeout="3000"
+      :timeout="4000"
       color="blue-grey"
     >
       <v-avatar>
@@ -179,11 +179,11 @@ import * as KidsConst from '@/lib/const.js';
     ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask']),
     snackbar: {
       get() {
-        console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
+        //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
         return this.$store.state.snackbarMessage !== '';
       },
       set(value) {
-        console.log(`snackbar set ${value}`);
+        //console.log(`snackbar set ${value}`);
         this.$store.commit('snackbarMessage', { value });
       },
     }, 

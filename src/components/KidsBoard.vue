@@ -74,22 +74,38 @@ export default {
     },
     // check for chess or specil rules game end
     checkRules(side){
+      //TODO: do not check if finishedGame. reset finishedGame on back move (with checking of move number finishedGame occurs)
       let rules = this.getTaskRules;
       if (rules & KidsConst.RULES_CHESS) { // regular chess rules
         if (this.game.in_checkmate()) {
           this.$store.commit('finishedGame', {value: true});
           this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won') });
+          return true;
         } else if (this.game.in_draw()) {
           this.$store.commit('finishedGame', {value: true});
           this.$store.commit('snackbarMessage', {value: this.$i18n.t('result.draw')});
+          return true;
         }
-      } else if ((rules & KidsConst.RULES_STALEMATE_WIN) && this.game.in_stalemate()) {// Win on No-Move opponent
+      } 
+      if ((rules & KidsConst.RULES_STALEMATE_WIN) && this.game.in_stalemate()) {// Win on No-Move opponent
         this.$store.commit('finishedGame', {value: true});
         this.$store.commit('snackbarMessage', {value:  side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')});
-      } else if ((rules & KidsConst.RULES_MATERIAL_WIN) && this.game.in_stalemate()) {// Win on Material advantage
+        return true;
+      } 
+      if (rules & KidsConst.RULES_SAFE_PROMOTION) {
+        let history = this.game.history({verbose: true});
+        // console.log(`history ${JSON.stringify(history)}`);
+        if (history.length > 1 && history[history.length-2].flags.indexOf('p') >=0 && history[history.length-1].flags.indexOf('p') == -1 &&
+            history[history.length-2].to !== history[history.length-1].to) {
+          this.$store.commit('finishedGame', {value: true});
+          this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost') });
+          return true;
+        }
+      } 
+      if ((rules & KidsConst.RULES_MATERIAL_WIN) && this.game.in_stalemate()) {// Win on Material advantage
         //TODO: MATERIAL_WIN
       }
-
+      return false;
     }
     //}
     /*
@@ -103,11 +119,11 @@ export default {
   },
   watch: {
     id: function() { 
-      console.log(`KidsBoard Watcher id`); // eslint-disable-line no-console ,
+      //console.log(`KidsBoard Watcher id`); // eslint-disable-line no-console ,
       this.initialMove();
     }, 
     forced: function() { 
-      console.log(`KidsBoard Watcher forced`); // eslint-disable-line no-console ,
+      //console.log(`KidsBoard Watcher forced`); // eslint-disable-line no-console ,
       this.loadPosition(); 
       this.$store.commit('setGameActive', {value: false}); 
       this.initialMove(); 
@@ -118,7 +134,7 @@ export default {
     this.unwatch = this.$store.watch(  // https://vuex.vuejs.org/api/#watch
       (state, getters) => getters.moveAI,
       (newValue /*, oldValue*/) => {
-        console.log(`KidsBoard Watcher MoveAI ${newValue}`); // eslint-disable-line no-console ,
+        //console.log(`KidsBoard Watcher MoveAI ${newValue}`); // eslint-disable-line no-console ,
         if (newValue.length === 0) // '' clears on backmove
           return;
         if (newValue.length === 4) {

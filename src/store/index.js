@@ -18,12 +18,13 @@ const state = {
   turn: '',
   webWorkerAI: undefined, 
   moveAI: '', 
+  // TODO: Dynamically add depth on simple positions (field in tasks)
   engineDeep: [ 
-    {depth: 1, mistake: 2, hint: ''},  // this entry is omitted, level starts from 1
-    {depth: 1, mistake: 2, hint: i18n.t('level.1')}, 
-    {depth: 1, mistake: 0, hint: i18n.t('level.2')},
-    {depth: 4, mistake: 0, hint: i18n.t('level.3')},
-    {depth: 10, mistake: 0, hint: i18n.t('level.4')},
+    {depth: 1, mistake: 2, hint: '', reduce: 0},  // this entry is omitted, level starts from 1
+    {depth: 1, mistake: 2, hint: i18n.t('level.1'), reduce: 0}, 
+    {depth: 1, mistake: 0, hint: i18n.t('level.2'), reduce: 0},
+    {depth: 5, mistake: 0, hint: i18n.t('level.3'), reduce: 0},
+    {depth: 14, mistake: 0, hint: i18n.t('level.4'), reduce: 2},
   ],
   engineLevel: 4,
   gameActive: false,
@@ -283,6 +284,7 @@ const state = {
       black: require("@/assets/img/010-cat.svg"), 
     },
     rules: KidsConst.RULES_CHESS,
+    difficulty: 2,
   },
 
 };

@@ -32,10 +32,11 @@ export default {
   flipToBlack(state) {
     return (state.currentTask && state.currentTask.orientation === 'white') && !state.gameActive;
   },
+  
   showClock: (state, getters) => (side) => {
     return getters.getTurn === side && state.currentTask.orientation === 'white' ||
     getters.getTurn === op(side) && state.currentTask.orientation === 'black';
-  },
+  }, 
   showBtnStart(state, getters) {
     return !state.gameActive && (getters.getTurn === 'b' && state.currentTask.orientation === 'white' ||
     getters.getTurn === 'w' && state.currentTask.orientation === 'black');
@@ -136,3 +137,4 @@ export default {
 function op(side) {
   return side === 'w'? 'b': side === 'b'? 'w': side;
 }
+

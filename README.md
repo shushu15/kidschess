@@ -150,4 +150,5 @@ yarn serve
 # build for production with minification
 npm build
 ```
-
+# TODO: 'Exit' menu
+# TODO: On high depth make waiting animation

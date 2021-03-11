@@ -11,10 +11,10 @@
         <div class="layer1 pa-4 ma-0 rounded-lg">       
         <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
               :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
-         <div class="clock-opp"><v-icon  v-if="showClock('b')">
+         <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame}" v-show="showClock('b')">
             mdi-alarm
         </v-icon></div>     
-         <div class="clock-my"><v-icon v-if="showClock('w')">
+         <div class="clock-my"><v-icon v-bind:class="{glow: !finishedGame}" v-show="showClock('w')">
             mdi-alarm
         </v-icon></div>
          </div>  
@@ -115,8 +115,9 @@ import * as KidsConst from '@/lib/const.js';
       this.$refs.wrkBoard.aiNextMove();
     },
     flippedBoard() {
-      if (this.$store.getters.isMoveOf(KidsConst.HUMAN))
+      if (this.$store.getters.isMoveOf(KidsConst.HUMAN)) {
         this.$refs.wrkBoard.initialMove();
+      }
     }, 
     actBackward() {
       if (this.$store.state.history.fen.length > 1) {
@@ -176,7 +177,7 @@ import * as KidsConst from '@/lib/const.js';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
@@ -257,7 +258,24 @@ import * as KidsConst from '@/lib/const.js';
   100% {
     transform: translateX(0);
   } 
-}  
+} 
+.glow {
+  animation-name: glowicon;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+} 
+@keyframes glowicon {
+	0% {
+		color: hsl(199, 73%, 63%);
+	}
+	50% {
+		color: hsl(199, 88%, 33%);
+	}
+	100% {
+		color: #313131;
+	}
+} 
 
 
 </style> 

@@ -51,6 +51,11 @@ export default {
     aiNextMove() {
       this.$store.commit('setGameActive', {value: true})
       this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
+      this.board.set({
+        movable: {
+          color: undefined, // disable moves
+        }
+      })
       // WORKER
       this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
     }, 
@@ -127,6 +132,7 @@ export default {
       this.loadPosition(); 
       this.$store.commit('setGameActive', {value: false}); 
       this.initialMove(); 
+      this.$store.commit('finishedGame', {value: false});
       // console.log('board-reload'); // eslint-disable-line no-console ,
     }, 
   },
@@ -145,6 +151,11 @@ export default {
             // this.$store.commit('canReload', {value: true});  // can reload close to finish game
           }
           this.game.move({from: orig, to: dest, promotion: this.promoteTo}) // promote to queen for simplicity
+          this.board.set({
+            movable: {
+              color: this.toColor(), // enable moves
+            }
+          });
           this.board.move(orig, dest);
           this.board.set({
             turnColor: this.toColor(),

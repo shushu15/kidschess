@@ -23,7 +23,7 @@ const state = {
     {depth: 1, mistake: 2, hint: '', reduce: 0},  // this entry is omitted, level starts from 1
     {depth: 1, mistake: 2, hint: i18n.t('level.1'), reduce: 0}, 
     {depth: 1, mistake: 0, hint: i18n.t('level.2'), reduce: 0},
-    {depth: 5, mistake: 0, hint: i18n.t('level.3'), reduce: 0},
+    {depth: 7, mistake: 0, hint: i18n.t('level.3'), reduce: 1},
     {depth: 14, mistake: 0, hint: i18n.t('level.4'), reduce: 2},
   ],
   engineLevel: 4,
@@ -217,8 +217,8 @@ const state = {
     },
 
     { title: {ru: 'Война и Мир', en: "War and Peace"},
-      description: { ru: 'Цель игры – полное уничтожение противника или безопасное превращение пешки,  (т.е. так, чтобы соперник ответным ходом не уничтожил эту пешку)', 
-                    en: 'The goal of the game is the complete destruction of the opponent or the safe promotion of the pawn, (i.e. so that the opponent does not destroy this pawn with a retaliatory move)', 
+      description: { ru: 'Цель игры – полное уничтожение противника или безопасное превращение пешки,  (т.е. так, чтобы соперник ответным ходом не уничтожил её). Если на доске не осталось пешек, победа определяется по суммарной стоимости оставшихся фигур', 
+                    en: 'The goal of the game is the complete destruction of the opponent or the safe promotion of the pawn, (i.e. so that the opponent does not capture it with a retaliatory move). If there are no pawns left on the board, the victory is determined by the cost of the remaining pieces', 
                     },
       active: 0,                
       avatar: require("@/assets/img/heroe.svg"),

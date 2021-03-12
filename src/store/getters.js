@@ -109,6 +109,18 @@ export default {
         state.standard.cartoon[side]: state.standard.avatar) : ""; //undefined;
     return cartoonFound;
   },
+  currentParent (state) {
+    let id = state.currentTask.id;
+    for (let i=0; i < state.tasks.length; i++) {
+      // jshint -W083
+      if (state.tasks[i].data.find((child) => child.id === id) !== undefined) {
+        return state.tasks[i];
+      }
+      // jshint +W083
+    }
+    return undefined;
+  },
+
   canBackward(state, getters) {
     return getters.isMoveOf(KidsConst.HUMAN) && state.history.fen.length > 1;
   },

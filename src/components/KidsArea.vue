@@ -51,6 +51,9 @@
         <div class="text-subtitle-1">
             {{getCurrentTask.description[$i18n.locale]}}        
         </div>
+        <div class="text-subtitle-2" v-if="currentParent != undefined">
+            {{currentParent.description[$i18n.locale]}}        
+        </div>
       </v-col>
 
     </v-row>
@@ -160,7 +163,7 @@ import * as KidsConst from '@/lib/const.js';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 'currentParent']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);

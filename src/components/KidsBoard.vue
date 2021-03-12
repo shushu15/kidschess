@@ -112,8 +112,8 @@ export default {
       } 
       if (rules & KidsConst.RULES_MATERIAL_WIN) {// Win on Material advantage
         let history = this.game.history({verbose: true});
-        if (history[history.length-1].flags.indexOf('p') == -1) {  // no promotion on the last move
-          let fen = this.game.fen().splice(' ')[0];
+        if (history.length > 0 && history[history.length-1].flags.indexOf('p') == -1) {  // no promotion on the last move
+          let fen = this.game.fen().split(' ')[0];
           if ((fen.match(/p/gi) || []).length == 0) { // no pawns
             let wWeight = (fen.match(/Q/g) || []).length * KidsConst.QUEEN_WEIGHT +
                     (fen.match(/R/g) || []).length * KidsConst.ROOK_WEIGHT +

@@ -222,7 +222,7 @@ const state = {
                     },
       active: 0,                
       avatar: require("@/assets/img/heroe.svg"),
-      rules: KidsConst.RULES_DEFAULT | KidsConst.RULES_3_REPETITION,
+      rules: KidsConst.RULES_DEFAULT | KidsConst.RULES_3_REPETITION | KidsConst.RULES_MATERIAL_WIN,
       data: [
         { 
           title: {ru: 'Битва', en: 'Battle'},
@@ -273,6 +273,14 @@ const state = {
           id: '45bf6f3d-c0d4-4c0d-8d9d-21cfe079fc54',
           difficulty: 1,
         },
+    /*    { 
+          title: {ru: 'Тест', en: 'Тест'},
+          fen: '6br/8/8/8/8/8/8/R7 w - - 0 1',
+          description: { ru: '', en: '' },
+          orientation: 'white',
+          id:  'f4b99382-6004-411d-bacc-b8b046ddd21d',
+          difficulty: 1,
+        }, */
 
       ]
     },

@@ -135,7 +135,7 @@ import * as KidsConst from '@/lib/const.js';
         if (result.state == "granted" || result.state == "prompt") {
           /* write to the clipboard now */
           let s = `${this.$store.getters.getCurrentTask.title[this.$i18n.locale]}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
-          console.log(s);
+          console.log(s); // eslint-disable-line no-console 
           this.updateClipboard(s, self);
           
         }

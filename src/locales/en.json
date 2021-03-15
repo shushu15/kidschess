@@ -37,7 +37,7 @@
     "material" : "material on the board",
     "insufficient_material": "insufficient material to win",
     "stalemate": "stalemate",
-    "no_win_in_x_moves": "no winning in {0} moves"
+    "no_win_in_x_moves": "no checkmate in {0} moves"
 
   }
 

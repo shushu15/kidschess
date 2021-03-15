@@ -394,7 +394,7 @@ const state = {
           description: { ru: 'Поставить мат за 30 ходов. Белые должны выиграть', en: 'Checkmate in 30 moves. White must win' },
           orientation: 'white',
           id: '3716cef4-ee2e-4b77-9f8f-6f4ab29f1d89',
-          rules: KidsConst.RULES_CHESS | KidsConst.RULES_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_MATE_IN_X)+1)),
+          rules: KidsConst.RULES_CHESS | KidsConst.RULES_WHITE_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
         },
         { 
           title: {ru: 'Черный гном', en: "Black gnome"},
@@ -402,7 +402,7 @@ const state = {
           description: { ru: 'Поставить мат за 30 ходов. Белые при точной игре должны сделать ничью', en: 'Checkmate in 30 moves. White must make a draw with accurate play' },
           orientation: 'white',
           id: '587e9e2a-72c1-47c1-9592-884c371c6d94',
-          rules: KidsConst.RULES_CHESS | KidsConst.RULES_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_MATE_IN_X)+1)),
+          rules: KidsConst.RULES_CHESS | KidsConst.RULES_BLACK_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
         },
         { 
           title: {ru: 'Белый гном', en: "White gnome"},
@@ -410,7 +410,7 @@ const state = {
           description: { ru: 'Поставить мат за 30 ходов. Черные при точной игре должны сделать ничью', en: 'Checkmate in 30 moves. Black must make a draw with accurate play' },
           orientation: 'white',
           id: '9e8c1f8c-6836-48c5-ac8d-33f617f67d27',
-          rules: KidsConst.RULES_CHESS | KidsConst.RULES_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_MATE_IN_X)+1)),
+          rules: KidsConst.RULES_CHESS | KidsConst.RULES_WHITE_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
         },
         { 
           title: {ru: 'Королевская битва', en: "King's battle"},

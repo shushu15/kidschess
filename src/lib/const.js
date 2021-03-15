@@ -5,8 +5,10 @@ export const RULES_MATERIAL_WIN     = 2;
 export const RULES_STALEMATE_WIN    = 4;
 export const RULES_3_REPETITION     = 8;
 export const RULES_SAFE_PROMOTION   = 16;
-export const RULES_MATE_IN_X       = 64; // next 5 bits used for the number of moves (max - 31), >> 7
-export const RULES_NEXT_EMPTY       = 4096; // first empty bit after the number of moves
+export const RULES_WHITE_MATE_IN_X       = 64; // 
+export const RULES_BLACK_MATE_IN_X       = 128; // next 5 bits used for the number of moves (max = 31), >> (RULES_BLACK_MATE_IN_X+1)
+export const MASK_MATE_IN_X       = 31; // mask for the number of moves
+export const RULES_NEXT_EMPTY       = 8192; // first empty bit after the number of moves
 
 export const RULES_DEFAULT = RULES_SAFE_PROMOTION | RULES_STALEMATE_WIN;
 

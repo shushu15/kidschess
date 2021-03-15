@@ -52,17 +52,17 @@ export default {
   flashAnimal(state, {value}) {
     state.flashAnimal = value;
   },
-  setHistoryFen(state, payload) {
-    if (payload !== undefined && payload.fen !== undefined) { 
-      state.history.fen.push(payload.fen);
+  addMove(state, payload) {
+    if (payload !== undefined && payload.move !== undefined) { 
+      state.history.moves.push(payload.move);
     } else {
-      state.history.fen.length = 0;
+      state.history.moves.splice(0); // reactivity required, not simple length = 0
     }
   },
   // here we do not use 'fen' positions - will change to the counter
   actBackward(state) {
-    if (state.history.fen.length > 1)
-      state.history.fen.pop();
+    if (state.history.moves.length > 0)
+      state.history.moves.pop();
   },
   snackbarMessage(state, {value}) {
     if (typeof value === "boolean" && !value) 

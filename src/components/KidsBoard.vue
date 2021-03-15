@@ -25,10 +25,10 @@ export default {
         });
         this.$store.commit('setTurn', { turn: this.game.turn() });
        // }, 1000);
-       this.$store.commit('setHistoryFen');  // no paraneters - clear history
-       if (this.isMoveOf(KidsConst.HUMAN)) { // if move of HUMAN save its fen
-        this.$store.commit('setHistoryFen', {fen: this.game.fen()});
-       }
+       this.$store.commit('addMove');  // no paraneters - clear history
+       //if (this.isMoveOf(KidsConst.HUMAN)) { // if move of HUMAN save its fen
+       // this.$store.commit('setHistoryFen', {fen: this.game.fen()});
+       // }
 
     },     
     userPlay() {
@@ -44,6 +44,7 @@ export default {
           fen: this.game.fen()
         })
         this.calculatePromotions();
+        this.$store.commit('addMove', {move: `${orig}${dest}`});
         this.$store.commit('setTurn', { turn: this.game.turn() });
          setTimeout(() => {this.aiNextMove();}, 100); // allow redraw
       }
@@ -62,6 +63,9 @@ export default {
     actBackward() {
       this.game.undo();
       this.game.undo();
+      this.$store.commit('actBackward');  
+      this.$store.commit('actBackward');  
+
       this.$store.commit('bestMove', { move: '' }); // clear last moveAI to watch 1 back move
       this.board.set({
         fen: this.game.fen(),
@@ -88,7 +92,10 @@ export default {
           return true;
         } else if (this.game.in_draw()) {
           this.$store.commit('finishedGame', {value: true});
-          this.$store.commit('snackbarMessage', {value: this.$i18n.t('result.draw')});
+          let reason = this.game.insufficient_material()? this.$i18n.t('reason.insufficient_material'): 
+                    this.game.in_stalemate()? this.$i18n.t('reason.stalemate'): 
+                    this.game.in_threefold_repetition()? this.$i18n.t('reason.threefold'): '';
+          this.$store.commit('snackbarMessage', {value: `${this.$i18n.t('result.draw')} - ${reason}`});
           return true;
         }
       } 
@@ -146,8 +153,13 @@ export default {
             {value: `${this.$i18n.t('result.draw')} - ${this.$i18n.t('reason.threefold')}` });
           return true;
       }
+      if (rules & KidsConst.RULES_MATE_IN_X) {
+        /
+        if (this.$store.state.history.moves.length)
+        return true;
+      }
       return false;
-    }
+    },
     //}
     /*
     gameLoaded() {
@@ -217,8 +229,7 @@ export default {
         }
         this.calculatePromotions();
         this.$store.commit('setTurn', { turn: this.game.turn() });
-        // get FEN before HUMAN move
-        this.$store.commit('setHistoryFen', {fen: this.game.fen()});
+        this.$store.commit('addMove', {move: newValue});
         this.checkRules(KidsConst.HUMAN);
       },
     );

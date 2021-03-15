@@ -33,6 +33,7 @@
           </template>
           <span>{{this.copyMessage}}</span>
         </v-tooltip>
+        <label class="caption align-self-center fixw">{{textLastMove}}</label>
        </v-col> 
     </v-row>
     <v-row class="text-center">
@@ -123,8 +124,8 @@ import * as KidsConst from '@/lib/const.js';
       }
     }, 
     actBackward() {
-      if (this.$store.state.history.fen.length > 1) {
-        this.$store.commit('actBackward');  
+      if (this.$store.state.history.moves.length > 1) { // at last 2 half-moves
+        // this.$store.commit('actBackward');  
         this.$refs.wrkBoard.actBackward();
       }
     },
@@ -163,7 +164,7 @@ import * as KidsConst from '@/lib/const.js';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 'currentParent']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 'currentParent','textLastMove']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
@@ -197,6 +198,9 @@ import * as KidsConst from '@/lib/const.js';
   }
   .kidsarea {
     position: relative; 
+  }
+  .fixw {
+    width: 80px;
   }
   .cartoon {
     /* z-index: 201; */

@@ -34,7 +34,11 @@
     "threefold": "threefold repetition",
     "nomoves": "stalemate",
     "safe_promotion" : "safe pawn promotion",
-    "material" : "material on the board"
+    "material" : "material on the board",
+    "insufficient_material": "insufficient material to win",
+    "stalemate": "stalemate",
+    "no_win_in_x_moves": "no winning in {0} moves"
+
   }
 
 

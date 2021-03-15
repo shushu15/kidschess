@@ -33,7 +33,7 @@
         no-action
       >
         <template v-slot:activator>
-          <v-list-item-avatar size="35">
+          <v-list-item-avatar size="35" tile>
             <inline-svg :src="task.avatar"/>
           </v-list-item-avatar>
             
@@ -56,7 +56,7 @@
         :key="standardData.id"
         @click="selectChild(standardData)"   
       >
-        <v-list-item-avatar size="35">
+        <v-list-item-avatar size="35" tile>
           <inline-svg :src="standardData.avatar"/>
         </v-list-item-avatar>
         <v-list-item-content>
@@ -131,8 +131,9 @@ export default {
       this.$store.commit('setGameActive', {value: false});
       this.$store.dispatch('flashAnimal');
       // clear history if flipped to ROBOT
-      if (!this.isMyMove())
-        this.$store.commit('setHistoryFen');  // no paraneters - clear history
+      //if (!this.isMyMove())
+      //  this.$store.commit('setHistoryFen');  // no paraneters - clear history
+      this.$store.commit('addMove');  // no paraneters - clear history
     },
     actReload() {
       if (this.canReload()) {

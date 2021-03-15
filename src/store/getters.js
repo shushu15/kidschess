@@ -122,7 +122,18 @@ export default {
   },
 
   canBackward(state, getters) {
-    return getters.isMoveOf(KidsConst.HUMAN) && state.history.fen.length > 1;
+    return getters.isMoveOf(KidsConst.HUMAN) && state.history.moves.length > 1;
+  },
+  /******
+   * Returns last part of moves to show
+   */
+  textLastMove(state) {
+    if (state.history.moves.length > 0) {
+      let mn = Math.floor((state.history.moves.length-1) / 2) + 1;
+      return `${mn}. ${(state.history.moves.length % 2 === 0)? '...': ''}${state.history.moves[state.history.moves.length-1]}`;
+    }
+    return '';
+ 
   },
   /**
    * Return rules for the current task, or if not specified - from the parent

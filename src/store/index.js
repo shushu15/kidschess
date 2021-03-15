@@ -11,7 +11,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '0.1.5',
+  version: '0.1.6',
   isTitleShowing: true,
   showDrawer: false,
   currentTask: {}, 
@@ -26,7 +26,7 @@ const state = {
     {depth: 7, mistake: 0, hint: i18n.t('level.3'), reduce: 1},
     {depth: 14, mistake: 0, hint: i18n.t('level.4'), reduce: 2},
   ],
-  engineLevel: 4,
+  engineLevel: 2,
   gameActive: false,
   // canReload: false
   lastPromotion: '',   // last cell promoted
@@ -35,7 +35,7 @@ const state = {
   timerID: undefined,
   timeCallAI: 0,
   history: {
-    fen: [],
+    moves: [],
   },
   snackbarMessage: '',
   // ----------------
@@ -107,7 +107,7 @@ const state = {
           title: {ru: 'Змей Горыныч', en: 'Fire Dragon'},
           fen: '3q4/8/8/8/8/8/PPPPPPPP/8 w - - 0 1',
           description: { ru: 'Змей Горыныч с восьмью головами (пешками) пытается пролезть хотя бы одной головой в царский дворец (последняя горизонталь),  а Иван – Царевич (ферзь) должен не допустить этого и отрубить все головы Змея  Горыныча.',
-                         en: 'The Fire Dragon with eight heads (pawns) is trying to crawl with at least one head into the royal palace (the last horizontal line), and Brave Princess (queen) must prevent this and cut off all the heads of the Fire Dragon.' },
+                         en: 'The Fire Dragon with eight heads (pawns) is trying to crawl with at least one head into the royal palace (the last horizontal line), and Brave Prince (queen) must prevent this and cut off all the heads of the Fire Dragon.' },
           orientation: 'white',
           id: '0a336aca-77e1-4a12-8c35-f5771538a0b4',
           cartoon: require("@/assets/img/dragon.svg"), // change to some dragon-like
@@ -213,6 +213,97 @@ const state = {
           orientation: 'white',
           id: '26072c3a-9ade-4f12-a2e9-2af86993a282',
         },
+        {
+          title: {ru: 'Юбка для Слона', en: "Elephant's skirt"},
+          fen: '8/2ppp3/8/8/8/8/8/2B5 w - - 0 1',
+          description: { ru: 'При точной игре белые выигрывают', en: 'White wins if played accurately' },
+          orientation: 'white',
+          id: '6948c3b4-955c-44c7-b36a-3913f64e1d1c',
+        },
+        {
+          title: {ru: 'Юбка для Слона 2', en: "Elephant's skirt 2"},
+          fen: '8/3ppp2/8/8/8/8/8/5B2 w - - 0 1',
+          description: { ru: 'При точной игре белые выигрывают', en: 'White wins if played accurately' },
+          orientation: 'white',
+          id: '6948c3b4-955c-44c7-b36a-3913f64e1d1c',
+        },
+
+      ]
+    },
+    { title: {ru: 'Злые Лисицы', en: "Angry Foxes"},
+      description: { ru: 'Цель игры: полное уничтожение пешек или безопасное достижение любой пешкой поля превращения', 
+                    en: 'Gamе purpose: the complete capturing of pawns or the safe reaching of any pawn to the square of promotion.' 
+                    },
+      active: 0,
+      avatar: require("@/assets/img/fox.svg"),
+      cartoon: {
+        white: require("@/assets/img/029-goat.svg"),
+        black: require("@/assets/img/fox.svg"),
+      },
+      data: [
+        { 
+          title: {ru: 'Лисицы и 4 козленка', en: "Foxes and 4 Kids"},
+          fen: '2b2b2/8/8/8/8/8/2PPPP2/8 w - - 0 1',
+          description: { ru: 'Лисицы-слоны легко выигрывают', en: 'Foxes-bishops win easily' },
+          orientation: 'white',
+          id: '8ef7af57-efc3-4391-8086-13bda00160a6',
+        },
+        { 
+          title: {ru: 'Лисицы и 5 козлят', en: "Foxes and 5 Kids"},
+          fen: '2b2b2/8/8/8/8/8/2PPPPP1/8 w - - 0 1',
+          description: { ru: 'Лисицы-слоны должны выиграть', en: 'Foxes-bishops must win' },
+          orientation: 'white',
+          id: '58921fad-384d-4641-84a5-14f9c9167ee6',
+        },
+        { 
+          title: {ru: 'Лисицы и 6 козлят', en: "Foxes and 6 Kids"},
+          fen: '2b2b2/8/8/8/8/8/1PPPPPP1/8 w - - 0 1',
+          description: { ru: 'Козлята должны выиграть', en: 'Kids must win' },
+          orientation: 'white',
+          id: '9d181456-acd5-4c24-8010-84abcbc317f3',
+        },
+      ]
+    },
+
+    { title: {ru: 'Лесные звери', en: "Forest animals"},
+      description: { ru: 'Цель игры: полное уничтожение пешек или безопасное достижение любой пешкой поля превращения', 
+                    en: 'Gamе purpose: the complete capturing of pawns or the safe reaching of any pawn to the square of promotion.' 
+                    },
+      active: 0,
+      avatar: require("@/assets/img/rabbit.svg"),
+      cartoon: {
+        white: require("@/assets/img/rabbit.svg"),
+        black: require("@/assets/img/fox.svg"),
+      },
+      data: [
+        { 
+          title: {ru: 'Лиса, Волк, 4 Зайца', en: "Fox, Wolf, 4 Rabbits"},
+          fen: '2b3n1/8/8/8/8/8/2PPPP2/8 w - - 0 1',
+          description: { ru: 'Лиса и Волк выигрывают', en: 'Fox and Wolf win' },
+          orientation: 'white',
+          id: 'c3d3971c-2914-4783-92a6-02e29cf694f9',
+        },
+        { 
+          title: {ru: 'Лиса, Волк, 4 Зайца', en: "Fox, Wolf, 4 Rabbits"},
+          fen: '1n3b2/8/8/8/8/8/2PPPP2/8 w - - 0 1',
+          description: { ru: 'Лиса и Волк выигрывают', en: 'Fox and Wolf win' },
+          orientation: 'white',
+          id: '8a8c1697-65c8-4365-89ab-ef0543fe7ebc',
+        },
+        { 
+          title: {ru: 'Лиса, Волк, 5 Зайцев', en: "Fox, Wolf, 5 Rabbits"},
+          fen: '2b3n1/8/8/8/8/8/2PPPPP1/8 w - - 0 1',
+          description: { ru: 'Шансы примерно равны', en: 'The odds are roughly equal' },
+          orientation: 'white',
+          id: '322c7b6a-4323-4993-8f07-b063e15ac775',
+        },
+        { 
+          title: {ru: 'Лиса, Волк, 5 Зайцев', en: "Fox, Wolf, 5 Rabbits"},
+          fen: '1n3b2/8/8/8/8/8/2PPPPP1/8 w - - 0 1',
+          description: { ru: 'Шансы примерно равны', en: 'The odds are roughly equal' },
+          orientation: 'white',
+          id: '9845fa49-85cf-4091-8808-3f63d677da91',
+        },
       ]
     },
 
@@ -284,6 +375,74 @@ const state = {
 
       ]
     },
+    { title: {ru: 'Битва Королей', en: "Battle of Kings"},
+      description: { ru: 'Цель игры: поставить мат', 
+                    en: 'Gamе purpose: checkmate' 
+                    },
+      active: 0,
+      avatar: require("@/assets/img/black-panther.svg"),
+      cartoon: {
+        white: require("@/assets/img/046-lion.svg"),
+        black: require("@/assets/img/black-panther.svg"),
+      },
+      rules: KidsConst.RULES_CHESS,
+      difficulty: 1,
+      data: [
+        { 
+          title: {ru: 'Маленький Волшебник', en: "Little Wizard"},
+          fen: '4k3/8/8/8/8/8/4P3/4K3 w - - 0 1',
+          description: { ru: 'Поставить мат за 30 ходов. Белые должны выиграть', en: 'Checkmate in 30 moves. White must win' },
+          orientation: 'white',
+          id: '3716cef4-ee2e-4b77-9f8f-6f4ab29f1d89',
+          rules: KidsConst.RULES_CHESS | KidsConst.RULES_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_MATE_IN_X)+1)),
+        },
+        { 
+          title: {ru: 'Черный гном', en: "Black gnome"},
+          fen: '4k3/4p3/8/8/8/8/8/4K3 w - - 0 1',
+          description: { ru: 'Поставить мат за 30 ходов. Белые при точной игре должны сделать ничью', en: 'Checkmate in 30 moves. White must make a draw with accurate play' },
+          orientation: 'white',
+          id: '587e9e2a-72c1-47c1-9592-884c371c6d94',
+          rules: KidsConst.RULES_CHESS | KidsConst.RULES_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_MATE_IN_X)+1)),
+        },
+        { 
+          title: {ru: 'Белый гном', en: "White gnome"},
+          fen: '4k3/8/8/8/8/4P3/8/4K3 w - - 0 1',
+          description: { ru: 'Поставить мат за 30 ходов. Черные при точной игре должны сделать ничью', en: 'Checkmate in 30 moves. Black must make a draw with accurate play' },
+          orientation: 'white',
+          id: '9e8c1f8c-6836-48c5-ac8d-33f617f67d27',
+          rules: KidsConst.RULES_CHESS | KidsConst.RULES_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_MATE_IN_X)+1)),
+        },
+        { 
+          title: {ru: 'Королевская битва', en: "King's battle"},
+          fen: '4k3/1p3ppp/8/8/8/8/PPP3P1/4K3 w - - 0 1',
+          description: { ru: 'Игра до мата', en: 'Play until checkmate' },
+          orientation: 'white',
+          id: '9f631328-356e-4af9-a57e-a11a42ce8fe9',
+        },
+        { 
+          title: {ru: 'Королевская битва 2', en: "King's battle 2"},
+          fen: '4k3/pp3ppp/8/8/8/8/PPP3PP/4K3 w - - 0 1',
+          description: { ru: 'Игра до мата', en: 'Play until checkmate' },
+          orientation: 'white',
+          id: 'de802da2-dc42-4266-a4e7-87ea7af3869c',
+        },
+        { 
+          title: {ru: 'Могучие короли', en: "Mighty kings"},
+          fen: '4k1n1/pppppppp/8/8/8/8/PPPPPPPP/2B1K3 w - - 0 1',
+          description: { ru: 'Игра до мата', en: 'Play until checkmate' },
+          orientation: 'white',
+          id: '80136555-479a-4bca-8461-0abdb1704d0e',
+        },
+        { 
+          title: {ru: 'Могучие короли 2', en: "Mighty kings 2"},
+          fen: '4k1n1/pppppppp/8/8/8/8/PPPPPPPP/4KB2 w - - 0 1',
+          description: { ru: 'Игра до мата', en: 'Play until checkmate' },
+          orientation: 'white',
+          id: '9202e01b-2fc3-42e4-9a15-8f6d40ebd3cd',
+        },
+      ]
+    },
+
   ],
 
   standard:  { 

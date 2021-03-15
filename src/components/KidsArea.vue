@@ -63,7 +63,7 @@
       :timeout="6000"
       color="blue-grey"
     >
-      <v-avatar class="float-left">
+      <v-avatar class="float-left" tile>
         <inline-svg :src="cartoonByID(getCurrentTask.id,getCurrentTask.orientation)" />
       </v-avatar>
       {{this.$store.state.snackbarMessage}}

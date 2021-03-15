@@ -110,7 +110,8 @@ const state = {
                          en: 'The Fire Dragon with eight heads (pawns) is trying to crawl with at least one head into the royal palace (the last horizontal line), and Brave Prince (queen) must prevent this and cut off all the heads of the Fire Dragon.' },
           orientation: 'white',
           id: '0a336aca-77e1-4a12-8c35-f5771538a0b4',
-          cartoon: require("@/assets/img/dragon.svg"), // change to some dragon-like
+          cartoon: require("@/assets/img/dragon.svg"), 
+          // mistake_mult: 2,
         },
         { 
           title: {ru: 'Четыре Козленка', en: 'Four Kids'},
@@ -225,7 +226,7 @@ const state = {
           fen: '8/3ppp2/8/8/8/8/8/5B2 w - - 0 1',
           description: { ru: 'При точной игре белые выигрывают', en: 'White wins if played accurately' },
           orientation: 'white',
-          id: '6948c3b4-955c-44c7-b36a-3913f64e1d1c',
+          id: '856572ae-58b6-481c-8af3-7f76e5eb8e6a',
         },
 
       ]

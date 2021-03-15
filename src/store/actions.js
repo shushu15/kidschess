@@ -7,7 +7,7 @@ export default {
   workerSendPosition({state, getters}, {position}) {
     state.webWorkerAI.postMessage(`position fen ${position}`);
     state.webWorkerAI.postMessage(`go depth ${getters.getEngineDeep}`);
-    //console.log(`dispatch workerRequest:${position} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
+    // console.log(`dispatch workerRequest:${position} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
   workerSendNewGame({state, dispatch}) {
@@ -19,8 +19,11 @@ export default {
   },
   workerSendMistakeLevel({state, getters}) {
     if (state.webWorkerAI) {
+      //let mistake_lvl = getters.getEngineMistake;
+      //if (getters.getCurrentTask.mistake_mult)
+      //  mistake_lvl *= getters.getCurrentTask.mistake_mult;
       state.webWorkerAI.postMessage(`setoption name mistakes value ${getters.getEngineMistake}`);
-      //console.log(`dispatch workerSendMistakeLevel ${getters.getEngineMistake}`); // eslint-disable-line no-console
+      // console.log(`dispatch workerSendMistakeLevel ${mistake_lvl}`); // eslint-disable-line no-console
     }
   },
   workerReply( {commit}, { message }) { // received discard from web worker

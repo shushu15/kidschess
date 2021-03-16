@@ -135,8 +135,8 @@ export default {
     return '';
  
   },
-  movesNumberOut: (state) => (maxmove) => {
-    return Math.floor((state.history.moves.length + 1) / 2) > maxmove;
+  movesNumberOut: (state) => (maxmove, bForBlack) => {
+    return Math.floor((state.history.moves.length + (bForBlack? 0: 1)) / 2) >= maxmove;
   },
   /**
    * Return rules for the current task, or if not specified - from the parent

@@ -155,7 +155,7 @@ export default {
       }
       if ((rules & KidsConst.RULES_WHITE_MATE_IN_X) || (rules & KidsConst.RULES_BLACK_MATE_IN_X)) {
         let maxMove = ((rules >> (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)) & KidsConst.MASK_MATE_IN_X);  
-        if (this.movesNumberOut(maxMove)) {
+        if (this.movesNumberOut(maxMove, (rules & KidsConst.RULES_BLACK_MATE_IN_X))) {
           this.$store.commit('finishedGame', {value: true});
           this.$store.commit('snackbarMessage', 
             {value: `${this.$i18n.t('result.draw')} - ${this.$i18n.t('reason.no_win_in_x_moves', [maxMove])}` });

@@ -11,7 +11,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '0.1.6',
+  version: '0.1.7b',
   isTitleShowing: true,
   showDrawer: false,
   currentTask: {}, 
@@ -38,6 +38,7 @@ const state = {
     moves: [],
   },
   snackbarMessage: '',
+  longThinking: false,
   // ----------------
   tasks : [
     { title: {ru: 'Одежда для короля', en: "King's clothes"},
@@ -387,7 +388,6 @@ const state = {
         black: require("@/assets/img/black-panther.svg"),
       },
       rules: KidsConst.RULES_CHESS,
-      difficulty: 1,
       data: [
         { 
           title: {ru: 'Маленький Волшебник', en: "Little Wizard"},
@@ -396,6 +396,7 @@ const state = {
           orientation: 'white',
           id: '3716cef4-ee2e-4b77-9f8f-6f4ab29f1d89',
           rules: KidsConst.RULES_CHESS | KidsConst.RULES_WHITE_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
+          difficulty: -3,
         },
         { 
           title: {ru: 'Черный гном', en: "Black gnome"},
@@ -404,6 +405,7 @@ const state = {
           orientation: 'white',
           id: '587e9e2a-72c1-47c1-9592-884c371c6d94',
           rules: KidsConst.RULES_CHESS | KidsConst.RULES_BLACK_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
+          difficulty: -3,
         },
         { 
           title: {ru: 'Белый гном', en: "White gnome"},
@@ -412,6 +414,7 @@ const state = {
           orientation: 'white',
           id: '9e8c1f8c-6836-48c5-ac8d-33f617f67d27',
           rules: KidsConst.RULES_CHESS | KidsConst.RULES_WHITE_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
+          difficulty: -3,
         },
         { 
           title: {ru: 'Королевская битва', en: "King's battle"},

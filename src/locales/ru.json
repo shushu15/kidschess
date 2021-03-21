@@ -8,6 +8,9 @@
   "btn.game.over": "Игра окончена",
   "btn.close": "Закрыть",
   "btn.rules": "Правила",
+  "btn.menu" : "Главное меню",
+  "btn.switch_color": "Поменять цвет фигур",
+  "btn.repeat" : "Повторить игру",
   "menu.level": "Уровень",
   "menu.about": "О программе",
   "menu.about.text": "Козлята: шахматные обучающие игры",
@@ -20,6 +23,7 @@
 
   "message.copy.ok": "Скопировано",
   "message.copy.error": "Не скопировано",
+  "message.thinking": "думаю...",
   "level" : {
     "1": "начальный",
     "2": "простой",

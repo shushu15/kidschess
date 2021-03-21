@@ -161,6 +161,9 @@ export default {
       }
       return KidsConst.RULES_DEFAULT;
     }
+  },
+  longThinking(state) {
+    return state.longThinking;
   }
 
 

@@ -1,12 +1,20 @@
+import * as KidsConst from '@/lib/const.js';
+
 // import i18n from '@/plugins/i18n'; 
 
 export default {
   /**
    * Worker methods
    */
-  workerSendPosition({state, getters}, {position}) {
+  workerSendPosition({state, getters, commit}, {position}) {
+    let deep = getters.getEngineDeep;
     state.webWorkerAI.postMessage(`position fen ${position}`);
-    state.webWorkerAI.postMessage(`go depth ${getters.getEngineDeep}`);
+    state.webWorkerAI.postMessage(`go depth ${deep}`);
+    if (deep > KidsConst.THINKING_LEVEL) {
+      let timerID = setTimeout(() => { 
+          commit('setLongThinking', {value: true}); }, KidsConst.THINKING_DELAY); 
+      commit('storeTimer', {timerID});   
+    }
     // console.log(`dispatch workerRequest:${position} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
@@ -26,9 +34,15 @@ export default {
       // console.log(`dispatch workerSendMistakeLevel ${mistake_lvl}`); // eslint-disable-line no-console
     }
   },
-  workerReply( {commit}, { message }) { // received discard from web worker
+  workerReply( {state, commit}, { message }) { // received discard from web worker
       //console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
+        // stop timer first
+        if (state.timerID !== undefined) { 
+          clearTimeout(state.timerID);    
+          commit('storeTimer'); // cler timerID
+          commit('setLongThinking', {value: false});
+        }   
         let arrTokens = message.trim().split(' ');
         if (arrTokens.length > 1) {
           commit('bestMove', { move: arrTokens[1] });

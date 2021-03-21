@@ -5,16 +5,16 @@
       color="primary"
       dark
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> 
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" :aria-label="$t('btn.menu')"></v-app-bar-nav-icon> 
 
       <v-toolbar-title>{{$t('title.game')}} {{this.$store.getters.getCurrentTask.title[$i18n.locale]}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()">mdi-reload</v-icon>
-        <v-icon v-if="flipToBlack" @click="actFlipBoard">mdi-arrange-send-backward</v-icon>
-        <v-icon v-if="flipToWhite" @click="actFlipBoard">mdi-arrange-bring-forward</v-icon>
+        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()" :aria-label="$t('btn.repeat')">mdi-reload</v-icon>
+        <v-icon v-if="flipToBlack" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">mdi-arrange-send-backward</v-icon>
+        <v-icon v-if="flipToWhite" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">mdi-arrange-bring-forward</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer

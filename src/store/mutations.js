@@ -69,5 +69,16 @@ export default {
       state.snackbarMessage = '';
     else  
       state.snackbarMessage = value;
-  }
+  },
+  setLongThinking(state, {value}) {
+    state.longThinking = value;
+  },
+  storeTimer(state, payload) {
+    if (payload !== undefined && payload.timerID !== undefined) { 
+      state.timerID = payload.timerID;
+    } else {
+      state.timerID = undefined; 
+    }
+  },
+
 };

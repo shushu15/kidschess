@@ -20,3 +20,7 @@ export const KNIGHT_WEIGHT = 3;
 export const WHITE = 'white';
 export const BLACK = 'black';
 
+export const THINKING_DELAY = 2000;
+export const THINKING_LEVEL = 14;
+
+

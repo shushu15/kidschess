@@ -8,6 +8,9 @@
   "btn.game.over": "Game over",
   "btn.close": "Close",
   "btn.rules": "Rules",
+  "btn.menu" : "Main menu",
+  "btn.switch_color": "Switch color",
+  "btn.repeat" : "Repeat game",
   "menu.level": "Level",
   "menu.about": "About a program",
   "menu.about.text": "Kids: chess learning games",
@@ -19,6 +22,7 @@
   "menu.about.version": "Version",
   "message.copy.ok": "Copied",
   "message.copy.error": "Not copied",
+  "message.thinking": "thinking...",
   "level" : {
     "1": "rookie",
     "2": "simple",

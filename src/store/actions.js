@@ -6,16 +6,17 @@ export default {
   /**
    * Worker methods
    */
-  workerSendPosition({state, getters, commit}, {position}) {
+  workerSendPosition({state, getters, commit}, {position, moves}) {
     let deep = getters.getEngineDeep;
-    state.webWorkerAI.postMessage(`position fen ${position}`);
+    let command = moves.length===0? `position fen ${position}` :  `position fen ${position} moves ${moves.join(' ')}`;
+    state.webWorkerAI.postMessage(command);
     state.webWorkerAI.postMessage(`go depth ${deep}`);
     if (deep > KidsConst.THINKING_LEVEL) {
       let timerID = setTimeout(() => { 
           commit('setLongThinking', {value: true}); }, KidsConst.THINKING_DELAY); 
       commit('storeTimer', {timerID});   
     }
-    // console.log(`dispatch workerRequest:${position} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
+    console.log(`dispatch workerRequest:${command} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
   workerSendNewGame({state, dispatch}) {
@@ -35,7 +36,7 @@ export default {
     }
   },
   workerReply( {state, commit}, { message }) { // received discard from web worker
-      //console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
+      // console.log(`dispatch workerReply :${message}`); // eslint-disable-line no-console
       if (message.startsWith('bestmove')) {
         // stop timer first
         if (state.timerID !== undefined) { 

@@ -58,7 +58,8 @@ export default {
         }
       })
       // WORKER
-      this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
+      // this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
+      this.$store.dispatch('workerSendPosition', { position: this.$store.getters.getCurrentTask.fen, moves: this.$store.state.history.moves}); 
     }, 
     actBackward() {
       this.game.undo();

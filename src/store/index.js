@@ -11,7 +11,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '0.1.7c',
+  version: '0.1.7d',
   isTitleShowing: true,
   showDrawer: false,
   currentTask: {}, 
@@ -368,11 +368,12 @@ const state = {
         },
     /*    { 
           title: {ru: 'Тест', en: 'Тест'},
-          fen: '6br/8/8/8/8/8/8/R7 w - - 0 1',
+          fen: '8/8/8/8/4K3/4Q2k/8/8 b - - 0 1',
           description: { ru: '', en: '' },
           orientation: 'white',
           id:  'f4b99382-6004-411d-bacc-b8b046ddd21d',
-          difficulty: 1,
+          difficulty: -2,
+          rules: KidsConst.RULES_CHESS,
         }, */
 
       ]

@@ -8,7 +8,7 @@ export default {
    */
   workerSendPosition({state, getters, commit}, {position, moves}) {
     let deep = getters.getEngineDeep;
-    let command = moves.length===0? `position fen ${position}` :  `position fen ${position} moves ${moves.join(' ')}`;
+    let command = (moves && moves.length > 0)? `position fen ${position} moves ${moves.join(' ')}` : `position fen ${position}`;
     state.webWorkerAI.postMessage(command);
     state.webWorkerAI.postMessage(`go depth ${deep}`);
     if (deep > KidsConst.THINKING_LEVEL) {

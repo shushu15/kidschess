@@ -58,8 +58,11 @@ export default {
         }
       })
       // WORKER
-      // this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
-      this.$store.dispatch('workerSendPosition', { position: this.$store.getters.getCurrentTask.fen, moves: this.$store.state.history.moves}); 
+      // either initial position + all moves (for 3times repetition prevent), or regular current fen
+      if (this.$store.getters.getCurrentTask.movesAI)
+        this.$store.dispatch('workerSendPosition', { position: this.$store.getters.getCurrentTask.fen, moves: this.$store.state.history.moves}); 
+      else  
+        this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
     }, 
     actBackward() {
       this.game.undo();

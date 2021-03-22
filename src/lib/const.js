@@ -23,4 +23,6 @@ export const BLACK = 'black';
 export const THINKING_DELAY = 2000;
 export const THINKING_LEVEL = 14;
 
+export const MOVETIME = 10000;
+
 

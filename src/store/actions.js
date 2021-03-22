@@ -10,7 +10,7 @@ export default {
     let deep = dynamic? getters.getEngineDeepDynamic : getters.getEngineDeep;
     let command = (moves && moves.length > 0)? `position fen ${position} moves ${moves.join(' ')}` : `position fen ${position}`;
     state.webWorkerAI.postMessage(command);
-    state.webWorkerAI.postMessage(`go depth ${deep}`);
+    state.webWorkerAI.postMessage(`go depth ${deep} movetime ${KidsConst.MOVETIME}`);
     if (deep > KidsConst.THINKING_LEVEL) {
       let timerID = setTimeout(() => { 
           commit('setLongThinking', {value: true}); }, KidsConst.THINKING_DELAY); 

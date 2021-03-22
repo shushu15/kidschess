@@ -397,8 +397,8 @@ const state = {
           orientation: 'white',
           id: '3716cef4-ee2e-4b77-9f8f-6f4ab29f1d89',
           rules: KidsConst.RULES_CHESS | KidsConst.RULES_WHITE_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
-          difficulty: -2,
-          dynamic: 2,
+          difficulty: -3,
+          dynamic: 3,
           movesAI: true,
         },
         { 
@@ -408,8 +408,8 @@ const state = {
           orientation: 'white',
           id: '587e9e2a-72c1-47c1-9592-884c371c6d94',
           rules: KidsConst.RULES_CHESS | KidsConst.RULES_BLACK_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
-          difficulty: -2,
-          dynamic: 2,
+          difficulty: -3,
+          dynamic: 3,
           movesAI: true,
         },
         { 
@@ -419,8 +419,8 @@ const state = {
           orientation: 'white',
           id: '9e8c1f8c-6836-48c5-ac8d-33f617f67d27',
           rules: KidsConst.RULES_CHESS | KidsConst.RULES_WHITE_MATE_IN_X | (30 << (Math.log2(KidsConst.RULES_BLACK_MATE_IN_X)+1)),
-          difficulty: -2,
-          dynamic: 2,
+          difficulty: -3,
+          dynamic: 3,
           movesAI: true,
         },
         { 

@@ -57,12 +57,20 @@ export default {
           color: undefined, // disable moves
         }
       })
+      // for dynamic depth positions get fen first
+      let dynamic = false
+      if (this.$store.getters.getCurrentTask.dynamic) {
+        let fen = this.game.fen().split(' ')[0];
+        if ((fen.match(/p/gi) || []).length == 0)// no pawns
+          dynamic = true;
+      }
+
       // WORKER
       // either initial position + all moves (for 3times repetition prevent), or regular current fen
       if (this.$store.getters.getCurrentTask.movesAI)
-        this.$store.dispatch('workerSendPosition', { position: this.$store.getters.getCurrentTask.fen, moves: this.$store.state.history.moves}); 
+        this.$store.dispatch('workerSendPosition', { position: this.$store.getters.getCurrentTask.fen, moves: this.$store.state.history.moves, dynamic}); 
       else  
-        this.$store.dispatch('workerSendPosition', { position: this.game.fen() }); 
+        this.$store.dispatch('workerSendPosition', { position: this.game.fen(), dynamic }); 
     }, 
     actBackward() {
       this.game.undo();

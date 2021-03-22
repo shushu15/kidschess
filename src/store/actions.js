@@ -6,8 +6,8 @@ export default {
   /**
    * Worker methods
    */
-  workerSendPosition({state, getters, commit}, {position, moves}) {
-    let deep = getters.getEngineDeep;
+  workerSendPosition({state, getters, commit}, {position, moves, dynamic}) {
+    let deep = dynamic? getters.getEngineDeepDynamic : getters.getEngineDeep;
     let command = (moves && moves.length > 0)? `position fen ${position} moves ${moves.join(' ')}` : `position fen ${position}`;
     state.webWorkerAI.postMessage(command);
     state.webWorkerAI.postMessage(`go depth ${deep}`);
@@ -16,7 +16,7 @@ export default {
           commit('setLongThinking', {value: true}); }, KidsConst.THINKING_DELAY); 
       commit('storeTimer', {timerID});   
     }
-    console.log(`dispatch workerRequest:${command} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
+    // console.log(`dispatch workerRequest:${command} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
   workerSendNewGame({state, dispatch}) {

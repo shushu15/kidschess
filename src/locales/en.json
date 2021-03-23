@@ -18,8 +18,10 @@
   "menu.about.used2": "Board: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Chess validation: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.used4": "Icons: <a href='https://www.flaticon.com/'>Flaticon</a>",
-  "menu.about.contact": "Idea and games author Rifat Aysin, development Alex Vasilev: shu@rubl.com",
+  "menu.about.contact": "Idea and games author Rifat Aysin, development Alex Vasilev: alme20@yandex.ru",
   "menu.about.version": "Version",
+  "menu.share" : "Share",
+
   "message.copy.ok": "Copied",
   "message.copy.error": "Not copied",
   "message.thinking": "thinking...",
@@ -43,7 +45,15 @@
     "stalemate": "stalemate",
     "no_win_in_x_moves": "no checkmate in {0} moves"
 
+  },
+  "share": {
+    "head" : "Tell friends",
+    "title" : "KidsChess: Chess games for children",
+    "description": "Rifat Club. Learning to play chess for the little ones. Games teach children to pay attention, understand the relative strength of pieces and the importance of passed pawns",
+    "quote": "Short, effective and clear games with a small number of figures - characters will help young chess players to increase their interest in learning chess",
+    "hashtags": "chess,children,learning,kids,small,game"
   }
+
 
 
 

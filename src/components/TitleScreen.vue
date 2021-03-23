@@ -101,9 +101,10 @@ setTimeout(() => { this.$store.commit('hideTitleScreen');
 .sliding-enter-active {
   animation: sliding 1.5s;
 }
+/*
 .sliding-leave-active {
   animation: sliding 1.5s reverse;
-}
+}*/
 
 @keyframes sliding {
   0% {

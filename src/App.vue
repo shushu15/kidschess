@@ -77,7 +77,9 @@
         >
         </v-slider>
       </v-list-item >
-        <AboutDlg />       
+        <AboutDlg />
+        <ShareDlg />
+
     </v-list>    
     </v-navigation-drawer>    
 
@@ -90,10 +92,10 @@
 
 <script>
 import {  mapGetters } from 'vuex'; 
-// import QueryableWorker from '@/lib/QueryableWorker'; 
 import TitleScreen from './components/TitleScreen.vue';
 import KidsArea from './components/KidsArea.vue';
 import AboutDlg from '@/components/AboutDlg'; 
+import ShareDlg from '@/components/ShareDlg'; 
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 
@@ -106,14 +108,13 @@ export default {
     TitleScreen,
     KidsArea,
     AboutDlg,
+    ShareDlg,
     InlineSvg,
   },
 
   data: () => ({
     isTitleShowing: true,
-    // drawer: false,
     forcedReload: new Date(),
-    // playLevel: 1,
     //
   }),
   methods: {

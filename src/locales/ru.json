@@ -18,8 +18,9 @@
   "menu.about.used2": "Визуализация доски: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Проверка ходов: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.used4": "Картинки: <a href='https://www.flaticon.com/'>Flaticon</a> ",
-  "menu.about.contact": "Идея и авторство игр: Рифат Айсин, разработка Александр Василёв: shu@rubl.com",
+  "menu.about.contact": "Идея и авторство игр: Рифат Айсин, разработка Александр Василёв: alme20@yandex.ru",
   "menu.about.version": "Версия",
+  "menu.share" : "Поделиться",
 
   "message.copy.ok": "Скопировано",
   "message.copy.error": "Не скопировано",
@@ -43,6 +44,13 @@
     "insufficient_material": "недостаточно материала для победы",
     "stalemate": "пат",
     "no_win_in_x_moves": "нет победы за {0} ходов"
+  },
+  "share": {
+    "head" : "Рассказать друзьям",
+    "title" : "KidsChess Козлята: Шахматные игры для детей",
+    "description": "Клуб Рифата. Обучение игре в шахматы для самых маленьких. Игры приучают детей к вниманию, пониманию сравнительной силы фигур и важности проходных пешек",
+    "quote": "Короткие, результативные и понятные игры с небольшим количеством фигур - персонажей помогут юным шахматистам повысить интерес к обучению шахматам",
+    "hashtags": "шахматы,дети,обучение,начальное,маленькие,игра"
   }
 
 

@@ -429,6 +429,7 @@ const state = {
           description: { ru: 'Игра до мата', en: 'Play until checkmate' },
           orientation: 'white',
           id: '9f631328-356e-4af9-a57e-a11a42ce8fe9',
+          movesAI: true,
         },
         { 
           title: {ru: 'Королевская битва 2', en: "King's battle 2"},
@@ -436,6 +437,7 @@ const state = {
           description: { ru: 'Игра до мата', en: 'Play until checkmate' },
           orientation: 'white',
           id: 'de802da2-dc42-4266-a4e7-87ea7af3869c',
+          movesAI: true,
         },
         { 
           title: {ru: 'Могучие короли', en: "Mighty kings"},
@@ -443,6 +445,7 @@ const state = {
           description: { ru: 'Игра до мата', en: 'Play until checkmate' },
           orientation: 'white',
           id: '80136555-479a-4bca-8461-0abdb1704d0e',
+          movesAI: true,
         },
         { 
           title: {ru: 'Могучие короли 2', en: "Mighty kings 2"},
@@ -450,6 +453,7 @@ const state = {
           description: { ru: 'Игра до мата', en: 'Play until checkmate' },
           orientation: 'white',
           id: '9202e01b-2fc3-42e4-9a15-8f6d40ebd3cd',
+          movesAI: true,
         },
       ]
     },
@@ -469,6 +473,7 @@ const state = {
     },
     rules: KidsConst.RULES_CHESS,
     difficulty: 2,
+    movesAI: true,
   },
 
 };

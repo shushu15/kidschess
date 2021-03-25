@@ -87,17 +87,17 @@
             <v-list-item-title>{{ $t('menu.settings') }}</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item>
+        <v-list-item dense>
           <v-list-item-action>
             <v-switch dense v-model="swBackMoves" :label="$t('menu.settings.noback')"  ></v-switch>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item>
+        <v-list-item dense>
           <v-list-item-action>
             <v-switch dense v-model="swTwoPlayers" :label="$t('menu.settings.two')" ></v-switch>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item v-show="needFlipPieces()">
+        <v-list-item dense v-show="needFlipPieces()">
           <v-list-item-action>
             <v-switch dense v-model="swFlipPieces" :label="$t('menu.settings.flipfigures')" ></v-switch>
           </v-list-item-action>
@@ -201,19 +201,19 @@ export default {
       }, 
     },
     swBackMoves: {
-      get() { return this.$store.state.backMoves; },
+      get() { return this.$store.state.modeNoBackMoves; },
       set(value) { 
         this.$store.commit('backMoves', {value});
       }
     },
     swTwoPlayers: {
-      get() { return this.$store.state.twoPlayers; },
+      get() { return this.$store.state.modeTwoPlayers; },
       set(value) { 
         this.$store.commit('twoPlayers', {value});
       }
     },
     swFlipPieces: {
-      get() { return this.$store.state.flipPieces; },
+      get() { return this.$store.state.modeFlipPieces; },
       set(value) { 
         this.$store.commit('flipPieces', {value});
       }

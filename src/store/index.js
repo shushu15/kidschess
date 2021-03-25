@@ -39,6 +39,9 @@ const state = {
   },
   snackbarMessage: '',
   longThinking: false,
+  modeTwoPlayers: false,
+  modeNoBackMoves: false,
+  modeFlipPieces: false,
   // ----------------
   tasks : [
     { title: {ru: 'Одежда для короля', en: "King's clothes"},

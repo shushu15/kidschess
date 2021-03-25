@@ -80,5 +80,15 @@ export default {
       state.timerID = undefined; 
     }
   },
+  backMoves(state, { value }) {
+    state.modeNoBackMoves = value === undefined ? !state.modeNoBackMoves : value;
+  },
+  twoPlayers(state, { value }) {
+    state.modeTwoPlayers = value === undefined ? !state.modeTwoPlayers : value;
+  },
+  flipPieces(state, { value }) {
+    state.modeFlipPieces = value === undefined ? !state.modeFlipPieces : value;
+  },
+
 
 };

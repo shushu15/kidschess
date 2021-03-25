@@ -133,7 +133,7 @@ export default {
   },
 
   canBackward(state, getters) {
-    return getters.isMoveOf(KidsConst.HUMAN) && state.history.moves.length > 1;
+    return getters.isMoveOf(KidsConst.HUMAN) && state.history.moves.length > 1 && !state.modeNoBackMoves;
   },
   /******
    * Returns last part of moves to show

@@ -77,8 +77,34 @@
         >
         </v-slider>
       </v-list-item >
-        <AboutDlg />
-        <ShareDlg />
+
+      <v-list-group
+        prepend-icon="mdi-cog"
+        no-action
+      >
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('menu.settings') }}</v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item>
+          <v-list-item-action>
+            <v-switch dense v-model="swBackMoves" :label="$t('menu.settings.noback')"  ></v-switch>
+          </v-list-item-action>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
+            <v-switch dense v-model="swTwoPlayers" :label="$t('menu.settings.two')" ></v-switch>
+          </v-list-item-action>
+        </v-list-item>
+        <v-list-item v-show="needFlipPieces()">
+          <v-list-item-action>
+            <v-switch dense v-model="swFlipPieces" :label="$t('menu.settings.flipfigures')" ></v-switch>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list-group> 
+      <AboutDlg />
+      <ShareDlg />
 
     </v-list>    
     </v-navigation-drawer>    
@@ -149,7 +175,9 @@ export default {
     canReload() {
       return this.isMyMove() || this.finishedGame;
     },
-
+    needFlipPieces () {
+      return true;
+    }
   },
   computed: {
     ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','standardData','childByID','getLevelHint']),
@@ -171,7 +199,25 @@ export default {
       set(value) {
         this.$store.commit('toggleDrawer', { show: value });
       }, 
-    },    
+    },
+    swBackMoves: {
+      get() { return this.$store.state.backMoves; },
+      set(value) { 
+        this.$store.commit('backMoves', {value});
+      }
+    },
+    swTwoPlayers: {
+      get() { return this.$store.state.twoPlayers; },
+      set(value) { 
+        this.$store.commit('twoPlayers', {value});
+      }
+    },
+    swFlipPieces: {
+      get() { return this.$store.state.flipPieces; },
+      set(value) { 
+        this.$store.commit('flipPieces', {value});
+      }
+    }        
   },  
   created() {
 

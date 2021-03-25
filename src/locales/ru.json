@@ -20,6 +20,10 @@
   "menu.about.used4": "Картинки: <a href='https://www.flaticon.com/'>Flaticon</a> ",
   "menu.about.contact": "Идея и авторство игр: Рифат Айсин, разработка Александр Василёв: alme20@yandex.ru",
   "menu.about.version": "Версия",
+  "menu.settings" : "Настройки",
+  "menu.settings.two" : "Два игрока",
+  "menu.settings.flipfigures" : "Развернуть фигуры",
+  "menu.settings.noback" : "Не перехаживать",
   "menu.share" : "Поделиться",
 
   "message.copy.ok": "Скопировано",

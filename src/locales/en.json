@@ -20,6 +20,10 @@
   "menu.about.used4": "Icons: <a href='https://www.flaticon.com/'>Flaticon</a>",
   "menu.about.contact": "Idea and games author Rifat Aysin, development Alex Vasilev: alme20@yandex.ru",
   "menu.about.version": "Version",
+  "menu.settings" : "Settings",
+  "menu.settings.two" : "Two players",
+  "menu.settings.flipfigures" : "Flip pieces",
+  "menu.settings.noback" : "No back moves",
   "menu.share" : "Share",
 
   "message.copy.ok": "Copied",

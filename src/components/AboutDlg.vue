@@ -2,8 +2,12 @@
   <v-dialog v-model="dialog" max-width="400px">
     <template v-slot:activator="{ on }">
       <v-list-item link>
+        <v-list-item-avatar tile>
+          <v-icon>
+             mdi-information-variant
+          </v-icon>  
+        </v-list-item-avatar>
         <v-list-item-content>
-        <v-spacer> </v-spacer>
         <v-list-item-title v-on="on">{{ $t('menu.about') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>

@@ -81,15 +81,18 @@ export default {
     }
   },
   backMoves(state, { value }) {
-    state.modeNoBackMoves = value === undefined ? !state.modeNoBackMoves : value;
+    state.modeNoBackMoves = (value === undefined) ? !state.modeNoBackMoves : value;
   },
   twoPlayers(state, { value }) {
-    state.modeTwoPlayers = value === undefined ? !state.modeTwoPlayers : value;
+    state.modeTwoPlayers = (value === undefined) ? !state.modeTwoPlayers : value;
   },
   /*
   flipPieces(state, { value }) {
     state.modeFlipPieces = value === undefined ? !state.modeFlipPieces : value;
   }, */
+  forcedBtnStart(state, {value}) {
+    state.forcedBtnStart = value;
+  }
 
 
 };

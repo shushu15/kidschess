@@ -42,6 +42,7 @@ const state = {
   modeTwoPlayers: false,
   modeNoBackMoves: false,
   // modeFlipPieces: false,
+  forcedBtnStart: false, // while switching to one-player mode during a game
   // ----------------
   tasks : [
     { title: {ru: 'Одежда для короля', en: "King's clothes"},

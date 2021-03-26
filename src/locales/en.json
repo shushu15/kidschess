@@ -4,7 +4,7 @@
   "title.2" : "Rifat's Chess Club",
   "title.game": "Game",
   "btn.game.start": "Start game",
-  "btn.game.continue": "Continue",
+  "btn.game.continue": "Continue game",
   "btn.game.over": "Game over",
   "btn.close": "Close",
   "btn.rules": "Rules",
@@ -29,6 +29,7 @@
   "message.copy.ok": "Copied",
   "message.copy.error": "Not copied",
   "message.thinking": "thinking...",
+  "message.board.two_players": "The board is currently in two-player mode. You can switch to normal mode in the settings menu",
   "level" : {
     "1": "rookie",
     "2": "simple",
@@ -38,7 +39,9 @@
   "result" : {
     "won": "You won",
     "lost": "You lose",
-    "draw": "Draw game"
+    "draw": "Draw game",
+    "white_won": "White won",
+    "black_won": "Black won"
   },
   "reason": {
     "threefold": "threefold repetition",

@@ -51,8 +51,11 @@ export default {
     return getters.getTurn === side && getters.getOrientation === KidsConst.WHITE ||
     getters.getTurn === op(side) && getters.getOrientation === KidsConst.BLACK;
   }, 
-  showBtnStart(state, getters) {
-    return !state.gameActive && (getters.getTurn === 'b' && getters.getOrientation === KidsConst.WHITE ||
+  showBtnStart(state, getters)  {
+    return getters.showBtnStartGen && (!state.gameActive || state.forcedBtnStart);
+  },
+  showBtnStartGen(state, getters) {
+    return !getters.twoPlayers && (getters.getTurn === 'b' && getters.getOrientation === KidsConst.WHITE ||
     getters.getTurn === 'w' && getters.getOrientation === KidsConst.BLACK);
   },
   reloadAllowed(state) {

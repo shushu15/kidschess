@@ -46,7 +46,11 @@ export default {
     
 setTimeout(() => { this.$store.commit('hideTitleScreen'); 
                       this.$store.dispatch('workerSendNewGame');
-                     }, 5000); 
+                      if (this.$store.getters.twoPlayers) {
+                        this.$store.commit('snackbarMessage', 
+                          {value: this.$i18n.t('message.board.two_players')});
+                      }
+                  }, 5000); 
     for (let i=1; i<8; i++) {
       setTimeout(() => { this.animalsList.push(i) }, 200*i); 
     }
@@ -85,12 +89,13 @@ setTimeout(() => { this.$store.commit('hideTitleScreen');
     display: flex;
     justify-content: space-between
 }
-
+/*
 .fade2 {
   border: 0;
   height: 200px;
   width: 400px;
 }
+*/
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }

@@ -134,14 +134,22 @@ export default {
     getHistory() {
       return this.game.history();
     },
-    // check for chess or specil rules game end
+    /***
+     * check for chess or specil rules game end
+     * side - KidsConst.HUMAN | KidsConst.ROBOT for one-player games
+     *      - KidsConst.WHITE | KidsConst.BLACK (i.e. current turn) for two-player games
+     * 
+     * *****/
     checkRules(side){
       //TODO: do not check if finishedGame. reset finishedGame on back move (with checking of move number finishedGame occurs)
       let rules = this.getTaskRules;
       if (rules & KidsConst.RULES_CHESS) { // regular chess rules
         if (this.game.in_checkmate()) {
           this.$store.commit('finishedGame', {value: true});
-          this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won') });
+          if (this.twoPlayers)
+            this.$store.commit('snackbarMessage', {value: side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won') });
+          else 
+            this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won') });
           return true;
         } else if (this.game.in_draw()) {
           this.$store.commit('finishedGame', {value: true});
@@ -154,8 +162,12 @@ export default {
       } 
       if ((rules & KidsConst.RULES_STALEMATE_WIN) && this.game.in_stalemate()) {// Win on No-Move opponent
         this.$store.commit('finishedGame', {value: true});
-        this.$store.commit('snackbarMessage', 
-          {value:  `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}` });
+        if (this.twoPlayers)
+          this.$store.commit('snackbarMessage', 
+            {value:  `${side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won')} - ${this.$i18n.t('reason.nomoves')}` });
+        else 
+          this.$store.commit('snackbarMessage', 
+            {value:  `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}` });
         return true;
       } 
       if (rules & KidsConst.RULES_SAFE_PROMOTION) {
@@ -165,8 +177,12 @@ export default {
             history[history.length-2].to !== history[history.length-1].to && 
             (history.length === 2 || (history.length > 2 && history[history.length-3].flags.indexOf('p') == -1))) { // no pair promotion
           this.$store.commit('finishedGame', {value: true});
-          this.$store.commit('snackbarMessage', 
-            {value: `${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}` });
+          if (this.twoPlayers)
+            this.$store.commit('snackbarMessage', 
+              {value: `${side===KidsConst.WHITE? this.$i18n.t('result.white_won'):this.$i18n.t('result.black_won')} - ${this.$i18n.t('reason.safe_promotion')}` });
+          else
+            this.$store.commit('snackbarMessage', 
+              {value: `${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}` });
           return true;
         }
       } 
@@ -186,11 +202,11 @@ export default {
             let mess = '';
             if (wWeight === bWeight) {
               mess = this.$i18n.t('result.draw');
-            } else if ((wWeight - bWeight > 0 && this.getOrientation === KidsConst.WHITE) ||
-              (wWeight - bWeight < 0 && this.getOrientation === KidsConst.BLACK)) {
-              mess = this.$i18n.t('result.won');
+            } else if (this.twoPlayers) {
+              mess = wWeight - bWeight > 0?  this.$i18n.t('result.white_won'):  this.$i18n.t('result.black_won');
             } else {
-              mess = this.$i18n.t('result.lost'); 
+              mess = ((wWeight - bWeight > 0 && this.getOrientation === KidsConst.WHITE) ||
+                (wWeight - bWeight < 0 && this.getOrientation === KidsConst.BLACK)) ? this.$i18n.t('result.won') : this.$i18n.t('result.lost'); 
             }
             this.$store.commit('finishedGame', {value: true});
             this.$store.commit('snackbarMessage', 

@@ -41,7 +41,7 @@
       <v-col cols="12" class="ma-0 pa-0">
         <v-fade-transition v-if="showBtnStart">
           <div >
-            <v-btn v-if="showBtnStart" rounded color="primary"  @click="bntGameStart">{{ $t('btn.game.start') }}</v-btn>
+            <v-btn v-if="showBtnStart" rounded color="primary"  @click="bntGameStart">{{ $store.state.history.moves.length>0? $t('btn.game.continue') : $t('btn.game.start') }}</v-btn>
            </div>
          </v-fade-transition>     
       </v-col>
@@ -117,9 +117,11 @@ import * as KidsConst from '@/lib/const.js';
       this.positionInfo = data
     }, */
     bntGameStart() {
+      this.$store.commit('forcedBtnStart', {value: false});
       this.$refs.wrkBoard.aiNextMove();
     },
     flippedBoard() {
+      this.$store.commit('forcedBtnStart', {value: false});
       if (this.$store.getters.isMoveOf(KidsConst.HUMAN)) {
         this.$refs.wrkBoard.initialMove();
       }
@@ -155,14 +157,14 @@ import * as KidsConst from '@/lib/const.js';
           setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 1000); 
       });
     },
-
+/*
     promote() {
       if (confirm("Want to promote to rook? Queen by default") ) {
         return 'r'
       } else {
         return 'q'
       }
-    }
+    } */
   }, 
      computed: {
     ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 

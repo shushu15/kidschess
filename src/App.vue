@@ -134,7 +134,7 @@ export default {
   },
 
   data: () => ({
-    isTitleShowing: true,
+    // isTitleShowing: true,
     forcedReload: new Date(),
     //
   }),
@@ -175,7 +175,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','standardData','childByID','getLevelHint']),
+    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','standardData','childByID','getLevelHint','showBtnStartGen','twoPlayers']),
     playLevel: {
       get () {
         return this.$store.state.engineLevel;
@@ -199,12 +199,17 @@ export default {
       get() { return this.$store.state.modeNoBackMoves; },
       set(value) { 
         this.$store.commit('backMoves', {value});
+        localStorage.backMoves = value;
       }
     },
     swTwoPlayers: {
-      get() { return this.$store.state.modeTwoPlayers; },
+      get() { return this.twoPlayers; },
       set(value) { 
         this.$store.commit('twoPlayers', {value});
+        localStorage.twoPlayers = value;
+        if (this.showBtnStartGen) { // here we just check if we need to show, no mattter of game stage
+          this.$store.commit('forcedBtnStart', {value: true});
+        }
       }
     },
   },  
@@ -247,7 +252,15 @@ export default {
     // END WORKER
     if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.length-1) {
       this.playLevel = localStorage.playLevel;
+    }
+    // NOTE, that localStorage keeps all as strings
+    if (localStorage.backMoves !== undefined) {
+      this.swBackMoves = localStorage.backMoves == 'true';
     } 
+    if (localStorage.twoPlayers !== undefined) {
+      this.swTwoPlayers = localStorage.twoPlayers == 'true';
+    } 
+
   },     
   beforeDestroy() {
     // WORKER

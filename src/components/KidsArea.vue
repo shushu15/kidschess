@@ -125,7 +125,7 @@ import * as KidsConst from '@/lib/const.js';
       }
     }, 
     actBackward() {
-      if (this.$store.state.history.moves.length > 1) { // at last 2 half-moves
+      if (this.$store.state.history.moves.length > (this.twoPlayers? 0: 1) ) { // at last 2 half-moves
         // this.$store.commit('actBackward');  
         this.$refs.wrkBoard.actBackward();
       }
@@ -165,7 +165,8 @@ import * as KidsConst from '@/lib/const.js';
     }
   }, 
      computed: {
-    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 'currentParent','textLastMove','longThinking']),
+    ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 
+              'currentParent','textLastMove','longThinking','twoPlayers']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);

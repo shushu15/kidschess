@@ -3,6 +3,8 @@
 import {  mapGetters } from 'vuex'; 
 import { chessboard }  from '@/components/vendor/chessboard/index.js';
 import * as KidsConst from '@/lib/const.js';
+import '@/lib/parse-transform.js';
+
 // import { chessboard }  from 'vue-chessboard'
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine/js-chess-engine';
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine.mjs'
@@ -46,7 +48,20 @@ export default {
         this.calculatePromotions();
         this.$store.commit('addMove', {move: `${orig}${dest}`});
         this.$store.commit('setTurn', { turn: this.game.turn() });
-         setTimeout(() => {this.aiNextMove();}, 100); // allow redraw
+        if (this.twoPlayers) {
+          this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
+          this.board.set({
+            turnColor: this.toColor(),
+            movable: {
+              color: this.toColor(),
+              dests: this.possibleMoves(),
+              events: { after: this.userPlay()},
+            }
+          });
+          this.flipFiguresCSS();
+        }
+        else  // AI player
+          setTimeout(() => {this.aiNextMove();}, 100); // allow redraw
       }
     },
     aiNextMove() {
@@ -72,10 +87,29 @@ export default {
       else  
         this.$store.dispatch('workerSendPosition', { position: this.game.fen(), dynamic }); 
     }, 
+    flipFiguresCSS() {
+          let elements = this.$el.querySelectorAll('cg-board piece');
+          elements.forEach(element => {
+            let t =  element.style.transform;
+            let tt= t.parseTransform();
+            if (tt.rotate) tt.rotate = 'undefined';
+            else tt.rotate  = {a:"180",x:0,y:0};
+            //element.style.transform = `${t} rotate(180deg)`
+            element.style.transform = `${tt.toString()}`;
+            console.log(`element ${tt.toString()}`);});
+          // elements.forEach(element => {console.log(`element ${element.getAttribute("style")}`);});
+          //let elements=this.$el.getElementsByTagName("piece");
+          // elements.forEach(element => {console.log(`element ${element.contentDocument()}`);});
+        // svg.styleSheets[0].disabled = true
+
+    },
+
     actBackward() {
       this.game.undo();
-      this.game.undo();
-      this.$store.commit('actBackward');  
+      if (!this.twoPlayers) { // for AI we need 2 backmoves
+        this.game.undo();
+        this.$store.commit('actBackward');  
+      }
       this.$store.commit('actBackward');  
 
       this.$store.commit('bestMove', { move: '' }); // clear last moveAI to watch 1 back move
@@ -185,7 +219,7 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['isMoveOf', 'getTaskRules', 'getOrientation','movesNumberOut']),
+    ...mapGetters(['isMoveOf', 'getTaskRules', 'getOrientation','movesNumberOut','twoPlayers']),
   },
   watch: {
     id: function() { 
@@ -272,7 +306,12 @@ export default {
   .cg-board-wrap coords.ranks, .cg-board-wrap  coords.files
   {
     background-color: transparent !important;
-  } 
+  }
+  /* 
+  .merida
+  {
+    transform: rotate(180deg) !important;
+  }*/
 
 
 </style> 

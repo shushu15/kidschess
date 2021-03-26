@@ -133,7 +133,10 @@ export default {
   },
 
   canBackward(state, getters) {
-    return getters.isMoveOf(KidsConst.HUMAN) && state.history.moves.length > 1 && !state.modeNoBackMoves;
+    return  !state.modeNoBackMoves && 
+        ((getters.isMoveOf(KidsConst.HUMAN) && state.history.moves.length > 1) ||
+        (getters.twoPlayers && state.history.moves.length > 0)); 
+    
   },
   /******
    * Returns last part of moves to show
@@ -175,6 +178,9 @@ export default {
   },
   longThinking(state) {
     return state.longThinking;
+  },
+  twoPlayers(state) {
+    return state.modeTwoPlayers;
   }
 
 

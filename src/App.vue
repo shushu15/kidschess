@@ -97,11 +97,6 @@
             <v-switch dense v-model="swTwoPlayers" :label="$t('menu.settings.two')" ></v-switch>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item dense v-show="needFlipPieces()">
-          <v-list-item-action>
-            <v-switch dense v-model="swFlipPieces" :label="$t('menu.settings.flipfigures')" ></v-switch>
-          </v-list-item-action>
-        </v-list-item>
       </v-list-group> 
       <AboutDlg />
       <ShareDlg />
@@ -212,12 +207,6 @@ export default {
         this.$store.commit('twoPlayers', {value});
       }
     },
-    swFlipPieces: {
-      get() { return this.$store.state.modeFlipPieces; },
-      set(value) { 
-        this.$store.commit('flipPieces', {value});
-      }
-    }        
   },  
   created() {
 

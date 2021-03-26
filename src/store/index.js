@@ -41,7 +41,7 @@ const state = {
   longThinking: false,
   modeTwoPlayers: false,
   modeNoBackMoves: false,
-  modeFlipPieces: false,
+  // modeFlipPieces: false,
   // ----------------
   tasks : [
     { title: {ru: 'Одежда для короля', en: "King's clothes"},

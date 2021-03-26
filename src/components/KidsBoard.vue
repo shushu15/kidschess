@@ -3,7 +3,7 @@
 import {  mapGetters } from 'vuex'; 
 import { chessboard }  from '@/components/vendor/chessboard/index.js';
 import * as KidsConst from '@/lib/const.js';
-import '@/lib/parse-transform.js';
+// import '@/lib/parse-transform.js';
 
 // import { chessboard }  from 'vue-chessboard'
 // import {aiMoveExport} from '@/lib/ai/js-chess-engine/js-chess-engine';
@@ -58,7 +58,7 @@ export default {
               events: { after: this.userPlay()},
             }
           });
-          this.flipFiguresCSS();
+          // this.flipFiguresCSS();
         }
         else  // AI player
           setTimeout(() => {this.aiNextMove();}, 100); // allow redraw
@@ -87,22 +87,29 @@ export default {
       else  
         this.$store.dispatch('workerSendPosition', { position: this.game.fen(), dynamic }); 
     }, 
+    /*
     flipFiguresCSS() {
+      this.board.set({
+        flipPieces: true
+      }) 
+    
           let elements = this.$el.querySelectorAll('cg-board piece');
           elements.forEach(element => {
             let t =  element.style.transform;
             let tt= t.parseTransform();
-            if (tt.rotate) tt.rotate = 'undefined';
+            if (tt.rotate) tt.rotate = undefined;
             else tt.rotate  = {a:"180",x:0,y:0};
             //element.style.transform = `${t} rotate(180deg)`
             element.style.transform = `${tt.toString()}`;
-            console.log(`element ${tt.toString()}`);});
+            console.log(`element ${t} -> ${tt.toString()}`);});
+            
+
           // elements.forEach(element => {console.log(`element ${element.getAttribute("style")}`);});
           //let elements=this.$el.getElementsByTagName("piece");
           // elements.forEach(element => {console.log(`element ${element.contentDocument()}`);});
         // svg.styleSheets[0].disabled = true
 
-    },
+    }, */
 
     actBackward() {
       this.game.undo();

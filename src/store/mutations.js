@@ -86,9 +86,10 @@ export default {
   twoPlayers(state, { value }) {
     state.modeTwoPlayers = value === undefined ? !state.modeTwoPlayers : value;
   },
+  /*
   flipPieces(state, { value }) {
     state.modeFlipPieces = value === undefined ? !state.modeFlipPieces : value;
-  },
+  }, */
 
 
 };

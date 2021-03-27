@@ -20,19 +20,17 @@ export default {
   },
   methods: {
     initialMove() {
-      // this.gameLoaded();
-      // setTimeout(() => {
-        this.board.set({
-          movable: { events: { after: this.userPlay()} },
-        });
-        this.$store.commit('setTurn', { turn: this.game.turn() });
-       // }, 1000);
-       this.$store.commit('addMove');  // no paraneters - clear history
-       //if (this.isMoveOf(KidsConst.HUMAN)) { // if move of HUMAN save its fen
-       // this.$store.commit('setHistoryFen', {fen: this.game.fen()});
-       // }
+      this.launchMoveSequence();
+      this.$store.commit('setTurn', { turn: this.game.turn() });
+      this.$store.commit('addMove');  // no paraneters - clear history
+    },
 
-    },     
+    launchMoveSequence() {
+      this.board.set({
+          movable: { events: { after: this.userPlay()} },
+      });
+    }, 
+
     userPlay() {
       return (orig, dest) => {
         // console.log(`userPlay ${orig} ${dest}`);
@@ -245,10 +243,12 @@ export default {
     ...mapGetters(['isMoveOf', 'getTaskRules', 'getOrientation','movesNumberOut','twoPlayers']),
   },
   watch: {
+    // for the new task
     id: function() { 
       //console.log(`KidsBoard Watcher id`); // eslint-disable-line no-console ,
       this.initialMove();
     }, 
+    // to reload the current task
     forced: function() { 
       //console.log(`KidsBoard Watcher forced`); // eslint-disable-line no-console ,
       this.loadPosition(); 
@@ -257,6 +257,10 @@ export default {
       this.$store.commit('finishedGame', {value: false});
       // console.log('board-reload'); // eslint-disable-line no-console ,
     }, 
+    '$store.state.modeTwoPlayers': function() {
+        // console.log(this.$store.state.modeTwoPlayers);
+      this.launchMoveSequence();    
+    },
   },
   created() {
     this.unwatch = this.$store.watch(  // https://vuex.vuejs.org/api/#watch

@@ -38,7 +38,8 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 
 ## TODO
 
-* Use as a chess board for 2 players (and option: flip pieces)
-* Options: disable back moves
+* Rifat club vk link in About
+* 0.1.9 (no flip). Use as a chess board for 2 players (and option: flip pieces)
+* 0.1.9 Options: disable back moves
 
 [logo]: https://github.com/shushu15/kidschess/blob/main/public/favicon.png?raw=true "KidsChess logo"

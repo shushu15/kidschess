@@ -74,6 +74,7 @@
           min=1
           :hint="getLevelHint"
           :persistent-hint="true"
+          :disabled="twoPlayers"
         >
         </v-slider>
       </v-list-item >
@@ -255,10 +256,10 @@ export default {
     }
     // NOTE, that localStorage keeps all as strings
     if (localStorage.backMoves !== undefined) {
-      this.swBackMoves = localStorage.backMoves == 'true';
+      this.$store.commit('backMoves', {value: localStorage.backMoves == 'true'});
     } 
     if (localStorage.twoPlayers !== undefined) {
-      this.swTwoPlayers = localStorage.twoPlayers == 'true';
+      this.$store.commit('twoPlayers', {value: localStorage.twoPlayers == 'true'});
     } 
 
   },     

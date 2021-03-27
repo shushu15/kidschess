@@ -169,7 +169,7 @@ export default {
       return  this.$store.getters.isMoveOf(KidsConst.HUMAN);
     },
     canReload() {
-      return this.isMyMove() || this.finishedGame;
+      return this.isMyMove() || this.finishedGame || this.twoPlayers;
     },
     needFlipPieces () {
       return true;

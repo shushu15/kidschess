@@ -12,6 +12,7 @@
         <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
               :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
+         <label class="ai-level caption" v-show="!twoPlayers">{{getLevelHint}}</label>     
          <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('b')">
             mdi-alarm
         </v-icon></div>     
@@ -168,7 +169,7 @@ import * as KidsConst from '@/lib/const.js';
   }, 
      computed: {
     ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 
-              'currentParent','textLastMove','longThinking','twoPlayers']),
+              'currentParent','textLastMove','longThinking','twoPlayers','getLevelHint']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
@@ -231,6 +232,11 @@ import * as KidsConst from '@/lib/const.js';
     position: absolute;
     top: -10px;
     right: 60px;
+  } 
+  .ai-level {
+    position: absolute;
+    top: -10px;
+    left: 0px;
   } 
   .clock-my {
     position: absolute;

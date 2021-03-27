@@ -11,6 +11,8 @@
   "btn.menu" : "Главное меню",
   "btn.switch_color": "Поменять цвет фигур",
   "btn.repeat" : "Повторить игру",
+  "btn.moveback" : "Ход назад",
+  "btn.copygame" : "Скопировать игру",
   "menu.level": "Уровень",
   "menu.about": "О программе",
   "menu.about.text": "Козлята: шахматные обучающие игры",

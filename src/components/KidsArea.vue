@@ -24,12 +24,12 @@
     </v-row>
     <v-row class="ma-0 pa-0">
       <v-col class="d-flex justify-center ma-0 pa-0" cols="12">
-        <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" >
+        <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" :aria-label="$t('btn.moveback')">
             <v-icon>mdi-step-backward</v-icon>
         </v-btn> 
         <v-tooltip v-model="showCopy" top :open-on-hover="false" :open-on-click="false" >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon class="mx-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on">
+            <v-btn icon class="mx-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on" :aria-label="$t('btn.copygame')">
               <v-icon>mdi-information</v-icon>
             </v-btn> 
           </template>

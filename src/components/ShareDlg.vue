@@ -70,6 +70,7 @@ export default {
         { network: 'quora', name: 'Quora', icon: 'mdi-quora', color: '#a82400' },
         { network: 'reddit', name: 'Reddit', icon: 'mdi-reddit', color: '#ff4500' },
         { network: 'skype', name: 'Skype', icon: 'mdi-skype', color: '#00aff0' },
+        { network: 'telegram', name: 'Telegram', icon: 'mdi-telegram', color: '#0088cc' },        
         { network: 'twitter', name: 'Twitter', icon: 'mdi-twitter', color: '#1da1f2' },
         { network: 'vk', name: 'Vk', icon: 'mdi-vk', color: '#4a76a8' },
         { network: 'whatsapp', name: 'Whatsapp', icon: 'mdi-whatsapp', color: '#25d366' },
@@ -100,7 +101,7 @@ export default {
     flex: none;
     color: #FFFFFF;
     background-color: #333;
-    border-radius: 3px;
+    border-radius: 7px;
     overflow: hidden;
     display: flex;
     flex-direction: row;

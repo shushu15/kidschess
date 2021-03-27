@@ -21,7 +21,7 @@
         <span v-html="$t('menu.about.used3')"></span><br />
         <span v-html="$t('menu.about.used4')"></span>
         <v-divider></v-divider>
-        {{ $t('menu.about.contact') }}
+        <span v-html="$t('menu.about.contact')"></span><br />
         {{ $t('menu.about.version') }} : {{$store.state.version}}<br />
       </v-card-text>
       <v-card-actions>

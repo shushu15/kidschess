@@ -18,7 +18,7 @@
   "menu.about.used2": "Визуализация доски: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Проверка ходов: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.used4": "Картинки: <a href='https://www.flaticon.com/'>Flaticon</a> ",
-  "menu.about.contact": "Идея и авторство игр: Рифат Айсин, разработка Александр Василёв: alme20@yandex.ru",
+  "menu.about.contact": "Идея и авторство игр: Рифат Айсин <a href='https://vk.com/club199085279'>шахматный клуб</a>, разработка Александр Василёв: alme20@yandex.ru",
   "menu.about.version": "Версия",
   "menu.settings" : "Настройки",
   "menu.settings.two" : "Два игрока",

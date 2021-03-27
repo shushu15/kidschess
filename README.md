@@ -31,6 +31,9 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 * Social sharing: [vue-social-sharing](//github.com/nicolasbeauvais/vue-social-sharing)
 * Icons: [Flaticon](https://www.flaticon.com/)
 
+## Repository
+
+[github](https://github.com/shushu15/kidschess)
 
 ## License
 

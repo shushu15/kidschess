@@ -19,9 +19,9 @@
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
-      absolute
       temporary
       width="310"
+      app
     >
 
     <v-list

@@ -41,6 +41,8 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 
 ## TODO
 
+* TODO load lang messages on reuest
+* 0.1.8 Spanish translation
 * 0.1.9 Allow reload game on any move for Two-players
 * 0.1.9 Rifat club vk link in About
 * 0.1.9 (no flip). Use as a chess board for 2 players (and option: flip pieces)

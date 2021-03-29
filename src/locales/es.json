@@ -20,7 +20,7 @@
   "menu.about.used2": "Tablero: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Validación de ajedrez: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.used4": "Iconos: <a href='https://www.flaticon.com/'>Flaticon</a>",
-  "menu.about.contact": "Autor de ideas y juegos Rifat Aysin <a href='https://vk.com/club199085279'>chess club</a>, desarrollo Alex Vasilev: alme20@yandex.ru",
+  "menu.about.contact": "Autor de ideas y juegos Rifat Aysin <a href='https://vk.com/club199085279'>Club de Ajedrez</a>, desarrollo Alex Vasilev: alme20@yandex.ru",
   "menu.about.version": "Versión",
   "menu.settings" : "Ajustes",
   "menu.settings.two" : "Dos jugadores",
@@ -60,67 +60,67 @@
     "title" : "KidsChess: Juegos de ajedrez para niños",
     "description": "Club Rifat. Aprender a jugar al ajedrez para los más pequeños. Los juegos enseñan a los niños a prestar atención, comprender la fuerza relativa de las piezas y la importancia de los peones pasados.",
     "quote": "Juego KidsChess. Partidas breves, eficaces y claras con un número reducido de figuras: los personajes ayudarán a los jóvenes ajedrecistas a aumentar su interés por aprender a jugar al ajedrez.",
-    "hashtags": "ajedrez,niños,aprendizaje,pequeño,juego"
+    "hashtags": "ajedrez,niños,aprendizaje,pequeño,juego,cabritos"
   },
   
   "task": {
     "kingcloths": {
-      "t": "King's clothes",
-      "d": "Gamе purpose: the complete capturing of pawns or the safe reaching of any pawn to the square of promotion.",
+      "t": "Ropa de Rey",
+      "d": "Propósito del juego: la captura completa de peones o el alcance seguro de cualquier peón a la casilla de promoción.",
       "1": {
-        "t": "King's pants",
-        "d": "Pawns win easily"
+        "t": "Pantalones del Rey",
+        "d": "Los peones ganan fácilmente"
       },
       "2": {
-        "t": "King's breeches",
-        "d": "The pawns must win"
+        "t": "Calzones del Rey",
+        "d": "Los peones deben ganar"
       },
       "3": {
-        "t": "King's shorts",
-        "d": "The king must win"
+        "t": "Pantalones cortos del Rey",
+        "d": "El rey debe ganar"
       },
       "4": {
-        "t": "King's underpants",
-        "d": "The king wins easily"
+        "t": "Calzoncillos del Rey",
+        "d": "El rey gana facilmente"
       },
       "5": {
-        "t": "King's skirt",
-        "d": "With accurate play, the pawns should win. Hardest game"
+        "t": "Falda del Rey",
+        "d": "Con un juego preciso, los peones deberían ganar. Juego mas dificil"
       }
     },
     "wolfkids": {
-      "t": "Wolf and Kids",
-      "d": "Game purpose: complete capturing (or blocking) of the opponent or safe pawn promotion",
+      "t": "Lobo y Cabritos",
+      "d": "Objetivo del juego: captura completa (o bloqueo) del oponente o promoción segura de peones",
       "1": {
-        "t": "Three Kids",
-        "d": "Rook against 3 connected pawns. The rook must win"
+        "t": "Tres Cabritos",
+        "d": "Torre contra 3 peones conectados. La torre debe ganar"
       },
       "2": {
-        "t": "Fire Dragon",
-        "d": "The Fire Dragon with eight heads (pawns) is trying to crawl with at least one head into the royal palace (the last horizontal line), and Brave Prince (queen) must prevent this and cut off all the heads of the Fire Dragon."
+        "t": "El Dragón de Fuego",
+        "d": "El Dragón de Fuego con ocho cabezas (peones) está tratando de arrastrarse con al menos una cabeza hacia el palacio real (la última línea horizontal), y Príncipe Valiente (dama) debe evitar esto y cortar todas las cabezas del Dragón de Fuego."
       },
       "3": {
-        "t": "Four Kids",
-        "d": "The wolf must win"
+        "t": "Cuatro Cabritos",
+        "d": "El lobo debe ganar"
       },
       "4": {
-        "t": "Five Kids",
+        "t": "Cinco Cabritos",
         "d": "Las probabilidades son aproximadamente iguales"
       },
       "5": {
-        "t": "Six Kids",
-        "d": "The kids must win"
+        "t": "Seis Cabritos",
+        "d": "Los Cabritos deben ganar"
       }
     },
     "elephant": {
-      "t": "Elephant clothes",
-      "d": "Game purpose: mutual capturing or safe reaching of the square of promotion by any pawn. White starts.",
+      "t": "Ropa de Elefante",
+      "d": "Objetivo del juego: captura mutua o alcance seguro de la casilla de promoción por cualquier peón. Empieza el blanco.",
       "1": {
-        "t": "Elephant swim trunks",
+        "t": "Bañador Elefante",
         "d": "Las blancas deben ganar"
       },
       "2": {
-        "t": "Elephant swim trunks 2",
+        "t": "Bañador Elefante 2",
         "d": "Las blancas deben ganar"
       },
       "3": {
@@ -181,7 +181,7 @@
       }
     },
     "animals": {
-      "t": "Forest animals",
+      "t": "Animales del Bosque",
       "d": "Propósito del juego: la captura completa de peones o el alcance seguro de cualquier peón a la casilla de promoción.",
       "1": {
         "t": "Zorro, Lobo, 4 Liebres",
@@ -229,10 +229,10 @@
       }
     },
     "kings": {
-      "t": "Batalla de reyes",
+      "t": "Batalla de Reyes",
       "d": "Propósito del juego: jaque mate",
       "1": {
-        "t": "Pequeño mago",
+        "t": "Pequeño Mago",
         "d": "Jaque mate en 30 movimientos. Las blancas deben ganar"
       },
       "2": {
@@ -244,19 +244,19 @@
         "d": "Jaque mate en 30 movimientos. Las negras deben hacer tablas con un juego preciso"
       },
       "4": {
-        "t": "'Batalla del rey",
+        "t": "'Batalla del Rey",
         "d": "Juega hasta el jaque mate"
       },
       "5": {
-        "t": "'Batalla del rey 2",
+        "t": "'Batalla del Rey 2",
         "d": "Juega hasta el jaque mate"
       },
       "6": {
-        "t": "Poderosos reyes",
+        "t": "Poderosos Reyes",
         "d": "Juega hasta el jaque mate"
       },
       "7": {
-        "t": "Poderosos reyes 2",
+        "t": "Poderosos Reyes 2",
         "d": "Juega hasta el jaque mate"
       }
     },

@@ -65,6 +65,7 @@ export default {
       networks: [
         { network: 'facebook', name: 'Facebook', icon: 'mdi-facebook', color: '#1877f2' },
         { network: 'linkedin', name: 'LinkedIn', icon: 'mdi-linkedin', color: '#007bb5' },
+        { network: 'messenger', name: 'Messenger', icon: 'mdi-facebook-messenger', color: '#0084ff' },        
         { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'mdi-odnoklassniki', color: '#ed812b' },
         { network: 'pinterest', name: 'Pinterest', icon: 'mdi-pinterest', color: '#bd081c' },
         { network: 'quora', name: 'Quora', icon: 'mdi-quora', color: '#a82400' },

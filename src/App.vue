@@ -106,7 +106,7 @@
     </v-navigation-drawer>    
 
     <v-main class="main-screen">
-      <KidsArea v-if="!$store.state.isTitleShowing" :forced="this.forcedReload"/>
+      <KidsArea v-show="!$store.state.isTitleShowing" :forced="this.forcedReload"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
     </v-main>
   </v-app>

@@ -52,10 +52,10 @@
         cols="12"
       >
         <div class="text-subtitle-1">
-            {{getCurrentTask.description[$i18n.locale]}}        
+            {{getCurrentTask.description}}        
         </div>
         <div class="text-subtitle-2" v-if="currentParent != undefined">
-            {{currentParent.description[$i18n.locale]}}        
+            {{currentParent.description}}        
         </div>
       </v-col>
 
@@ -138,7 +138,7 @@ import * as KidsConst from '@/lib/const.js';
       navigator.permissions.query({name: "clipboard-write"}).then(result => {
         if (result.state == "granted" || result.state == "prompt") {
           /* write to the clipboard now */
-          let s = `${this.$store.getters.getCurrentTask.title[this.$i18n.locale]}\n${this.$store.getters.getCurrentTask.orientation}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
+          let s = `${this.$store.getters.getCurrentTask.title}\n${this.$store.getters.getCurrentTask.orientation}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
           console.log(s); // eslint-disable-line no-console 
           this.updateClipboard(s, self);
           

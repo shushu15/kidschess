@@ -7,7 +7,7 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" :aria-label="$t('btn.menu')"></v-app-bar-nav-icon> 
 
-      <v-toolbar-title>{{$t('title.game')}} {{this.$store.getters.getCurrentTask.title[$i18n.locale]}}</v-toolbar-title>
+      <v-toolbar-title>{{$t('title.game')}} {{this.$store.getters.getCurrentTask.title}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -38,7 +38,7 @@
           </v-list-item-avatar>
             
           <v-list-item-content>
-            <v-list-item-title v-text="task.title[$i18n.locale]"></v-list-item-title>
+            <v-list-item-title v-text="task.title"></v-list-item-title>
           </v-list-item-content>
         </template>
 
@@ -48,7 +48,7 @@
            @click="selectChild(child)" 
         >
           <v-list-item-content>
-            <v-list-item-title v-text="child.title[$i18n.locale]"></v-list-item-title>
+            <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -60,7 +60,7 @@
           <inline-svg :src="standardData.avatar"/>
         </v-list-item-avatar>
         <v-list-item-content>
-            <v-list-item-title v-text="standardData.title[$i18n.locale]"></v-list-item-title>
+            <v-list-item-title v-text="standardData.title"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -106,7 +106,7 @@
     </v-navigation-drawer>    
 
     <v-main class="main-screen">
-      <KidsArea v-show="!$store.state.isTitleShowing" :forced="this.forcedReload"/>
+      <KidsArea v-if="!$store.state.isTitleShowing" :forced="this.forcedReload"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
     </v-main>
   </v-app>
@@ -116,6 +116,7 @@
 import {  mapGetters } from 'vuex'; 
 import TitleScreen from './components/TitleScreen.vue';
 import KidsArea from './components/KidsArea.vue';
+// const KidsArea = () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue');
 import AboutDlg from '@/components/AboutDlg'; 
 import ShareDlg from '@/components/ShareDlg'; 
 import InlineSvg from 'vue-inline-svg';
@@ -213,7 +214,8 @@ export default {
         }
       }
     },
-  },  
+  }, 
+  
   created() {
 
     let childTo = undefined;
@@ -228,9 +230,8 @@ export default {
     this.$store.commit('setChild', { child:  childTo});
     this.$store.commit('setGameActive', {value: false});
 
- 
+   },
 
-  },
   mounted() {
     // WORKER
     let myTask;

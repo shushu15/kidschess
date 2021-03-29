@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="400px">
     <template v-slot:activator="{ on }">
       <v-list-item link>
-        <v-list-item-avatar tile>
+        <v-list-item-avatar tile size="35">
           <v-icon>
              mdi-share-variant
           </v-icon>  

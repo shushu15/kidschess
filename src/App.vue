@@ -12,9 +12,9 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()" :aria-label="$t('btn.repeat')">mdi-reload</v-icon>
-        <v-icon v-if="flipToBlack" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">mdi-arrange-send-backward</v-icon>
-        <v-icon v-if="flipToWhite" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">mdi-arrange-bring-forward</v-icon>
+        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()" :aria-label="$t('btn.repeat')">{{mdiReload}}</v-icon>
+        <v-icon v-if="flipToBlack" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">{{mdiArrangeSendBackward}}</v-icon>
+        <v-icon v-if="flipToWhite" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">{{mdiArrangeBringForward}}</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -80,7 +80,7 @@
       </v-list-item >
 
       <v-list-group
-        prepend-icon="mdi-cog"
+        :prepend-icon=mdiCog
         no-action
       >
         <template v-slot:activator>
@@ -121,6 +121,8 @@ import AboutDlg from '@/components/AboutDlg';
 import ShareDlg from '@/components/ShareDlg'; 
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
+import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward,mdiCog } from '@mdi/js';
+
 
 
 
@@ -138,6 +140,10 @@ export default {
   data: () => ({
     // isTitleShowing: true,
     forcedReload: new Date(),
+    mdiReload,
+    mdiArrangeSendBackward,
+    mdiArrangeBringForward,
+    mdiCog,
     //
   }),
   methods: {

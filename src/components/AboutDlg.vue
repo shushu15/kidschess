@@ -4,7 +4,7 @@
       <v-list-item link>
         <v-list-item-avatar tile size="35">
           <v-icon>
-             mdi-information-variant
+             {{mdiInformationVariant}}
           </v-icon>  
         </v-list-item-avatar>
         <v-list-item-content>
@@ -33,10 +33,13 @@
 </template>
 
 <script>
+import { mdiInformationVariant } from '@mdi/js';
+
 export default {
   data() {
     return {
       dialog: false,
+      mdiInformationVariant,
     };
   },
   methods: {

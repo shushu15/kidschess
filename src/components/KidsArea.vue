@@ -14,10 +14,10 @@
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
          <label class="ai-level caption" v-show="!twoPlayers">{{getLevelHint}}</label>     
          <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('b')">
-            mdi-alarm
+            {{ mdiAlarm }}
         </v-icon></div>     
          <div class="clock-my"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('w')">
-            mdi-alarm
+            {{ mdiAlarm }}
         </v-icon></div>
          </div>  
       </v-col>
@@ -25,12 +25,12 @@
     <v-row class="ma-0 pa-0">
       <v-col class="d-flex justify-center ma-0 pa-0" cols="12">
         <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" :aria-label="$t('btn.moveback')">
-            <v-icon>mdi-step-backward</v-icon>
+            <v-icon>{{mdiStepBackward}}</v-icon>
         </v-btn> 
         <v-tooltip v-model="showCopy" top :open-on-hover="false" :open-on-click="false" >
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon class="mx-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on" :aria-label="$t('btn.copygame')">
-              <v-icon>mdi-information</v-icon>
+              <v-icon>{{ mdiInformation }}</v-icon>
             </v-btn> 
           </template>
           <span>{{this.copyMessage}}</span>
@@ -88,6 +88,8 @@ import {  mapGetters } from 'vuex';
 import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
+import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
+
 
 
   export default {
@@ -105,6 +107,9 @@ import * as KidsConst from '@/lib/const.js';
     return {
       showCopy: false,
       copyMessage: '',
+      mdiAlarm,
+      mdiStepBackward,
+      mdiInformation,
     }
   },  
   /* data () {

@@ -184,19 +184,19 @@
       "t": "Animales del Bosque",
       "d": "Propósito del juego: la captura completa de peones o el alcance seguro de cualquier peón a la casilla de promoción.",
       "1": {
-        "t": "Zorro, Lobo, 4 Liebres",
+        "t": "Zorro, Lobo, 4 Conejos",
         "d": "El Zorro y El Lobo ganan"
       },
       "2": {
-        "t": "Zorro, Lobo, 4 Liebres",
+        "t": "Zorro, Lobo, 4 Conejos",
         "d": "El Zorro y El Lobo ganan"
       },
       "3": {
-        "t": "Zorro, Lobo, 5 Liebres",
+        "t": "Zorro, Lobo, 5 Conejos",
         "d": "Las probabilidades son aproximadamente iguales"
       },
       "4": {
-        "t": "Zorro, Lobo, 5 Liebres",
+        "t": "Zorro, Lobo, 5 Conejos",
         "d": "Las probabilidades son aproximadamente iguales"
       }
     },

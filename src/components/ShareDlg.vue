@@ -4,7 +4,7 @@
       <v-list-item link>
         <v-list-item-avatar tile size="35">
           <v-icon>
-             mdi-share-variant
+             {{ mdiShareVariant }}
           </v-icon>  
         </v-list-item-avatar>
         <v-list-item-content>
@@ -43,6 +43,8 @@
 <script>
 // import ShareNetwork from 'vue-social-sharing';
 // import ShareNetwork from '@/lib/vendor/share/vue-social-sharing.vue';
+import { mdiFacebook,mdiLinkedin,mdiFacebookMessenger,mdiOdnoklassniki,mdiPinterest,mdiQuora,mdiReddit,
+        mdiSkype,mdiTelegram,mdiTwitter,mdiVk,mdiWhatsapp,mdiShareVariant } from '@mdi/js';
 import ShareNetwork from '@/lib/vendor/share/share-network.js';
 export default {
   name: 'ShareDlg',
@@ -63,20 +65,20 @@ export default {
         media: 'https://ownlinks.com/kidschess/img/icon/ms-icon-144x144.png'
       },
       networks: [
-        { network: 'facebook', name: 'Facebook', icon: 'mdi-facebook', color: '#1877f2' },
-        { network: 'linkedin', name: 'LinkedIn', icon: 'mdi-linkedin', color: '#007bb5' },
-        { network: 'messenger', name: 'Messenger', icon: 'mdi-facebook-messenger', color: '#0084ff' },        
-        { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'mdi-odnoklassniki', color: '#ed812b' },
-        { network: 'pinterest', name: 'Pinterest', icon: 'mdi-pinterest', color: '#bd081c' },
-        { network: 'quora', name: 'Quora', icon: 'mdi-quora', color: '#a82400' },
-        { network: 'reddit', name: 'Reddit', icon: 'mdi-reddit', color: '#ff4500' },
-        { network: 'skype', name: 'Skype', icon: 'mdi-skype', color: '#00aff0' },
-        { network: 'telegram', name: 'Telegram', icon: 'mdi-telegram', color: '#0088cc' },        
-        { network: 'twitter', name: 'Twitter', icon: 'mdi-twitter', color: '#1da1f2' },
-        { network: 'vk', name: 'Vk', icon: 'mdi-vk', color: '#4a76a8' },
-        { network: 'whatsapp', name: 'Whatsapp', icon: 'mdi-whatsapp', color: '#25d366' },
-      ]
-
+        { network: 'facebook', name: 'Facebook', icon: mdiFacebook, color: '#1877f2' },
+        { network: 'linkedin', name: 'LinkedIn', icon: mdiLinkedin, color: '#007bb5' },
+        { network: 'messenger', name: 'Messenger', icon: mdiFacebookMessenger, color: '#0084ff' },        
+        { network: 'odnoklassniki', name: 'Odnoklassniki', icon: mdiOdnoklassniki, color: '#ed812b' },
+        { network: 'pinterest', name: 'Pinterest', icon: mdiPinterest, color: '#bd081c' },
+        { network: 'quora', name: 'Quora', icon: mdiQuora, color: '#a82400' },
+        { network: 'reddit', name: 'Reddit', icon: mdiReddit, color: '#ff4500' },
+        { network: 'skype', name: 'Skype', icon: mdiSkype, color: '#00aff0' },
+        { network: 'telegram', name: 'Telegram', icon: mdiTelegram, color: '#0088cc' },        
+        { network: 'twitter', name: 'Twitter', icon: mdiTwitter, color: '#1da1f2' },
+        { network: 'vk', name: 'Vk', icon: mdiVk, color: '#4a76a8' },
+        { network: 'whatsapp', name: 'Whatsapp', icon: mdiWhatsapp, color: '#25d366' },
+      ],
+      mdiShareVariant,
     };
   },
   methods: {

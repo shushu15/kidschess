@@ -63,12 +63,13 @@
     <v-snackbar
       v-model="snackbar"
       :timeout="6000"
-      color="blue-grey"
+      :color="sb_color"
+      :class="{movedown : snackbar}"
     >
       <v-avatar class="float-left" tile>
         <inline-svg :src="cartoonByID(getCurrentTask.id,getCurrentTask.orientation)" />
       </v-avatar>
-      {{this.$store.state.snackbarMessage}}
+      {{this.$store.state.snackbar.message}}
 
       <template v-slot:action="{ attrs }">
         <v-btn
@@ -163,6 +164,9 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
           setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 1000); 
       });
     },
+    /**
+     * Helper method to reduse typing
+     */
 /*
     promote() {
       if (confirm("Want to promote to rook? Queen by default") ) {
@@ -178,13 +182,18 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
-        return this.$store.state.snackbarMessage !== '';
+        return this.$store.state.snackbar.message !== '';
       },
       set(value) {
         //console.log(`snackbar set ${value}`);
         this.$store.commit('snackbarMessage', { value });
       },
-    }, 
+    },
+    sb_color() {
+      return this.$store.state.snackbar.type===KidsConst.TYPE_POSITIVE? 'green darken-4':
+          this.$store.state.snackbar.type===KidsConst.TYPE_NEGATIVE?  'pink darken-4': "blue-grey";
+    },
+ 
   },
   
     
@@ -286,6 +295,15 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
 		color: #313131;
 	}
 } 
-
+.movedown {
+  animation-name: movedown;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+ @keyframes movedown { 
+  0% { transform: translateY(-50vw);  }
+  20% { transform: translateY(-50vw);  }
+  100% {  transform: translateY(0);  } 
+ }
 
 </style> 

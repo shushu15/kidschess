@@ -147,7 +147,8 @@ export default {
           if (this.twoPlayers)
             this.$store.commit('snackbarMessage', {value: side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won') });
           else 
-            this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won') });
+            this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won'),
+                                                    type: side===KidsConst.HUMAN? KidsConst.TYPE_NEGATIVE: KidsConst.TYPE_POSITIVE });
           return true;
         } else if (this.game.in_draw()) {
           this.$store.commit('finishedGame', {value: true});
@@ -165,7 +166,8 @@ export default {
             {value:  `${side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won')} - ${this.$i18n.t('reason.nomoves')}` });
         else 
           this.$store.commit('snackbarMessage', 
-            {value:  `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}` });
+            {value:  `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}`,
+              type: side===KidsConst.HUMAN? KidsConst.TYPE_NEGATIVE: KidsConst.TYPE_POSITIVE });
         return true;
       } 
       if (rules & KidsConst.RULES_SAFE_PROMOTION) {
@@ -180,7 +182,8 @@ export default {
               {value: `${side===KidsConst.WHITE? this.$i18n.t('result.white_won'):this.$i18n.t('result.black_won')} - ${this.$i18n.t('reason.safe_promotion')}` });
           else
             this.$store.commit('snackbarMessage', 
-              {value: `${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}` });
+              {value: `${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}`,
+               type: side===KidsConst.HUMAN? KidsConst.TYPE_POSITIVE: KidsConst.TYPE_NEGATIVE });
           return true;
         }
       } 
@@ -198,17 +201,24 @@ export default {
                     (fen.match(/b/g) || []).length * KidsConst.BISHOP_WEIGHT +
                     (fen.match(/k/g) || []).length * KidsConst.KNIGHT_WEIGHT;
             let mess = '';
+            let type = KidsConst.TYPE_NONE;
             if (wWeight === bWeight) {
               mess = this.$i18n.t('result.draw');
             } else if (this.twoPlayers) {
               mess = wWeight - bWeight > 0?  this.$i18n.t('result.white_won'):  this.$i18n.t('result.black_won');
             } else {
-              mess = ((wWeight - bWeight > 0 && this.getOrientation === KidsConst.WHITE) ||
-                (wWeight - bWeight < 0 && this.getOrientation === KidsConst.BLACK)) ? this.$i18n.t('result.won') : this.$i18n.t('result.lost'); 
+                if ((wWeight - bWeight > 0 && this.getOrientation === KidsConst.WHITE) ||
+                (wWeight - bWeight < 0 && this.getOrientation === KidsConst.BLACK)) {
+                  mess = this.$i18n.t('result.won');
+                  type = KidsConst.TYPE_POSITIVE;
+                } else {
+                  mess = this.$i18n.t('result.lost'); 
+                  type = KidsConst.TYPE_NEGATIVE;
+                }       
             }
             this.$store.commit('finishedGame', {value: true});
             this.$store.commit('snackbarMessage', 
-              {value: `${mess} - ${this.$i18n.t('reason.material')}` });
+              {value: `${mess} - ${this.$i18n.t('reason.material')}`, type });
             return true;
           }
 

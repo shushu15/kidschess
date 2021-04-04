@@ -67,11 +67,14 @@ export default {
     if (state.history.moves.length > 0)
       state.history.moves.pop();
   },
-  snackbarMessage(state, {value}) {
-    if (typeof value === "boolean" && !value) 
-      state.snackbarMessage = '';
-    else  
-      state.snackbarMessage = value;
+  snackbarMessage(state, {value, type}) {
+    if (typeof value === "boolean" && !value) {
+      state.snackbar.message = '';
+      state.snackbar.type = KidsConst.NONE;
+    } else  {
+      state.snackbar.message = value;
+      state.snackbar.type = (type !== undefined)? type: KidsConst.TYPE_NONE;  
+    }
   },
   setLongThinking(state, {value}) {
     state.longThinking = value;

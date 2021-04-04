@@ -38,7 +38,10 @@ const state = {
   history: {
     moves: [],
   },
-  snackbarMessage: '',
+  snackbar: {
+    message: '',
+    type: KidsConst.TYPE_NONE,
+  },
   longThinking: false,
   modeTwoPlayers: false,
   modeNoBackMoves: false,

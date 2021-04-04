@@ -172,7 +172,7 @@ export default {
     // isTitleShowing: true,
       forcedReload: new Date(),
       languages: [
-        ['menu.language.auto', `${Trans.getUserSupportedLang()}24o.png`, 'auto'],
+        ['menu.language.auto', `${Trans.getUserSupportedLang()}24o.png`, KidsConst.AUTO],
         ['lang.en', 'en24o.png', 'en'],
         ['lang.ru', 'ru24o.png', 'ru'],
         ['lang.es', 'es24o.png', 'es'],
@@ -196,17 +196,16 @@ export default {
       localStorage.taskID = child.id;
     }, 
     selectLocale(lang) {
-      if (lang !== this.$i18n.locale && lang !== 'auto') {
+      if (lang !== this.$i18n.locale && lang !== KidsConst.AUTO) {
         this.$i18n.locale = lang;
-        localStorage.lang = lang;
       }
-      else if (lang === 'auto')  {
+      else if (lang === KidsConst.AUTO)  {
         let l = Trans.getUserSupportedLang();
         if (this.$i18n.locale !== l) {
           this.$i18n.locale = l;
-          localStorage.lang = 'auto';
         }
       }
+      localStorage.lang = lang;
       this.$store.commit('toggleDrawer', { show: false });
     },
     actFlipBoard() {
@@ -314,7 +313,7 @@ export default {
       //this.$store.dispatch('workerSendMistakeLevel'); 
     }
     // END WORKER
-    if (localStorage.lang !== undefined && localStorage.lang !== 'auto') {
+    if (localStorage.lang !== undefined && localStorage.lang !== KidsConst.AUTO) {
       this.$i18n.locale = localStorage.lang;
     }
     if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.length-1) {

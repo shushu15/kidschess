@@ -24,5 +24,12 @@ export const THINKING_DELAY = 2000;
 export const THINKING_LEVEL = 14;
 
 export const MOVETIME = 10000;
+export const AUTO = 'auto';
+
+export const TYPE_NONE = 0;
+export const TYPE_POSITIVE = 1;
+export const TYPE_NEGATIVE = 2;
+
+
 
 

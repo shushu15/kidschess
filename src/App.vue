@@ -13,8 +13,8 @@
 
       <v-btn icon>
         <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()" :aria-label="$t('btn.repeat')">{{mdiReload}}</v-icon>
-        <v-icon v-if="flipToBlack" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">{{mdiArrangeSendBackward}}</v-icon>
-        <v-icon v-if="flipToWhite" @click="actFlipBoard" :aria-label="$t('btn.switch_color')">{{mdiArrangeBringForward}}</v-icon>
+        <v-icon v-if="flipToBlack" @click="actFlipBoard" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeSendBackward}}</v-icon>
+        <v-icon v-if="flipToWhite" @click="actFlipBoard" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeBringForward}}</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer

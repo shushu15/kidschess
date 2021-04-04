@@ -70,7 +70,7 @@ export default {
   snackbarMessage(state, {value, type}) {
     if (typeof value === "boolean" && !value) {
       state.snackbar.message = '';
-      state.snackbar.type = KidsConst.NONE;
+      state.snackbar.type = KidsConst.TYPE_NONE;
     } else  {
       state.snackbar.message = value;
       state.snackbar.type = (type !== undefined)? type: KidsConst.TYPE_NONE;  

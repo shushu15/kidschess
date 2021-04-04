@@ -304,8 +304,8 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
   animation-timing-function: ease-in-out;
 }
  @keyframes movedown { 
-  0% { transform: translateY(-50vw);  }
-  20% { transform: translateY(-50vw);  }
+  0% { transform: translateY(-50vh);  }
+  20% { transform: translateY(-50vh);  }
   100% {  transform: translateY(0);  } 
  }
  /*

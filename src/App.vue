@@ -123,7 +123,7 @@
           >
             <v-list-item-title v-text="$i18n.t(title)"></v-list-item-title>
             <v-list-item-avatar size="24" tile>
-              <img :src="`/img/${icon}`" :alt="title">
+              <img :src="`img/${icon}`" :alt="title">
             </v-list-item-avatar>
           </v-list-item>
         </v-list-group>                
@@ -273,7 +273,7 @@ export default {
       }
     },
     getCurrentFlag() {
-      return `/img/${this.$i18n.locale}24o.png`;
+      return `img/${this.$i18n.locale}24o.png`;
     }
   }, 
   

@@ -63,6 +63,11 @@ export default {
     setTimeout(() => { 
         commit('flashAnimal', {value: false}); }, 4000); 
   },
+  startDemo( {commit} ) {
+    commit('switchDemo', {value: true}); 
+    setTimeout(() => { 
+        commit('switchDemo', {value: false}); }, 5000); 
+  },
 
  
 };

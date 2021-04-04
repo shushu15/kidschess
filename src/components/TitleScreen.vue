@@ -45,6 +45,7 @@ export default {
   mounted() {
     
 setTimeout(() => { this.$store.commit('hideTitleScreen'); 
+                   this.$store.dispatch('startDemo');
                       this.$store.dispatch('workerSendNewGame');
                       if (this.$store.getters.twoPlayers) {
                         this.$store.commit('snackbarMessage', 

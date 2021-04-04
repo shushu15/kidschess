@@ -8,6 +8,9 @@ export default {
   hideTitleScreen(state) {
     state.isTitleShowing = false;
   },
+  switchDemo(state, {value}) {
+    state.isDemo = value;
+  },
   toggleDrawer(state, { show }) {
     state.showDrawer = show === undefined ? !state.showDrawer : show;
   },

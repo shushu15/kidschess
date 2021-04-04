@@ -1,3 +1,4 @@
+import i18n from '@/plugins/i18n'; 
 import * as KidsConst from '@/lib/const.js';
 
 export default {
@@ -35,7 +36,7 @@ export default {
     return state.engineDeep[state.engineLevel].mistake;
   },
   getLevelHint(state) {
-    return state.engineDeep[state.engineLevel].hint;
+    return i18n.t(state.engineDeep[state.engineLevel].hint);
   },
   flipToWhite(state, getters) {
     return (state.currentTask && getters.getOrientation === KidsConst.BLACK) && !state.gameActive;

@@ -52,10 +52,10 @@
         cols="12"
       >
         <div class="text-subtitle-1">
-            {{getCurrentTask.description}}        
+            {{$t(getCurrentTask.description)}}        
         </div>
         <div class="text-subtitle-2" v-if="currentParent != undefined">
-            {{currentParent.description}}        
+            {{$t(currentParent.description)}}        
         </div>
       </v-col>
 

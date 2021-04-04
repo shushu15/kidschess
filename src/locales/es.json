@@ -27,6 +27,13 @@
   "menu.settings.flipfigures" : "Voltear figuras",
   "menu.settings.noback" : "No retroceder",
   "menu.share" : "Comparte",
+  "menu.language": "Idioma",
+  "menu.language.auto": "Selección auto",
+  "lang.ru": "Русский",
+  "lang.en": "English",
+  "lang.es": "Español",
+
+
 
   "message.copy.ok": "Copiado",
   "message.copy.error": "No copiado",

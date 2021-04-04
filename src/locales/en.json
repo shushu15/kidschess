@@ -27,6 +27,11 @@
   "menu.settings.flipfigures" : "Flip pieces",
   "menu.settings.noback" : "No back moves",
   "menu.share" : "Share",
+  "menu.language": "Language",
+  "menu.language.auto": "Auto select",
+  "lang.ru": "Русский",
+  "lang.en": "English",
+  "lang.es": "Español",
 
   "message.copy.ok": "Copied",
   "message.copy.error": "Not copied",

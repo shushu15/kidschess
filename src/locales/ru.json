@@ -27,6 +27,11 @@
   "menu.settings.flipfigures" : "Развернуть фигуры",
   "menu.settings.noback" : "Не перехаживать",
   "menu.share" : "Поделиться",
+  "menu.language": "Язык",
+  "menu.language.auto": "Автовыбор",
+  "lang.ru": "Русский",
+  "lang.en": "English",
+  "lang.es": "Español",
 
   "message.copy.ok": "Скопировано",
   "message.copy.error": "Не скопировано",

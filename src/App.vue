@@ -118,7 +118,6 @@
           <v-list-item
             v-for="([title, icon, id]) in languages"
             :key=id
-            link
             dense
             @click="selectLocale(id)"   
           >
@@ -137,7 +136,7 @@
 
     <v-main class="main-screen">
       <KidsArea v-show="!$store.state.isTitleShowing" :forced="this.forcedReload"/>
-      <TitleScreen  v-if="$store.state.isTitleShowing"/>
+      <TitleScreen  v-show="$store.state.isTitleShowing"/>
     </v-main>
   </v-app>
 </template>
@@ -193,12 +192,22 @@ export default {
       this.$store.commit('toggleDrawer', { show: false });
       this.$store.commit('setGameActive', {value: false});
       this.$store.dispatch('flashAnimal');
-      this.drawer = false;
+      // this.drawer = false;
       localStorage.taskID = child.id;
     }, 
     selectLocale(lang) {
-      if (lang !== this.$i18n.locale && lang !== 'auto')
+      if (lang !== this.$i18n.locale && lang !== 'auto') {
         this.$i18n.locale = lang;
+        localStorage.lang = lang;
+      }
+      else if (lang === 'auto')  {
+        let l = Trans.getUserSupportedLang();
+        if (this.$i18n.locale !== l) {
+          this.$i18n.locale = l;
+          localStorage.lang = 'auto';
+        }
+      }
+      this.$store.commit('toggleDrawer', { show: false });
     },
     actFlipBoard() {
       this.$store.commit('flipBoard');  
@@ -305,6 +314,9 @@ export default {
       //this.$store.dispatch('workerSendMistakeLevel'); 
     }
     // END WORKER
+    if (localStorage.lang !== undefined && localStorage.lang !== 'auto') {
+      this.$i18n.locale = localStorage.lang;
+    }
     if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.length-1) {
       this.playLevel = localStorage.playLevel;
     }

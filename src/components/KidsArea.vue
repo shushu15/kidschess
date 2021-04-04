@@ -66,7 +66,7 @@
       :color="sb_color"
       :class="{movedown : snackbar}"
     >
-      <v-avatar class="float-left" tile>
+      <v-avatar class="float-left"  tile>
         <inline-svg :src="cartoonByID(getCurrentTask.id,getCurrentTask.orientation)" />
       </v-avatar>
       {{this.$store.state.snackbar.message}}
@@ -189,10 +189,13 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
         this.$store.commit('snackbarMessage', { value });
       },
     },
+    
     sb_color() {
-      return this.$store.state.snackbar.type===KidsConst.TYPE_POSITIVE? 'green darken-4':
-          this.$store.state.snackbar.type===KidsConst.TYPE_NEGATIVE?  'pink darken-4': "blue-grey";
-    },
+      return this.$store.state.snackbar.type===KidsConst.TYPE_POSITIVE? '#4D9546':
+          this.$store.state.snackbar.type===KidsConst.TYPE_NEGATIVE?  '#95464F': "blue-grey";
+      //return this.$store.state.snackbar.type===KidsConst.TYPE_POSITIVE? 'snackbar_pos':
+      //    this.$store.state.snackbar.type===KidsConst.TYPE_NEGATIVE?  'snackbar_pos': "";
+    }, 
  
   },
   
@@ -305,5 +308,12 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
   20% { transform: translateY(-50vw);  }
   100% {  transform: translateY(0);  } 
  }
+ /*
+  .snackbar_neg {
+    background: linear-gradient(to bottom right, #BF360C, 10%, #607D8B);
+  }
+  .snackbar_pos {
+    background: linear-gradient(to bottom right, #1B5E20, 10%, #607D8B);
+  } */
 
 </style> 

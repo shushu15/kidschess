@@ -344,6 +344,7 @@ export default {
   {
     background-color: transparent !important;
   }
+
   /* 
   .merida
   {

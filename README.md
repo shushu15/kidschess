@@ -42,6 +42,7 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 ## TODO
 
 * TODO load lang messages on request
+* 0.1.10 Attention to menu, colored snackbars, switch languages
 * 0.1.9 Spanish translation
 * 0.1.9 Allow reload game on any move for Two-players
 * 0.1.9 Rifat club vk link in About

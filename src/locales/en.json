@@ -20,7 +20,7 @@
   "menu.about.used2": "Board: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Chess validation: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.used4": "Icons: <a href='https://www.flaticon.com/'>Flaticon</a>",
-  "menu.about.contact": "Idea and games author Rifat Aysin <a href='https://vk.com/club199085279'>chess club</a>, development Alex Vasilev: alme20@yandex.ru",
+  "menu.about.contact": "Idea and games author Rifat Aysin Chess Club <a href='https://vk.com/club199085279'>VK</a>, <a href='https://www.facebook.com/Шахматный-клуб-Рифата-Шахматы-детям-106777628182223'>FB</a>, development Alex Vasilev: alme20@yandex.ru",
   "menu.about.version": "Version",
   "menu.settings" : "Settings",
   "menu.settings.two" : "Two players",

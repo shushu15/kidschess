@@ -43,8 +43,8 @@ export default {
   },
 
   mounted() {
-    
-setTimeout(() => { this.$store.commit('hideTitleScreen'); 
+    this.animalsList.splice(0);
+    setTimeout(() => { this.$store.commit('hideTitleScreen'); 
                    this.$store.dispatch('startDemo');
                       this.$store.dispatch('workerSendNewGame');
                       if (this.$store.getters.twoPlayers) {

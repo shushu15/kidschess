@@ -45,8 +45,6 @@ export default {
   mounted() {
     this.animalsList.splice(0);
     setTimeout(() => { this.$store.commit('hideTitleScreen'); 
-                   this.$store.dispatch('startDemo');
-                      this.$store.dispatch('workerSendNewGame');
                       if (this.$store.getters.twoPlayers) {
                         this.$store.commit('snackbarMessage', 
                           {value: this.$i18n.t('message.board.two_players')});
@@ -101,7 +99,7 @@ export default {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 1.5s ease;
+  transition: opacity 2s ease;
 }
 
 .sliding-enter-active {

@@ -144,8 +144,8 @@
 <script>
 import {  mapGetters } from 'vuex'; 
 import TitleScreen from './components/TitleScreen.vue';
-import KidsArea from './components/KidsArea.vue';
-// const KidsArea = () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue');
+// import KidsArea from './components/KidsArea.vue';
+//const KidsArea = () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue');
 import AboutDlg from '@/components/AboutDlg'; 
 import ShareDlg from '@/components/ShareDlg'; 
 import InlineSvg from 'vue-inline-svg';
@@ -161,7 +161,8 @@ export default {
 
   components: {
     TitleScreen,
-    KidsArea,
+    // KidsArea,
+    KidsArea: () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue'),
     AboutDlg,
     ShareDlg,
     InlineSvg,
@@ -294,25 +295,6 @@ export default {
    },
 
   mounted() {
-    // WORKER
-    let myTask;
-    if (window.Worker) {
-     // myTask = new QueryableWorker(); // './workers/Task.worker.js');
-    // url MUST be a hard-coded string for worker-plugin - in the other case the file would not be found in runtime in webpack bundle
-
-     myTask = new Worker('./lib/ai/lozza/lozza.js', { type: 'module' });
-     // myTask = new Worker('./lib/ai/js-chess-engine/js-chess-worker.js', { type: 'module' });
-     // myTask = new Worker('./lib/ai/lozza/lozza.js');
-
-      myTask.onmessage = (event) => {
-        // console.log(`App  onmessage event ${event} data ${event.data} origin ${event.origin} source ${event.source}`); // eslint-disable-line no-console
-        this.$store.dispatch('workerReply', { message: event.data  }); 
-      };
-
-      this.$store.commit('setWorkerAI', { worker: myTask });
-      //this.$store.dispatch('workerSendMistakeLevel'); 
-    }
-    // END WORKER
     if (localStorage.lang !== undefined && localStorage.lang !== KidsConst.AUTO) {
       this.$i18n.locale = localStorage.lang;
     }

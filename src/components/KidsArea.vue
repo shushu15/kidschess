@@ -201,8 +201,27 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
   
     
   mounted() {
-    // this.loadTask(0, 0); 
-    // this.reloadTask();      
+    // WORKER
+    let myTask;
+    if (window.Worker && this.$store.state.webWorkerAI === undefined) {
+     // myTask = new QueryableWorker(); // './workers/Task.worker.js');
+    // url MUST be a hard-coded string for worker-plugin - in the other case the file would not be found in runtime in webpack bundle
+
+     myTask = new Worker('../lib/ai/lozza/lozza.js', { type: 'module' });
+     // myTask = new Worker('./lib/ai/js-chess-engine/js-chess-worker.js', { type: 'module' });
+     // myTask = new Worker('./lib/ai/lozza/lozza.js');
+
+      myTask.onmessage = (event) => {
+        // console.log(`App  onmessage event ${event} data ${event.data} origin ${event.origin} source ${event.source}`); // eslint-disable-line no-console
+        this.$store.dispatch('workerReply', { message: event.data  }); 
+      };
+
+      this.$store.commit('setWorkerAI', { worker: myTask });
+      //this.$store.dispatch('workerSendMistakeLevel'); 
+    }
+    // END WORKER
+    this.$store.dispatch('startDemo');
+    this.$store.dispatch('workerSendNewGame');
     this.$refs.wrkBoard.initialMove();
 
   },

@@ -5,16 +5,16 @@
       color="primary"
       dark
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" :aria-label="$t('btn.menu')" :class="{glowbox: this.$store.state.isDemo}"></v-app-bar-nav-icon> 
+      <v-app-bar-nav-icon @click.stop="clickMenu()" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.menu')" :class="{glowbox: this.$store.state.isDemo}"></v-app-bar-nav-icon> 
 
-      <v-toolbar-title>{{$t('title.game')}} {{$t(this.$store.getters.getCurrentTask.title)}}</v-toolbar-title>
+      <v-toolbar-title>{{$store.state.isTitleShowing? $t('title.ready'): `${$t('title.game')} ${$t(this.$store.getters.getCurrentTask.title)}`}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-btn icon>
         <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()" :aria-label="$t('btn.repeat')">{{mdiReload}}</v-icon>
-        <v-icon v-if="flipToBlack" @click="actFlipBoard" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeSendBackward}}</v-icon>
-        <v-icon v-if="flipToWhite" @click="actFlipBoard" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeBringForward}}</v-icon>
+        <v-icon v-if="flipToBlack" @click="actFlipBoard" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeSendBackward}}</v-icon>
+        <v-icon v-if="flipToWhite" @click="actFlipBoard" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeBringForward}}</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -23,115 +23,8 @@
       width="310"
       app
     >
+      <Navi v-if="!$store.state.isTitleShowing"/>
 
-    <v-list
-         nav
-    >
-      <v-list-group
-        v-for="task in tasksData"
-        :key="task.title.en"
-        no-action
-      >
-        <template v-slot:activator>
-          <v-list-item-avatar size="35" tile>
-            <inline-svg :src="task.avatar"/>
-          </v-list-item-avatar>
-            
-          <v-list-item-content>
-            <v-list-item-title v-text="$i18n.t(task.title)"></v-list-item-title>
-          </v-list-item-content>
-        </template>
-
-        <v-list-item
-          v-for="child in task.data"
-          :key="child.id"
-           @click="selectChild(child)" 
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="$i18n.t(child.title)"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-      <v-list-item 
-        :key="standardData.id"
-        @click="selectChild(standardData)"   
-      >
-        <v-list-item-avatar size="35" tile>
-          <inline-svg :src="standardData.avatar"/>
-        </v-list-item-avatar>
-        <v-list-item-content>
-            <v-list-item-title v-text="$i18n.t(standardData.title)"></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider></v-divider>
-      <v-list-item>
-        <v-slider
-          v-model="playLevel"
-          thumb-label
-          ticks
-          :label="$t('menu.level')"
-          :max= "this.$store.state.engineDeep.length-1"
-          min=1
-          :hint="getLevelHint"
-          :persistent-hint="true"
-          :disabled="twoPlayers"
-        >
-        </v-slider>
-      </v-list-item >
-
-      <v-list-group
-        :prepend-icon=mdiCog
-        no-action
-      >
-        <template v-slot:activator>
-          <v-list-item-content>
-            <v-list-item-title>{{ $t('menu.settings') }}</v-list-item-title>
-          </v-list-item-content>
-        </template>
-        <v-list-item dense>
-          <v-list-item-action>
-            <v-switch dense v-model="swBackMoves" :label="$t('menu.settings.noback')"  ></v-switch>
-          </v-list-item-action>
-        </v-list-item>
-        <v-list-item dense>
-          <v-list-item-action>
-            <v-switch dense v-model="swTwoPlayers" :label="$t('menu.settings.two')" ></v-switch>
-          </v-list-item-action>
-        </v-list-item>
-
-        <v-list-group
-          sub-group
-          no-action
-        >
-         <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>{{ $t('menu.language') }}</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-icon>
-              <v-icon>{{mdiWeb}}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-avatar size="24" tile>
-              <img :src="getCurrentFlag" :alt="$t('menu.language')">
-            </v-list-item-avatar>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon, id]) in languages"
-            :key=id
-            dense
-            @click="selectLocale(id)"   
-          >
-            <v-list-item-title v-text="$i18n.t(title)"></v-list-item-title>
-            <v-list-item-avatar size="24" tile>
-              <img :src="`img/${icon}`" :alt="title">
-            </v-list-item-avatar>
-          </v-list-item>
-        </v-list-group>                
-      </v-list-group> 
-      <AboutDlg />
-      <ShareDlg />
-
-    </v-list>    
     </v-navigation-drawer>    
 
     <v-main class="main-screen">
@@ -146,12 +39,9 @@ import {  mapGetters } from 'vuex';
 import TitleScreen from './components/TitleScreen.vue';
 // import KidsArea from './components/KidsArea.vue';
 //const KidsArea = () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue');
-import AboutDlg from '@/components/AboutDlg'; 
-import ShareDlg from '@/components/ShareDlg'; 
-import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
-import { Trans } from '@/plugins/Translation.js';
-import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward,mdiCog,mdiWeb } from '@mdi/js';
+// import { Trans } from '@/plugins/Translation.js';
+import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward } from '@mdi/js';
 
 
 
@@ -163,52 +53,21 @@ export default {
     TitleScreen,
     // KidsArea,
     KidsArea: () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue'),
-    AboutDlg,
-    ShareDlg,
-    InlineSvg,
+    Navi: () => import(/* webpackChunkName: "navi" */ './components/Navi.vue'),
   },
 
   data: function() { // need "this" thus change from arrow function
     return {
     // isTitleShowing: true,
       forcedReload: new Date(),
-      languages: [
-        ['menu.language.auto', `${Trans.getUserSupportedLang()}24o.png`, KidsConst.AUTO],
-        ['lang.en', 'en24o.png', 'en'],
-        ['lang.ru', 'ru24o.png', 'ru'],
-        ['lang.es', 'es24o.png', 'es'],
-      ],
+
       mdiReload,
       mdiArrangeSendBackward,
       mdiArrangeBringForward,
-      mdiCog,
-      mdiWeb,
     //
     }
   },
   methods: {
-    selectChild(child) {
-      this.$store.dispatch('workerSendNewGame');
-      this.$store.commit('setChild', { child });
-      this.$store.commit('toggleDrawer', { show: false });
-      this.$store.commit('setGameActive', {value: false});
-      this.$store.dispatch('flashAnimal');
-      // this.drawer = false;
-      localStorage.taskID = child.id;
-    }, 
-    selectLocale(lang) {
-      if (lang !== this.$i18n.locale && lang !== KidsConst.AUTO) {
-        this.$i18n.locale = lang;
-      }
-      else if (lang === KidsConst.AUTO)  {
-        let l = Trans.getUserSupportedLang();
-        if (this.$i18n.locale !== l) {
-          this.$i18n.locale = l;
-        }
-      }
-      localStorage.lang = lang;
-      this.$store.commit('toggleDrawer', { show: false });
-    },
     actFlipBoard() {
       this.$store.commit('flipBoard');  
       this.$store.commit('setGameActive', {value: false});
@@ -233,21 +92,14 @@ export default {
     },
     needFlipPieces () {
       return true;
+    },
+    clickMenu() {
+      if(!this.$store.state.isTitleShowing)
+        this.drawer = !this.drawer;
     }
   },
   computed: {
-    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','standardData','childByID','getLevelHint','showBtnStartGen','twoPlayers']),
-    playLevel: {
-      get () {
-        return this.$store.state.engineLevel;
-      },
-      set (value) {
-        this.$store.commit('updateEngineLevel', {value});
-        this.$store.dispatch('workerSendMistakeLevel');
-        localStorage.playLevel = value;
-
-      }
-    },
+    ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','childByID','twoPlayers']),
     drawer: {
       get() {
         return this.$store.state.showDrawer;
@@ -256,26 +108,6 @@ export default {
         this.$store.commit('toggleDrawer', { show: value });
       }, 
     },
-    swBackMoves: {
-      get() { return this.$store.state.modeNoBackMoves; },
-      set(value) { 
-        this.$store.commit('backMoves', {value});
-        localStorage.backMoves = value;
-      }
-    },
-    swTwoPlayers: {
-      get() { return this.twoPlayers; },
-      set(value) { 
-        this.$store.commit('twoPlayers', {value});
-        localStorage.twoPlayers = value;
-        if (this.showBtnStartGen) { // here we just check if we need to show, no mattter of game stage
-          this.$store.commit('forcedBtnStart', {value: true});
-        }
-      }
-    },
-    getCurrentFlag() {
-      return `img/${this.$i18n.locale}24o.png`;
-    }
   }, 
   
   created() {
@@ -297,9 +129,6 @@ export default {
   mounted() {
     if (localStorage.lang !== undefined && localStorage.lang !== KidsConst.AUTO) {
       this.$i18n.locale = localStorage.lang;
-    }
-    if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.length-1) {
-      this.playLevel = localStorage.playLevel;
     }
     // NOTE, that localStorage keeps all as strings
     if (localStorage.backMoves !== undefined) {

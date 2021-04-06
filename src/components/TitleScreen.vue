@@ -9,18 +9,18 @@
           </v-card-title>
           <v-card-text>
               <div class="d-flex justify-center text-center body-1">{{ $t('title.1') }}</div>
-          </v-card-text> 
+          </v-card-text>
           <div class="animals ms-0">
           <transition-group name="sliding" tag="div" class="animaline align-content-space-between">
-                <inline-svg v-if="this.animalsList.includes(4)" :src="require('../assets/img/029-goat.svg')" :key="4" width="50" height="50" class="align-self-end"/>
-                <inline-svg v-if="this.animalsList.includes(2)" :src="require('../assets/img/029-goat.svg')" :key="2" width="50" height="50" class="align-self-end"/>
-                <inline-svg v-if="this.animalsList.includes(1)" :src="require('../assets/img/098-wolf.svg')" :key="1" width="100" height="100" class="align-self-end"/>
-                <inline-svg v-if="this.animalsList.includes(3)" :src="require('../assets/img/029-goat.svg')" :key="3" width="50" height="50" class="align-self-end"/>
-                <inline-svg v-if="this.animalsList.includes(5)" :src="require('../assets/img/029-goat.svg')" :key="5" width="50" height="50" class="align-self-end"/>
+                <div :key="4" v-if="this.animalsList.includes(4)" class="align-self-end"><inline-svg  :src="require('../assets/img/029-goat.svg')"  width="50" height="50" /></div>
+                <div :key="2" v-if="this.animalsList.includes(2)" class="align-self-end"><inline-svg  :src="require('../assets/img/029-goat.svg')"  width="50" height="50" /></div>
+                <div :key="1" v-if="this.animalsList.includes(1)" class="align-self-end"><inline-svg  :src="require('../assets/img/098-wolf.svg')"  width="100" height="100" /></div>
+                <div :key="3" v-if="this.animalsList.includes(3)" class="align-self-end"><inline-svg  :src="require('../assets/img/029-goat.svg')"  width="50" height="50" /></div>
+                <div :key="5"  v-if="this.animalsList.includes(5)" class="align-self-end"><inline-svg :src="require('../assets/img/029-goat.svg')"  width="50" height="50" /></div>
           </transition-group> 
           <transition-group name="sliding" tag="div" class="animaline align-content-space-between">
-                <inline-svg v-if="this.animalsList.includes(6)" :src="require('../assets/img/046-lion.svg')" :key="6" width="110" height="100" class="align-self-end"/>
-                <inline-svg v-if="this.animalsList.includes(7)" :src="require('../assets/img/022-elephant.svg')" :key="7" width="120" height="120" class="align-self-end"/>
+                <div :key="6"  v-if="this.animalsList.includes(6)" class="align-self-end"><inline-svg :src="require('../assets/img/046-lion.svg')"  width="110" height="100" /></div>
+                <div :key="7"  v-if="this.animalsList.includes(7)" class="align-self-end"><inline-svg :src="require('../assets/img/022-elephant.svg')"  width="120" height="120" /></div>
           </transition-group> 
           </div>
         </v-card>

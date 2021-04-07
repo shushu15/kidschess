@@ -49,9 +49,9 @@ export default {
                         this.$store.commit('snackbarMessage', 
                           {value: this.$i18n.t('message.board.two_players')});
                       }
-                  }, 5000); 
+                  }, 4000); 
     for (let i=1; i<8; i++) {
-      setTimeout(() => { this.animalsList.push(i) }, 200*i); 
+      setTimeout(() => { this.animalsList.push(i) }, 1000+200*i); 
     }
   },
 };
@@ -99,7 +99,7 @@ export default {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 2s ease;
+  transition: opacity 3s ease;
 }
 
 .sliding-enter-active {

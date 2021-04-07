@@ -11,8 +11,9 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '0.1.11',
+  version: '0.1.11a',
   isTitleShowing: true,
+  isScreenReady: false,
   isDemo: false,
   showDrawer: false,
   currentTask: {}, 

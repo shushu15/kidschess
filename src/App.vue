@@ -28,7 +28,7 @@
     </v-navigation-drawer>    
 
     <v-main class="main-screen">
-      <KidsArea v-if="!$store.state.isTitleShowing" :forced="this.forcedReload"/>
+      <KidsArea v-if="screenReady()" :forced="this.forcedReload" :class="{loadhidden: screenReadyHidden()}"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
     </v-main>
   </v-app>
@@ -52,8 +52,8 @@ export default {
   components: {
     TitleScreen,
     // KidsArea,
-    KidsArea: () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue'),
-    Navi: () => import(/* webpackChunkName: "navi" */ './components/Navi.vue'),
+    KidsArea: () => import(/* webpackChunkName: "kidsarea", webpackPrefetch: true */ './components/KidsArea.vue'),
+    Navi: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Navi.vue'),
   },
 
   data: function() { // need "this" thus change from arrow function
@@ -96,6 +96,12 @@ export default {
     clickMenu() {
       if(!this.$store.state.isTitleShowing)
         this.drawer = !this.drawer;
+    },
+    screenReady() {
+      return !this.$store.state.isTitleShowing || this.$store.state.isScreenReady;
+    },
+    screenReadyHidden() {
+      return this.$store.state.isTitleShowing && this.$store.state.isScreenReady;
     }
   },
   computed: {
@@ -154,6 +160,9 @@ export default {
 
 .main-screen {
   position: relative;
+}
+.loadhidden {
+  display: none;
 }
 
 .glowbox {

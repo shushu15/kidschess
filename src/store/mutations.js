@@ -8,6 +8,11 @@ export default {
   hideTitleScreen(state) {
     state.isTitleShowing = false;
   },
+  // trick to load main screen in the hidden mode
+  readyScreen(state) {
+    state.isScreenReady = true;
+  },
+  
   switchDemo(state, {value}) {
     state.isDemo = value;
   },

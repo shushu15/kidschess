@@ -49,10 +49,12 @@ export default {
                         this.$store.commit('snackbarMessage', 
                           {value: this.$i18n.t('message.board.two_players')});
                       }
-                  }, 4000); 
+                  }, 5000); 
     for (let i=1; i<8; i++) {
-      setTimeout(() => { this.animalsList.push(i) }, 1000+200*i); 
+      setTimeout(() => { this.animalsList.push(i) }, 200*i); 
     }
+    // we force loading to show main screen in background - hidden
+    setTimeout(() => { this.$store.commit('readyScreen'); }, 3500); 
   },
 };
 </script>
@@ -99,7 +101,7 @@ export default {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 3s ease;
+  transition: opacity 1.5s ease;
 }
 
 .sliding-enter-active {

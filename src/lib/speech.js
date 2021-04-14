@@ -2,25 +2,28 @@
 This code originated with Steven Estrella of ShearSpire Media. Please retain this comment if you fork this pen. The original pen can be found at:
 https://codepen.io/sgestrella/pen/QodzgY
 */
-let allVoices, allLanguages, primaryLanguages, langtags, langhash, langcodehash;
-let txtFld, rateFld, speakBtn, speakerMenu, languageMenu, blurbs;
+let allVoices, allLanguages, primaryLanguages, langtags /*, langhash */ , langcodehash ;
+// let txtFld, rateFld, speakBtn, speakerMenu, languageMenu, blurbs;
 let voiceIndex = 0;
+let speakerInd =0;
+let speedRatio = 0.8;
 let initialSetup = true;
-let defaultBlurb = "I enjoy the traditional music of my native country.";
+// let defaultBlurb = "I enjoy the traditional music of my native country.";
 
-function init(){
-  speakBtn = qs("#speakBtn");
-  txtFld = qs("#txtFld"); 
-  speakerMenu = qs("#speakerMenu");
+export function init(){
+  //speakBtn = qs("#speakBtn");
+  //txtFld = qs("#txtFld"); 
+  //speakerMenu = qs("#speakerMenu");
   langtags = getLanguageTags();
-  speakBtn.addEventListener("click",talk,false);
-  speakerMenu.addEventListener("change",selectSpeaker,false);
+  //speakBtn.addEventListener("click",talk,false);
+  //speakerMenu.addEventListener("change",selectSpeaker,false);
   
-  createBlurbs();
-  rateFld = qs("#rateFld");
-  languageMenu = qs("#languageMenu"); 
-  languageMenu.addEventListener("change",selectLanguage,false);
-  langhash = getLookupTable(langtags,"name");
+  // createBlurbs();
+  let ret = true;
+  //rateFld = qs("#rateFld");
+  //languageMenu = qs("#languageMenu"); 
+  //languageMenu.addEventListener("change",selectLanguage,false);
+  // langhash = getLookupTable(langtags,"name");
   langcodehash = getLookupTable(langtags,"code");
   
   if (window.speechSynthesis) {
@@ -30,11 +33,13 @@ function init(){
     }
     setUpVoices(); //for all the other browsers
   }else{
-    speakBtn.disabled = true;
-    speakerMenu.disabled = true;
-    languageMenu.disabled = true;
-    qs("#warning").style.display = "block";
+    //speakBtn.disabled = true;
+    //speakerMenu.disabled = true;
+    //languageMenu.disabled = true;
+    //qs("#warning").style.display = "block";
+    ret = false;
   }
+  return ret;
 }
 function setUpVoices(){
   allVoices = getAllVoices();
@@ -46,28 +51,33 @@ function setUpVoices(){
     createLanguageMenu();
   }
 }
-function talk(text){
-  let sval = Number(speakerMenu.value);
+export function talk(text){
+  let sval = Number(speakerInd);
   let u = new SpeechSynthesisUtterance();
   u.voice = allVoices[sval];
   u.lang = u.voice.lang;
   u.text = text;
-  u.rate = Number(rateFld.value);
+  u.rate = Number(speedRatio);
   speechSynthesis.speak(u);
 }
+
 function createLanguageMenu(){
-  let code = `<option selected value="all">Show All</option>`;
+  // let code = `<option selected value="all">Show All</option>`;
   let langnames = [];
-  primaryLanguages.forEach(function(lobj,i){
+  primaryLanguages.forEach(function(lobj){
     langnames.push(langcodehash[lobj.substring(0,2)].name);
   });
   langnames.sort();
+  /*
   langnames.forEach(function(lname,i){
     let lcode = langhash[lname].code;
     code += `<option value=${lcode}>${lname}</option>`;
   });
   languageMenu.innerHTML = code;
+  */
 }
+
+/*
 function createSpeakerMenu(voices){
   let code = ``;
   voices.forEach(function(vobj,i){
@@ -77,6 +87,7 @@ function createSpeakerMenu(voices){
   });
   speakerMenu.innerHTML = code;
 }
+*/
 function getAllLanguages(voices){
   let langs = [];
   voices.forEach(vobj => {
@@ -94,20 +105,24 @@ function  getPrimaryLanguages(langlist){
 function selectSpeaker(){
   voiceIndex = speakerMenu.selectedIndex;
 }
-function selectLanguage(){
-  filterVoices();
+export function selectLanguage(langcode){
+  filterVoices(langcode);
   speakerMenu.selectedIndex = 0;
 }
-function filterVoices(){
-  let langcode = languageMenu.value;
-  voices = allVoices.filter(function (voice) {
+function filterVoices(langcode){
+  // let langcode = languageMenu.value;
+  let voices = allVoices.filter(function (voice) {
     return langcode === "all" ? true : voice.lang.indexOf(langcode + "-") >= 0;
   });
+  /*
   createSpeakerMenu(voices);
   let t = blurbs[languageMenu.options[languageMenu.selectedIndex].text];
   txtFld.value = t ? t : defaultBlurb;
   speakerMenu.selectedIndex = voiceIndex;
+  */
+ return voices;
 }
+
 
 
 function getAllVoices() {
@@ -115,7 +130,7 @@ function getAllVoices() {
   let vuris = [];
   let voices = [];
   //unfortunately we have to check for duplicates
-  voicesall.forEach(function(obj,index){
+  voicesall.forEach(function(obj){
     let uri = obj.voiceURI;
     if (!vuris.includes(uri)){
         vuris.push(uri);
@@ -125,6 +140,7 @@ function getAllVoices() {
   voices.forEach(function(obj,index){obj.id = index;});
   return voices;
 }
+/*
 function createBlurbs(){
   blurbs = {
     "Arabic" : "أنا أستمتع بالموسيقى التقليدية لبلدي الأم.",
@@ -156,8 +172,9 @@ function createBlurbs(){
     "Turkish" : "Ülkemdeki geleneksel müzikten zevk alıyorum."
   };
 }
+*/
 function getLanguageTags(){
-  let langs = ["ar-Arabic","cs-Czech","da-Danish","de-German","el-Greek","en-English","eo-Esperanto","es-Spanish","et-Estonian","fi-Finnish","fr-French","he-Hebrew","hi-Hindi","hu-Hungarian","id-Indonesian","it-Italian","ja-Japanese","ko-Korean","la-Latin","lt-Lithuanian","lv-Latvian","nb-Norwegian Bokmal","nl-Dutch","nn-Norwegian Nynorsk","no-Norwegian","pl-Polish","pt-Portuguese","ro-Romanian","ru-Russian","sk-Slovak","sl-Slovenian","sq-Albanian","sr-Serbian","sv-Swedish","th-Thai","tr-Turkish","zh-Chinese"];
+  let langs = ["en-English","es-Spanish","ru-Russian"];
   let langobjects = [];
   for (let i=0;i<langs.length;i++){
     let langparts = langs[i].split("-");
@@ -166,14 +183,18 @@ function getLanguageTags(){
   return langobjects;
 }
 // Generic Utility Functions
+/*
 function qs(selectorText){
   //saves lots of typing for those who eschew Jquery
   return document.querySelector(selectorText);
 }
+*/
 function getLookupTable(objectsArray,propname){
   return objectsArray.reduce((accumulator, currentValue) => (accumulator[currentValue[propname]] = currentValue, accumulator),{});
 }
+/*
 document.addEventListener('DOMContentLoaded', function (e) {
   try {init();} catch (error){
     console.log("Data didn't load", error);}
 });
+*/

@@ -41,6 +41,10 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 
 ## TODO
 
+* TODO Help on pressing help button - absolute buttons near UI elements
+* TODO Analytics from the stored played games on a separate screen (indexedDB)
+* TODO (indexedDB) - gather statistics on games. Switch from menu. 
+* TODO select level from the main screen also
 * TODO load lang messages on request
 * 0.1.10 Attention to menu, colored snackbars, switch languages
 * 0.1.9 Spanish translation

@@ -36,6 +36,9 @@
           <span>{{this.copyMessage}}</span>
         </v-tooltip>
         <label class="caption align-self-center fixw">{{textLastMove}}</label>
+        <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" :aria-label="$t('btn.speech')">
+            <v-icon>{{mdiAccountVoice}}{{mdiAccountVoiceOff}}</v-icon>
+        </v-btn> 
        </v-col> 
     </v-row>
     <v-row class="text-center">
@@ -89,7 +92,8 @@ import {  mapGetters } from 'vuex';
 import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
-import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
+import * as Speech from '@/lib/speech.js';
+import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoiceOff } from '@mdi/js';
 
 
 
@@ -111,6 +115,8 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
       mdiAlarm,
       mdiStepBackward,
       mdiInformation,
+      mdiAccountVoice,
+      mdiAccountVoiceOff
     }
   },  
   /* data () {
@@ -223,6 +229,10 @@ import { mdiAlarm,mdiStepBackward,mdiInformation } from '@mdi/js';
     this.$store.dispatch('startDemo');
     this.$store.dispatch('workerSendNewGame');
     this.$refs.wrkBoard.initialMove();
+
+    Speech.init();
+    Speech.selectLanguage(this.$i18n.locale);
+
 
   },
  //   created() {

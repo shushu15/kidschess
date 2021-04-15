@@ -2,9 +2,12 @@
 This code originated with Steven Estrella of ShearSpire Media. Please retain this comment if you fork this pen. The original pen can be found at:
 https://codepen.io/sgestrella/pen/QodzgY
 */
-let allVoices, allLanguages, primaryLanguages, langtags /*, langhash */ , langcodehash ;
+
+let langs = ["en","es","ru"];
+
+let allVoices, allLanguages, primaryLanguages /*, langtags , langhash,  langcodehash */ ;
 // let txtFld, rateFld, speakBtn, speakerMenu, languageMenu, blurbs;
-let voiceIndex = 0;
+//let voiceIndex = 0;
 let speakerInd =0;
 let speedRatio = 0.8;
 let initialSetup = true;
@@ -14,7 +17,7 @@ export function init(){
   //speakBtn = qs("#speakBtn");
   //txtFld = qs("#txtFld"); 
   //speakerMenu = qs("#speakerMenu");
-  langtags = getLanguageTags();
+  // langtags = getLanguageTags();
   //speakBtn.addEventListener("click",talk,false);
   //speakerMenu.addEventListener("change",selectSpeaker,false);
   
@@ -24,7 +27,7 @@ export function init(){
   //languageMenu = qs("#languageMenu"); 
   //languageMenu.addEventListener("change",selectLanguage,false);
   // langhash = getLookupTable(langtags,"name");
-  langcodehash = getLookupTable(langtags,"code");
+  // langcodehash = getLookupTable(langtags,"code");
   
   if (window.speechSynthesis) {
     if (speechSynthesis.onvoiceschanged !== undefined) {
@@ -88,6 +91,7 @@ function createSpeakerMenu(voices){
   speakerMenu.innerHTML = code;
 }
 */
+  
 function getAllLanguages(voices){
   let langs = [];
   voices.forEach(vobj => {
@@ -102,12 +106,14 @@ function  getPrimaryLanguages(langlist){
   });
   return [...new Set(langs)];
 }
+/*
 function selectSpeaker(){
   voiceIndex = speakerMenu.selectedIndex;
-}
+} */
+
 export function selectLanguage(langcode){
-  filterVoices(langcode);
-  speakerMenu.selectedIndex = 0;
+let voices = filterVoices(langcode);
+  return voices.length > 0? voices[0]: null;
 }
 function filterVoices(langcode){
   // let langcode = languageMenu.value;
@@ -173,6 +179,7 @@ function createBlurbs(){
   };
 }
 */
+/*
 function getLanguageTags(){
   let langs = ["en-English","es-Spanish","ru-Russian"];
   let langobjects = [];
@@ -182,6 +189,7 @@ function getLanguageTags(){
   }
   return langobjects;
 }
+*/
 // Generic Utility Functions
 /*
 function qs(selectorText){

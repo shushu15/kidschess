@@ -14,6 +14,7 @@
   "btn.repeat" : "Repetir juego",
   "btn.moveback" : "Retroceder",
   "btn.copygame" : "Copiar juego",
+  "btn.speech" : "acompañamiento de discurso",
   "menu.level": "Nivel",
   "menu.about": "Sobre el programa",
   "menu.about.text": "KidsChess: juegos de aprendizaje de ajedrez",

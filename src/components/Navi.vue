@@ -155,11 +155,13 @@ export default {
     selectLocale(lang) {
       if (lang !== this.$i18n.locale && lang !== KidsConst.AUTO) {
         this.$i18n.locale = lang;
+        // this.$store.dispatch('onLangChange', {lang: this.$i18n.locale});
       }
       else if (lang === KidsConst.AUTO)  {
         let l = Trans.getUserSupportedLang();
         if (this.$i18n.locale !== l) {
           this.$i18n.locale = l;
+          // this.$store.dispatch('onLangChange', {lang: this.$i18n.locale});
         }
       }
       localStorage.lang = lang;

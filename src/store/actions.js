@@ -1,3 +1,4 @@
+// import * as Speech from '@/lib/speech.js';
 import * as KidsConst from '@/lib/const.js';
 
 // import i18n from '@/plugins/i18n'; 
@@ -68,6 +69,11 @@ export default {
     setTimeout(() => { 
         commit('switchDemo', {value: false}); }, 5000); 
   },
-
+/*
+  onLangChange({lang}) {
+    Speech.preferredLanguage(lang);
+    Speech.selectLanguage();
+  }
+*/
  
 };

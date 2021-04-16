@@ -150,7 +150,7 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoice
       navigator.permissions.query({name: "clipboard-write"}).then(result => {
         if (result.state == "granted" || result.state == "prompt") {
           /* write to the clipboard now */
-          let s = `${this.$store.getters.getCurrentTask.title}\n${this.$store.getters.getCurrentTask.orientation}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
+          let s = `${this.$i18n.t(this.$store.getters.getCurrentTask.title)}\n${this.$i18n.t(this.$store.getters.getCurrentTask.orientation)}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
           console.log(s); // eslint-disable-line no-console 
           this.updateClipboard(s, self);
           
@@ -230,8 +230,9 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoice
     this.$store.dispatch('workerSendNewGame');
     this.$refs.wrkBoard.initialMove();
 
+    // Speech.preferredLanguage(this.$i18n.locale);
     Speech.init();
-    Speech.selectLanguage(this.$i18n.locale);
+    // Speech.selectLanguage();
 
 
   },

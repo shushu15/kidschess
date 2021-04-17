@@ -14,7 +14,7 @@ let speedRatio = 1.0; // 0.8;
 // let initialSetup = true;
 // let defaultBlurb = "I enjoy the traditional music of my native country.";
 
-export function init(){
+export function init(lang){
 
   if (!window.speechSynthesis)
     return false;
@@ -30,8 +30,8 @@ export function init(){
     }
   });
   
-  allVoicesObtained.then(allVoices => console.log("All voices:", allVoices));
-  return true;
+  return allVoicesObtained.then( () => voiceLanguage(lang) !== null);
+  // return true;
   /*
   let ret = true;
   
@@ -54,6 +54,10 @@ function setUpVoices(){
   selectLanguage();
 }
 */
+export function clear(){
+  speechSynthesis.cancel();
+}
+
 
 export function talk(text, lang){
   let u = new SpeechSynthesisUtterance();
@@ -62,6 +66,29 @@ export function talk(text, lang){
   u.text = text;
   u.rate = Number(speedRatio);
   speechSynthesis.speak(u);
+  /*
+  u.onstart = function(event) {
+    console.log('Utterance onstart: ' + event.utterance.text);
+    console.log(`speechSynthesis paused ${speechSynthesis.paused}, pending ${speechSynthesis.pending}, speaking ${speechSynthesis.speking}`);
+  };
+  u.onpause = function(event) {
+    console.log('Utterance onpause after ' + event.elapsedTime + ' milliseconds.');
+    console.log(`speechSynthesis paused ${speechSynthesis.paused}, pending ${speechSynthesis.pending}, speaking ${speechSynthesis.speking}`);
+  };
+  u.onresume = function(event) {
+      console.log('Utterance onresume after ' + event.elapsedTime + ' milliseconds.');
+      console.log(`speechSynthesis paused ${speechSynthesis.paused}, pending ${speechSynthesis.pending}, speaking ${speechSynthesis.speking}`);
+    };
+  u.onend = function(event) {
+    console.log('Utterance onend after ' + event.elapsedTime + ' milliseconds.');
+    console.log(`speechSynthesis paused ${speechSynthesis.paused}, pending ${speechSynthesis.pending}, speaking ${speechSynthesis.speking}`);
+  };
+  u.onerror = function(event) {
+    console.log('Utterance onerror: ' + event.error);
+    console.log(`speechSynthesis paused ${speechSynthesis.paused}, pending ${speechSynthesis.pending}, speaking ${speechSynthesis.speking}`);
+  };
+  */
+
 }
 
 
@@ -73,7 +100,7 @@ function filterVoices(langcode){
  return voices;
 }
 
-function voiceLanguage(lang){
+export function voiceLanguage(lang){
   let voices = filterVoices(lang);
   return  voices.length > 0? voices[0]: null;
 }

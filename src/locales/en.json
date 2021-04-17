@@ -28,6 +28,7 @@
   "menu.settings.two" : "Two players",
   "menu.settings.flipfigures" : "Flip pieces",
   "menu.settings.noback" : "No back moves",
+  "menu.settings.speech" : "Speak",
   "menu.share" : "Share",
   "menu.language": "Language",
   "menu.language.auto": "Auto select",
@@ -39,6 +40,7 @@
   "message.copy.error": "Not copied",
   "message.thinking": "thinking...",
   "message.board.two_players": "The board is currently in two-player mode. You can switch to normal mode in the settings menu",
+  "message.speech.nosupport": "Voice speaking in this language is not supported in the browser",
   "level" : {
     "1": "rookie",
     "2": "simple",
@@ -76,7 +78,7 @@
       "d": "Gamе purpose: the complete capturing of pawns or the safe reaching of any pawn to the square of promotion.",
       "1": {
         "t": "King's pants",
-        "d": "Pawns win easily"
+        "d": "Pawns always win"
       },
       "2": {
         "t": "King's breeches",

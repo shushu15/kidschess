@@ -97,13 +97,24 @@ export default {
   twoPlayers(state, { value }) {
     state.modeTwoPlayers = (value === undefined) ? !state.modeTwoPlayers : value;
   },
+  modeSpeech(state, payload) {
+    if (payload !== undefined && payload.value !== undefined) { 
+      state.modeSpeech = payload.value;
+    } else {
+      state.modeSpeech = !state.modeSpeech; 
+    }
+  },
   /*
   flipPieces(state, { value }) {
     state.modeFlipPieces = value === undefined ? !state.modeFlipPieces : value;
   }, */
   forcedBtnStart(state, {value}) {
     state.forcedBtnStart = value;
-  }
+  },
+  speechSupported(state, {value}) {
+    state.speechSupported = value;
+    console.log(`speechSupported commit to :${value}`); // eslint-disable-line no-console
+  },
 
 
 };

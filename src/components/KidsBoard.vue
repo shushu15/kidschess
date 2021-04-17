@@ -259,8 +259,9 @@ export default {
       //console.log(`KidsBoard Watcher id`); // eslint-disable-line no-console ,
       this.initialMove();
       // Speech.talk(`${this.$i18n.t(this.$store.getters.getCurrentTask.title)}. ${this.$i18n.t(this.$store.getters.getCurrentTask.description)}.`, this.$i18n.locale);
+      Speech.clear();
       Speech.talk(`${this.$i18n.t(this.$store.getters.getCurrentTask.title)}.`, this.$i18n.locale);
-      Speech.talk(`${this.$i18n.t(this.$store.getters.getCurrentTask.description)}.`, this.$i18n.locale);
+      Speech.talk(this.$i18n.t(this.$store.getters.getCurrentTask.description), this.$i18n.locale);
 
     }, 
     // to reload the current task

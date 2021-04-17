@@ -36,8 +36,8 @@
           <span>{{this.copyMessage}}</span>
         </v-tooltip>
         <label class="caption align-self-center fixw">{{textLastMove}}</label>
-        <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" :aria-label="$t('btn.speech')">
-            <v-icon>{{mdiAccountVoice}}{{mdiAccountVoiceOff}}</v-icon>
+        <v-btn  icon  class="mx-4" color="blue" @click="actSpeech" v-show="speechSupported" :aria-label="$t('btn.speech')">
+            <v-icon>{{$store.state.modeSpeech? mdiAccountVoice:mdiVoiceOff }}</v-icon>         
         </v-btn> 
        </v-col> 
     </v-row>
@@ -93,7 +93,7 @@ import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoiceOff } from '@mdi/js';
+import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiVoiceOff } from '@mdi/js';
 
 
 
@@ -116,7 +116,7 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoice
       mdiStepBackward,
       mdiInformation,
       mdiAccountVoice,
-      mdiAccountVoiceOff
+      mdiVoiceOff
     }
   },  
   /* data () {
@@ -170,6 +170,11 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoice
           setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 1000); 
       });
     },
+    actSpeech () { 
+        this.$store.commit('modeSpeech');
+        localStorage.speechAllow = this.$store.state.modeSpeech;
+    },
+
     /**
      * Helper method to reduse typing
      */
@@ -184,7 +189,7 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoice
   }, 
      computed: {
     ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 
-              'currentParent','textLastMove','longThinking','twoPlayers','getLevelHint']),
+              'currentParent','textLastMove','longThinking','twoPlayers','getLevelHint','speechSupported']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
@@ -231,7 +236,14 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiAccountVoice
     this.$refs.wrkBoard.initialMove();
 
     // Speech.preferredLanguage(this.$i18n.locale);
-    Speech.init();
+    Speech.init(this.$i18n.locale).then( (res) => {
+      this.$store.commit('speechSupported', { value: res });
+      if (!res)
+        this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport')});
+      }
+    );
+      // this.snackbar = this.$i18n.t('message.speech.nosupport');
+    
     // Speech.selectLanguage();
 
 

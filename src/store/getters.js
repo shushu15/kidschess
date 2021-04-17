@@ -185,6 +185,9 @@ export default {
   },
   twoPlayers(state) {
     return state.modeTwoPlayers;
+  },
+  speechSupported(state) {
+    return state.speechSupported;
   }
 
 

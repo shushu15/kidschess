@@ -116,6 +116,7 @@ import ShareDlg from '@/components/ShareDlg';
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import { Trans } from '@/plugins/Translation.js';
+import * as Speech from '@/lib/speech.js';
 import { mdiCog,mdiWeb } from '@mdi/js';
 
 
@@ -153,8 +154,10 @@ export default {
       localStorage.taskID = child.id;
     }, 
     selectLocale(lang) {
+      let oldLocale = this.$i18n.locale; 
       if (lang !== this.$i18n.locale && lang !== KidsConst.AUTO) {
         this.$i18n.locale = lang;
+
         // this.$store.dispatch('onLangChange', {lang: this.$i18n.locale});
       }
       else if (lang === KidsConst.AUTO)  {
@@ -163,6 +166,12 @@ export default {
           this.$i18n.locale = l;
           // this.$store.dispatch('onLangChange', {lang: this.$i18n.locale});
         }
+      }
+      if (oldLocale != this.$i18n.locale) {
+        let speech = Speech.voiceLanguage(lang);
+        this.$store.commit('speechSupported', { value: speech });
+        if (!speech)
+          this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport')});
       }
       localStorage.lang = lang;
       this.$store.commit('toggleDrawer', { show: false });

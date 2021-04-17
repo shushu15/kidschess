@@ -28,6 +28,7 @@
   "menu.settings.two" : "Dos jugadores",
   "menu.settings.flipfigures" : "Voltear figuras",
   "menu.settings.noback" : "No retroceder",
+  "menu.settings.speech" : "Hablar",
   "menu.share" : "Comparte",
   "menu.language": "Idioma",
   "menu.language.auto": "Selección auto",
@@ -41,6 +42,7 @@
   "message.copy.error": "No copiado",
   "message.thinking": "pensando...",
   "message.board.two_players": "El tablero está actualmente en modo de dos jugadores. Puede cambiar al modo normal en el menú de configuración",
+  "message.speech.nosupport": "La voz que habla en este idioma no es compatible con el navegador",
   "level" : {
     "1": "novato",
     "2": "sencillo",
@@ -78,7 +80,7 @@
       "d": "Propósito del juego: la captura completa de peones o el alcance seguro de cualquier peón a la casilla de promoción.",
       "1": {
         "t": "Pantalones del Rey",
-        "d": "Los peones ganan fácilmente"
+        "d": "Los peones siempre ganan"
       },
       "2": {
         "t": "Calzones del Rey",
@@ -106,7 +108,7 @@
       },
       "2": {
         "t": "El Dragón de Fuego",
-        "d": "El Dragón de Fuego con ocho cabezas (peones) está tratando de arrastrarse con al menos una cabeza hacia el palacio real (la última línea horizontal), y Príncipe Valiente (dama) debe evitar esto y cortar todas las cabezas del Dragón de Fuego."
+        "d": "El Dragón de Fuego con ocho cabezas (peones) está tratando de arrastrarse con al menos una cabeza hacia el palacio real (la última línea horizontal), y Príncipe Valiente (dama) debe  cortar todas las cabezas del Dragón."
       },
       "3": {
         "t": "Cuatro Cabritos",

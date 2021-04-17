@@ -143,6 +143,9 @@ export default {
     if (localStorage.twoPlayers !== undefined) {
       this.$store.commit('twoPlayers', {value: localStorage.twoPlayers == 'true'});
     } 
+    if (localStorage.speechAllow !== undefined && localStorage.speechAllow !== 'undefined') {
+      this.$store.commit('modeSpeech', {value: localStorage.speechAllow == 'true'});
+    } 
 
   },     
   beforeDestroy() {

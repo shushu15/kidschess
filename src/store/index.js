@@ -46,7 +46,7 @@ const state = {
   longThinking: false,
   modeTwoPlayers: false,
   modeNoBackMoves: false,
-  modeSpeech: true,
+  modeSpeech: false,
   speechSupported: true,
   // modeFlipPieces: false,
   forcedBtnStart: false, // while switching to one-player mode during a game

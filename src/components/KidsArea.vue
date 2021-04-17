@@ -10,9 +10,12 @@
       <v-col class="d-flex justify-center" cols="12">
         <div class="layer1 pa-4 ma-0 rounded-lg">       
         <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
-              :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard"/>
+              :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard" @on-speak="speakGame"/>
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
-         <label class="ai-level caption" v-show="!twoPlayers">{{getLevelHint}}</label>     
+         <span class="ai-level"><label class="caption" v-show="!twoPlayers">{{getLevelHint}}</label> 
+         <v-icon v-show="!twoPlayers">
+            {{ getLevel() }}
+        </v-icon></span>
          <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('b')">
             {{ mdiAlarm }}
         </v-icon></div>     
@@ -29,13 +32,13 @@
         </v-btn> 
         <v-tooltip v-model="showCopy" top :open-on-hover="false" :open-on-click="false" >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon class="mx-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on" :aria-label="$t('btn.copygame')">
-              <v-icon>{{ mdiInformation }}</v-icon>
+            <v-btn icon class="ml-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on" :aria-label="$t('btn.copygame')">
+              <v-icon>{{ mdiContentCopy }}</v-icon>
             </v-btn> 
           </template>
           <span>{{this.copyMessage}}</span>
         </v-tooltip>
-        <label class="caption align-self-center fixw">{{textLastMove}}</label>
+        <label class="caption align-self-center fixw mr-4">{{textLastMove}}</label>
         <v-btn  icon  class="mx-4" color="blue" @click="actSpeech" v-show="speechSupported" :aria-label="$t('btn.speech')">
             <v-icon>{{$store.state.modeSpeech? mdiAccountVoice:mdiVoiceOff }}</v-icon>         
         </v-btn> 
@@ -93,7 +96,7 @@ import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiVoiceOff } from '@mdi/js';
+import { mdiAlarm,mdiStepBackward,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
 
 
 
@@ -114,9 +117,13 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiVoiceOff } f
       copyMessage: '',
       mdiAlarm,
       mdiStepBackward,
-      mdiInformation,
+      mdiContentCopy,
       mdiAccountVoice,
-      mdiVoiceOff
+      mdiVoiceOff,
+      mdiCircleSlice1,
+      mdiCircleSlice3,
+      mdiCircleSlice5,
+      mdiCircleSlice8
     }
   },  
   /* data () {
@@ -150,7 +157,7 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiVoiceOff } f
       navigator.permissions.query({name: "clipboard-write"}).then(result => {
         if (result.state == "granted" || result.state == "prompt") {
           /* write to the clipboard now */
-          let s = `${this.$i18n.t(this.$store.getters.getCurrentTask.title)}\n${this.$i18n.t(this.$store.getters.getCurrentTask.orientation)}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
+          let s = `${this.$i18n.t(this.$store.getters.getCurrentTask.title)}\n${this.$store.getters.getCurrentTask.orientation}\n${this.$store.getters.getCurrentTask.fen}\n${this.$refs.wrkBoard.getHistory().join(' ')}`;
           console.log(s); // eslint-disable-line no-console 
           this.updateClipboard(s, self);
           
@@ -173,7 +180,27 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiVoiceOff } f
     actSpeech () { 
         this.$store.commit('modeSpeech');
         localStorage.speechAllow = this.$store.state.modeSpeech;
+        if (this.$store.state.modeSpeech) { // switched to allowed - say
+          this.speakGame();
+        } else {
+          Speech.clear();
+        }
     },
+    speakGame() {
+      if (this.$store.state.modeSpeech && this.$store.state.speechSupported) {
+        Speech.clear();
+        Speech.talk(`${this.$i18n.t('title.game')} ${this.$i18n.t(this.$store.getters.getCurrentTask.title)}.`, this.$i18n.locale);
+        Speech.talk(this.$i18n.t(this.$store.getters.getCurrentTask.description), this.$i18n.locale);
+      }
+    },
+    getLevel() {
+      switch(this.$store.state.engineLevel) {
+        case 1: return this.mdiCircleSlice1;
+        case 2: return this.mdiCircleSlice3;
+        case 3: return this.mdiCircleSlice5;
+        default: return this.mdiCircleSlice8;
+      }
+    }
 
     /**
      * Helper method to reduse typing
@@ -236,11 +263,24 @@ import { mdiAlarm,mdiStepBackward,mdiInformation,mdiAccountVoice,mdiVoiceOff } f
     this.$refs.wrkBoard.initialMove();
 
     // Speech.preferredLanguage(this.$i18n.locale);
+    // let _self = this;
     Speech.init(this.$i18n.locale).then( (res) => {
       this.$store.commit('speechSupported', { value: res });
-      if (!res)
+      if (!res) {
         this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport')});
+      } else {
+        /*
+         setTimeout(() => { 
+                    const elem = document.getElementById('speechBtn');
+                     elem.click(); 
+                     _self.$refs.speechBtn.click();
+                    _self.speakGame();
+                    this.simulateClick(elem);
+                }, 3000);
+                */
+        setTimeout(() => { this.speakGame(); }, 5000); 
       }
+    }
     );
       // this.snackbar = this.$i18n.t('message.speech.nosupport');
     

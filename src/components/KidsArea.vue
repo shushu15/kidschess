@@ -186,11 +186,26 @@ import { mdiAlarm,mdiStepBackward,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdi
           Speech.clear();
         }
     },
-    speakGame() {
+    speakGame(say) {
       if (this.$store.state.modeSpeech && this.$store.state.speechSupported) {
-        Speech.clear();
-        Speech.talk(`${this.$i18n.t('title.game')} ${this.$i18n.t(this.$store.getters.getCurrentTask.title)}.`, this.$i18n.locale);
-        Speech.talk(this.$i18n.t(this.$store.getters.getCurrentTask.description), this.$i18n.locale);
+        if (say !== undefined) {
+          Speech.talk(say, this.$i18n.locale);
+        } else {
+          Speech.clear();
+          Speech.talk(`${this.$i18n.t('title.game')} ${this.$i18n.t(this.$store.getters.getCurrentTask.title)}.`, this.$i18n.locale);
+          let s1 = this.$i18n.t(this.$store.getters.getCurrentTask.description).trim();
+          if (s1.length > 0)
+            Speech.talk(s1, this.$i18n.locale);
+          if (this.currentParent != undefined ) {
+            let s2 = this.$i18n.t(this.currentParent.description).trim();
+            if (s2.length > 0) { // split string on .
+              let arr = s2.split('.');
+              arr.forEach((el) => Speech.talk(el, this.$i18n.locale))
+
+              // Speech.talk(s2, this.$i18n.locale);
+            }
+          }
+        }
       }
     },
     getLevel() {

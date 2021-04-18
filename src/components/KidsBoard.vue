@@ -48,13 +48,13 @@ export default {
         this.$store.commit('addMove', {move: `${orig}${dest}`});
         this.$store.commit('setTurn', { turn: this.game.turn() });
         if (this.twoPlayers) {
-          this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
+          let res = this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
           this.board.set({
             turnColor: this.toColor(),
             movable: {
-              color: this.toColor(),
-              dests: this.possibleMoves(),
-              events: { after: this.userPlay()},
+              color: res? undefined: this.toColor(),
+              dests: res? undefined: this.possibleMoves(),
+              events: { after: res? undefined: this.userPlay()},
             }
           });
           // this.flipFiguresCSS();
@@ -65,12 +65,14 @@ export default {
     },
     aiNextMove() {
       this.$store.commit('setGameActive', {value: true})
-      this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
+      let res = this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
       this.board.set({
         movable: {
           color: undefined, // disable moves
         }
       })
+      if (res)
+        return; 
       // for dynamic depth positions get fen first
       let dynamic = false
       if (this.$store.getters.getCurrentTask.dynamic) {
@@ -142,21 +144,24 @@ export default {
     checkRules(side){
       //TODO: do not check if finishedGame. reset finishedGame on back move (with checking of move number finishedGame occurs)
       let rules = this.getTaskRules;
+      let speechMess = '';
       if (rules & KidsConst.RULES_CHESS) { // regular chess rules
         if (this.game.in_checkmate()) {
           this.$store.commit('finishedGame', {value: true});
           if (this.twoPlayers)
-            this.$store.commit('snackbarMessage', {value: side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won') });
+            this.$store.commit('snackbarMessage', {value: speechMess = side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won') });
           else 
-            this.$store.commit('snackbarMessage', {value: side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won'),
+            this.$store.commit('snackbarMessage', {value: speechMess = side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won'),
                                                     type: side===KidsConst.HUMAN? KidsConst.TYPE_NEGATIVE: KidsConst.TYPE_POSITIVE });
+          this.$emit('on-speak', speechMess);
           return true;
         } else if (this.game.in_draw()) {
           this.$store.commit('finishedGame', {value: true});
           let reason = this.game.insufficient_material()? this.$i18n.t('reason.insufficient_material'): 
                     this.game.in_stalemate()? this.$i18n.t('reason.stalemate'): 
                     this.game.in_threefold_repetition()? this.$i18n.t('reason.threefold'): '';
-          this.$store.commit('snackbarMessage', {value: `${this.$i18n.t('result.draw')} - ${reason}`});
+          this.$store.commit('snackbarMessage', {value: speechMess = `${this.$i18n.t('result.draw')} - ${reason}`});
+          this.$emit('on-speak', speechMess);
           return true;
         }
       } 
@@ -164,11 +169,12 @@ export default {
         this.$store.commit('finishedGame', {value: true});
         if (this.twoPlayers)
           this.$store.commit('snackbarMessage', 
-            {value:  `${side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won')} - ${this.$i18n.t('reason.nomoves')}` });
+            {value:  speechMess = `${side===KidsConst.WHITE? this.$i18n.t('result.black_won'):this.$i18n.t('result.white_won')} - ${this.$i18n.t('reason.nomoves')}` });
         else 
           this.$store.commit('snackbarMessage', 
-            {value:  `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}`,
+            {value: speechMess = `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}`,
               type: side===KidsConst.HUMAN? KidsConst.TYPE_NEGATIVE: KidsConst.TYPE_POSITIVE });
+        this.$emit('on-speak', speechMess);
         return true;
       } 
       if (rules & KidsConst.RULES_SAFE_PROMOTION) {
@@ -180,11 +186,12 @@ export default {
           this.$store.commit('finishedGame', {value: true});
           if (this.twoPlayers)
             this.$store.commit('snackbarMessage', 
-              {value: `${side===KidsConst.WHITE? this.$i18n.t('result.white_won'):this.$i18n.t('result.black_won')} - ${this.$i18n.t('reason.safe_promotion')}` });
+              {value: speechMess = `${side===KidsConst.WHITE? this.$i18n.t('result.white_won'):this.$i18n.t('result.black_won')} - ${this.$i18n.t('reason.safe_promotion')}` });
           else
             this.$store.commit('snackbarMessage', 
-              {value: `${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}`,
+              {value: speechMess =`${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}`,
                type: side===KidsConst.HUMAN? KidsConst.TYPE_POSITIVE: KidsConst.TYPE_NEGATIVE });
+          this.$emit('on-speak', speechMess);
           return true;
         }
       } 
@@ -219,7 +226,8 @@ export default {
             }
             this.$store.commit('finishedGame', {value: true});
             this.$store.commit('snackbarMessage', 
-              {value: `${mess} - ${this.$i18n.t('reason.material')}`, type });
+              {value: speechMess = `${mess} - ${this.$i18n.t('reason.material')}`, type });
+            this.$emit('on-speak', speechMess);
             return true;
           }
 
@@ -228,7 +236,8 @@ export default {
       if ((rules & KidsConst.RULES_3_REPETITION) && this.game.in_threefold_repetition())  {// Draw on threfold repetitionRULES_3_REPETITIONaterial advantage
           this.$store.commit('finishedGame', {value: true});
           this.$store.commit('snackbarMessage', 
-            {value: `${this.$i18n.t('result.draw')} - ${this.$i18n.t('reason.threefold')}` });
+            {value: speechMess = `${this.$i18n.t('result.draw')} - ${this.$i18n.t('reason.threefold')}` });
+          this.$emit('on-speak', speechMess);
           return true;
       }
       if ((rules & KidsConst.RULES_WHITE_MATE_IN_X) || (rules & KidsConst.RULES_BLACK_MATE_IN_X)) {
@@ -236,7 +245,8 @@ export default {
         if (this.movesNumberOut(maxMove, (rules & KidsConst.RULES_BLACK_MATE_IN_X))) {
           this.$store.commit('finishedGame', {value: true});
           this.$store.commit('snackbarMessage', 
-            {value: `${this.$i18n.t('result.draw')} - ${this.$i18n.t('reason.no_win_in_x_moves', [maxMove])}` });
+            {value: speechMess = `${this.$i18n.t('result.draw')} - ${this.$i18n.t('reason.no_win_in_x_moves', [maxMove])}` });
+          this.$emit('on-speak', speechMess);
           return true;
 
         }
@@ -324,7 +334,17 @@ export default {
         this.calculatePromotions();
         this.$store.commit('setTurn', { turn: this.game.turn() });
         this.$store.commit('addMove', {move: newValue});
-        this.checkRules(KidsConst.HUMAN);
+        let res = this.checkRules(KidsConst.HUMAN);
+        if(res) { // stop game
+          this.board.set({
+            movable: {
+              color: undefined,
+              dests: undefined,
+              events: { after: undefined},
+            },
+          });
+
+        }
       },
     );
   },

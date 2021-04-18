@@ -211,7 +211,7 @@
     },
     "war": {
       "t": "War and Peace",
-      "d": "The goal of the game is the complete destruction of the opponent or the safe promotion of the pawn, (i.e. so that the opponent does not capture it with a retaliatory move). If there are no pawns left on the board, the victory is determined by the cost of the remaining pieces",
+      "d": "The goal of the game is the complete destruction of the opponent or the safe promotion of the pawn, (so that the opponent does not capture it with a retaliatory move). If there are no pawns left on the board, the victory is determined by the cost of the remaining pieces",
       "1": {
         "t": "Battle",
         "d": ""

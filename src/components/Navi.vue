@@ -168,7 +168,7 @@ export default {
         }
       }
       if (oldLocale != this.$i18n.locale) {
-        let speech = (Speech.voiceLanguage(lang) != null);
+        let speech = (Speech.voiceLanguage(this.$i18n.locale) != null);
         this.$store.commit('speechSupported', { value: speech });
         if (!speech)
           this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport')});

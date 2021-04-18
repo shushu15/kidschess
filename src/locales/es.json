@@ -213,7 +213,7 @@
     },
     "war": {
       "t": "Guerra y Paz",
-      "d": "El objetivo del juego es la destrucción completa del oponente o la promoción segura del peón (es decir, para que el oponente no lo capture con un movimiento de represalia). Si no quedan peones en el tablero, la victoria se determina por el costo de las piezas restantes.",
+      "d": "El objetivo del juego es la destrucción completa del oponente o la promoción segura del peón (para que el oponente no lo capture con un movimiento de represalia). Si no quedan peones en el tablero, la victoria se determina por el costo de las piezas restantes.",
       "1": {
         "t": "Batalla",
         "d": ""

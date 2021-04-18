@@ -74,12 +74,14 @@ export default {
       if (res)
         return; 
       // for dynamic depth positions get fen first
-      let dynamic = false
+      let dynamic = false;
+      /* Temporarily switched off
       if (this.$store.getters.getCurrentTask.dynamic) {
         let fen = this.game.fen().split(' ')[0];
         if ((fen.match(/p/gi) || []).length == 0)// no pawns
           dynamic = true;
       }
+      */
 
       // WORKER
       // either initial position + all moves (for 3times repetition prevent), or regular current fen

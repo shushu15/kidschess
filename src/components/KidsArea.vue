@@ -12,10 +12,12 @@
         <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
               :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard" @on-speak="speakGame"/>
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
-         <span class="ai-level"><label class="caption" v-show="!twoPlayers">{{getLevelHint}}</label> 
-         <v-icon v-show="!twoPlayers">
-            {{ getLevel() }}
-        </v-icon></span>
+         <span class="ai-level">
+          <label class="caption" v-show="!twoPlayers"  @click="changeLevel">{{getLevelHint}}</label> 
+          <v-icon v-show="!twoPlayers"  @click="changeLevel">
+            {{ getChartLevel() }}
+          </v-icon>
+        </span>
          <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('b')">
             {{ mdiAlarm }}
         </v-icon></div>     
@@ -96,7 +98,7 @@ import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiAlarm,mdiStepBackward,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
+import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
 
 
 
@@ -117,6 +119,7 @@ import { mdiAlarm,mdiStepBackward,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdi
       copyMessage: '',
       mdiAlarm,
       mdiStepBackward,
+      //mdiStepForward,
       mdiContentCopy,
       mdiAccountVoice,
       mdiVoiceOff,
@@ -208,14 +211,21 @@ import { mdiAlarm,mdiStepBackward,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdi
         }
       }
     },
-    getLevel() {
-      switch(this.$store.state.engineLevel) {
+    getChartLevel() {
+      switch(this.getLevel) {
         case 1: return this.mdiCircleSlice1;
         case 2: return this.mdiCircleSlice3;
         case 3: return this.mdiCircleSlice5;
         default: return this.mdiCircleSlice8;
       }
-    }
+    },
+    changeLevel() {
+      let newLevel = this.getLevel + 1;
+      if (newLevel > this.$store.state.engineDeep.length-1) newLevel = 1;
+      this.$store.commit('updateEngineLevel', {value: newLevel});
+      this.$store.dispatch('workerSendMistakeLevel');
+      localStorage.playLevel = newLevel;
+    } 
 
     /**
      * Helper method to reduse typing
@@ -231,7 +241,7 @@ import { mdiAlarm,mdiStepBackward,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdi
   }, 
      computed: {
     ...mapGetters(['showClock','showBtnStart','flashAnimal','cartoonByID', 'canBackward','getCurrentTask','finishedGame', 'gameActive', 
-              'currentParent','textLastMove','longThinking','twoPlayers','getLevelHint','speechSupported']),
+              'currentParent','textLastMove','longThinking','twoPlayers','getLevelHint','speechSupported','getLevel']),
     snackbar: {
       get() {
         //console.log(`snackbar get ${this.$store.state.snackbarMessage}`);
@@ -387,12 +397,15 @@ import { mdiAlarm,mdiStepBackward,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdi
 @keyframes glowicon {
 	0% {
 		color: hsl(199, 73%, 63%);
+    transform:scale(1);
 	}
 	50% {
 		color: hsl(199, 88%, 33%);
+    transform:scale(1.1);
 	}
 	100% {
 		color: #313131;
+    transform:scale(1);
 	}
 } 
 .movedown {

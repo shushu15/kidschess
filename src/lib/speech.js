@@ -95,7 +95,7 @@ export function talk(text, lang){
 function filterVoices(langcode){
   // let langcode = languageMenu.value;
   let voices = allVoices.filter(function (voice) {
-    return langcode === "all" ? true : voice.lang.indexOf(langcode + "-") >= 0;
+    return langcode === "all" ? true : voice.lang.indexOf(langcode + "-") >= 0 || voice.lang.indexOf(langcode + "_") >= 0;
   });
  return voices;
 }

@@ -40,10 +40,10 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## TODO
-* TODO AI "thinking" on all big levels
-* TODO Stop games after finish
-* 0.1.11 Group icon "copy game" (change icon) and game record
-* 0.1.11 Speech support
+* 0.1.12 AI "thinking" on all big levels
+* 0.1.12 Stop games after finish
+* 0.1.12 Group icon "copy game" (change icon) and game record
+* 0.1.12 Speech support
 * TODO Help on pressing help button - absolute buttons near UI elements
 * TODO Analytics from the stored played games on a separate screen (indexedDB)
 * TODO (indexedDB) - gather statistics on games. Switch from menu. 

@@ -15,6 +15,8 @@
   "btn.moveback" : "Retroceder",
   "btn.copygame" : "Copiar juego",
   "btn.speech" : "acompañamiento de discurso",
+  "btn.level.decrease" : "Disminuir nivel",
+  "btn.level.increase" : "Aumentar el nivel",
   "menu.level": "Nivel",
   "menu.about": "Sobre el programa",
   "menu.about.text": "KidsChess: juegos de aprendizaje de ajedrez",

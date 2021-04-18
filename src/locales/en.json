@@ -15,6 +15,8 @@
   "btn.moveback" : "Move back",
   "btn.copygame" : "Copy game",
   "btn.speech" : "speech accompaniment",
+  "btn.level.decrease" : "Decrease level",
+  "btn.level.increase" : "Increase level",
   "menu.level": "Level",
   "menu.about": "About KidsChess",
   "menu.about.text": "Kids: chess learning games",

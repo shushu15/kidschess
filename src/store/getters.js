@@ -38,10 +38,10 @@ export default {
   getLevelHint(state) {
     return i18n.t(state.engineDeep[state.engineLevel].hint);
   },
-  /*
+
   getLevel(state) {
     return state.engineLevel;
-  }, */
+  },
   flipToWhite(state, getters) {
     return (state.currentTask && getters.getOrientation === KidsConst.BLACK) && !state.gameActive;
   },

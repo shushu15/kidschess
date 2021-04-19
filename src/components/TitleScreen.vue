@@ -10,6 +10,9 @@
           <v-card-text>
               <div class="d-flex justify-center text-center body-1">{{ $t('title.1') }}</div>
           </v-card-text>
+          <v-card-actions>
+               <v-btn color="primary" class="btn-up" text @click="skipSplash">{{ $t('btn.skipsplash') }}</v-btn>
+          </v-card-actions>  
           <div class="animals ms-0">
           <transition-group name="sliding" tag="div" class="animaline align-content-space-between">
                 <div :key="4" v-if="this.animalsList.includes(4)" class="align-self-end"><inline-svg  :src="require('../assets/img/029-goat.svg')"  width="50" height="50" /></div>
@@ -30,6 +33,9 @@
 <script>
 import InlineSvg from 'vue-inline-svg';
 
+let titleTimer = null;
+let readyTimer = null;
+
 export default {
   name: 'TitleScreen',
 
@@ -41,25 +47,40 @@ export default {
       animalsList: [],
     }
   },
+  methods: {
+    skipSplash() {
+    // console.log("skipSplash Pressed"); // eslint-disable-line no-console
+      clearTimeout(readyTimer);
+       this.$store.commit('readyScreen');
+      clearTimeout(titleTimer);
+      this.offTitle();
+    },
+    offTitle() {
+      // console.log("offTitle"); // eslint-disable-line no-console
+      this.$store.commit('hideTitleScreen'); 
+      if (this.$store.getters.twoPlayers) {
+        this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.board.two_players')});
+      }
+    }
+  },
 
   mounted() {
     this.animalsList.splice(0);
-    setTimeout(() => { this.$store.commit('hideTitleScreen'); 
-                      if (this.$store.getters.twoPlayers) {
-                        this.$store.commit('snackbarMessage', 
-                          {value: this.$i18n.t('message.board.two_players')});
-                      }
+    titleTimer = setTimeout(() => { this.offTitle();
                   }, 5000); 
     for (let i=1; i<8; i++) {
-      setTimeout(() => { this.animalsList.push(i) }, 200*i); 
+      setTimeout(() => { this.animalsList.push(i) }, 50*i); 
     }
     // we force loading to show main screen in background - hidden
-    setTimeout(() => { this.$store.commit('readyScreen'); }, 3500); 
+    readyTimer = setTimeout(() => { this.$store.commit('readyScreen'); }, 2000); 
   },
 };
 </script>
 
 <style scoped>
+.btn-up {
+  z-index: 202;
+}
 .title-screen {
   position: absolute;
   top: 0;

@@ -13,8 +13,8 @@
               :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard" @on-speak="speakGame"/>
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
          <span class="ai-level">
-          <label class="caption" v-show="!twoPlayers"  @click="changeLevel">{{getLevelHint}}</label> 
-          <v-icon v-show="!twoPlayers"  @click="changeLevel">
+          <label class="caption" v-show="!twoPlayers"  @click="changeLevel" :aria-label="$t('btn.level')">{{getLevelHint}}</label> 
+          <v-icon v-show="!twoPlayers"  @click="changeLevel" :aria-label="$t('btn.level')">
             {{ getChartLevel() }}
           </v-icon>
         </span>

@@ -55,6 +55,24 @@
   "background_color": "#FFFFFF",
   "theme_color": "#6DC9F7",
   "orientation": "portrait",
-  "description" : "Chess teaching games for children"
+  "description" : "Chess teaching games for children",
+  "categories": ["chess", "games", "kids", "education"],
+  "screenshots" : [
+    {
+      "src": "./screen640x360-1en.png",
+      "sizes": "640x360",
+      "type": "image/png"
+    },
+    {
+      "src": "./screen640x360-2en.png",
+      "sizes": "640x360",
+      "type": "image/png"
+    },
+    {
+      "src": "./screen640x360-3en.png",
+      "sizes": "640x360",
+      "type": "image/png"
+    }
+  ]
 
 }

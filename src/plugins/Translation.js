@@ -42,7 +42,7 @@ export const Trans = {
     const lang = window.navigator.language || window.navigator.userLanguage || Trans.defaultLanguage;
     return {
       lang,
-      langNoISO: lang.split('-')[0],
+      langNoISO: lang.includes('-')? lang.split('-')[0] : lang.includes('_')? lang.split('_')[0]: lang,
     };
   },
   /**

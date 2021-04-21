@@ -59,18 +59,18 @@
   "categories": ["chess", "games", "kids", "education"],
   "screenshots" : [
     {
-      "src": "./screen640x360-1en.png",
-      "sizes": "640x360",
+      "src": "./screen360x640-1en.png",
+      "sizes": "360x640",
       "type": "image/png"
     },
     {
-      "src": "./screen640x360-2en.png",
-      "sizes": "640x360",
+      "src": "./screen360x640-2en.png",
+      "sizes": "360x640",
       "type": "image/png"
     },
     {
-      "src": "./screen640x360-3en.png",
-      "sizes": "640x360",
+      "src": "./screen360x640-3en.png",
+      "sizes": "360x640",
       "type": "image/png"
     }
   ]

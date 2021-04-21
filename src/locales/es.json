@@ -44,7 +44,7 @@
   "message.copy.error": "No copiado",
   "message.thinking": "pensando...",
   "message.board.two_players": "El tablero está actualmente en modo de dos jugadores. Puede cambiar al modo normal en el menú de configuración",
-  "message.speech.nosupport": "La voz que habla en este idioma no es compatible con el navegador",
+  "message.speech.nosupport": "La voz que habla en este idioma no es compatible con el navegador: {0}",
   "level" : {
     "1": "novato",
     "2": "sencillo",

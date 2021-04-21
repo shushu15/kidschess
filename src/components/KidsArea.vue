@@ -292,7 +292,7 @@ import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVo
     Speech.init(this.$i18n.locale).then( (res) => {
       this.$store.commit('speechSupported', { value: res });
       if (!res) {
-        this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport')});
+        this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport',[this.$i18n.locale])});
       } else {
         /*
          setTimeout(() => { 

@@ -171,7 +171,7 @@ export default {
         let speech = (Speech.voiceLanguage(this.$i18n.locale) != null);
         this.$store.commit('speechSupported', { value: speech });
         if (!speech)
-          this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport')});
+          this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport',[this.$i18n.locale])});
       }
       localStorage.lang = lang;
       this.$store.commit('toggleDrawer', { show: false });

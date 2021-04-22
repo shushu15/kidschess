@@ -17,15 +17,18 @@ let speedRatio = 1.0; // 0.8;
 export function init(lang){
 
   if (!window.speechSynthesis)
-    return false;
+    return new Promise(() => false);
   const allVoicesObtained = new Promise(function(resolve) {
-  allVoices = window.speechSynthesis.getVoices();
-  if (allVoices.length !== 0) {
+    // allVoices = window.speechSynthesis.getVoices();
+    loadAllVoices();
+    if (allVoices.length !== 0) {
       resolve(allVoices);
     } else {
-      window.speechSynthesis.addEventListener("voiceschanged", function() {
-        allVoices = window.speechSynthesis.getVoices();
-        resolve(allVoices);
+      window.speechSynthesis.addEventListener("voiceschanged", () => {
+        // allVoices = window.speechSynthesis.getVoices();
+        loadAllVoices();
+        if (allVoices.length !== 0)
+          resolve(allVoices);
       });
     }
   });
@@ -46,6 +49,10 @@ export function init(lang){
   }
   return ret;
   */
+}
+
+function loadAllVoices(){
+  allVoices = window.speechSynthesis.getVoices(); // getAllVoices();
 }
 
 /*
@@ -95,7 +102,8 @@ export function talk(text, lang){
 function filterVoices(langcode){
   // let langcode = languageMenu.value;
   let voices = allVoices.filter(function (voice) {
-    return langcode === "all" ? true : voice.lang.indexOf(langcode + "-") >= 0 || voice.lang.indexOf(langcode + "_") >= 0;
+    // console.log(`Lang ${voice.lang}`);
+    return voice.lang.indexOf(langcode + "-") >= 0 || voice.lang.indexOf(langcode + "_") >= 0;
   });
  return voices;
 }

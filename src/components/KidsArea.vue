@@ -294,22 +294,11 @@ import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVo
       if (!res) {
         this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport',[this.$i18n.locale])});
       } else {
-        /*
-         setTimeout(() => { 
-                    const elem = document.getElementById('speechBtn');
-                     elem.click(); 
-                     _self.$refs.speechBtn.click();
-                    _self.speakGame();
-                    this.simulateClick(elem);
-                }, 3000);
-                */
         setTimeout(() => { this.speakGame(); }, 5000); 
       }
+
     }
     );
-      // this.snackbar = this.$i18n.t('message.speech.nosupport');
-    
-    // Speech.selectLanguage();
 
 
   },

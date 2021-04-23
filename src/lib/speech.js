@@ -16,8 +16,10 @@ let speedRatio = 1.0; // 0.8;
 
 export function init(lang){
 
-  if (!window.speechSynthesis)
-    return new Promise(() => false);
+  if (!window.speechSynthesis) {
+    // console.log(`speech init ${window.speechSynthesis}`);
+    return new Promise((resolve) => resolve(false));
+  }
   const allVoicesObtained = new Promise(function(resolve) {
     // allVoices = window.speechSynthesis.getVoices();
     loadAllVoices();
@@ -62,11 +64,15 @@ function setUpVoices(){
 }
 */
 export function clear(){
+  if (!window.speechSynthesis) return null;
+
   speechSynthesis.cancel();
 }
 
 
 export function talk(text, lang){
+  if (!window.speechSynthesis) return null;
+
   let u = new SpeechSynthesisUtterance();
   u.voice = voiceLanguage(lang);
   u.lang = u.voice.lang;
@@ -109,6 +115,7 @@ function filterVoices(langcode){
 }
 
 export function voiceLanguage(lang){
+  if (!window.speechSynthesis) return null;
   let voices = filterVoices(lang);
   return  voices.length > 0? voices[0]: null;
 }

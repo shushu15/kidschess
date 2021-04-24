@@ -41,6 +41,7 @@
   "message.copy.ok": "Copied",
   "message.copy.error": "Not copied",
   "message.thinking": "thinking...",
+  "message.yourmove": "your turn",
   "message.board.two_players": "The board is currently in two-player mode. You can switch to normal mode in the settings menu",
   "message.speech.nosupport": "Voice speaking in this language is not supported in browser or system: {0}",
   "level" : {

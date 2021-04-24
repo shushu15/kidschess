@@ -24,6 +24,7 @@
          <div class="clock-my"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('w')">
             {{ mdiAlarm }}
         </v-icon></div>
+         <label class="thinking-my caption glow" v-show="showClock('w')">{{$t('message.yourmove')}}</label>     
          </div>  
       </v-col>
     </v-row>
@@ -355,6 +356,11 @@ import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVo
     position: absolute;
     bottom: -10px;
     right:  0px;
+  } 
+  .thinking-my {
+    position: absolute;
+    bottom: -10px;
+    right: 30px;
   } 
   .sliding-enter-active {
     animation: sliding 0.5s;

@@ -17,7 +17,7 @@ export default {
           commit('setLongThinking', {value: true}); }, KidsConst.THINKING_DELAY); 
       commit('storeTimer', {timerID});   
     }
-    console.log(`dispatch workerRequest:${command} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
+    // console.log(`dispatch workerRequest:${command} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
   workerSendNewGame({state, dispatch}) {

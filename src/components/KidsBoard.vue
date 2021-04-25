@@ -373,11 +373,8 @@ export default {
     background-color: transparent !important;
   }
 
-  /* 
-  .merida
+/*  .merida cg-board piece.pawn.white
   {
-    transform: rotate(180deg) !important;
-  }*/
-
+  } */
 
 </style> 

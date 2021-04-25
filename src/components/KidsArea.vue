@@ -10,7 +10,7 @@
       <v-col class="d-flex justify-center" cols="12">
         <div class="layer1 pa-4 ma-0 rounded-lg">       
         <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
-              :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard" @on-speak="speakGame"/>
+              :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard" @on-speak="speakGame" />
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
          <span class="ai-level">
           <label class="caption" v-show="!twoPlayers"  @click="changeLevel" :aria-label="$t('btn.level')">{{getLevelHint}}</label> 
@@ -24,7 +24,7 @@
          <div class="clock-my"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('w')">
             {{ mdiAlarm }}
         </v-icon></div>
-         <label class="thinking-my caption glow" v-show="showClock('w')">{{$t('message.yourmove')}}</label>     
+         <label class="thinking-my caption" v-show="showClock('w')" v-bind:class="{glow: !finishedGame}">{{$t('message.yourmove')}}</label>     
          </div>  
       </v-col>
     </v-row>
@@ -413,6 +413,7 @@ import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVo
   20% { transform: translateY(-50vh);  }
   100% {  transform: translateY(0);  } 
  }
+
  /*
   .snackbar_neg {
     background: linear-gradient(to bottom right, #BF360C, 10%, #607D8B);

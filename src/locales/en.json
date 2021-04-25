@@ -59,7 +59,7 @@
   },
   "reason": {
     "threefold": "threefold repetition",
-    "nomoves": "stalemate",
+    "nomoves": "no moves",
     "safe_promotion" : "safe pawn promotion",
     "material" : "material on the board",
     "insufficient_material": "insufficient material to win",

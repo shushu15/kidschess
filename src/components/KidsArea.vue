@@ -13,10 +13,19 @@
               :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard" @on-speak="speakGame" />
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
          <span class="ai-level">
+          <v-badge
+            bottom
+            overlap
+            right
+            color="pink lighten-3"
+            :content="$t('help.level')"
+            :value="this.$store.state.showHelp && !twoPlayers"
+          >
           <label class="caption" v-show="!twoPlayers"  @click="changeLevel" :aria-label="$t('btn.level')">{{getLevelHint}}</label> 
           <v-icon v-show="!twoPlayers"  @click="changeLevel" :aria-label="$t('btn.level')">
             {{ getChartLevel() }}
           </v-icon>
+          </v-badge>
         </span>
          <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('b')">
             {{ mdiAlarm }}
@@ -30,21 +39,51 @@
     </v-row>
     <v-row class="ma-0 pa-0">
       <v-col class="d-flex justify-center ma-0 pa-0" cols="12">
-        <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" :aria-label="$t('btn.moveback')">
+        <v-badge
+          bottom
+          overlap
+          left
+          offset-x="40px"
+          color="pink lighten-3"
+          :content="$t('help.moveback')"
+          :value="this.$store.state.showHelp"
+        >
+          <v-btn  icon  class="mx-4" color="blue" @click="actBackward" :disabled="!canBackward" :aria-label="$t('btn.moveback')">
             <v-icon>{{mdiStepBackward}}</v-icon>
-        </v-btn> 
+          </v-btn> 
+        </v-badge>  
         <v-tooltip v-model="showCopy" top :open-on-hover="false" :open-on-click="false" >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon class="ml-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on" :aria-label="$t('btn.copygame')">
-              <v-icon>{{ mdiContentCopy }}</v-icon>
-            </v-btn> 
+            <v-badge
+              top
+              overlap
+              left
+              color="pink lighten-3"
+              offset-x="120px"
+              :content="$t('help.copygame')"
+              :value="$store.state.showHelp"
+            >
+              <v-btn icon class="ml-4" color="blue" @click="actInfo"  v-bind="attrs" v-on="on" :aria-label="$t('btn.copygame')">
+                <v-icon>{{ mdiContentCopy }}</v-icon>
+              </v-btn> 
+            </v-badge>  
           </template>
           <span>{{this.copyMessage}}</span>
         </v-tooltip>
         <label class="caption align-self-center fixw mr-4">{{textLastMove}}</label>
-        <v-btn  icon  class="mx-4" color="blue" @click="actSpeech" v-show="speechSupported" :aria-label="$t('btn.speech')">
+        <v-badge
+          bottom
+          overlap
+          left
+          color="pink lighten-3"
+          offset-x="40px"
+          :content="$t('help.speech')"
+          :value="this.$store.state.showHelp && speechSupported"
+        >
+          <v-btn  icon  class="mx-4" color="blue" @click="actSpeech" v-show="speechSupported" :aria-label="$t('btn.speech')">
             <v-icon>{{$store.state.modeSpeech? mdiAccountVoice:mdiVoiceOff }}</v-icon>         
-        </v-btn> 
+          </v-btn> 
+        </v-badge>  
        </v-col> 
     </v-row>
     <v-row class="text-center">
@@ -66,10 +105,23 @@
         <div class="text-subtitle-2" v-if="currentParent != undefined">
             {{$t(currentParent.description)}}        
         </div>
+ 
       </v-col>
 
     </v-row>
-    <v-snackbar
+    <v-btn
+      @click="actHelp"
+      color="pink lighten-3"
+      fab
+      x-small
+      bottom
+      right
+      absolute
+      :disabled="this.$store.state.showHelp"
+    >
+      <v-icon x-small>{{ mdiHelp }}</v-icon>
+    </v-btn>
+   <v-snackbar
       v-model="snackbar"
       :timeout="6000"
       :color="sb_color"
@@ -99,7 +151,7 @@ import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
+import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
 
 
 
@@ -120,7 +172,7 @@ import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVo
       copyMessage: '',
       mdiAlarm,
       mdiStepBackward,
-      //mdiStepForward,
+      mdiHelp,
       mdiContentCopy,
       mdiAccountVoice,
       mdiVoiceOff,
@@ -226,7 +278,14 @@ import { mdiAlarm,mdiStepBackward,/*mdiStepForward,*/mdiContentCopy,mdiAccountVo
       this.$store.commit('updateEngineLevel', {value: newLevel});
       this.$store.dispatch('workerSendMistakeLevel');
       localStorage.playLevel = newLevel;
-    } 
+    },
+    //demoOnScreen() {
+    //  return !this.$store.state.isTitleShowing && this.$store.state.isDemo;
+    //},
+    actHelp () { 
+        this.$store.dispatch('showHelp');
+    },
+
 
     /**
      * Helper method to reduse typing

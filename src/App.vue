@@ -5,17 +5,35 @@
       color="primary"
       dark
     >
-      <v-app-bar-nav-icon @click.stop="clickMenu()" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.menu')" :class="{glowbox: this.$store.state.isDemo}"></v-app-bar-nav-icon> 
+      <v-badge
+        bottom
+        overlap
+        right
+        color="pink lighten-3"
+        :content="$t('help.mainmenu')"
+        :value="this.$store.state.showHelp"
+      >
+        <v-app-bar-nav-icon @click.stop="clickMenu()" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.menu')" :class="{glowbox: this.$store.state.isDemo}"></v-app-bar-nav-icon> 
+      </v-badge>
+        <v-toolbar-title>{{$store.state.isTitleShowing? $t('title.ready'): `${$t('title.game')} ${$t(this.$store.getters.getCurrentTask.title)}`}}</v-toolbar-title>
 
-      <v-toolbar-title>{{$store.state.isTitleShowing? $t('title.ready'): `${$t('title.game')} ${$t(this.$store.getters.getCurrentTask.title)}`}}</v-toolbar-title>
+        <v-spacer></v-spacer>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()" :aria-label="$t('btn.repeat')">{{mdiReload}}</v-icon>
-        <v-icon v-if="flipToBlack" @click="actFlipBoard" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeSendBackward}}</v-icon>
-        <v-icon v-if="flipToWhite" @click="actFlipBoard" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeBringForward}}</v-icon>
-      </v-btn>
+      <v-badge
+        top
+        overlap
+        left
+        offset-x="40px"
+        color="pink lighten-3"
+        :content="reloadAllowed? $t('help.reload'): $t('help.changepieces')"
+        :value="this.$store.state.showHelp"
+      >
+        <v-btn icon>
+          <v-icon v-if="reloadAllowed" @click="actReload" :disabled="!canReload()" :aria-label="$t('btn.repeat')">{{mdiReload}}</v-icon>
+          <v-icon v-if="flipToBlack" @click="actFlipBoard" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeSendBackward}}</v-icon>
+          <v-icon v-if="flipToWhite" @click="actFlipBoard" :disabled="$store.state.isTitleShowing" :aria-label="$t('btn.switch_color')" :class="{glowbox: this.$store.state.isDemo}">{{mdiArrangeBringForward}}</v-icon>
+        </v-btn>
+      </v-badge>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -102,7 +120,10 @@ export default {
     },
     screenReadyHidden() {
       return this.$store.state.isTitleShowing && this.$store.state.isScreenReady;
-    }
+    },
+    //demoOnScreen() {
+    //  return !this.$store.state.isTitleShowing && this.$store.state.isDemo;
+    //}
   },
   computed: {
     ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','childByID','twoPlayers']),

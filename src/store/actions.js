@@ -69,6 +69,11 @@ export default {
     setTimeout(() => { 
         commit('switchDemo', {value: false}); }, 5000); 
   },
+  showHelp({commit}) {
+    commit('switchHelp', {value: true}); 
+    setTimeout(() => { 
+        commit('switchHelp', {value: false}); }, 5000); 
+  }
 /*
   onLangChange({lang}) {
     Speech.preferredLanguage(lang);

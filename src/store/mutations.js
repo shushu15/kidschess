@@ -16,6 +16,9 @@ export default {
   switchDemo(state, {value}) {
     state.isDemo = value;
   },
+  switchHelp(state, {value}) {
+    state.showHelp = value;
+  },
   toggleDrawer(state, { show }) {
     state.showDrawer = show === undefined ? !state.showDrawer : show;
   },

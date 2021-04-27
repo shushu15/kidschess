@@ -46,6 +46,15 @@
   "message.yourmove": "tu turno",
   "message.board.two_players": "El tablero está actualmente en modo de dos jugadores. Puede cambiar al modo normal en el menú de configuración",
   "message.speech.nosupport": "La voz que habla en este idioma no es compatible con el navegador o el sistema: {0}",
+
+  "help.mainmenu": "main menu",
+  "help.reload" : "repetir juego",
+  "help.changepieces": "color de piezas",
+  "help.moveback": "retroceder",
+  "help.copygame" : "copiar el juego al portapapeles",
+  "help.speech" : "voz encender/apagar",
+  "help.level" : "fuerza del juego",
+  
   "level" : {
     "1": "novato",
     "2": "sencillo",

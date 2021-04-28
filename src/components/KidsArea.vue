@@ -371,6 +371,13 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
 </script>
 
 <style scoped>
+/* TO make it working remove "scoped"
+ .v-badge .v-badge__badge {
+  font-size: 14px !important;
+  height: 22px !important;
+} 
+**/
+
   .layer1 {
     position: relative; 
   }

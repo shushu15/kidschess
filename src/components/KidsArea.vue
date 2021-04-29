@@ -118,6 +118,7 @@
       right
       absolute
       :disabled="this.$store.state.showHelp"
+      :aria-label="$t('btn.help.ui')"
     >
       <v-icon x-small>{{ mdiHelp }}</v-icon>
     </v-btn>

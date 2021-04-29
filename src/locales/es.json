@@ -17,6 +17,7 @@
   "btn.speech" : "acompañamiento de discurso",
   "btn.level" : "Cambiar el nivel del juego",
   "btn.skipsplash" : "Saltar la pantalla de bienvenida",
+  "btn.help.ui" : "Ayuda sobre la interfaz del programa",
   "menu.level": "Nivel",
   "menu.about": "Sobre el programa",
   "menu.about.text": "KidsChess: juegos de aprendizaje de ajedrez",

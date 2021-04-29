@@ -17,6 +17,7 @@
   "btn.speech" : "speech accompaniment",
   "btn.level" : "Change game level",
   "btn.skipsplash" : "Skip splash screen",
+  "btn.help.ui" : "Help on the program interface",
   "menu.level": "Level",
   "menu.about": "About KidsChess",
   "menu.about.text": "Kids: chess learning games",

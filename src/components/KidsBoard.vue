@@ -176,6 +176,7 @@ export default {
           this.$store.commit('snackbarMessage', 
             {value: speechMess = `${side===KidsConst.HUMAN? this.$i18n.t('result.lost'):this.$i18n.t('result.won')} - ${this.$i18n.t('reason.nomoves')}`,
               type: side===KidsConst.HUMAN? KidsConst.TYPE_NEGATIVE: KidsConst.TYPE_POSITIVE });
+        // console.log(`speechMess = ${speechMess}`)      
         this.$emit('on-speak', speechMess);
         return true;
       } 

@@ -71,6 +71,7 @@ export function clear(){
 
 
 export function talk(text, lang){
+
   if (!window.speechSynthesis) return null;
 
   let u = new SpeechSynthesisUtterance();

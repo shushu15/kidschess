@@ -257,7 +257,10 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
             let s2 = this.$i18n.t(this.currentParent.description).trim();
             if (s2.length > 0) { // split string on .
               let arr = s2.split('.');
-              arr.forEach((el) => Speech.talk(el, this.$i18n.locale))
+              arr.forEach((el) => {
+                if(el.trim().length > 0)
+                  Speech.talk(el, this.$i18n.locale);
+              });
 
               // Speech.talk(s2, this.$i18n.locale);
             }

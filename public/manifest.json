@@ -48,13 +48,19 @@
       "src": "./img/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "./img/icons/icon-512x512-mono.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "monochrome"
     }
+
   ],
   "start_url": "./index.html",
   "display": "fullscreen",
   "background_color": "#FFFFFF",
   "theme_color": "#6DC9F7",
-  "orientation": "portrait",
   "description" : "Chess teaching games for children",
   "categories": ["chess", "games", "kids", "education"],
   "screenshots" : [

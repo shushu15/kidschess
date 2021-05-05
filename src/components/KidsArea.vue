@@ -461,11 +461,11 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
 } 
 @keyframes glowicon {
 	0% {
-		color: hsl(199, 73%, 63%);
+		color: hsl(199, 95%, 45%);
     transform:scale(1);
 	}
 	50% {
-		color: hsl(199, 88%, 33%);
+		color: hsl(199, 100%, 26%);
     transform:scale(1.1);
 	}
 	100% {

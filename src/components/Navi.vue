@@ -103,6 +103,17 @@
           </v-list-item>
         </v-list-group>                
       </v-list-group> 
+      <v-list-item link>
+        <v-list-item-avatar tile size="35">
+          <v-icon>
+             {{mdiInformationVariant}}
+          </v-icon>  
+        </v-list-item-avatar>
+        <v-list-item-content>
+        <v-list-item-title @click="intro()">{{ $t('menu.intro') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <AboutDlg />
       <ShareDlg />
     </v-list>    

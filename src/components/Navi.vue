@@ -104,9 +104,9 @@
         </v-list-group>                
       </v-list-group> 
       <v-list-item link>
-        <v-list-item-avatar tile size="35">
+        <v-list-item-avatar tile size="24">
           <v-icon>
-             {{mdiInformationVariant}}
+             {{mdiCommentOutline}}
           </v-icon>  
         </v-list-item-avatar>
         <v-list-item-content>
@@ -128,7 +128,7 @@ import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import { Trans } from '@/plugins/Translation.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiCog,mdiWeb } from '@mdi/js';
+import { mdiCog,mdiWeb,mdiCommentOutline } from '@mdi/js';
 
 
 
@@ -150,6 +150,7 @@ export default {
       ],
       mdiCog,
       mdiWeb,
+      mdiCommentOutline,
 
     }
   },
@@ -187,6 +188,10 @@ export default {
       localStorage.lang = lang;
       this.$store.commit('toggleDrawer', { show: false });
     },
+    intro(){
+      this.$store.commit('toggleDrawer', { show: false });
+      this.$store.commit('toggleIntro', { show: true });
+    }
 
   },
   computed: {

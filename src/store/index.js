@@ -17,6 +17,7 @@ const state = {
   isDemo: false,
   showHelp: false,
   showDrawer: false,
+  showIntro: false,
   currentTask: {}, 
   turn: '',
   webWorkerAI: undefined, 

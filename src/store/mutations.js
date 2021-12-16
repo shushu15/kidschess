@@ -100,6 +100,10 @@ export default {
   twoPlayers(state, { value }) {
     state.modeTwoPlayers = (value === undefined) ? !state.modeTwoPlayers : value;
   },
+  toggleIntro(state, { show }) {
+    state.showIntro = (show === undefined) ? !state.showIntro : show;
+  },
+
   modeSpeech(state, payload) {
     if (payload !== undefined && payload.value !== undefined) { 
       state.modeSpeech = payload.value;

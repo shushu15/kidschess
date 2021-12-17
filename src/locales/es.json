@@ -85,7 +85,20 @@
     "quote": "Juego KidsChess. Partidas breves, eficaces y claras con un número reducido de figuras: los personajes ayudarán a los jóvenes ajedrecistas a aumentar su interés por aprender a jugar al ajedrez.",
     "hashtags": "ajedrez,niños,aprendizaje,pequeño,juego,cabritos"
   },
-  
+  "intro": {
+    "t0": "KidsChess es un entrenador de ajedrez",
+    "s0": "vea una descripción general del programa, tiempo de visualización: 1 minuto, luego ciérrelo y comience a reproducir",
+    "text0": "El objetivo principal del programa es el entrenamiento del juego de la lucha de piezas contra peones en ausencia de verdaderos compañeros de combate. Algunos juegos están destinados exclusivamente a principiantes, mientras que otros son adecuados para jugadores de ajedrez más avanzados. Y todos los juegos son fáciles de jugar en un tablero real sin dispositivos.",
+    "t1": "Campo de juego",
+    "text1": "Verá un tablero de ajedrez con la posición inicial de la última partida jugada. Debajo del tablero hay breves reglas para este juego. Al hacer clic en el ícono {s_mdihelp} debajo del tablero, puede ver el propósito de todos los demás botones e íconos.",
+    "t2": "¿Cómo hacer un movimiento?",
+    "text2": "Cuando haces clic en una pieza de ajedrez, KidsChess muestra los posibles movimientos. Para ir, haga clic en la pieza y luego en la celda a donde ir. O simplemente arrastre su pieza de ajedrez a este cuadrado. Para capturar, coloque su pieza encima de la pieza del oponente.",
+    "t3": "Acciones de botón",
+    "text3": "MENÚ {s_mdimenu} (arriba a la izquierda): te permite seleccionar un juego. El menú contiene capítulos, que contienen juegos similares de diferente dificultad. Debes seleccionar un capítulo y luego seleccionar un juego. {lnbr}COLOR DE LAS PIEZAS {s_mdiarrange} (arriba a la derecha): el programa te permite entrenar para blanco o negro.{lnbr}REINICIAR EL JUEGO {s_mdireload} (arriba a la derecha): comienza este juego desde el principio.{lnbr}NIVEL DE JUEGO {s_mdislice} (en el menú o en la parte superior izquierda del tablero): puedes elegir el nivel apropiado del juego de tu oponente.{lnbr}VOZ {s_mdivoice} - debajo del tablero - el programa habla las tareas.",
+    "t4": "¿Qué más hay en el menú?",
+    "text4": "También hay AJUSTES en el MENÚ {s_mdimenu}, lo que permite a {lnbr}- deshabilitar la función de pasos,{lnbr}- configurar el programa para jugar juntos (aunque los autores recomiendan encarecidamente que es mejor que dos personas toquen en vivo, en ¡un tablero real!){lnbr}- repita esta información - Introducción al menú{lnbr}- y otros."
+  },
+
   "task": {
     "kingcloths": {
       "t": "Ropa de Rey",

@@ -1,5 +1,5 @@
 <template>
-    <v-list
+    <v-list class="pt-0"
          nav
     >
       <v-list-group
@@ -241,3 +241,6 @@ export default {
 }
 
 </script>
+<style scoped>
+
+</style>

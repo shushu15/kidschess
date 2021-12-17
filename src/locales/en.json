@@ -33,7 +33,7 @@
   "menu.settings.noback" : "No back moves",
   "menu.settings.speech" : "Speak",
   "menu.share" : "Share",
-  "menu.intro": "Introduction",
+  "menu.intro": "Overview",
   "menu.language": "Language",
   "menu.language.auto": "Auto select",
   "lang.ru": "Русский",
@@ -86,16 +86,17 @@
     "hashtags": "chess,children,learning,kids,small,game"
   },
   "intro": {
-    "t0": "KidsChess - это шахматный тренажер",
-    "text0": "Основное назначение программы  - игровой тренинг борьбы фигур против пешек в отсутствии реальных спарринг-партнёров. Некоторые игры предназначены исключительно для самых начинающих,  другие игры подойдут для более подготовленных шахматистов. И все игры легко проводить на реальной доске в отсутствии гаджета.",
-    "t1": "Игровое поле",
-    "text1": "Вы видите шахматную доску с начальной позицией последней сыгранной игры. Под доской указаны краткие правила данной игры. Нажав на значок ? (на розовом фоне) под доской, можно увидеть назначение всех остальных кнопок и значков.",
-    "t2": "Как ходить",
-    "text2": "При нажатии на фигуру KidsChess показывает возможные ходы. Чтобы сходить, нажмине на фигуру, а потом на клетку, куда сходить. Либо просто перетащите фигуру на эту клетку. Чтобы съесть, поставьте фигуру поверх съедаемой",
-    "t3": "Назначения кнопок",
-    "text3": "МЕНЮ (слева вверху) – позволяет выбрать игру. В меню указаны Главы, в которых собраны однотипные игры разной сложности. Нужно выбрать главу и затем выбрать игру.{lnbr}ЦВЕТ ФИГУР (справа вверху)– программа позволяет тренироваться за обе стороны.{lnbr}НАЧАТЬ С НАЧАЛА (справа вверху) - начать эту игру с начала.{lnbr}СИЛА ИГРЫ (в меню или слева над доской) – можно подобрать подходящий уровень игры соперника.{lnbr}ОЗВУЧКА - под доской - программа проговаривает задания",
-    "t4": "Что еще в меню",
-    "text4": "В МЕНЮ также имеются НАСТРОЙКИ , позволяющие{lnbr}- отключить функцию перехаживания,{lnbr}- настроить программу для игры вдвоём (хотя авторы настоятельно рекомендуют вдвоём играть лучше вживую, на реальной доске!){lnbr}- и другие - посмотрите"
+    "t0": "KidsChess is a chess trainer",
+    "s0": "watch an overview of the program, watch time: 1 minute, then close it and start playing",
+    "text0": "The main purpose of the program is game training of the struggle of pieces against pawns in the absence of real sparring partners. Some games are intended exclusively for the very beginner, while others are suitable for more advanced chess players. And all games are easy to play on a real board without gadgets.",
+    "t1": "Playing screen",
+    "text1": "You see a chessboard with the starting position of the last game played. Below the board are brief rules for this game. By clicking on the {s_mdihelp} icon below the board, you can see the purpose of all the other buttons and icons.",
+    "t2": "How to make a move?",
+    "text2": "When you click on a chess piece, KidsChess shows the possible moves. To go, click on the piece, and then on the cell where to go. Or, just drag your chess piece onto this square. To capture, place your piece on top of the opponent's piece.",
+    "t3": "Button actions",
+    "text3": "MENU {s_mdimenu} (top left) - allows you to select a game. The menu contains Chapters, which contain similar games of varying difficulty. You need to select a chapter and then select a game. {Lnbr} COLOR OF PIECES {s_mdiarrange} (top right) - the program allows you to train for white or black. {Lnbr} RESTART GAME {s_mdireload} (top right) - start this game from the beginning. {lnbr} GAME LEVEL {s_mdislice} (in the menu or on the left above the board) - you can choose the appropriate level of your opponent's play. {lnbr} VOICE {s_mdivoice} - under the board - the program speaks the tasks.",
+    "t4": "What else is on the menu",
+    "text4": "There are also SETTINGS in the {s_mdimenu} MENU, allowing {lnbr} - to disable the move back function, {lnbr} - to configure the program for playing together (although the authors strongly recommend that it is better for two to play live, on a real board!) {Lnbr} - repeat this introduction - menu Overview {lnbr} - and others."
   },
 
 

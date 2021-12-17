@@ -41,6 +41,13 @@
       width="310"
       app
     >
+      <v-btn
+        class="ma-1"
+        plain
+        @click.stop="clickMenu()"
+      >
+        <v-icon>{{mdiKeyboardBackspace}}</v-icon>
+      </v-btn> 
       <Navi v-if="!$store.state.isTitleShowing"/>
 
     </v-navigation-drawer>    
@@ -60,7 +67,7 @@ import TitleScreen from './components/TitleScreen.vue';
 //const KidsArea = () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue');
 import * as KidsConst from '@/lib/const.js';
 // import { Trans } from '@/plugins/Translation.js';
-import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward } from '@mdi/js';
+import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward,mdiKeyboardBackspace } from '@mdi/js';
 
 
 
@@ -84,6 +91,7 @@ export default {
       mdiReload,
       mdiArrangeSendBackward,
       mdiArrangeBringForward,
+      mdiKeyboardBackspace,
     //
     }
   },
@@ -148,7 +156,7 @@ export default {
       //console.log(`childTo=${JSON.stringify(childTo)}`);
 
     }
-    if (childTo === undefined) childTo = this.tasksData[0].data[0]; //this.tasks[0].data[0];
+    if (childTo === undefined) childTo = this.tasksData[1].data[3]; // Wolf and 5 Kids
     //console.log(`childTo.id=${childTo.id}`);
     this.$store.commit('setChild', { child:  childTo});
     this.$store.commit('setGameActive', {value: false});
@@ -169,6 +177,8 @@ export default {
     if (localStorage.speechAllow !== undefined && localStorage.speechAllow !== 'undefined') {
       this.$store.commit('modeSpeech', {value: localStorage.speechAllow == 'true'});
     } 
+    if (localStorage.launch_num === undefined) localStorage.launch_num = 1;
+    else localStorage.launch_num = localStorage.launch_num+1;
 
   },     
   beforeDestroy() {

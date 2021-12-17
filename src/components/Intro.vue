@@ -34,9 +34,13 @@
 
                   <v-card-text>
                     <i18n :path="item.text" tag="p">
-                      <template v-slot:lnbr>
-                        <br>
-                      </template>
+                      <template v-slot:lnbr><br></template>
+                      <template v-slot:s_mdireload><v-icon>{{mdiReload}}</v-icon></template>
+                      <template v-slot:s_mdimenu><v-icon>{{mdiMenu}}</v-icon></template>
+                      <template v-slot:s_mdihelp><v-avatar color="pink lighten-3" size="24"><v-icon x-small>{{mdiHelp}}</v-icon></v-avatar></template>
+                      <template v-slot:s_mdiarrange><v-icon>{{mdiArrangeBringForward}}</v-icon></template>
+                      <template v-slot:s_mdislice><v-icon>{{mdiCircleSlice3}}</v-icon></template>
+                      <template v-slot:s_mdivoice><v-icon>{{mdiAccountVoice}}</v-icon></template>
                     </i18n>
                   </v-card-text>
                   <v-spacer></v-spacer>
@@ -49,13 +53,19 @@
 
 <script>
 
-import { mdiClose } from '@mdi/js';
+import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu, } from '@mdi/js';
 export default {
   name: 'Intro',
   data() {
     return {
       model: 0,
       mdiClose,
+      mdiReload,
+      mdiArrangeBringForward,
+      mdiHelp,
+      mdiAccountVoice,
+      mdiCircleSlice3,
+      mdiMenu,
       items: [
         {
           color: '#1F7087',

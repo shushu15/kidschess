@@ -24,7 +24,12 @@
             light
             height="100%"
           >
-                <v-card-subtitle v-if="item.subtitle">
+                <v-card-title v-if="i===0"
+                  class="text-h5"
+                  v-text="$t('intro.title')"
+                >
+                </v-card-title>
+                <v-card-subtitle v-if="item.subtitle" class="text-subtitle-2">
                   {{ $t(item.subtitle) }}
                 </v-card-subtitle>
                 <v-card-title
@@ -43,7 +48,6 @@
                       <template v-slot:s_mdivoice><v-icon>{{mdiAccountVoice}}</v-icon></template>
                     </i18n>
                   </v-card-text>
-                  <v-spacer></v-spacer>
           </v-card>       
         </v-carousel-item>
       </v-carousel>

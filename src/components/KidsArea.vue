@@ -357,14 +357,13 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
       this.$store.commit('speechSupported', { value: res });
       if (!res) {
         this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.speech.nosupport',[this.$i18n.locale])});
-      } else {
+      } else if (+localStorage.launch_num !== 1) { //do not speak the very first time if we show Intro
         setTimeout(() => { this.speakGame(); }, 5000); 
       }
-
+    });
+    if (+localStorage.launch_num === 1) {
+      setTimeout(() => { this.$store.commit('toggleIntro', { show: true }); }, 7000);     
     }
-    );
-
-
   },
  //   created() {
 //       this.$store.commit('setChild', { child: this.tasks[0].data[0] });

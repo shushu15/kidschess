@@ -178,7 +178,7 @@ export default {
       this.$store.commit('modeSpeech', {value: localStorage.speechAllow == 'true'});
     } 
     if (localStorage.launch_num === undefined) localStorage.launch_num = 1;
-    else localStorage.launch_num = localStorage.launch_num+1;
+    else localStorage.launch_num = +localStorage.launch_num+1;
 
   },     
   beforeDestroy() {

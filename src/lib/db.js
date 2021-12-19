@@ -25,7 +25,7 @@ export const DB_ERR = -1;
 export const DB_NOTFOUND = 0;
 export const DB_OK = 1;
 
-const listPrizes = [0,1,2,3];
+const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiCandy','mdiEmoticonCoolOutline','mdiHeart'];
 const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown','blue-grey'];
 
 export async function init(){

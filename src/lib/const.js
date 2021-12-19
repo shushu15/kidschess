@@ -32,4 +32,3 @@ export const TYPE_NEGATIVE = 2;
 
 
 
-

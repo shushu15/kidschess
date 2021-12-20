@@ -100,8 +100,14 @@ export default {
   twoPlayers(state, { value }) {
     state.modeTwoPlayers = (value === undefined) ? !state.modeTwoPlayers : value;
   },
+  collectStat(state, { value }) {
+    state.modeCollectStat = (value === undefined) ? !state.modeCollectStat : value;
+  },
   toggleIntro(state, { show }) {
     state.showIntro = (show === undefined) ? !state.showIntro : show;
+  },
+  toggleStats(state, { show }) {
+    state.showStats = (show === undefined) ? !state.showStats : show;
   },
 
   modeSpeech(state, payload) {
@@ -122,6 +128,11 @@ export default {
     state.speechSupported = value;
     console.log(`speechSupported commit to :${value}`); // eslint-disable-line no-console
   },
-
+  saveGameSign(state, {value, type}) {
+    if (type === undefined || type===KidsConst.SAVED_START)  // special case to set both values
+      state.gameSaved.start = value;
+    if (type === undefined || type===KidsConst.SAVED_FINISH)
+      state.gameSaved.finish = value;
+  },
 
 };

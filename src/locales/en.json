@@ -32,8 +32,10 @@
   "menu.settings.flipfigures" : "Flip pieces",
   "menu.settings.noback" : "No back moves",
   "menu.settings.speech" : "Speak",
+  "menu.settings.stat" : "Statistics",
   "menu.share" : "Share",
   "menu.intro": "Overview",
+  "menu.achievements": "Achievements",
   "menu.language": "Language",
   "menu.language.auto": "Auto select",
   "lang.ru": "Русский",
@@ -54,6 +56,9 @@
   "help.copygame" : "copy game to clipboard",
   "help.speech" : "voice on/off",
   "help.level" : "game strength",
+
+  "stats.stickers": "Stickers",
+  "stats.games": "Games played",
 
   "level" : {
     "1": "rookie",

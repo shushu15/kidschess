@@ -9,7 +9,6 @@ import { openDB } from 'idb';
  *  prizeCounter - how many prizes with this leading game
  *  
  * prizes store fields
- *  id - key
  *  prize - prize type
  *  color - prize color
  *  gameID - most points gathered from this game
@@ -28,6 +27,9 @@ export const DB_OK = 1;
 const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiCandy','mdiEmoticonCoolOutline','mdiHeart'];
 const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown','blue-grey'];
 
+export function getDB() {
+  return db;
+}
 export async function init(){
   // Set up the database
   let res =  DB_ERR;
@@ -40,6 +42,8 @@ export async function init(){
       upgrade(db) {
         if (!db.objectStoreNames.contains(storeGames))
           db.createObjectStore(storeGames, { keyPath: "gameID" });
+        if (!db.objectStoreNames.contains(storePrizes))
+          db.createObjectStore(storePrizes, {autoIncrement: true});
       },
     });
     res =  DB_OK;
@@ -70,13 +74,14 @@ export async function finishGame(gameID){
   let res =  DB_ERR;
   try {
     let result = await db.get(storeGames, gameID);
-    if (result) {
-      result.nComplete++;
-      result.nToPrize++;
-      result.lastPlayed = Date.now();
-      await db.put(storeGames, result);
-      res =  DB_OK;
-    } else res =  DB_NOTFOUND;
+    if (!result) { // in the case of switching storing in the middle of the game TODO - reinit database
+      result = {gameID:gameID, nStarted:1, nCompleted:0, nToPrize:0, lastPlayed:undefined, prizeCounter:0};
+    }
+    result.nCompleted++;
+    result.nToPrize++;
+    result.lastPlayed = Date.now();
+    await db.put(storeGames, result);
+    res =  DB_OK;
   } catch(err) {
     console.log(`db finishGame ${err.toString()}`);
   }
@@ -135,6 +140,10 @@ export async function checkForPrize() {
   }
   return res === DB_OK? prize: res;  
 
+}
+
+export async function close() {
+  db.close();
 }
 
 function getRandomInt(max) {

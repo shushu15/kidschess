@@ -32,8 +32,10 @@
   "menu.settings.flipfigures" : "Voltear figuras",
   "menu.settings.noback" : "No retroceder",
   "menu.settings.speech" : "Hablar",
+  "menu.settings.stat" : "Estadísticas",
   "menu.share" : "Comparte",
   "menu.intro": "Introducción",
+  "menu.achievements": "Logros",
   "menu.language": "Idioma",
   "menu.language.auto": "Selección auto",
   "lang.ru": "Русский",
@@ -54,6 +56,10 @@
   "help.copygame" : "copiar el juego al portapapeles",
   "help.speech" : "voz encender/apagar",
   "help.level" : "fuerza del juego",
+
+  "stats.stickers": "Pegatinas",
+  "stats.games": "Juegos jugados",
+
   
   "level" : {
     "1": "novato",

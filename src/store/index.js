@@ -18,6 +18,7 @@ const state = {
   showHelp: false,
   showDrawer: false,
   showIntro: false,
+  showStats: false,
   currentTask: {}, 
   turn: '',
   webWorkerAI: undefined, 
@@ -50,8 +51,13 @@ const state = {
   modeNoBackMoves: false,
   modeSpeech: false,
   speechSupported: true,
+  modeCollectStat: true,
   // modeFlipPieces: false,
   forcedBtnStart: false, // while switching to one-player mode during a game
+  gameSaved: {
+    start: false,
+    finish: false,
+  },
   // ----------------
   tasks : [
     { title: 'task.kingcloths.t',

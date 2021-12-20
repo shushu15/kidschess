@@ -24,6 +24,7 @@ export default {
       this.launchMoveSequence();
       this.$store.commit('setTurn', { turn: this.game.turn() });
       this.$store.commit('addMove');  // no paraneters - clear history
+      this.$store.commit('saveGameSign', {value: false}); // clear both start and finish
     },
 
     launchMoveSequence() {
@@ -36,6 +37,9 @@ export default {
       return (orig, dest) => {
         // console.log(`userPlay ${orig} ${dest}`);
         this.$store.commit('setGameActive', {value: true})
+        if (!this.$store.state.gameSaved.start && this.$store.state.modeCollectStat) {
+          this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_START})
+        }
         if (this.isPromotion(orig, dest)) {
           this.promoteTo = this.onPromotion();
           // this.$store.commit('canReload', {value: true});  // can reload close to finish game
@@ -57,6 +61,10 @@ export default {
               events: { after: res? undefined: this.userPlay()},
             }
           });
+          if (res && !this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
+            this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_FINISH});
+          }
+
           // this.flipFiguresCSS();
         }
         else  // AI player
@@ -71,8 +79,12 @@ export default {
           color: undefined, // disable moves
         }
       })
-      if (res)
+      if (res) {
+        if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
+          this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_FINISH});
+        }
         return; 
+      }
       // for dynamic depth positions get fen first
       let dynamic = false;
       /* Temporarily switched off
@@ -346,7 +358,9 @@ export default {
               events: { after: undefined},
             },
           });
-
+          if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
+            this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_FINISH});
+          }
         }
       },
     );

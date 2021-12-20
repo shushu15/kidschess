@@ -32,8 +32,10 @@
   "menu.settings.flipfigures" : "Развернуть фигуры",
   "menu.settings.noback" : "Не перехаживать",
   "menu.settings.speech" : "Говорить",
+  "menu.settings.stat" : "Статистика",
   "menu.share" : "Поделиться",
   "menu.intro": "Введение",
+  "menu.achievements": "Достижения",
   "menu.language": "Язык",
   "menu.language.auto": "Автовыбор",
   "lang.ru": "Русский",
@@ -54,6 +56,9 @@
   "help.copygame" : "cкопировать игру в буфер",
   "help.speech" : "речь вкл/выкл",
   "help.level" : "сила игры",
+
+  "stats.stickers": "Стикеры",
+  "stats.games": "Сыгранные игры",
 
   "level" : {
     "1": "начальный",

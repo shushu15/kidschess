@@ -56,6 +56,7 @@
       <KidsArea v-if="screenReady()" :forced="this.forcedReload" :class="{loadhidden: screenReadyHidden()}"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
       <Intro v-if="$store.state.showIntro" />
+      <Stats v-if="$store.state.showStats" />
     </v-main>
   </v-app>
 </template>
@@ -81,6 +82,7 @@ export default {
     KidsArea: () => import(/* webpackChunkName: "kidsarea", webpackPrefetch: true */ './components/KidsArea.vue'),
     Navi: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Navi.vue'),
     Intro: () => import(/* webpackChunkName: "intro", webpackPrefetch: true */ './components/Intro.vue'),
+    Stats: () => import(/* webpackChunkName: "stats", webpackPrefetch: true */ './components/Stats.vue'),
   },
 
   data: function() { // need "this" thus change from arrow function

@@ -1,5 +1,7 @@
 // import * as Speech from '@/lib/speech.js';
 import * as KidsConst from '@/lib/const.js';
+import * as DB from '@/lib/db.js';
+
 
 // import i18n from '@/plugins/i18n'; 
 
@@ -73,7 +75,42 @@ export default {
     commit('switchHelp', {value: true}); 
     setTimeout(() => { 
         commit('switchHelp', {value: false}); }, 5000); 
-  }
+  },
+  db_init({state, commit}) {
+    if(!DB.getDB() && state.modeCollectStat) {
+      DB.init().then((res) => {
+        if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
+          commit('collectStat',  {value: false});
+          console.log(`db_init db error ${res}`); // eslint-disable-line no-console
+        }
+      });
+    } else  console.log('db_init db already in use'); // eslint-disable-line no-console
+  },
+
+  db_SaveGame({state, commit}, {type}) {
+    if(DB.getDB() && state.modeCollectStat) {
+      commit('saveGameSign', {value: true, type}); // set sign, that game is save do not repeat saving
+      switch (type) {
+      case KidsConst.SAVED_START: 
+        DB.startGame(state.currentTask.id).then((res) => {
+          if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
+            commit('collectStat',  {value: false});
+            console.log(`db_SaveGame start error ${res}`); // eslint-disable-line no-console
+          }
+        });
+        break;
+      case KidsConst.SAVED_FINISH: 
+        DB.finishGame(state.currentTask.id).then((res) => {
+          if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
+            commit('collectStat',  {value: false});
+            console.log(`db_SaveGame finish error ${res}`); // eslint-disable-line no-console
+          }
+        });
+        break;
+      }
+    }
+  },
+
 /*
   onLangChange({lang}) {
     Speech.preferredLanguage(lang);

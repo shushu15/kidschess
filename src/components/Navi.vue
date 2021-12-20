@@ -101,8 +101,24 @@
               <img :src="`img/${icon}`" :alt="title">
             </v-list-item-avatar>
           </v-list-item>
-        </v-list-group>                
+        </v-list-group>  
+        <v-list-item dense>
+          <v-list-item-action>
+            <v-switch dense v-model="swStat" :label="$t('menu.settings.stat')" ></v-switch>
+          </v-list-item-action>
+        </v-list-item>
+              
       </v-list-group> 
+      <v-list-item link>
+        <v-list-item-avatar tile size="24">
+          <v-icon>
+             {{mdiStarFace}}
+          </v-icon>  
+        </v-list-item-avatar>
+        <v-list-item-content>
+        <v-list-item-title @click="stats()">{{ $t('menu.achievements') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link>
         <v-list-item-avatar tile size="24">
           <v-icon>
@@ -128,7 +144,7 @@ import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import { Trans } from '@/plugins/Translation.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiCog,mdiWeb,mdiCommentOutline } from '@mdi/js';
+import { mdiCog,mdiWeb,mdiCommentOutline,mdiStarFace} from '@mdi/js';
 
 
 
@@ -151,6 +167,7 @@ export default {
       mdiCog,
       mdiWeb,
       mdiCommentOutline,
+      mdiStarFace,
 
     }
   },
@@ -191,6 +208,10 @@ export default {
     intro(){
       this.$store.commit('toggleDrawer', { show: false });
       this.$store.commit('toggleIntro', { show: true });
+    },
+    stats(){
+      this.$store.commit('toggleDrawer', { show: false });
+      this.$store.commit('toggleStats', { show: true });
     }
 
   },
@@ -223,6 +244,14 @@ export default {
         if (this.showBtnStartGen) { // here we just check if we need to show, no mattter of game stage
           this.$store.commit('forcedBtnStart', {value: true});
         }
+      }
+    },
+    // collect stat in db
+    swStat: {
+      get() { return this.$store.state.modeCollectStat; },
+      set(value) { 
+        this.$store.commit('collectStat', {value});
+        localStorage.collectStat = value;
       }
     },
     getCurrentFlag() {

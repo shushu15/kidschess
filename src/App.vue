@@ -56,7 +56,7 @@
       <KidsArea v-if="screenReady()" :forced="this.forcedReload" :class="{loadhidden: screenReadyHidden()}"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
       <Intro v-if="$store.state.showIntro" />
-      <Stats v-if="$store.state.showStats" />
+      <Stats v-if="$store.state.showStats" :stickers="getStickers"/>
     </v-main>
   </v-app>
 </template>
@@ -69,6 +69,8 @@ import TitleScreen from './components/TitleScreen.vue';
 import * as KidsConst from '@/lib/const.js';
 // import { Trans } from '@/plugins/Translation.js';
 import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward,mdiKeyboardBackspace } from '@mdi/js';
+import * as DB from '@/lib/db.js';
+
 
 
 
@@ -133,6 +135,9 @@ export default {
     screenReadyHidden() {
       return this.$store.state.isTitleShowing && this.$store.state.isScreenReady;
     },
+    getStickers() {
+      return DB.getPrizes();
+    }
     //demoOnScreen() {
     //  return !this.$store.state.isTitleShowing && this.$store.state.isDemo;
     //}

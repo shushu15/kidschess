@@ -82,6 +82,8 @@ export default {
         if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
           commit('collectStat',  {value: false});
           console.log(`db_init db error ${res}`); // eslint-disable-line no-console
+        } else { // build prizes cache
+          DB.getP
         }
       });
     } else  console.log('db_init db already in use'); // eslint-disable-line no-console

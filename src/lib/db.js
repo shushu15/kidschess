@@ -27,6 +27,10 @@ export const DB_OK = 1;
 const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiCandy','mdiEmoticonCoolOutline','mdiHeart'];
 const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown','blue-grey'];
 
+let cache = {
+  stickers: undefined,
+}
+
 export function getDB() {
   return db;
 }
@@ -91,14 +95,21 @@ export async function finishGame(gameID){
 export async function getPrizes(){
   let res =  DB_ERR;
   let result = [];
-  try {
-    result = await db.getAll(storePrizes);
-    if (result)
-      res = DB_OK;
-    else 
-      res =  DB_NOTFOUND;
-  } catch(err) {
-    console.log(`db getPrizes ${err.toString()}`);
+  if (cache.stickers) {
+    result = cache.stickers;
+    res = DB_OK;
+  } else {
+    try {
+      result = await db.getAll(storePrizes);
+      if (result) {
+        res = DB_OK;
+        cache.stickers = result;
+      }
+      else 
+        res =  DB_NOTFOUND;
+    } catch(err) {
+      console.log(`db getPrizes ${err.toString()}`);
+    }
   }
   return res === DB_OK? result: res;  
 }
@@ -141,9 +152,29 @@ export async function checkForPrize() {
   return res === DB_OK? prize: res;  
 
 }
+/****
+ * GameID - the current game
+ */
+export async function forcePrize(gameID) {
+  let res =  DB_ERR;
+  let prize = DB_NOTFOUND;
+  try {
+      prize = {prize: listPrizes[getRandomInt(listPrizes.length)], color: listColors[getRandomInt(listColors.length)], gameID: gameID, dateIssued: Date.now()};
+      await db.add(storePrizes, prize);
+      res = DB_OK;
+  } catch(err) {
+    console.log(`db forcePrize ${err.toString()}`);
+  }
+  return res === DB_OK? prize: res;  
+
+}
+
 
 export async function close() {
   db.close();
+}
+export function clearCache() {
+  cache.stickers = undefined;
 }
 
 function getRandomInt(max) {

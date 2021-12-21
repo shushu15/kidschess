@@ -137,6 +137,10 @@ export default {
   fillStickersCache(state, {value }) {
     while(state.dbCache.stickers.length > 0) state.dbCache.stickers.pop();
     value.forEach(elem => state.dbCache.stickers.push(elem));
+  },
+  addPrizeToCache(state, {value }) {
+    if (typeof value == 'object')
+      state.dbCache.stickers.push(value);
   }
 
 };

@@ -83,9 +83,12 @@ export default {
           commit('collectStat',  {value: false});
           console.log(`db_init db error ${res}`); // eslint-disable-line no-console
         } else { // build prizes cache
-          let tmp_stickers = [];
+          // let tmp_stickers = [];
           //TODO, in "then" check result
-          DB.getPrizes(tmp_stickers).then(() => commit('fillStickersCache', {value: tmp_stickers}));       
+          DB.getPrizes().then((result) => {
+            if (typeof result == 'object')
+              commit('fillStickersCache', {value: result});
+          });       
         }
       });
     } else  console.log('db_init db already in use'); // eslint-disable-line no-console
@@ -125,18 +128,20 @@ export default {
     return new Promise((resolve) => {
       let result = DB.DB_OFF;
       if(DB.getDB() && state.modeCollectStat) {
-        let tmp_stickers = [];
-        DB.checkForPrize(tmp_stickers).then((res) => {
+        // let tmp_stickers = [];
+        DB.checkForPrize().then((res) => {
           result = res;
-          if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
+          if (res === DB.DB_ERR) {
             commit('collectStat',  {value: false});
             console.log(`db_checkForPrize  error ${res}`); // eslint-disable-line no-console
           } else {
-            commit('fillStickersCache', {value: tmp_stickers});
+            // here we can add a new prize to dbCache
+            // commit('fillStickersCache', {value: tmp_stickers});
+            commit('addPrizeToCache', {value: result});
           }
         });
       }
-      resolve(result===DB.DB_OK);
+      resolve(typeof result == 'object');
     });
   },
 

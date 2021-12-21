@@ -65,9 +65,11 @@ export async function startGame(gameID){
     result.lastPlayed = Date.now();
     await db.put(storeGames, result);
     res =  DB_OK;
+    console.log(`db startGame ${typeof result === 'object'? JSON.stringify(result): result}`);
   } catch(err) {
-    console.log(`db startGame ${err.toString()}`);
+    console.log(`db startGame catch error ${err.toString()}`);
   }
+  console.log(`db startGame res=${res}`);
   return res;  
 }
 
@@ -76,6 +78,7 @@ export async function finishGame(gameID){
   try {
     let result = await db.get(storeGames, gameID);
     if (!result) { // in the case of switching storing in the middle of the game TODO - reinit database
+      console.log(`db finishGame NOF ${result}`);
       result = {gameID:gameID, nStarted:1, nCompleted:0, nToPrize:0, lastPlayed:undefined, prizeCounter:0};
     }
     result.nCompleted++;
@@ -83,27 +86,29 @@ export async function finishGame(gameID){
     result.lastPlayed = Date.now();
     await db.put(storeGames, result);
     res =  DB_OK;
+    console.log(`db finishGame ${typeof result === 'object'? JSON.stringify(result): result}`);
   } catch(err) {
-    console.log(`db finishGame ${err.toString()}`);
+    console.log(`db finishGame catch error ${err.toString()}`);
   }
+  console.log(`db finishGame res=${res}`);
   return res;  
 }
 
 /**
  * @param cache  dbCache.stickers
  */
-export async function getPrizes(cache){
+export async function getPrizes(){
   let res =  DB_ERR;
   let result = [];
-  if (cache.length > 0) {
-    result = cache;
-    res = DB_OK;
-  } else {
+  // if (cache.length > 0) {
+  //  result = cache;
+  //  res = DB_OK;
+  // } else {
     try {
       result = await db.getAll(storePrizes);
       if (result) {
         res = DB_OK;
-        result.forEach(element => cache.push(element)); // due to reactivity we need on-element adding
+        // result.forEach(element => cache.push(element)); // due to reactivity we need on-element adding
         // cache.stickers = result;
       }
       else 
@@ -111,14 +116,14 @@ export async function getPrizes(cache){
     } catch(err) {
       console.log(`db getPrizes ${err.toString()}`);
     }
-  }
+  // }
   return res === DB_OK? result: res;  
 }
 
 /**
  * @param cache  dbCache.stickers
  */
- export async function checkForPrize(cache) {
+ export async function checkForPrize() {
   let res =  DB_ERR;
   let prize = DB_NOTFOUND;
   try {
@@ -139,7 +144,7 @@ export async function getPrizes(cache){
       await db.add(storePrizes, prize);
       // update cache - we can reQuery database or add it to cache manually 
       // for now I'mm adding just to cache
-      cache.push(prize);
+      // cache.push(prize);
 
       // cursor to clear prizeCounters
       cursor = await db.transaction(storeGames).store.openCursor();

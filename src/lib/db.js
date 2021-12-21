@@ -28,10 +28,6 @@ export const DB_OK = 1;
 const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiCandy','mdiEmoticonCoolOutline','mdiHeart'];
 const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown','blue-grey'];
 
-let cache = {
-  stickers: [],
-};
-
 export function getDB() {
   return db;
 }
@@ -93,18 +89,21 @@ export async function finishGame(gameID){
   return res;  
 }
 
-export async function getPrizes(){
+/**
+ * @param cache  dbCache.stickers
+ */
+export async function getPrizes(cache){
   let res =  DB_ERR;
   let result = [];
-  if (cache.stickers.length > 0) {
-    result = cache.stickers;
+  if (cache.length > 0) {
+    result = cache;
     res = DB_OK;
   } else {
     try {
       result = await db.getAll(storePrizes);
       if (result) {
         res = DB_OK;
-        result.forEach(element => cache.stickers.push(element)); // due to reactivity we need on-element adding
+        result.forEach(element => cache.push(element)); // due to reactivity we need on-element adding
         // cache.stickers = result;
       }
       else 
@@ -116,7 +115,10 @@ export async function getPrizes(){
   return res === DB_OK? result: res;  
 }
 
-export async function checkForPrize() {
+/**
+ * @param cache  dbCache.stickers
+ */
+ export async function checkForPrize(cache) {
   let res =  DB_ERR;
   let prize = DB_NOTFOUND;
   try {
@@ -135,6 +137,9 @@ export async function checkForPrize() {
     if (nToPrizeSum >= SUM_TO_PRIZE)  { // add a prize
       prize = {prize: listPrizes[getRandomInt(listPrizes.length)], color: listColors[getRandomInt(listColors.length)], gameID: nMaxGame, dateIssued: Date.now()};
       await db.add(storePrizes, prize);
+      // update cache - we can reQuery database or add it to cache manually 
+      // for now I'mm adding just to cache
+      cache.push(prize);
 
       // cursor to clear prizeCounters
       cursor = await db.transaction(storeGames).store.openCursor();
@@ -170,18 +175,20 @@ export async function forcePrize(gameID) {
   return res === DB_OK? prize: res;  
 
 }
+/*
 export function cachedStickers() {
   return cache.stickers;
 }
-
+*/
 
 export async function close() {
   db.close();
 }
+/*
 export function clearCache() {
   while(cache.stickers.length > 0) cache.stickers.pop(); // = undefined;
 }
-
+*/
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }

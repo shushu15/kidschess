@@ -134,5 +134,9 @@ export default {
     if (type === undefined || type===KidsConst.SAVED_FINISH)
       state.gameSaved.finish = value;
   },
+  fillStickersCache(state, {value }) {
+    while(state.dbCache.stickers.length > 0) state.dbCache.stickers.pop();
+    value.forEach(elem => state.dbCache.stickers.push(elem));
+  }
 
 };

@@ -83,7 +83,9 @@ export default {
           commit('collectStat',  {value: false});
           console.log(`db_init db error ${res}`); // eslint-disable-line no-console
         } else { // build prizes cache
-          DB.getPrizes();
+          let tmp_stickers = [];
+          //TODO, in "then" check result
+          DB.getPrizes(tmp_stickers).then(() => commit('fillStickersCache', {value: tmp_stickers}));       
         }
       });
     } else  console.log('db_init db already in use'); // eslint-disable-line no-console
@@ -123,12 +125,15 @@ export default {
     return new Promise((resolve) => {
       let result = DB.DB_OFF;
       if(DB.getDB() && state.modeCollectStat) {
-        DB.checkForPrize().then((res) => {
+        let tmp_stickers = [];
+        DB.checkForPrize(tmp_stickers).then((res) => {
           result = res;
           if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
             commit('collectStat',  {value: false});
             console.log(`db_checkForPrize  error ${res}`); // eslint-disable-line no-console
-          } 
+          } else {
+            commit('fillStickersCache', {value: tmp_stickers});
+          }
         });
       }
       resolve(result===DB.DB_OK);

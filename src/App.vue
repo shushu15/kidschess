@@ -69,10 +69,7 @@ import TitleScreen from './components/TitleScreen.vue';
 import * as KidsConst from '@/lib/const.js';
 // import { Trans } from '@/plugins/Translation.js';
 import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward,mdiKeyboardBackspace } from '@mdi/js';
-import * as DB from '@/lib/db.js';
-
-
-
+// import * as DB from '@/lib/db.js';
 
 
 export default {
@@ -84,7 +81,7 @@ export default {
     KidsArea: () => import(/* webpackChunkName: "kidsarea", webpackPrefetch: true */ './components/KidsArea.vue'),
     Navi: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Navi.vue'),
     Intro: () => import(/* webpackChunkName: "intro", webpackPrefetch: true */ './components/Intro.vue'),
-    Stats: () => import(/* webpackChunkName: "stats", webpackPrefetch: true */ './components/Stats.vue'),
+    Stats: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Stats.vue'),
   },
 
   data: function() { // need "this" thus change from arrow function
@@ -143,7 +140,8 @@ export default {
         return result;
       });
       */
-      return DB.cachedStickers();
+      // return DB.cachedStickers();
+      return this.$store.state.dbCache.stickers;
     }
     //demoOnScreen() {
     //  return !this.$store.state.isTitleShowing && this.$store.state.isDemo;

@@ -58,6 +58,11 @@ const state = {
     start: false,
     finish: false,
   },
+  dbCache: {
+    stickers: [],
+    games: [],
+  },
+  
   // ----------------
   tasks : [
     { title: 'task.kingcloths.t',

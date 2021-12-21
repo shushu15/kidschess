@@ -19,7 +19,8 @@ let db;
 const dbName = 'cr1-db';
 const storeGames = 'games_played';
 const storePrizes = 'prizes';
-const SUM_TO_PRIZE = 11;
+const SUM_TO_PRIZE = 5;
+export const DB_OFF = -2;
 export const DB_ERR = -1;
 export const DB_NOTFOUND = 0;
 export const DB_OK = 1;
@@ -28,8 +29,8 @@ const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar',
 const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown','blue-grey'];
 
 let cache = {
-  stickers: undefined,
-}
+  stickers: [],
+};
 
 export function getDB() {
   return db;
@@ -95,7 +96,7 @@ export async function finishGame(gameID){
 export async function getPrizes(){
   let res =  DB_ERR;
   let result = [];
-  if (cache.stickers) {
+  if (cache.stickers.length > 0) {
     result = cache.stickers;
     res = DB_OK;
   } else {
@@ -103,7 +104,8 @@ export async function getPrizes(){
       result = await db.getAll(storePrizes);
       if (result) {
         res = DB_OK;
-        cache.stickers = result;
+        result.forEach(element => cache.stickers.push(element)); // due to reactivity we need on-element adding
+        // cache.stickers = result;
       }
       else 
         res =  DB_NOTFOUND;
@@ -168,13 +170,16 @@ export async function forcePrize(gameID) {
   return res === DB_OK? prize: res;  
 
 }
+export function cachedStickers() {
+  return cache.stickers;
+}
 
 
 export async function close() {
   db.close();
 }
 export function clearCache() {
-  cache.stickers = undefined;
+  while(cache.stickers.length > 0) cache.stickers.pop(); // = undefined;
 }
 
 function getRandomInt(max) {

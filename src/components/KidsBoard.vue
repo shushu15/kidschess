@@ -38,7 +38,7 @@ export default {
         // console.log(`userPlay ${orig} ${dest}`);
         this.$store.commit('setGameActive', {value: true})
         if (!this.$store.state.gameSaved.start && this.$store.state.modeCollectStat) {
-          this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_START})
+          this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_START})
         }
         if (this.isPromotion(orig, dest)) {
           this.promoteTo = this.onPromotion();
@@ -61,9 +61,13 @@ export default {
               events: { after: res? undefined: this.userPlay()},
             }
           });
+          /*
           if (res && !this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
             this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_FINISH});
-          }
+          } */
+          if (res) 
+            this.dbOnGameEnd();
+
 
           // this.flipFiguresCSS();
         }
@@ -80,9 +84,10 @@ export default {
         }
       })
       if (res) {
-        if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
+        /* if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
           this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_FINISH});
-        }
+        } */
+        this.dbOnGameEnd();
         return; 
       }
       // for dynamic depth positions get fen first
@@ -125,6 +130,16 @@ export default {
         // svg.styleSheets[0].disabled = true
 
     }, */
+    dbOnGameEnd() {
+      if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
+        this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_FINISH}).then((result) => {
+            this.$store.dispatch('db_checkForPrize', {result} ).then((result) => {
+              console.log(`dbOnGameEnd ${typeof result === 'object'? JSON.stringify(result): result}`);
+            });
+        });
+      }
+
+    },
 
     actBackward() {
       this.game.undo();
@@ -358,9 +373,11 @@ export default {
               events: { after: undefined},
             },
           });
+          /*
           if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
             this.$store.dispatch('db_SaveGame', {type: KidsConst.SAVED_FINISH});
-          }
+          } */
+          this.dbOnGameEnd();
         }
       },
     );

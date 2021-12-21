@@ -40,8 +40,11 @@
           height="100%"
         >
           <v-card-text>
-          <div v-if="this.stickersOk()">
+          <div v-if="stickersOk">
             Список стикеров
+            <template v-for="(item, index) in p_stickers">
+              <Sticker :iconName=item.prize :iconColor="item.color" :key="index" />
+            </template>
           </div>
           <div v-else>
             Стикеры пока что не получены
@@ -67,12 +70,17 @@
 
 <script>
 
+
+import Sticker from './Sticker.vue';
 import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu, } from '@mdi/js';
 export default {
   name: 'Stats',
   props: {
     p_stickers: Array,
     p_games: Array,
+  },
+  components: {
+    Sticker,
   },
   data() {
     return {
@@ -84,19 +92,21 @@ export default {
       mdiAccountVoice,
       mdiCircleSlice3,
       mdiMenu,
-      stickers: [],
+      // stickers: [],
     };
   },
   methods: {
     closeStats() {
       this.$store.commit('toggleStats', { show: false });
     },
-    stickersOk () {
-      console.log(`stickersOk ${this.p_stickers}`);
-      return this.p_stickers && typeof(this.p_stickers) == Object && this.s_stickers.length > 0
-    }
 
   },
+  computed: {
+    stickersOk () {
+      console.log(`stickersOk ${this.p_stickers}`);
+      return this.p_stickers && typeof this.p_stickers === 'object' && this.p_stickers.length > 0
+    }
+  }
 };
 </script>
 <style scoped>

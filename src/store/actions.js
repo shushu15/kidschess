@@ -83,34 +83,56 @@ export default {
           commit('collectStat',  {value: false});
           console.log(`db_init db error ${res}`); // eslint-disable-line no-console
         } else { // build prizes cache
-          DB.getP
+          DB.getPrizes();
         }
       });
     } else  console.log('db_init db already in use'); // eslint-disable-line no-console
   },
 
-  db_SaveGame({state, commit}, {type}) {
-    if(DB.getDB() && state.modeCollectStat) {
-      commit('saveGameSign', {value: true, type}); // set sign, that game is save do not repeat saving
-      switch (type) {
-      case KidsConst.SAVED_START: 
-        DB.startGame(state.currentTask.id).then((res) => {
-          if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
-            commit('collectStat',  {value: false});
-            console.log(`db_SaveGame start error ${res}`); // eslint-disable-line no-console
-          }
-        });
-        break;
-      case KidsConst.SAVED_FINISH: 
-        DB.finishGame(state.currentTask.id).then((res) => {
-          if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
-            commit('collectStat',  {value: false});
-            console.log(`db_SaveGame finish error ${res}`); // eslint-disable-line no-console
-          }
-        });
-        break;
+  db_saveGame({state, commit}, {type}) {
+    return new Promise((resolve) => {
+      let result = DB.DB_OFF;
+      if(DB.getDB() && state.modeCollectStat) {
+        commit('saveGameSign', {value: true, type}); // set sign, that game is save do not repeat saving
+        switch (type) {
+        case KidsConst.SAVED_START: 
+          DB.startGame(state.currentTask.id).then((res) => {
+            if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
+              commit('collectStat',  {value: false});
+              result = res;
+              console.log(`db_saveGame start error ${res}`); // eslint-disable-line no-console
+            } else result = DB.DB_OK;
+          });
+          break;
+        case KidsConst.SAVED_FINISH: 
+          DB.finishGame(state.currentTask.id).then((res) => {
+            if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
+              commit('collectStat',  {value: false});
+              result = res;
+              console.log(`db_saveGame finish error ${res}`); // eslint-disable-line no-console
+            } else result = DB.DB_OK;
+          });
+          break;
+        }
       }
-    }
+      resolve(result);
+    });
+  },
+
+  db_checkForPrize({state, commit}) {
+    return new Promise((resolve) => {
+      let result = DB.DB_OFF;
+      if(DB.getDB() && state.modeCollectStat) {
+        DB.checkForPrize().then((res) => {
+          result = res;
+          if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
+            commit('collectStat',  {value: false});
+            console.log(`db_checkForPrize  error ${res}`); // eslint-disable-line no-console
+          } 
+        });
+      }
+      resolve(result===DB.DB_OK);
+    });
   },
 
 /*

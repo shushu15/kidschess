@@ -56,7 +56,7 @@
       <KidsArea v-if="screenReady()" :forced="this.forcedReload" :class="{loadhidden: screenReadyHidden()}"/>
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
       <Intro v-if="$store.state.showIntro" />
-      <Stats v-if="$store.state.showStats" :stickers="getStickers"/>
+      <Stats v-if="$store.state.showStats" :p_stickers="getStickers()"/>
     </v-main>
   </v-app>
 </template>
@@ -136,7 +136,14 @@ export default {
       return this.$store.state.isTitleShowing && this.$store.state.isScreenReady;
     },
     getStickers() {
-      return DB.getPrizes();
+      // need to return cached data
+      /*
+      DB.getPrizes().then((result) => {
+        console.log(`getStickers ${typeof result === 'object'? JSON.stringify(result): result}`);
+        return result;
+      });
+      */
+      return DB.cachedStickers();
     }
     //demoOnScreen() {
     //  return !this.$store.state.isTitleShowing && this.$store.state.isDemo;

@@ -1,14 +1,9 @@
 <template>
-  <v-avatar
-    :color="this.iconColor"
-    size="56"
-  >
-    <v-icon>{{getStickerIcon(this.iconName)}}</v-icon>         
-  </v-avatar>
+    <v-icon size="56" :color="this.iconColor">{{getStickerIcon(this.iconName)}}</v-icon>         
 </template>
 <script> 
 
-import { mdiStar,mdiStarFace,mdiStarFourPoints,mdiShieldStar,mdiFlowerTulip,mdiFlower,mdiFlowerPoppy,mdiChessKing,mdiChessQueen,mdiBell,mdiRocket,mdiAirplane,mdiCandy,mdiEmoticonCoolOutline,mdiHeart } from '@mdi/js';
+import { mdiStar,mdiStarFace,mdiStarFourPoints,mdiShieldStar,mdiFlowerTulip,mdiFlower,mdiFlowerPoppy,mdiChessKing,mdiChessQueen,mdiBell,mdiRocket,mdiAirplane,mdiBird,mdiCarConvertible,mdiEmoticonCoolOutline,mdiHeart } from '@mdi/js';
 const namesStickers = [
     {n: 'mdiStar', i: mdiStar},
     {n: 'mdiStarFace', i: mdiStarFace},
@@ -22,7 +17,8 @@ const namesStickers = [
     {n: 'mdiBell', i: mdiBell},
     {n: 'mdiRocket', i: mdiRocket},
     {n: 'mdiAirplane', i: mdiAirplane},
-    {n: 'mdiCandy', i: mdiCandy},
+    {n: 'mdiBird', i: mdiBird},
+    {n: 'mdiBird', i: mdiCarConvertible},   
     {n: 'mdiEmoticonCoolOutline', i: mdiEmoticonCoolOutline},
     {n: 'mdiHeart', i: mdiHeart} 
     ];

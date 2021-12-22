@@ -25,8 +25,8 @@ export const DB_ERR = -1;
 export const DB_NOTFOUND = 0;
 export const DB_OK = 1;
 
-const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiCandy','mdiEmoticonCoolOutline','mdiHeart'];
-const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown','blue-grey'];
+const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiBird','mdiCarConvertible','mdiEmoticonCoolOutline','mdiHeart'];
+const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown'];
 
 export function getDB() {
   return db;
@@ -131,6 +131,7 @@ export async function getPrizes(){
     let cursor = await db.transaction(storeGames).store.openCursor();
     while (cursor) {   
       let nToPrize = cursor.value.nToPrize / (cursor.value.prizeCounter + 1); // we count games played for prize div by the number of issued prizes for this game
+      // search for the game played most from last prize
       if (nToPrize > nToPrizeMax) {
         nToPrizeMax = nToPrize;
         nMaxGame = cursor.value.gameID;
@@ -147,11 +148,12 @@ export async function getPrizes(){
       // cache.push(prize);
 
       // cursor to clear prizeCounters
-      cursor = await db.transaction(storeGames).store.openCursor();
+      cursor = await db.transaction(storeGames, "readwrite").store.openCursor();
       while (cursor) {
         let record = cursor.value;
-        if (record.prizeCounter > 0) {
-          record.prizeCounter = 0;
+        if (record.nToPrize > 0 || record.gameID === nMaxGame) {
+          record.nToPrize = 0;
+          record.prizeCounter++;
           await cursor.update(record);
         }
         cursor = await cursor.continue();

@@ -29,6 +29,7 @@ export const AUTO = 'auto';
 export const TYPE_NONE = 0;
 export const TYPE_POSITIVE = 1;
 export const TYPE_NEGATIVE = 2;
+export const TYPE_PRIZE = 3;
 
 export const SAVED_START = 1;
 export const SAVED_FINISH = 2;

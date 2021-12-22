@@ -139,9 +139,9 @@ export default {
             // commit('fillStickersCache', {value: tmp_stickers});
             commit('addPrizeToCache', {value: result});
           }
+          resolve(typeof result == 'object'? result: res);
         });
       }
-      resolve(typeof result == 'object');
     });
   },
 

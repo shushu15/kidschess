@@ -135,6 +135,18 @@ export default {
         this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_FINISH}).then((result) => {
             this.$store.dispatch('db_checkForPrize', {result} ).then((result) => {
               console.log(`dbOnGameEnd ${typeof result === 'object'? JSON.stringify(result): result}`);
+              if (typeof result === 'object') {
+                setTimeout(() => {
+                  let speechMess = '';
+                  this.$store.commit('snackbarMessage', 
+                    { value: speechMess = this.$i18n.t('message.prize'),
+                      type: KidsConst.TYPE_PRIZE,
+                      mdata: { prize: result.prize,
+                             color: result.color } 
+                    });
+                this.$emit('on-speak', speechMess);
+                }, 7000); // allow redraw
+              }
             });
         });
       }

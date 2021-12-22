@@ -45,6 +45,7 @@ const state = {
   snackbar: {
     message: '',
     type: KidsConst.TYPE_NONE,
+    mdata: undefined,
   },
   longThinking: false,
   modeTwoPlayers: false,

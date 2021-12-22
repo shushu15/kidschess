@@ -41,10 +41,12 @@
         >
           <v-card-text>
           <div v-if="stickersOk">
-            Список стикеров
-            <template v-for="(item, index) in p_stickers">
-              <Sticker :iconName=item.prize :iconColor="item.color" :key="index" />
-            </template>
+            <div v-for="(group, key) in byMonthStickers" :key="key">
+              <div>{{ $t(datekey(key)) }} {{key.substring(0,4)}} </div>
+              <template v-for="(item, index) in group">
+                <Sticker :iconName="item.prize" :iconColor="item.color" :key="index" />
+              </template>
+            </div>            
           </div>
           <div v-else>
             Стикеры пока что не получены
@@ -99,12 +101,29 @@ export default {
     closeStats() {
       this.$store.commit('toggleStats', { show: false });
     },
+    datekey(key) {
+      return `months.${key.substring(4)}`;
+      // return this.$i18n.t(`months.${key.substring(4)}`);
+    }
 
   },
   computed: {
     stickersOk () {
       console.log(`stickersOk ${this.p_stickers}`);
       return this.p_stickers && typeof this.p_stickers === 'object' && this.p_stickers.length > 0
+    },
+    /**
+     * returns object groupped stickers by monthe, with keys like 'yyyym' or 'yyyymm' and values - arrays of stickers
+     */
+    byMonthStickers: function () {
+      return this.p_stickers.reduce((pre, cur) => {
+        let d = new Date(cur.dateIssued);
+        let key = `${d.getFullYear()}${d.getMonth()}`;
+        if (!( key in pre)) pre[key] = [];
+        pre[key].push(cur);
+        return pre;
+      }, {})
+     
     }
   }
 };

@@ -75,13 +75,15 @@ export default {
     if (state.history.moves.length > 0)
       state.history.moves.pop();
   },
-  snackbarMessage(state, {value, type}) {
+  snackbarMessage(state, {value, type, mdata}) {
     if (typeof value === "boolean" && !value) {
       state.snackbar.message = '';
       state.snackbar.type = KidsConst.TYPE_NONE;
+      state.snackbar.mdata = undefined;
     } else  {
       state.snackbar.message = value;
       state.snackbar.type = (type !== undefined)? type: KidsConst.TYPE_NONE;  
+      state.snackbar.mdata = mdata;
     }
   },
   setLongThinking(state, {value}) {

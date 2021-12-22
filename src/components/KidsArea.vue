@@ -126,11 +126,15 @@
       v-model="snackbar"
       :timeout="6000"
       :color="sb_color"
-      :class="{movedown : snackbar}"
+      :class="{movedown: snackbar && !this.isPrizeMessage(), moveup: snackbar && this.isPrizeMessage()}"
     >
-      <v-avatar class="float-left"  tile>
+    
+      <v-avatar v-if="!this.isPrizeMessage()" class="float-left"  tile>
         <inline-svg :src="cartoonByID(getCurrentTask.id,getCurrentTask.orientation)" />
       </v-avatar>
+      <Sticker v-else :iconName="this.$store.state.snackbar.mdata.prize" :iconColor="this.$store.state.snackbar.mdata.color" class="float-left" />
+
+
       {{this.$store.state.snackbar.message}}
 
       <template v-slot:action="{ attrs }">
@@ -150,6 +154,7 @@
 import {  mapGetters } from 'vuex'; 
 import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
+import Sticker from './Sticker.vue';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
 import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
@@ -162,6 +167,8 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     components: {
       KidsBoard,
       InlineSvg,
+      Sticker
+
     },
   props: {
     // tasks: Array,
@@ -289,6 +296,9 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     actHelp () { 
         this.$store.dispatch('showHelp');
     },
+    isPrizeMessage () {
+      return this.$store.state.snackbar.type === KidsConst.TYPE_PRIZE;
+    }
 
 
     /**
@@ -483,6 +493,18 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
  @keyframes movedown { 
   0% { transform: translateY(-50vh);  }
   20% { transform: translateY(-50vh);  }
+  100% {  transform: translateY(0);  } 
+ }
+
+.moveup {
+  animation-name: moveup;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+ @keyframes moveup { 
+  0% {  transform: translateY(0);  } 
+  20% { transform: translateY(-50vh);  }
+  80% { transform: translateY(-50vh);  }
   100% {  transform: translateY(0);  } 
  }
 

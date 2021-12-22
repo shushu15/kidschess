@@ -48,6 +48,7 @@
   "message.yourmove": "tu turno",
   "message.board.two_players": "El tablero está actualmente en modo de dos jugadores. Puede cambiar al modo normal en el menú de configuración",
   "message.speech.nosupport": "La voz que habla en este idioma no es compatible con el navegador o el sistema: {0}",
+  "message.prize": "¡Felicidades! Ha recibido una nueva calcomanía. Juega diferentes juegos, termina el juego hasta el final y obtén calcomanías",
 
   "help.mainmenu": "main menu",
   "help.reload" : "repetir juego",
@@ -84,6 +85,8 @@
     "no_win_in_x_moves": "sin jaque mate en {0} movimientos"
 
   },
+  "months": {"0":"Enero","1":"Febrero","2":"Marcha","3":"Abril","4":"Mayo","5":"Junio","6":"Julio","7":"Agosto","8":"Septiembre","9":"Octubre","10":"Noviembre","11":"Diciembre"},
+
   "share": {
     "head" : "Decirles a los amigos",
     "title" : "KidsChess: Juegos de ajedrez para niños",

@@ -56,13 +56,13 @@ export default {
     return {
       dialog: false,
       sharing: {
-        url: 'https://ownlinks.com/kidschess/',
+        url: 'https://kidschess.ownlinks.com',
         title: this.$i18n.t('share.title'),
         description: this.$i18n.t('share.description'),
         quote: this.$i18n.t('share.quote'),
         hashtags: this.$i18n.t('share.hashtags'),
         twitterUser: '',
-        media: 'https://ownlinks.com/kidschess/img/icon/ms-icon-144x144.png'
+        media: 'https://kidschess.ownlinks.com/img/icons/ms-icon-144x144.png'
       },
       networks: [
         { network: 'facebook', name: 'Facebook', icon: mdiFacebook, color: '#1877f2' },

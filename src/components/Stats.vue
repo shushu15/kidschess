@@ -61,7 +61,14 @@
           flat
           height="100%"
         >
-          <v-card-text>{{ $t('intro.text1') }}</v-card-text>
+          <v-card-text>
+            <div v-for="(item, index) in p_games" :key=index>
+              <span>{{ item.title }} | {{item.nStarted}} | {{item.nCompleted}}</span>
+            </div>            
+
+
+          </v-card-text>
+
         </v-card>
       </v-tab-item>
     </v-tabs-items>

@@ -1,6 +1,7 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint prefer-const: "off" */
 import * as KidsConst from '@/lib/const.js';
+import getters from './getters.js';   // need in one mutation
 
 
 export default {
@@ -147,7 +148,13 @@ export default {
   fillGamesCache(state, {value }) {
     //TODO, do not clear cache each time, update. Refill with game names, reduce fields
     while(state.dbCache.games.length > 0) state.dbCache.games.pop();
-    value.forEach(elem => state.dbCache.games.push(elem));
+    value.forEach((elem) => {
+      let task = getters.childByID(elem.gameID);
+      if (task) {
+          elem.title = task.title;
+          state.dbCache.games.push(elem);
+      }
+    });
   }
 
 };

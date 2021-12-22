@@ -4,6 +4,7 @@ import {  mapGetters } from 'vuex';
 import { chessboard }  from '@/components/vendor/chessboard/index.js';
 //import * as Speech from '@/lib/speech.js';
 import * as KidsConst from '@/lib/const.js';
+import * as DB from '@/lib/db.js';
 // import '@/lib/parse-transform.js';
 
 // import { chessboard }  from 'vue-chessboard'
@@ -38,7 +39,13 @@ export default {
         // console.log(`userPlay ${orig} ${dest}`);
         this.$store.commit('setGameActive', {value: true})
         if (!this.$store.state.gameSaved.start && this.$store.state.modeCollectStat) {
-          this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_START})
+          this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_START}).then((result) => {
+            if (result === DB.DB_OK) {
+                this.$store.dispatch('db_cacheGames').then((result) => {
+                  if (typeof result == 'object') this.$store.commit('fillGamesCache', {value: result});
+                })
+            }
+          });
         }
         if (this.isPromotion(orig, dest)) {
           this.promoteTo = this.onPromotion();
@@ -130,9 +137,12 @@ export default {
         // svg.styleSheets[0].disabled = true
 
     }, */
+
     dbOnGameEnd() {
       if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
         this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_FINISH}).then((result) => {
+          if (result === DB.DB_OK) {
+            this.$store.dispatch('db_cacheGames');
             this.$store.dispatch('db_checkForPrize', {result} ).then((result) => {
               console.log(`dbOnGameEnd ${typeof result === 'object'? JSON.stringify(result): result}`);
               if (typeof result === 'object') {
@@ -148,6 +158,7 @@ export default {
                 }, 7000); // allow redraw
               }
             });
+          }
         });
       }
 

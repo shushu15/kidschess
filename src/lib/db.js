@@ -27,6 +27,10 @@ export const DB_OK = 1;
 
 const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiBird','mdiCarConvertible','mdiEmoticonCoolOutline','mdiHeart'];
 const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown'];
+/* const cacheValid = {
+  storeGames: false,
+  storePrizes: false,
+}*/
 
 export function getDB() {
   return db;
@@ -92,6 +96,32 @@ export async function finishGame(gameID){
   }
   console.log(`db finishGame res=${res}`);
   return res;  
+}
+
+/**
+ * List all played games
+ */
+ export async function getGames(){
+  let res =  DB_ERR;
+  let result = [];
+  // if (cache.length > 0) {
+  //  result = cache;
+  //  res = DB_OK;
+  // } else {
+    try {
+      result = await db.getAll(storeGames);
+      if (result) {
+        res = DB_OK;
+        // result.forEach(element => cache.push(element)); // due to reactivity we need on-element adding
+        // cache.stickers = result;
+      }
+      else 
+        res =  DB_NOTFOUND;
+    } catch(err) {
+      console.log(`db getGames ${err.toString()}`);
+    }
+  // }
+  return res === DB_OK? result: res;  
 }
 
 /**

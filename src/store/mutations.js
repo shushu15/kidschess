@@ -143,6 +143,11 @@ export default {
   addPrizeToCache(state, {value }) {
     if (typeof value == 'object')
       state.dbCache.stickers.push(value);
+  },
+  fillGamesCache(state, {value }) {
+    //TODO, do not clear cache each time, update. Refill with game names, reduce fields
+    while(state.dbCache.games.length > 0) state.dbCache.games.pop();
+    value.forEach(elem => state.dbCache.games.push(elem));
   }
 
 };

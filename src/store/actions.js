@@ -124,6 +124,13 @@ export default {
     });
   },
 
+  db_cacheGames({commit}) {
+    DB.getGames().then((result) => {
+      if (typeof result == 'object')
+        commit('fillGamesCache', {value: result});
+    });        
+  },
+
   db_checkForPrize({state, commit}) {
     return new Promise((resolve) => {
       let result = DB.DB_OFF;

@@ -3,7 +3,7 @@
     <v-overlay opacity=0.7>
     <v-card class="basil px-2" 
       height="80vh"
-      width="98vw"
+      width="100vw"
       max-height="900"
       max-width="600"
       light
@@ -51,7 +51,7 @@
 
 
       </v-tab-item>
-      <v-tab-item class="overflow-auto py-2">
+      <v-tab-item class="py-2">
           
           <v-simple-table dense>
             <template v-slot:default>
@@ -94,9 +94,9 @@ import Sticker from './Sticker.vue';
 import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu, } from '@mdi/js';
 export default {
   name: 'Stats',
-  props: {
-    p_stickers: Array,
-    p_games: Array,
+  props: { 
+    p_stickers: Array, // should be sorted last up
+    p_games: Array, // should be sorted last up
   },
   components: {
     Sticker,
@@ -126,22 +126,21 @@ export default {
   },
   computed: {
     stickersOk () {
-      console.log(`stickersOk ${this.p_stickers}`);
+      // console.log(`stickersOk ${this.p_stickers}`);
       return this.p_stickers && typeof this.p_stickers === 'object' && this.p_stickers.length > 0
     },
     /**
      * returns object groupped stickers by monthe, with keys like 'yyyym' or 'yyyymm' and values - arrays of stickers
      */
     byMonthStickers: function () {
-      return this.p_stickers.reduce((pre, cur) => {
+      return this.p_stickers.reduce((pre, cur) => { // reduceRight in back order - NOT already, we sorted it before
         let d = new Date(cur.dateIssued);
         let key = `${d.getFullYear()}${d.getMonth()}`;
         if (!( key in pre)) pre[key] = [];
         pre[key].push(cur);
         return pre;
-      }, {})
-     
-    }
+      }, {});  // .sort((a,b) => a<b? 1:(a>b?-1:0));     // sort in backward order from the last months top
+    },
   }
 };
 </script>
@@ -158,7 +157,7 @@ export default {
   background-color: white !important;
 }
 .tabs-scroll {
-  height: calc(80vh - 120px);
+  max-height: min(calc(80vh - 120px), 780px); /* 780==900-120 */
 }
 .overflow-auto {
   overflow-y: auto;

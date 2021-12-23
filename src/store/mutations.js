@@ -138,11 +138,15 @@ export default {
   },
   fillStickersCache(state, {value }) {
     while(state.dbCache.stickers.length > 0) state.dbCache.stickers.pop();
-    value.forEach(elem => state.dbCache.stickers.push(elem));
+    for (let i=value.length-1; i >=0; i--) {  // just to reduce next sorting
+      state.dbCache.stickers.push(value[i]);
+    }
+    // value.forEach(elem => state.dbCache.stickers.push(elem));
+    state.dbCache.stickers.sort((a,b) => a.dateIssued < b.dateIssued? 1: (a.dateIssued > b.dateIssued? -1:0) );   // sort by dateIssued last up
   },
   addPrizeToCache(state, {value }) {
     if (typeof value == 'object')
-      state.dbCache.stickers.push(value);
+      state.dbCache.stickers.unshift(value); // we add value to the top, hope not too many Array rebuid work
   },
   
   fillGamesCache(state, { value, getters }) {
@@ -157,6 +161,7 @@ export default {
           state.dbCache.games.push(elem);
       }
     });
+    state.dbCache.games.sort((a,b) => +a.nCompleted < +b.nCompleted? 1: (+a.nCompleted > +b.nCompleted? -1:0) );   // sort by nCompleted up
   }
 
 };

@@ -76,7 +76,7 @@ export default {
     setTimeout(() => { 
         commit('switchHelp', {value: false}); }, 5000); 
   },
-  db_init({state, commit}) {
+  db_init({state, getters, commit}) {
     if(!DB.getDB() && state.modeCollectStat) {
       DB.init().then((res) => {
         if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
@@ -86,9 +86,12 @@ export default {
           // let tmp_stickers = [];
           //TODO, in "then" check result
           DB.getPrizes().then((result) => {
-            if (typeof result == 'object')
-              commit('fillStickersCache', {value: result});
-          });       
+            if (typeof result == 'object') commit('fillStickersCache', {value: result});
+
+          }); 
+          DB.getGames().then((result) => {
+            if (typeof result == 'object') commit('fillGamesCache', {value: result, getters});
+          }); 
         }
       });
     } else  console.log('db_init db already in use'); // eslint-disable-line no-console
@@ -124,10 +127,10 @@ export default {
     });
   },
 
-  db_cacheGames({commit}) {
+  db_cacheGames({commit, getters}) {
     DB.getGames().then((result) => {
       if (typeof result == 'object')
-        commit('fillGamesCache', {value: result});
+        commit('fillGamesCache', {value: result, getters});
     });        
   },
 

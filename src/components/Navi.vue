@@ -45,7 +45,7 @@
           thumb-label
           ticks
           :label="$t('menu.level')"
-          :max= "this.$store.state.engineDeep.length-1"
+          :max= this.$store.state.engineDeep.length-1
           min=1
           :hint="getLevelHint"
           :persistent-hint="true"
@@ -223,9 +223,12 @@ export default {
         return this.$store.state.engineLevel;
       },
       set (value) {
-        this.$store.commit('updateEngineLevel', {value});
-        this.$store.dispatch('workerSendMistakeLevel');
-        localStorage.playLevel = value;
+        if (this.$store.state.engineLevel !== value) {
+          // console.log(`playLevel was :${this.$store.state.engineLevel} will bestate.engineDeep: ${value}  types ${typeof this.$store.state.engineLevel} ${typeof value}`); // eslint-disable-line no-console
+          this.$store.commit('updateEngineLevel', {value});
+          this.$store.dispatch('workerSendMistakeLevel');
+          localStorage.playLevel = value;
+        }
 
       }
     },
@@ -262,11 +265,17 @@ export default {
   },
 
   mounted() {
-    if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.length-1) {
+    /*if (localStorage.playLevel !== undefined && localStorage.playLevel >=1 && localStorage.playLevel <= this.$store.state.engineDeep.length-1) {
       this.playLevel = localStorage.playLevel;
+    }*/
+    if (localStorage.playLevel !== undefined) {
+      let l = +localStorage.playLevel;
+      if (l >=1 && l <= this.$store.state.engineDeep.length-1) 
+        this.playLevel = +localStorage.playLevel;
     }
 
   }
+
 }
 
 </script>

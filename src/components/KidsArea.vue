@@ -286,6 +286,7 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     changeLevel() {
       let newLevel = this.getLevel + 1;
       if (newLevel > this.$store.state.engineDeep.length-1) newLevel = 1;
+      // console.log(`changeLevel was :${this.getLevel} will be: ${newLevel} types ${typeof this.getLevel} ${typeof newLevel}`); // eslint-disable-line no-console
       this.$store.commit('updateEngineLevel', {value: newLevel});
       this.$store.dispatch('workerSendMistakeLevel');
       localStorage.playLevel = newLevel;

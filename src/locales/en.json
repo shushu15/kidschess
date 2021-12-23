@@ -59,8 +59,15 @@
   "help.speech" : "voice on/off",
   "help.level" : "game strength",
 
-  "stats.stickers": "Stickers",
-  "stats.games": "Games played",
+  "stats": {
+    "stickers": "Stickers",
+    "games": "Games played",
+    "game_title": "Game",
+    "ns": "Started",
+    "nf": "Completed",
+    "no_stickers": "No stickers have been received yet",
+    "no_games": "No game statistics"
+  },
 
   "level" : {
     "1": "rookie",

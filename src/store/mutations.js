@@ -1,7 +1,6 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint prefer-const: "off" */
 import * as KidsConst from '@/lib/const.js';
-import getters from './getters.js';   // need in one mutation
 
 
 export default {
@@ -34,7 +33,7 @@ export default {
     state.turn = turn;
   },
   updateEngineLevel(state, {value}) {
-    state.engineLevel = value;
+    state.engineLevel = +value; // convert to int
   },
   setWorkerAI(state, { worker }) {
     state.webWorkerAI = worker;
@@ -145,11 +144,14 @@ export default {
     if (typeof value == 'object')
       state.dbCache.stickers.push(value);
   },
-  fillGamesCache(state, {value }) {
+  
+  fillGamesCache(state, { value, getters }) {
     //TODO, do not clear cache each time, update. Refill with game names, reduce fields
     while(state.dbCache.games.length > 0) state.dbCache.games.pop();
     value.forEach((elem) => {
+      // console.log(`fillGamesCache elem ${elem? JSON.stringify(elem): elem}`); // eslint-disable-line no-console
       let task = getters.childByID(elem.gameID);
+      // console.log(`fillGamesCache ${task? JSON.stringify(task): task}`); // eslint-disable-line no-console
       if (task) {
           elem.title = task.title;
           state.dbCache.games.push(elem);

@@ -42,7 +42,7 @@ export default {
           this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_START}).then((result) => {
             if (result === DB.DB_OK) {
                 this.$store.dispatch('db_cacheGames').then((result) => {
-                  if (typeof result == 'object') this.$store.commit('fillGamesCache', {value: result});
+                  if (typeof result == 'object') this.$store.commit('fillGamesCache', {value: result, getters: this.$store.getters });
                 })
             }
           });

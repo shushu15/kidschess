@@ -23,7 +23,6 @@
       <v-tabs
         v-model="tab"
         background-color="transparent"
-        grow
       >
         <v-tab class="text-body-1">
           {{ $t('stats.stickers') }}
@@ -39,7 +38,7 @@
           flat
           height="100%"
         >
-          <v-card-text>
+          <v-card-text class="overflow-auto">
           <div v-if="stickersOk">
             <div v-for="(group, key) in byMonthStickers" :key="key">
               <div>{{ $t(datekey(key)) }} {{key.substring(0,4)}} </div>
@@ -49,7 +48,7 @@
             </div>            
           </div>
           <div v-else>
-            Стикеры пока что не получены
+            {{ $t('stats.stickers') }}
         </div>
 
 
@@ -59,14 +58,36 @@
       <v-tab-item>
         <v-card
           flat
-          height="100%"
+          class="overflow-auto"
         >
           <v-card-text>
-            <div v-for="(item, index) in p_games" :key=index>
-              <span>{{ item.title }} | {{item.nStarted}} | {{item.nCompleted}}</span>
-            </div>            
-
-
+          <v-simple-table dense height="300px">
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">
+                    {{ $t('stats.game_title') }}
+                  </th>
+                  <th class="text-left">
+                    {{ $t('stats.ns') }}
+                  </th>
+                  <th class="text-left">
+                    {{ $t('stats.nf') }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in p_games"
+                  :key="item.id"
+                >
+                  <td>{{ $t(item.title) }}</td>
+                  <td>{{ item.nStarted }}</td>
+                  <td>{{ item.nCompleted }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
           </v-card-text>
 
         </v-card>
@@ -146,5 +167,8 @@ export default {
 
 .basil {
   background-color: white !important;
+}
+.overflow-auto {
+  overflow: scroll;
 }
 </style>

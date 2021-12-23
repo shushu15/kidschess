@@ -1,8 +1,11 @@
 <template>
   <div class="text-left">
     <v-overlay opacity=0.7>
-    <v-card class="basil" 
+    <v-card class="basil px-2" 
       height="80vh"
+      width="98vw"
+      max-height="900"
+      max-width="600"
       light
     >
               <v-fab-transition>
@@ -17,9 +20,9 @@
                   <v-icon>{{mdiClose}}</v-icon>
                 </v-btn>
          </v-fab-transition>
-<v-card-title class="text-center justify-center py-4 text-h5" color="primary">
+      <v-card-title class="text-center justify-center py-4 text-h5" color="primary">
         {{ $t('menu.achievements') }}
-    </v-card-title>         
+      </v-card-title>         
       <v-tabs
         v-model="tab"
         background-color="transparent"
@@ -32,13 +35,8 @@
         </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab">
-      <v-tab-item>
-        <v-card
-          flat
-          height="100%"
-        >
-          <v-card-text class="overflow-auto">
+    <v-tabs-items v-model="tab" class="py-4 tabs-scroll overflow-auto">
+      <v-tab-item class="py-2">
           <div v-if="stickersOk">
             <div v-for="(group, key) in byMonthStickers" :key="key">
               <div>{{ $t(datekey(key)) }} {{key.substring(0,4)}} </div>
@@ -52,16 +50,10 @@
         </div>
 
 
-          </v-card-text>
-        </v-card>
       </v-tab-item>
-      <v-tab-item>
-        <v-card
-          flat
-          class="overflow-auto"
-        >
-          <v-card-text>
-          <v-simple-table dense height="300px">
+      <v-tab-item class="overflow-auto py-2">
+          
+          <v-simple-table dense>
             <template v-slot:default>
               <thead>
                 <tr>
@@ -88,9 +80,6 @@
               </tbody>
             </template>
           </v-simple-table>
-          </v-card-text>
-
-        </v-card>
       </v-tab-item>
     </v-tabs-items>
     </v-card>
@@ -168,7 +157,10 @@ export default {
 .basil {
   background-color: white !important;
 }
+.tabs-scroll {
+  height: calc(80vh - 120px);
+}
 .overflow-auto {
-  overflow: scroll;
+  overflow-y: auto;
 }
 </style>

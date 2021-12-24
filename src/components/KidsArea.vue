@@ -124,7 +124,7 @@
     </v-btn>
    <v-snackbar
       v-model="snackbar"
-      :timeout="6000"
+      :timeout="this.isPrizeMessage()? 8000: 6000"
       :color="sb_color"
       :class="{movedown: snackbar && !this.isPrizeMessage(), moveup: snackbar && this.isPrizeMessage()}"
     >
@@ -499,13 +499,13 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
 
 .moveup {
   animation-name: moveup;
-  animation-duration: 2s;
+  animation-duration: 4s;
   animation-timing-function: ease-in-out;
 }
  @keyframes moveup { 
   0% {  transform: translateY(0);  } 
-  20% { transform: translateY(-50vh);  }
-  80% { transform: translateY(-50vh);  }
+  10% { transform: translateY(-50vh);  }
+  90% { transform: translateY(-50vh);  }
   100% {  transform: translateY(0);  } 
  }
 

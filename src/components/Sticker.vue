@@ -3,7 +3,7 @@
 </template>
 <script> 
 
-import { mdiStar,mdiStarFace,mdiStarFourPoints,mdiShieldStar,mdiFlowerTulip,mdiFlower,mdiFlowerPoppy,mdiChessKing,mdiChessQueen,mdiBell,mdiRocket,mdiAirplane,mdiBird,mdiCarConvertible,mdiEmoticonCoolOutline,mdiHeart } from '@mdi/js';
+import { mdiStar,mdiStarFace,mdiStarFourPoints,mdiShieldStar,mdiFlowerTulip,mdiFlower,mdiFlowerPoppy,mdiChessKing,mdiChessQueen,mdiBell,mdiRocket,mdiAirplane,mdiBird,mdiCarConvertible,mdiEmoticonCoolOutline,mdiHeart,mdiCat,mdiDog} from '@mdi/js';
 const namesStickers = [
     {n: 'mdiStar', i: mdiStar},
     {n: 'mdiStarFace', i: mdiStarFace},
@@ -20,7 +20,10 @@ const namesStickers = [
     {n: 'mdiBird', i: mdiBird},
     {n: 'mdiBird', i: mdiCarConvertible},   
     {n: 'mdiEmoticonCoolOutline', i: mdiEmoticonCoolOutline},
-    {n: 'mdiHeart', i: mdiHeart} 
+    {n: 'mdiHeart', i: mdiHeart},
+    {n: 'mdiHeart', i: mdiCat},
+    {n: 'mdiHeart', i: mdiDog},
+
     ];
 
 export default {

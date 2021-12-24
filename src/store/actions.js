@@ -77,7 +77,11 @@ export default {
         commit('switchHelp', {value: false}); }, 5000); 
   },
   db_init({state, getters, commit}) {
-    if(!DB.getDB() && state.modeCollectStat) {
+    if(state.modeCollectStat) {
+      if(DB.getDB()) {
+        console.log('db_init db already in use'); // eslint-disable-line no-console
+        DB.close();
+      }
       DB.init().then((res) => {
         if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
           commit('collectStat',  {value: false});
@@ -87,14 +91,13 @@ export default {
           //TODO, in "then" check result
           DB.getPrizes().then((result) => {
             if (typeof result == 'object') commit('fillStickersCache', {value: result});
-
           }); 
           DB.getGames().then((result) => {
             if (typeof result == 'object') commit('fillGamesCache', {value: result, getters});
           }); 
         }
       });
-    } else  console.log('db_init db already in use'); // eslint-disable-line no-console
+    } 
   },
 
   db_saveGame({state, commit}, {type}) {
@@ -110,6 +113,7 @@ export default {
               result = res;
               console.log(`db_saveGame start error ${res}`); // eslint-disable-line no-console
             } else result = DB.DB_OK;
+            resolve(result);
           });
           break;
         case KidsConst.SAVED_FINISH: 
@@ -119,15 +123,17 @@ export default {
               result = res;
               console.log(`db_saveGame finish error ${res}`); // eslint-disable-line no-console
             } else result = DB.DB_OK;
+            resolve(result);
           });
           break;
         }
-      }
-      resolve(result);
+      } else
+        resolve(result);
     });
   },
 
   db_cacheGames({commit, getters}) {
+    console.log('db_cacheGames start'); // eslint-disable-line no-console
     DB.getGames().then((result) => {
       if (typeof result == 'object')
         commit('fillGamesCache', {value: result, getters});
@@ -135,10 +141,12 @@ export default {
   },
 
   db_checkForPrize({state, commit}) {
+    console.log('db_checkForPrize'); // eslint-disable-line no-console
     return new Promise((resolve) => {
       let result = DB.DB_OFF;
       if(DB.getDB() && state.modeCollectStat) {
         // let tmp_stickers = [];
+        console.log('db_checkForPrize 2'); // eslint-disable-line no-console
         DB.checkForPrize().then((res) => {
           result = res;
           if (res === DB.DB_ERR) {
@@ -151,7 +159,8 @@ export default {
           }
           resolve(typeof result == 'object'? result: res);
         });
-      }
+      } else 
+          resolve(result);
     });
   },
 

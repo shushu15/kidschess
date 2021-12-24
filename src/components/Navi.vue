@@ -73,6 +73,11 @@
             <v-switch dense v-model="swTwoPlayers" :label="$t('menu.settings.two')" ></v-switch>
           </v-list-item-action>
         </v-list-item>
+        <v-list-item dense>
+          <v-list-item-action>
+            <v-switch dense v-model="swStat" :label="$t('menu.settings.stat')" ></v-switch>
+          </v-list-item-action>
+        </v-list-item>
 
         <v-list-group
           sub-group
@@ -102,14 +107,9 @@
             </v-list-item-avatar>
           </v-list-item>
         </v-list-group>  
-        <v-list-item dense>
-          <v-list-item-action>
-            <v-switch dense v-model="swStat" :label="$t('menu.settings.stat')" ></v-switch>
-          </v-list-item-action>
-        </v-list-item>
               
       </v-list-group> 
-      <v-list-item link>
+      <v-list-item link :disabled="!swStat">
         <v-list-item-avatar tile size="24">
           <v-icon>
              {{mdiStarFace}}

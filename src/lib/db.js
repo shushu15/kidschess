@@ -25,7 +25,7 @@ export const DB_ERR = -1;
 export const DB_NOTFOUND = 0;
 export const DB_OK = 1;
 
-const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiBird','mdiCarConvertible','mdiEmoticonCoolOutline','mdiHeart'];
+const listPrizes = ['mdiStar','mdiStarFace','mdiStarFourPoints','mdiShieldStar','mdiFlowerTulip','mdiFlower','mdiFlowerPoppy','mdiChessKing','mdiChessQueen','mdiBell','mdiRocket','mdiAirplane','mdiBird','mdiCarConvertible','mdiEmoticonCoolOutline','mdiHeart','mdiCat','mdiDog'];
 const listColors = ['red','pink','purple','deep-purple','indigo','blue','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown'];
 /* const cacheValid = {
   storeGames: false,
@@ -73,7 +73,7 @@ export async function startGame(gameID){
   } catch(err) {
     console.log(`db startGame catch error ${err.toString()}`);
   }
-  console.log(`db startGame res=${res}`);
+  // console.log(`db startGame res=${res}`);
   return res;  
 }
 
@@ -170,6 +170,7 @@ export async function getPrizes(){
       // console.log(cursor.key, cursor.value);
       cursor = await cursor.continue();
     }
+    console.log(`checkForPrize nToPrizeSum=${nToPrizeSum}`);
     if (nToPrizeSum >= SUM_TO_PRIZE)  { // add a prize
       prize = {prize: listPrizes[getRandomInt(listPrizes.length)], color: listColors[getRandomInt(listColors.length)], gameID: nMaxGame, dateIssued: Date.now()};
       await db.add(storePrizes, prize);
@@ -198,6 +199,7 @@ export async function getPrizes(){
 }
 /****
  * GameID - the current game
+ * for testing
  */
 export async function forcePrize(gameID) {
   let res =  DB_ERR;

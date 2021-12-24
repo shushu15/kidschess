@@ -141,6 +141,7 @@ export default {
     dbOnGameEnd() {
       if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
         this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_FINISH}).then((result) => {
+          console.log(`dbOnGameEnd start ${typeof result === 'object'? JSON.stringify(result): result}`);
           if (result === DB.DB_OK) {
             this.$store.dispatch('db_cacheGames');
             this.$store.dispatch('db_checkForPrize', {result} ).then((result) => {
@@ -408,6 +409,7 @@ export default {
 
   beforeDestroy() {
     this.unwatch();
+    DB.close();
   },
 };
 </script>

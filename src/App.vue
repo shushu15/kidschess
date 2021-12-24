@@ -210,6 +210,7 @@ export default {
       this.$store.state.webWorkerAI.terminate();
       this.$store.commit('setWorkerAI', { worker: undefined });
     }
+    
 
   }
 

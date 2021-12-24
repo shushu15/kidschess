@@ -159,7 +159,7 @@ export default {
                     color: result.color } 
                 });
               this.$emit('on-speak', speechMess);
-            }, 7000); // allow redraw
+            }, 6500); // allow redraw
           }
         });
       }

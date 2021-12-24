@@ -38,6 +38,8 @@ export default {
       return (orig, dest) => {
         // console.log(`userPlay ${orig} ${dest}`);
         this.$store.commit('setGameActive', {value: true})
+        this.dbOnGameStart();
+        /*
         if (!this.$store.state.gameSaved.start && this.$store.state.modeCollectStat) {
           this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_START}).then((result) => {
             if (result === DB.DB_OK) {
@@ -46,7 +48,7 @@ export default {
                 })
             }
           });
-        }
+        } */
         if (this.isPromotion(orig, dest)) {
           this.promoteTo = this.onPromotion();
           // this.$store.commit('canReload', {value: true});  // can reload close to finish game
@@ -137,8 +139,31 @@ export default {
         // svg.styleSheets[0].disabled = true
 
     }, */
+    dbOnGameStart(){
+      if (!this.$store.state.gameSaved.start && this.$store.state.modeCollectStat) {
+        this.$store.dispatch('db_startGame');
+      }
+    },
 
     dbOnGameEnd() {
+      if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
+        this.$store.dispatch('db_endGame').then((result) => {
+          console.log(`dbOnGameEnd ${typeof result === 'object'? JSON.stringify(result): result}`);
+          if (typeof result === 'object') {
+            setTimeout(() => {
+              let speechMess = '';
+              this.$store.commit('snackbarMessage', 
+                { value: speechMess = this.$i18n.t('message.prize'),
+                  type: KidsConst.TYPE_PRIZE,
+                  mdata: { prize: result.prize,
+                    color: result.color } 
+                });
+              this.$emit('on-speak', speechMess);
+            }, 7000); // allow redraw
+          }
+        });
+      }
+      /*
       if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
         this.$store.dispatch('db_saveGame', {type: KidsConst.SAVED_FINISH}).then((result) => {
           console.log(`dbOnGameEnd start ${typeof result === 'object'? JSON.stringify(result): result}`);
@@ -162,7 +187,7 @@ export default {
           }
         });
       }
-
+      */
     },
 
     actBackward() {

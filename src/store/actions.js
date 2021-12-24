@@ -76,6 +76,7 @@ export default {
     setTimeout(() => { 
         commit('switchHelp', {value: false}); }, 5000); 
   },
+  /******** DB functions */
   db_init({state, getters, commit}) {
     if(state.modeCollectStat) {
       if(DB.getDB()) {
@@ -99,6 +100,32 @@ export default {
       });
     } 
   },
+
+  db_startGame({getters, commit, dispatch}) {
+    dispatch('db_saveGame', {type: KidsConst.SAVED_START}).then((result) => {
+      if (result === DB.DB_OK) {
+          dispatch('db_cacheGames').then((result) => {
+            if (typeof result == 'object') commit('fillGamesCache', {value: result, getters });
+          })
+      }
+    });
+  },
+
+  db_endGame({dispatch}) {
+    return new Promise ((resolve) => {
+      dispatch('db_saveGame', {type: KidsConst.SAVED_FINISH}).then((result) => {
+        console.log(`db_endGame start ${typeof result === 'object'? JSON.stringify(result): result}`);
+        if (result === DB.DB_OK) {
+          dispatch('db_cacheGames');
+          dispatch('db_checkForPrize', {result} ).then((result) => {
+            console.log(`db_endGame ${typeof result === 'object'? JSON.stringify(result): result}`);
+            resolve(result);
+          });
+        } else resolve(result);
+      });
+    })
+  },
+
 
   db_saveGame({state, commit}, {type}) {
     return new Promise((resolve) => {

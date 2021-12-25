@@ -77,13 +77,13 @@ export default {
         commit('switchHelp', {value: false}); }, 5000); 
   },
   /******** DB functions */
-  db_init({state, getters, commit}) {
+  async db_init({state, getters, commit}) {
     if(state.modeCollectStat) {
       if(DB.getDB()) {
         console.log('db_init db already in use'); // eslint-disable-line no-console
         DB.close();
       }
-      DB.init().then((res) => {
+      await DB.init().then((res) => {
         if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
           commit('collectStat',  {value: false});
           console.log(`db_init db error ${res}`); // eslint-disable-line no-console
@@ -106,7 +106,7 @@ export default {
       if (result === DB.DB_OK) {
           dispatch('db_cacheGames').then((result) => {
             if (typeof result == 'object') commit('fillGamesCache', {value: result, getters });
-          })
+          });
       }
     });
   },
@@ -123,7 +123,7 @@ export default {
           });
         } else resolve(result);
       });
-    })
+    });
   },
 
 

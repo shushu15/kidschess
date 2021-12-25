@@ -15,6 +15,33 @@
     </template>
     <v-card>
       <v-card-title class="headline">{{$t('share.head')}}</v-card-title>
+      <v-card-text class="text-body-2 compact-h">{{$t('share.subhead')}}
+        <v-btn
+          class="ma-1 flexcol"
+          outlined
+          small
+          color="indigo">
+          <div><inline-svg  :src="require('../assets/img/icon-google-play.svg')"  width="24" height="24" /></div>
+            <div>Android</div>
+        </v-btn>
+        <v-btn
+          class="ma-1 flexcol"
+          outlined
+          small
+          color="indigo">
+          <inline-svg  :src="require('../assets/img/icon-pwalogo.svg')"  width="48" height="24" />
+            PC, iOS
+        </v-btn>
+        <v-btn
+          class="ma-1 flexcol"
+          outlined
+          small
+          color="indigo">
+          <inline-svg  :src="require('../assets/img/icon-microsoft-store.svg')"  width="24" height="24" />
+            Windows
+        </v-btn>
+      </v-card-text>
+
       <v-card-text class="share-network-list">
       <ShareNetwork
         v-for="network in networks"
@@ -46,10 +73,13 @@
 import { mdiFacebook,mdiLinkedin,mdiFacebookMessenger,mdiOdnoklassniki,mdiPinterest,mdiQuora,mdiReddit,
         mdiSkype,mdiTelegram,mdiTwitter,mdiVk,mdiWhatsapp,mdiShareVariant } from '@mdi/js';
 import ShareNetwork from '@/lib/vendor/share/share-network.js';
+import InlineSvg from 'vue-inline-svg';
+
 export default {
   name: 'ShareDlg',
   components: {
-    ShareNetwork,  
+    ShareNetwork,
+    InlineSvg
   },
 
   data() {
@@ -126,4 +156,15 @@ export default {
     flex: 1 1 0%;
     font-weight: 500;
   }
+  .compact-h {
+    line-height: 1rem;
+  }
+  .compact-h .v-btn {
+    text-transform: none !important;
+    align-items: center;  /* vertical alignment of items */
+  }
+  .v-btn .flexcol {
+    display:flex!important;
+    flex-direction: column!important;    
+  }  
   </style>

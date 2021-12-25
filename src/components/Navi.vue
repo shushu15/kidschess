@@ -131,7 +131,17 @@
       </v-list-item>
 
       <AboutDlg />
-      <ShareDlg />
+
+      <v-list-item link>
+        <v-list-item-avatar tile size="24">
+          <v-icon>
+             {{ mdiShareVariant }}
+          </v-icon>  
+        </v-list-item-avatar>
+        <v-list-item-content>
+        <v-list-item-title @click="share()">{{ $t('menu.share') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>    
 
 </template>
@@ -139,12 +149,12 @@
 <script>
 import {  mapGetters } from 'vuex'; 
 import AboutDlg from '@/components/AboutDlg'; 
-import ShareDlg from '@/components/ShareDlg'; 
+// import ShareDlg from '@/components/ShareDlg'; 
 import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import { Trans } from '@/plugins/Translation.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiCog,mdiWeb,mdiCommentOutline,mdiStarFace} from '@mdi/js';
+import { mdiCog,mdiWeb,mdiCommentOutline,mdiStarFace,mdiShareVariant} from '@mdi/js';
 
 
 
@@ -152,7 +162,7 @@ export default {
   name: 'Navi',
   components: {
     AboutDlg,
-    ShareDlg,
+    // ShareDlg,    
     InlineSvg,
   },
 
@@ -168,7 +178,7 @@ export default {
       mdiWeb,
       mdiCommentOutline,
       mdiStarFace,
-
+      mdiShareVariant      
     }
   },
 
@@ -212,6 +222,10 @@ export default {
     stats(){
       this.$store.commit('toggleDrawer', { show: false });
       this.$store.commit('toggleStats', { show: true });
+    },
+    share(){
+      this.$store.commit('toggleDrawer', { show: false });
+      this.$store.commit('toggleShare', { show: true });
     }
 
   },

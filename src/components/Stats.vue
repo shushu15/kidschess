@@ -145,7 +145,6 @@ export default {
 };
 </script>
 <style scoped>
-  /* This is for documentation purposes and will not be needed in your application */
   .v-btn--close {
     position: absolute;
     top: 0;

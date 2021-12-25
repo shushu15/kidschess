@@ -111,6 +111,9 @@ export default {
   toggleStats(state, { show }) {
     state.showStats = (show === undefined) ? !state.showStats : show;
   },
+  toggleShare(state, { show }) {
+    state.showShare = (show === undefined) ? !state.showShare : show;
+  },
 
   modeSpeech(state, payload) {
     if (payload !== undefined && payload.value !== undefined) { 

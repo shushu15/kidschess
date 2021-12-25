@@ -57,6 +57,7 @@
       <TitleScreen  v-if="$store.state.isTitleShowing"/>
       <Intro v-if="$store.state.showIntro" />
       <Stats v-if="$store.state.showStats" :p_stickers="getStickers()" :p_games="getGames()"/>
+      <ShareDlg v-if="$store.state.showShare" />
     </v-main>
   </v-app>
 </template>
@@ -82,6 +83,7 @@ export default {
     Navi: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Navi.vue'),
     Intro: () => import(/* webpackChunkName: "intro", webpackPrefetch: true */ './components/Intro.vue'),
     Stats: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Stats.vue'),
+    ShareDlg: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/ShareDlg.vue'),
   },
 
   data: function() { // need "this" thus change from arrow function
@@ -210,7 +212,7 @@ export default {
       this.$store.state.webWorkerAI.terminate();
       this.$store.commit('setWorkerAI', { worker: undefined });
     }
-    
+
 
   }
 

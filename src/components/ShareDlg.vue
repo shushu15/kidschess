@@ -1,44 +1,56 @@
 <template>
-  <v-dialog v-model="dialog" max-width="400px">
-    <template v-slot:activator="{ on }">
-      <v-list-item link>
-        <v-list-item-avatar tile size="24">
-          <v-icon>
-             {{ mdiShareVariant }}
-          </v-icon>  
-        </v-list-item-avatar>
-        <v-list-item-content>
-
-        <v-list-item-title v-on="on">{{$t('menu.share')}}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
-    <v-card>
-      <v-card-title class="headline">{{$t('share.head')}}</v-card-title>
-      <v-card-text class="text-body-2 compact-h">{{$t('share.subhead')}}
+    <v-overlay opacity=0.7>
+    <v-card class="px-2" 
+      height="80vh"
+      width="100vw"
+      max-height="900"
+      max-width="600"
+      light
+    >
+              <v-fab-transition>
+                <v-btn
+                  v-show="$store.state.showShare"
+                  color="pink"
+                  fab
+                  small
+                  class="v-btn--close"
+                  @click="closeShare()"
+                >
+                  <v-icon>{{mdiClose}}</v-icon>
+                </v-btn>
+         </v-fab-transition>
+      <v-card-title class="text-h5">{{$t('share.head')}}</v-card-title>
+      <v-card-subtitle class="text-body-2 compact-h">{{$t('share.subhead')}}</v-card-subtitle>
+      <v-card-text class="px-0">
         <v-btn
-          class="ma-1 flexcol"
+          class="ma-1"
           outlined
-          small
-          color="indigo">
-          <div><inline-svg  :src="require('../assets/img/icon-google-play.svg')"  width="24" height="24" /></div>
-            <div>Android</div>
+          large
+          light
+          color="blue"><div class="flexcol">
+          <inline-svg  :src="require('../assets/img/icon-google-play.svg')"  width="24" height="24" />
+            <div class="text-caption">Android</div>
+          </div>  
         </v-btn>
         <v-btn
-          class="ma-1 flexcol"
+          class="ma-1"
           outlined
-          small
-          color="indigo">
+          large
+          light
+          color="blue"><div class="flexcol">
           <inline-svg  :src="require('../assets/img/icon-pwalogo.svg')"  width="48" height="24" />
-            PC, iOS
+            <div class="text-caption">PC, iOS</div>
+          </div>  
         </v-btn>
         <v-btn
-          class="ma-1 flexcol"
+          class="ma-1"
           outlined
-          small
-          color="indigo">
+          large
+          light
+          color="blue"><div class="flexcol">
           <inline-svg  :src="require('../assets/img/icon-microsoft-store.svg')"  width="24" height="24" />
-            Windows
+            <div class="text-caption">Windows App</div>
+          </div>  
         </v-btn>
       </v-card-text>
 
@@ -59,19 +71,15 @@
         <span> {{ network.name }}</span>
       </ShareNetwork>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-         <v-btn color="primary" text @click="closeDrawer">{{ $t('btn.close') }}</v-btn>
-      </v-card-actions>
     </v-card>
-  </v-dialog>
-</template>
+    </v-overlay>
+  </template>
 
 <script>
 // import ShareNetwork from 'vue-social-sharing';
 // import ShareNetwork from '@/lib/vendor/share/vue-social-sharing.vue';
 import { mdiFacebook,mdiLinkedin,mdiFacebookMessenger,mdiOdnoklassniki,mdiPinterest,mdiQuora,mdiReddit,
-        mdiSkype,mdiTelegram,mdiTwitter,mdiVk,mdiWhatsapp,mdiShareVariant } from '@mdi/js';
+        mdiSkype,mdiTelegram,mdiTwitter,mdiVk,mdiWhatsapp,mdiShareVariant,mdiClose} from '@mdi/js';
 import ShareNetwork from '@/lib/vendor/share/share-network.js';
 import InlineSvg from 'vue-inline-svg';
 
@@ -109,12 +117,12 @@ export default {
         { network: 'whatsapp', name: 'Whatsapp', icon: mdiWhatsapp, color: '#25d366' },
       ],
       mdiShareVariant,
+      mdiClose
     };
   },
   methods: {
-    closeDrawer() {
-      this.dialog = false;
-      this.$store.commit('toggleDrawer', { show: false });
+    closeShare() {
+      this.$store.commit('toggleShare', { show: false });
     },
   },
 };
@@ -156,15 +164,20 @@ export default {
     flex: 1 1 0%;
     font-weight: 500;
   }
+  .v-btn--close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+  }
+
   .compact-h {
     line-height: 1rem;
-  }
-  .compact-h .v-btn {
-    text-transform: none !important;
-    align-items: center;  /* vertical alignment of items */
   }
   .v-btn .flexcol {
     display:flex!important;
     flex-direction: column!important;    
+    text-transform: none !important;
+    align-items: center;  /* vertical alignment of items */
   }  
   </style>

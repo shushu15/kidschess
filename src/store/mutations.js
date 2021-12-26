@@ -153,7 +153,7 @@ export default {
   },
   
   fillGamesCache(state, { value, getters }) {
-    console.log(`fillGamesCache value ${value}`); // eslint-disable-line no-console
+    // console.log(`fillGamesCache value ${value}`); // eslint-disable-line no-console
     //TODO, do not clear cache each time, update. Refill with game names, reduce fields
     while(state.dbCache.games.length > 0) state.dbCache.games.pop();
     value.forEach((elem) => {
@@ -166,6 +166,10 @@ export default {
       }
     });
     state.dbCache.games.sort((a,b) => +a.nCompleted < +b.nCompleted? 1: (+a.nCompleted > +b.nCompleted? -1:0) );   // sort by nCompleted up
+  },
+
+  setAppTimer(state, {value }) {
+    state.appTimer = value;
   }
 
 };

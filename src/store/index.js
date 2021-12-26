@@ -56,6 +56,8 @@ const state = {
   modeCollectStat: true,
   // modeFlipPieces: false,
   forcedBtnStart: false, // while switching to one-player mode during a game
+  appTimer: 0, // timing from app start Date.now()
+  idleTimer: 0,
   gameSaved: {
     start: false,
     finish: false,

@@ -19,9 +19,10 @@
                   <v-icon>{{mdiClose}}</v-icon>
                 </v-btn>
          </v-fab-transition>
-      <v-card-title class="text-h5">{{$t('share.head')}}</v-card-title>
+      <v-card-title class="text-h5 justify-center">{{$t('share.head')}}</v-card-title>
       <v-card-subtitle class="text-body-2 compact-h">{{$t('share.subhead')}}</v-card-subtitle>
-      <v-card-text class="px-0">
+      <v-card-text class="px-0 text-center">
+        <v-btn-toggle v-model="activeapp">
         <v-btn
           class="ma-1"
           outlined
@@ -52,6 +53,7 @@
             <div class="text-caption">Windows App</div>
           </div>  
         </v-btn>
+        </v-btn-toggle>
       </v-card-text>
 
       <v-card-text class="share-network-list">
@@ -60,7 +62,7 @@
         :network="network.network"
         :key="network.network"
         :style="{backgroundColor: network.color}"
-        :url="sharing.url"
+        :url="sharing.url[activeapp]"
         :title="sharing.title"
         :description="sharing.description"
         :quote="sharing.quote"
@@ -71,9 +73,25 @@
         <span> {{ network.name }}</span>
       </ShareNetwork>
       </v-card-text>
+      <v-card-text class="pt-0">
+        <v-tooltip v-model="showCopy" z-index="10" top :open-on-hover="false" :open-on-click="false" >
+          <template v-slot:activator="{ on, attrs }">
+
+         <v-text-field
+            :value="sharing.url[activeapp]"
+            :label="$t('share.copy')"
+            filled
+            readonly
+            @click="actCopy"  v-bind="attrs" v-on="on"
+          ></v-text-field>
+          </template>
+          <span>{{this.copyMessage}}</span>
+        </v-tooltip>
+
+      </v-card-text>
     </v-card>
     </v-overlay>
-  </template>
+</template>
 
 <script>
 // import ShareNetwork from 'vue-social-sharing';
@@ -92,9 +110,12 @@ export default {
 
   data() {
     return {
-      dialog: false,
+      // dialog: false,
+      activeapp: 0,
+      showCopy: false,
+      copyMessage: '',
       sharing: {
-        url: 'https://kidschess.ownlinks.com',
+        url: ['https://play.google.com/store/apps/details?id=com.ownlinks.kidschess','https://kidschess.ownlinks.com','https://www.microsoft.com/ru-ru/p/kidschess/9pdgwhlsqbf6'],
         title: this.$i18n.t('share.title'),
         description: this.$i18n.t('share.description'),
         quote: this.$i18n.t('share.quote'),
@@ -124,6 +145,29 @@ export default {
     closeShare() {
       this.$store.commit('toggleShare', { show: false });
     },
+    actCopy() {
+      let self = this;
+      navigator.permissions.query({name: "clipboard-write"}).then(result => {
+        if (result.state == "granted" || result.state == "prompt") {
+          /* write to the clipboard now */
+          this.updateClipboard(this.sharing.url[this.activeapp], self);
+        }
+      });
+    },
+    updateClipboard(newClip, self) {
+      navigator.clipboard.writeText(newClip).then(function() {
+          /* clipboard successfully set */
+          self.copyMessage = self.$i18n.t('message.copy.ok');
+          self.showCopy = true;
+          setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 2000); 
+        }, function() {
+        /* clipboard write failed */
+          self.copyMessage = self.$i18n.t('message.copy.error');
+          self.showCopy = true;
+          setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 2000); 
+      });
+    },
+
   },
 };
 </script>

@@ -41,7 +41,14 @@
             <div v-for="(group, key) in byMonthStickers" :key="key">
               <div>{{ $t(datekey(key)) }} {{key.substring(0,4)}} </div>
               <template v-for="(item, index) in group">
-                <Sticker :iconName="item.prize" :iconColor="item.color" :key="index" />
+                <v-tooltip top z-index="10" :open-on-hover="true" :open-on-click="true" :key="index">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on"> <!-- native comp for tooltip  -->
+                    <Sticker :iconName="item.prize" :iconColor="item.color"/>
+                    </span>
+                  </template>
+                  <span>{{dateOfPrize(item.dateIssued)}}</span>
+                </v-tooltip>                
               </template>
             </div>            
           </div>
@@ -121,6 +128,12 @@ export default {
     datekey(key) {
       return `months.${key.substring(4)}`;
       // return this.$i18n.t(`months.${key.substring(4)}`);
+    },
+    dateOfPrize(d) {
+      //let dd = new Date(d);
+      //return `days.${key.substring(4)}`;
+      //return new Date(d).toDateString();
+      return new Intl.DateTimeFormat(this.$i18n.locale).format(new Date(d));
     }
 
   },

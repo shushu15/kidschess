@@ -94,13 +94,16 @@
 
   },
   "months": {"0":"Enero","1":"Febrero","2":"Marcha","3":"Abril","4":"Mayo","5":"Junio","6":"Julio","7":"Agosto","8":"Septiembre","9":"Octubre","10":"Noviembre","11":"Diciembre"},
+  "days": {"0":"Dom","1":"Lun","2":"Mar","3":"Mié","4":"Jue","5":"Vie","6":"Sáb"},
 
   "share": {
     "head" : "Decirles a los amigos",
     "title" : "KidsChess: Juegos de ajedrez para niños",
+    "subhead": "Comparta enlaces a KidsChess, que nos ayuda a desarrollar la aplicación de forma gratuita. Seleccionar plataforma:",
     "description": "Club Rifat. Aprender a jugar al ajedrez para los más pequeños. Los juegos enseñan a los niños a prestar atención, comprender la fuerza relativa de las piezas y la importancia de los peones pasados.",
     "quote": "Juego KidsChess. Partidas breves, eficaces y claras con un número reducido de figuras: los personajes ayudarán a los jóvenes ajedrecistas a aumentar su interés por aprender a jugar al ajedrez.",
-    "hashtags": "ajedrez,niños,aprendizaje,pequeño,juego,cabritos"
+    "hashtags": "ajedrez,niños,aprendizaje,pequeño,juego,cabritos",
+    "copy": "o haga clic para copiar un enlace"
   },
   "intro.title": "Reseña del programa",
   "intro": {

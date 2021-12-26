@@ -90,7 +90,11 @@ export default {
     return {
     // isTitleShowing: true,
       forcedReload: new Date(),
-
+      timer :{
+        isInactive: false,
+        userActivityThrottlerTimeout: null,
+        userActivityTimeout: null
+      },
       mdiReload,
       mdiArrangeSendBackward,
       mdiArrangeBringForward,
@@ -136,29 +140,52 @@ export default {
     },
     getStickers() {
       // need to return cached data
-      /*
-      DB.getPrizes().then((result) => {
-        console.log(`getStickers ${typeof result === 'object'? JSON.stringify(result): result}`);
-        return result;
-      });
-      */
-      // return DB.cachedStickers();
       return this.$store.state.dbCache.stickers;
     },
     getGames() {
       // need to return cached data
-      /*
-      DB.getPrizes().then((result) => {
-        console.log(`getStickers ${typeof result === 'object'? JSON.stringify(result): result}`);
-        return result;
-      });
-      */
-      // return DB.cachedStickers();
       return this.$store.state.dbCache.games;
-    }
-    //demoOnScreen() {
-    //  return !this.$store.state.isTitleShowing && this.$store.state.isDemo;
-    //}
+    },
+    // idle Timer methodds
+    activateActivityTracker() {
+      ['click', 'touchstart'].forEach(evt => window.addEventListener(evt, this.userActivityThrottler, false));
+      //window.addEventListener("mousemove", this.userActivityThrottler);
+      //window.addEventListener("scroll", this.userActivityThrottler);
+      //window.addEventListener("keydown", this.userActivityThrottler);
+      //window.addEventListener("resize", this.userActivityThrottler);
+    },
+
+    deactivateActivityTracker() {
+      ['click', 'touchstart'].forEach(evt => window.removeEventListener(evt, this.userActivityThrottler, false));
+      //window.removeEventListener("mousemove", this.userActivityThrottler);
+      //window.removeEventListener("scroll", this.userActivityThrottler);
+      //window.removeEventListener("keydown", this.userActivityThrottler);
+      //window.removeEventListener("resize", this.userActivityThrottler);
+    },
+    resetUserActivityTimeout() {
+      clearTimeout(this.timer.userActivityTimeout);
+
+      this.timer.userActivityTimeout = setTimeout(() => {
+        this.userActivityThrottler();
+        this.inactiveUserAction();
+      }, KidsConst.INACTIVE_USER_TIME_THRESHOLD);
+    },
+    userActivityThrottler() {
+      if (this.timer.isInactive) {
+        this.timer.isInactive = false;
+      }
+      if (!this.timer.userActivityThrottlerTimeout) {
+        this.timer.userActivityThrottlerTimeout = setTimeout(() => {
+          this.resetUserActivityTimeout();
+          clearTimeout(this.timer.userActivityThrottlerTimeout);
+          this.timer.userActivityThrottlerTimeout = null;
+        }, KidsConst.USER_ACTIVITY_THROTTLER_TIME);
+      }
+    },
+    inactiveUserAction() {
+      this.isInactive = true;
+    },
+    
   },
   computed: {
     ...mapGetters(['flipToWhite','flipToBlack','reloadAllowed','finishedGame', 'tasksData','childByID','twoPlayers']),
@@ -171,6 +198,10 @@ export default {
       }, 
     },
   }, 
+
+  beforeMount() {
+    this.activateActivityTracker();
+  },
   
   created() {
 
@@ -185,6 +216,7 @@ export default {
     //console.log(`childTo.id=${childTo.id}`);
     this.$store.commit('setChild', { child:  childTo});
     this.$store.commit('setGameActive', {value: false});
+    this.$store.commit('setAppTimer', {value: Date.now()}); // run up timer
 
    },
 
@@ -204,6 +236,9 @@ export default {
     } 
     if (localStorage.launch_num === undefined) localStorage.launch_num = 1;
     else localStorage.launch_num = +localStorage.launch_num+1;
+    if (localStorage.date_share !== undefined) localStorage.launch_num = 1;
+    else localStorage.launch_num = +localStorage.launch_num+1;
+
 
   },     
   beforeDestroy() {
@@ -212,6 +247,10 @@ export default {
       this.$store.state.webWorkerAI.terminate();
       this.$store.commit('setWorkerAI', { worker: undefined });
     }
+    this.deactivateActivityTracker();
+    clearTimeout(this.timer.userActivityTimeout);
+    clearTimeout(this.timer.userActivityThrottlerTimeout);
+
 
 
   }

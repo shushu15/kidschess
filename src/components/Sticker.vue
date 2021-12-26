@@ -1,5 +1,5 @@
 <template>
-    <v-icon size="56" :color="this.iconColor">{{getStickerIcon(this.iconName)}}</v-icon>         
+    <v-icon :size="this.iconSize" :color="this.iconColor">{{getStickerIcon(this.iconName)}}</v-icon>         
 </template>
 <script> 
 
@@ -32,6 +32,10 @@ export default {
   props: {
     iconName: String,
     iconColor: String,
+    iconSize: {
+      type: Number,
+      default: 56
+    },
   },
   // not using "methods" in functional components https://dev.to/vhoyer/functional-components-in-vue-js-20fl - comments
   methods: {

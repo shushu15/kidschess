@@ -64,6 +64,7 @@
 
 <script>
 import {  mapGetters } from 'vuex'; 
+import TimerMixin from '@/mixins/TimerMixin.js'; 
 import TitleScreen from './components/TitleScreen.vue';
 // import KidsArea from './components/KidsArea.vue';
 //const KidsArea = () => import(/* webpackChunkName: "kidsarea" */ './components/KidsArea.vue');
@@ -75,7 +76,7 @@ import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward,mdiKeyboardBack
 
 export default {
   name: 'App',
-
+  mixins: [TimerMixin], 
   components: {
     TitleScreen,
     // KidsArea,
@@ -90,11 +91,6 @@ export default {
     return {
     // isTitleShowing: true,
       forcedReload: new Date(),
-      timer :{
-        isInactive: false,
-        userActivityThrottlerTimeout: null,
-        userActivityTimeout: null
-      },
       mdiReload,
       mdiArrangeSendBackward,
       mdiArrangeBringForward,
@@ -146,45 +142,19 @@ export default {
       // need to return cached data
       return this.$store.state.dbCache.games;
     },
-    // idle Timer methodds
-    activateActivityTracker() {
-      ['click', 'touchstart'].forEach(evt => window.addEventListener(evt, this.userActivityThrottler, false));
-      //window.addEventListener("mousemove", this.userActivityThrottler);
-      //window.addEventListener("scroll", this.userActivityThrottler);
-      //window.addEventListener("keydown", this.userActivityThrottler);
-      //window.addEventListener("resize", this.userActivityThrottler);
-    },
-
-    deactivateActivityTracker() {
-      ['click', 'touchstart'].forEach(evt => window.removeEventListener(evt, this.userActivityThrottler, false));
-      //window.removeEventListener("mousemove", this.userActivityThrottler);
-      //window.removeEventListener("scroll", this.userActivityThrottler);
-      //window.removeEventListener("keydown", this.userActivityThrottler);
-      //window.removeEventListener("resize", this.userActivityThrottler);
-    },
-    resetUserActivityTimeout() {
-      clearTimeout(this.timer.userActivityTimeout);
-
-      this.timer.userActivityTimeout = setTimeout(() => {
-        this.userActivityThrottler();
-        this.inactiveUserAction();
-      }, KidsConst.INACTIVE_USER_TIME_THRESHOLD);
-    },
-    userActivityThrottler() {
-      if (this.timer.isInactive) {
-        this.timer.isInactive = false;
+    // interface for TimerMixin 
+    emitEvent(name, e) {
+      if (name === 'timer-idle') {
+        console.log(`emitEvent in App: e.idle=${e.idle/1000}s e.uptime=${e.uptime/1000}s`); // eslint-disable-line no-console
+        // not less then 10 lauches, 10 min from game start, 1 month from the last show
+        if ((e.uptime > KidsConst.SHARE_SHOW_TIMER)  && (+localStorage.launch_num >= 10)) {
+          if (!localStorage.share_shown || (localStorage.share_shown && Date.now() - localStorage.share_shown > 30*24*60*60*1000)) {
+            localStorage.share_shown = Date.now();
+            this.$store.commit('toggleShare', { show: true });
+          }
+        }
       }
-      if (!this.timer.userActivityThrottlerTimeout) {
-        this.timer.userActivityThrottlerTimeout = setTimeout(() => {
-          this.resetUserActivityTimeout();
-          clearTimeout(this.timer.userActivityThrottlerTimeout);
-          this.timer.userActivityThrottlerTimeout = null;
-        }, KidsConst.USER_ACTIVITY_THROTTLER_TIME);
-      }
-    },
-    inactiveUserAction() {
-      this.isInactive = true;
-    },
+    },     
     
   },
   computed: {
@@ -198,10 +168,6 @@ export default {
       }, 
     },
   }, 
-
-  beforeMount() {
-    this.activateActivityTracker();
-  },
   
   created() {
 
@@ -236,8 +202,6 @@ export default {
     } 
     if (localStorage.launch_num === undefined) localStorage.launch_num = 1;
     else localStorage.launch_num = +localStorage.launch_num+1;
-    if (localStorage.date_share !== undefined) localStorage.launch_num = 1;
-    else localStorage.launch_num = +localStorage.launch_num+1;
 
 
   },     
@@ -247,12 +211,6 @@ export default {
       this.$store.state.webWorkerAI.terminate();
       this.$store.commit('setWorkerAI', { worker: undefined });
     }
-    this.deactivateActivityTracker();
-    clearTimeout(this.timer.userActivityTimeout);
-    clearTimeout(this.timer.userActivityThrottlerTimeout);
-
-
-
   }
 
 };

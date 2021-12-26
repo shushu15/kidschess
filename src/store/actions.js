@@ -77,7 +77,9 @@ export default {
         commit('switchHelp', {value: false}); }, 5000); 
   },
   /******** DB functions */
+/*jshint -W119 */
   async db_init({state, getters, commit}) {
+/*jshint +W119 */    
     if(state.modeCollectStat) {
       if(DB.getDB()) {
         console.log('db_init db already in use'); // eslint-disable-line no-console

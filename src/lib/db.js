@@ -160,7 +160,7 @@ export async function getPrizes(){
     let nMaxGame, nToPrizeMax = 0, nToPrizeSum = 0;
     let cursor = await db.transaction(storeGames).store.openCursor();
     while (cursor) {   
-      let nToPrize = cursor.value.nToPrize / (cursor.value.prizeCounter + 1); // we count games played for prize div by the number of issued prizes for this game
+      let nToPrize = Math.round(cursor.value.nToPrize / (cursor.value.prizeCounter + 1)); // we count games played for prize div by the number of issued prizes for this game
       // search for the game played most from last prize
       if (nToPrize > nToPrizeMax) {
         nToPrizeMax = nToPrize;

@@ -114,6 +114,9 @@ export default {
   toggleShare(state, { show }) {
     state.showShare = (show === undefined) ? !state.showShare : show;
   },
+  setLastPrize(state, { value }) {
+    state.lastPrize = value;   // set undefined to clear
+  },
 
   modeSpeech(state, payload) {
     if (payload !== undefined && payload.value !== undefined) { 
@@ -146,6 +149,16 @@ export default {
     }
     // value.forEach(elem => state.dbCache.stickers.push(elem));
     state.dbCache.stickers.sort((a,b) => a.dateIssued < b.dateIssued? 1: (a.dateIssued > b.dateIssued? -1:0) );   // sort by dateIssued last up
+    if (state.dbCache.stickers.length > 0) {
+      setTimeout( () => {
+        this.commit('setLastPrize', {value: state.dbCache.stickers[0]});
+        setTimeout( () => {
+          this.commit('setLastPrize', {value: undefined});
+        }, 10000);
+      }, 2000);
+      
+    }
+
   },
   addPrizeToCache(state, {value }) {
     if (typeof value == 'object')
@@ -167,9 +180,5 @@ export default {
     });
     state.dbCache.games.sort((a,b) => +a.nCompleted < +b.nCompleted? 1: (+a.nCompleted > +b.nCompleted? -1:0) );   // sort by nCompleted up
   },
-
-  setAppTimer(state, {value }) {
-    state.appTimer = value;
-  }
 
 };

@@ -58,6 +58,13 @@
       <Intro v-if="$store.state.showIntro" />
       <Stats v-if="$store.state.showStats" :p_stickers="getStickers()" :p_games="getGames()"/>
       <ShareDlg v-if="$store.state.showShare" />
+      <transition name="slide-from-left">
+      <v-btn v-if="this.$store.state.lastPrize" rounded color="primary"  @click="bntPrizes"  class="btn-prizes slide-from-left"><v-avatar color="white" size="32">
+          <Sticker :iconName="this.$store.state.lastPrize.prize" :iconColor="this.$store.state.lastPrize.color" :size=32 class="float-left" />
+      </v-avatar>see your stickers
+     </v-btn>
+     </transition>
+
     </v-main>
   </v-app>
 </template>
@@ -85,6 +92,8 @@ export default {
     Intro: () => import(/* webpackChunkName: "intro", webpackPrefetch: true */ './components/Intro.vue'),
     Stats: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Stats.vue'),
     ShareDlg: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/ShareDlg.vue'),
+    Sticker: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Sticker.vue'),
+
   },
 
   data: function() { // need "this" thus change from arrow function
@@ -142,6 +151,10 @@ export default {
       // need to return cached data
       return this.$store.state.dbCache.games;
     },
+    bntPrizes() {
+      this.$store.commit('setLastPrize', { value: undefined});
+      this.$store.commit('toggleStats', { show: true });
+    },
     // interface for TimerMixin 
     emitEvent(name, e) {
       if (name === 'timer-idle') {
@@ -182,8 +195,6 @@ export default {
     //console.log(`childTo.id=${childTo.id}`);
     this.$store.commit('setChild', { child:  childTo});
     this.$store.commit('setGameActive', {value: false});
-    this.$store.commit('setAppTimer', {value: Date.now()}); // run up timer
-
    },
 
   mounted() {
@@ -238,5 +249,27 @@ export default {
        transform:scale(1.2);
     }
   }
+ .btn-prizes {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+  } 
+.slide-from-left {
+  animation-name: slide-from-left;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+}
+.slide-from-left-enter, .slide-from-left-leave-to
+{
+  transform: translateX(-80vh);
+}
+/*
+ @keyframes slide-from-left { 
+  0% { transform: translateX(-100vh);  }
+  100% {  transform: translateY(0);  } 
+ }
+ */
+
+
 </style>
 

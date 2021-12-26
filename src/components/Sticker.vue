@@ -1,5 +1,5 @@
 <template>
-    <v-icon :size="this.iconSize" :color="this.iconColor">{{getStickerIcon(this.iconName)}}</v-icon>         
+    <v-icon :size="this.size" :color="this.iconColor">{{getStickerIcon(this.iconName)}}</v-icon>         
 </template>
 <script> 
 
@@ -32,7 +32,7 @@ export default {
   props: {
     iconName: String,
     iconColor: String,
-    iconSize: {
+    size: {
       type: Number,
       default: 56
     },

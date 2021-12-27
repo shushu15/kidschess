@@ -115,7 +115,7 @@ export default {
       showCopy: false,
       copyMessage: '',
       sharing: {
-        url: ['https://play.google.com/store/apps/details?id=com.ownlinks.kidschess','https://kidschess.ownlinks.com','https://www.microsoft.com/ru-ru/p/kidschess/9pdgwhlsqbf6'],
+        url: ['https://play.google.com/store/apps/details?id=com.ownlinks.kidschess','https://kidschess.ownlinks.com',`https://www.microsoft.com/${this.langpath()}p/kidschess/9pdgwhlsqbf6`],
         title: this.$i18n.t('share.title'),
         description: this.$i18n.t('share.description'),
         quote: this.$i18n.t('share.quote'),
@@ -127,9 +127,9 @@ export default {
         { network: 'facebook', name: 'Facebook', icon: mdiFacebook, color: '#1877f2' },
         { network: 'linkedin', name: 'LinkedIn', icon: mdiLinkedin, color: '#007bb5' },
         { network: 'messenger', name: 'Messenger', icon: mdiFacebookMessenger, color: '#0084ff' },        
-        { network: 'odnoklassniki', name: 'Odnoklassniki', icon: mdiOdnoklassniki, color: '#ed812b' },
         { network: 'pinterest', name: 'Pinterest', icon: mdiPinterest, color: '#bd081c' },
         { network: 'quora', name: 'Quora', icon: mdiQuora, color: '#a82400' },
+        { network: 'odnoklassniki', name: 'Odnoklassniki', icon: mdiOdnoklassniki, color: '#ed812b' },
         { network: 'reddit', name: 'Reddit', icon: mdiReddit, color: '#ff4500' },
         { network: 'skype', name: 'Skype', icon: mdiSkype, color: '#00aff0' },
         { network: 'telegram', name: 'Telegram', icon: mdiTelegram, color: '#0088cc' },        
@@ -167,6 +167,9 @@ export default {
           setTimeout(() => { self.showCopy = false; /* self.copyMessage='';*/}, 2000); 
       });
     },
+    langpath() {
+      return `${this.$i18n.locale}-${this.$i18n.locale==='en'? 'us':this.$i18n.locale}/`;
+    }
 
   },
 };

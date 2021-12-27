@@ -16,10 +16,11 @@ import { openDB } from 'idb';
  */
 
 let db;
+let counterPrize = 0;
 const dbName = 'cr1-db';
 const storeGames = 'games_played';
 const storePrizes = 'prizes';
-const SUM_TO_PRIZE = 5;
+const SUM_TO_PRIZE = [3,7,11];
 export const DB_OFF = -2;
 export const DB_ERR = -1;
 export const DB_NOTFOUND = 0;
@@ -137,6 +138,8 @@ export async function getPrizes(){
     try {
       result = await db.getAll(storePrizes);
       if (result) {
+        // save the number of prizes for the future scoring 
+        counterPrize = result.length;
         res = DB_OK;
         // result.forEach(element => cache.push(element)); // due to reactivity we need on-element adding
         // cache.stickers = result;
@@ -171,7 +174,7 @@ export async function getPrizes(){
       cursor = await cursor.continue();
     }
     console.log(`checkForPrize nToPrizeSum=${nToPrizeSum}`);
-    if (nToPrizeSum >= SUM_TO_PRIZE)  { // add a prize
+    if (nToPrizeSum >= sumToPrize())  { // add a prize
       prize = {prize: listPrizes[getRandomInt(listPrizes.length)], color: listColors[getRandomInt(listColors.length)], gameID: nMaxGame, dateIssued: Date.now()};
       await db.add(storePrizes, prize);
       // update cache - we can reQuery database or add it to cache manually 
@@ -230,5 +233,11 @@ export function clearCache() {
 */
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
+}
+/********
+ * how many different games need to play to get prize
+ */
+function sumToPrize() {
+  return counterPrize===0? SUM_TO_PRIZE[0]: counterPrize<3? SUM_TO_PRIZE[1]: SUM_TO_PRIZE[2];
 }
 

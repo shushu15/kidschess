@@ -34,8 +34,8 @@ export const TYPE_PRIZE = 3;
 export const SAVED_START = 1;
 export const SAVED_FINISH = 2;
 
-export const INACTIVE_USER_TIME_THRESHOLD = 60000;
-export const USER_ACTIVITY_THROTTLER_TIME = 20000;
+export const INACTIVE_USER_TIME_THRESHOLD = 50000;
+export const USER_ACTIVITY_THROTTLER_TIME = 10000;
 export const SHARE_SHOW_TIMER = 10 * 60 * 1000; // 10 minutes from game launch
 
 

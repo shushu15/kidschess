@@ -81,7 +81,7 @@ const TimerMixin = {
       this.userActivityTimeout = setTimeout(() => {
         this.inactiveUserAction();
         this.userActivityThrottler(false);
-      }, KidsConst.INACTIVE_USER_TIME_THRESHOLD); // KidsConst.INACTIVE_USER_TIME_THRESHOLD-KidsConst.USER_ACTIVITY_THROTTLER_TIME
+      }, KidsConst.INACTIVE_USER_TIME_THRESHOLD-KidsConst.USER_ACTIVITY_THROTTLER_TIME); // KidsConst.INACTIVE_USER_TIME_THRESHOLD-KidsConst.USER_ACTIVITY_THROTTLER_TIME
     },
     userActivityThrottler(fromUser=true) {
       if (this.isInactive && fromUser) {

@@ -61,7 +61,7 @@
       <transition name="slide-from-left">
       <v-btn v-if="this.$store.state.lastPrize" rounded color="primary"  @click="bntPrizes"  class="btn-prizes slide-from-left"><v-avatar color="white" size="32">
           <Sticker :iconName="this.$store.state.lastPrize.prize" :iconColor="this.$store.state.lastPrize.color" :size=32 class="float-left" />
-      </v-avatar>see your stickers
+      </v-avatar>{{$t('btn.switch_color')}}see your stickers
      </v-btn>
      </transition>
 
@@ -254,10 +254,8 @@ export default {
     bottom: 5px;
     left: 5px;
   } 
-.slide-from-left {
-  animation-name: slide-from-left;
-  animation-duration: 3s;
-  animation-timing-function: ease-in-out;
+.slide-from-left-enter-active, .slide-from-left-leave-active{
+  transition: all 2s ease-in-out; /* what transition-property changed on moveing? */
 }
 .slide-from-left-enter, .slide-from-left-leave-to
 {

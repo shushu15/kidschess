@@ -160,6 +160,13 @@ export default {
                 });
               this.$emit('on-speak', speechMess);
             }, 6500); // allow redraw
+            setTimeout( () => {
+              this.$store.commit('setLastPrize', {value: result});
+              setTimeout( () => {
+                this.$store.commit('setLastPrize', {value: undefined});
+              }, 10000);
+            }, 15000);
+
           }
         });
       }

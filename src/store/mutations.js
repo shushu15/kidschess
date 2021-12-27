@@ -149,16 +149,6 @@ export default {
     }
     // value.forEach(elem => state.dbCache.stickers.push(elem));
     state.dbCache.stickers.sort((a,b) => a.dateIssued < b.dateIssued? 1: (a.dateIssued > b.dateIssued? -1:0) );   // sort by dateIssued last up
-    if (state.dbCache.stickers.length > 0) {
-      setTimeout( () => {
-        this.commit('setLastPrize', {value: state.dbCache.stickers[0]});
-        setTimeout( () => {
-          this.commit('setLastPrize', {value: undefined});
-        }, 10000);
-      }, 2000);
-      
-    }
-
   },
   addPrizeToCache(state, {value }) {
     if (typeof value == 'object')

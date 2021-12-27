@@ -272,7 +272,7 @@ export default {
   }
  .btn-prizes {
     position: absolute;
-    bottom: 64px;
+/*    bottom: 64px; */
 /*    top: var('--top-a'); */
     left: 5px;
   } 

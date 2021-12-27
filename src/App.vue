@@ -59,10 +59,10 @@
       <Stats v-if="$store.state.showStats" :p_stickers="getStickers()" :p_games="getGames()"/>
       <ShareDlg v-if="$store.state.showShare" />
       <transition name="slide-from-left">
-      <v-btn v-if="this.$store.state.lastPrize" rounded color="primary"  @click="bntPrizes"  class="btn-prizes slide-from-left"><v-avatar color="white" size="32">
+      <v-btn v-if="this.$store.state.lastPrize" rounded color="primary"  @click="bntPrizes"  class="btn-prizes slide-from-left" :style="this.cssProps()"><v-avatar color="white" size="32">
           <Sticker :iconName="this.$store.state.lastPrize.prize" :iconColor="this.$store.state.lastPrize.color" :size=32 class="float-left" />
-      </v-avatar>{{$t('btn.switch_color')}}see your stickers
-     </v-btn>
+        </v-avatar>{{$t('btn.stickers')}}
+      </v-btn>
      </transition>
 
     </v-main>
@@ -166,8 +166,22 @@ export default {
             this.$store.commit('toggleShare', { show: true });
           }
         }
+        // testing   
+            setTimeout( () => {
+              this.$store.commit('setLastPrize', {value: this.$store.state.dbCache.stickers[0]});
+             setTimeout( () => {
+                this.$store.commit('setLastPrize', {value: undefined});
+              }, 10000);
+            }, 15000);
+        
+        // end testing
       }
-    },     
+    }, 
+    cssProps() {
+      return {
+        top: `${window.innerHeight - 110}px`,
+      }
+    }
     
   },
   computed: {
@@ -180,6 +194,13 @@ export default {
         this.$store.commit('toggleDrawer', { show: value });
       }, 
     },
+    /*
+    cssProps() {
+      return {
+        top: `${window.innerHeight - 110}px`,
+      }
+    }
+*/
   }, 
   
   created() {
@@ -251,15 +272,23 @@ export default {
   }
  .btn-prizes {
     position: absolute;
-    bottom: 5px;
+    bottom: 64px;
+/*    top: var('--top-a'); */
     left: 5px;
   } 
+/*  
+@media screen and (max-height: 700px) {   
+   .btn-prizes {
+      bottom: 36px;
+   }
+}
+*/
 .slide-from-left-enter-active, .slide-from-left-leave-active{
   transition: all 2s ease-in-out; /* what transition-property changed on moveing? */
 }
 .slide-from-left-enter, .slide-from-left-leave-to
 {
-  transform: translateX(-80vh);
+  transform: translateX(-100vw);
 }
 /*
  @keyframes slide-from-left { 

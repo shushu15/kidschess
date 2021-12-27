@@ -53,7 +53,7 @@
             </div>            
           </div>
           <div v-else>
-            {{ $t('stats.stickers') }}
+            {{ $t('stats.no_stickers') }}
         </div>
 
 

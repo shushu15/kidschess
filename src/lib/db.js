@@ -20,7 +20,7 @@ let counterPrize = 0;
 const dbName = 'cr1-db';
 const storeGames = 'games_played';
 const storePrizes = 'prizes';
-const SUM_TO_PRIZE = [3,7,11];
+const SUM_TO_PRIZE = [3,5,7];
 export const DB_OFF = -2;
 export const DB_ERR = -1;
 export const DB_NOTFOUND = 0;
@@ -70,7 +70,7 @@ export async function startGame(gameID){
     result.lastPlayed = Date.now();
     await db.put(storeGames, result);
     res =  DB_OK;
-    console.log(`db startGame ${typeof result === 'object'? JSON.stringify(result): result}`);
+    // console.log(`db startGame ${typeof result === 'object'? JSON.stringify(result): result}`);
   } catch(err) {
     console.log(`db startGame catch error ${err.toString()}`);
   }
@@ -83,7 +83,7 @@ export async function finishGame(gameID){
   try {
     let result = await db.get(storeGames, gameID);
     if (!result) { // in the case of switching storing in the middle of the game TODO - reinit database
-      console.log(`db finishGame NOF ${result}`);
+      // console.log(`db finishGame NOF ${result}`);
       result = {gameID:gameID, nStarted:1, nCompleted:0, nToPrize:0, lastPlayed:undefined, prizeCounter:0};
     }
     result.nCompleted++;
@@ -91,11 +91,11 @@ export async function finishGame(gameID){
     result.lastPlayed = Date.now();
     await db.put(storeGames, result);
     res =  DB_OK;
-    console.log(`db finishGame ${typeof result === 'object'? JSON.stringify(result): result}`);
+    // console.log(`db finishGame ${typeof result === 'object'? JSON.stringify(result): result}`);
   } catch(err) {
     console.log(`db finishGame catch error ${err.toString()}`);
   }
-  console.log(`db finishGame res=${res}`);
+  // console.log(`db finishGame res=${res}`);
   return res;  
 }
 
@@ -173,7 +173,7 @@ export async function getPrizes(){
       // console.log(cursor.key, cursor.value);
       cursor = await cursor.continue();
     }
-    console.log(`checkForPrize nToPrizeSum=${nToPrizeSum}`);
+    // console.log(`checkForPrize nToPrizeSum=${nToPrizeSum}`);
     if (nToPrizeSum >= sumToPrize())  { // add a prize
       prize = {prize: listPrizes[getRandomInt(listPrizes.length)], color: listColors[getRandomInt(listColors.length)], gameID: nMaxGame, dateIssued: Date.now()};
       await db.add(storePrizes, prize);
@@ -204,11 +204,11 @@ export async function getPrizes(){
  * GameID - the current game
  * for testing
  */
-export async function forcePrize(gameID) {
+export async function forcePrize(gameID, dateIssued) {
   let res =  DB_ERR;
   let prize = DB_NOTFOUND;
   try {
-      prize = {prize: listPrizes[getRandomInt(listPrizes.length)], color: listColors[getRandomInt(listColors.length)], gameID: gameID, dateIssued: Date.now()};
+      prize = {prize: listPrizes[getRandomInt(listPrizes.length)], color: listColors[getRandomInt(listColors.length)], gameID: gameID, dateIssued: dateIssued? dateIssued: Date.now()};
       await db.add(storePrizes, prize);
       res = DB_OK;
   } catch(err) {

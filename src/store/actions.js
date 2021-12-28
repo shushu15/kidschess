@@ -83,7 +83,7 @@ export default {
     if(state.modeCollectStat) {
       if(DB.getDB()) {
         console.log('db_init db already in use'); // eslint-disable-line no-console
-        DB.close();
+        await DB.close();
       }
       await DB.init().then((res) => {
         if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
@@ -116,11 +116,11 @@ export default {
   db_endGame({dispatch}) {
     return new Promise ((resolve) => {
       dispatch('db_saveGame', {type: KidsConst.SAVED_FINISH}).then((result) => {
-        console.log(`db_endGame start ${typeof result === 'object'? JSON.stringify(result): result}`);
+        // console.log(`db_endGame start ${typeof result === 'object'? JSON.stringify(result): result}`);
         if (result === DB.DB_OK) {
           dispatch('db_cacheGames');
           dispatch('db_checkForPrize', {result} ).then((result) => {
-            console.log(`db_endGame ${typeof result === 'object'? JSON.stringify(result): result}`);
+            // console.log(`db_endGame ${typeof result === 'object'? JSON.stringify(result): result}`);
             resolve(result);
           });
         } else resolve(result);
@@ -162,7 +162,7 @@ export default {
   },
 
   db_cacheGames({commit, getters}) {
-    console.log('db_cacheGames start'); // eslint-disable-line no-console
+    // console.log('db_cacheGames start'); // eslint-disable-line no-console
     DB.getGames().then((result) => {
       if (typeof result == 'object')
         commit('fillGamesCache', {value: result, getters});
@@ -170,12 +170,12 @@ export default {
   },
 
   db_checkForPrize({state, commit}) {
-    console.log('db_checkForPrize'); // eslint-disable-line no-console
+    // console.log('db_checkForPrize'); // eslint-disable-line no-console
     return new Promise((resolve) => {
       let result = DB.DB_OFF;
       if(DB.getDB() && state.modeCollectStat) {
         // let tmp_stickers = [];
-        console.log('db_checkForPrize 2'); // eslint-disable-line no-console
+        // console.log('db_checkForPrize 2'); // eslint-disable-line no-console
         DB.checkForPrize().then((res) => {
           result = res;
           if (res === DB.DB_ERR) {

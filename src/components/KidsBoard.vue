@@ -148,7 +148,7 @@ export default {
     dbOnGameEnd() {
       if (!this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
         this.$store.dispatch('db_endGame').then((result) => {
-          console.log(`dbOnGameEnd ${typeof result === 'object'? JSON.stringify(result): result}`);
+          // console.log(`dbOnGameEnd ${typeof result === 'object'? JSON.stringify(result): result}`);
           if (typeof result === 'object') {
             setTimeout(() => {
               let speechMess = '';

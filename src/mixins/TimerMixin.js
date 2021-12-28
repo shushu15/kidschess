@@ -98,7 +98,7 @@ const TimerMixin = {
     },
     inactiveUserAction() {
       this.isInactive = true;
-      console.log(`TimerMixin: now=${performance.now()} idle=${this.timers.checked} uptime=${this.timers.start}`); // eslint-disable-line no-console
+      // console.log(`TimerMixin: now=${performance.now()} idle=${this.timers.checked} uptime=${this.timers.start}`); // eslint-disable-line no-console
       return new Promise((resolve) => {
         this.emit('timer-idle', { idle: performance.now()-this.timers.checked, uptime: performance.now()-this.timers.start }); 
         resolve();
@@ -111,10 +111,11 @@ const TimerMixin = {
         this.emitEvent(name, e );
       }
     },
+    /*
     getPassive() {
       return this.supportsPassive;
     },
-
+*/
   },
 
 };

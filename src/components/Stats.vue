@@ -39,7 +39,7 @@
       <v-tab-item class="py-2">
           <div v-if="stickersOk">
             <div v-for="(group, key) in byMonthStickers" :key="key">
-              <div>{{ $t(datekey(key)) }} {{key.substring(0,4)}} </div>
+              <div class="pt-2">{{ $t(month_from_key(key)) }} {{year_from_key(key)}} </div>
               <template v-for="(item, index) in group">
                 <v-tooltip top z-index="10" :open-on-hover="true" :open-on-click="true" :key="index">
                   <template v-slot:activator="{ on, attrs }">
@@ -125,10 +125,25 @@ export default {
     closeStats() {
       this.$store.commit('toggleStats', { show: false });
     },
+    /*
     datekey(key) {
       return `months.${key.substring(4)}`;
       // return this.$i18n.t(`months.${key.substring(4)}`);
     },
+    */
+   // See comment to byMonthStickers
+    month_from_key(key) {
+      let revert = 500000 - (+key)
+      return `months.${revert%100}`;
+      // return this.$i18n.t(`months.${key.substring(4)}`);
+    },
+   // See comment to byMonthStickers
+    year_from_key(key) {
+      let revert = 500000 - (+key)
+      return `${Math.floor(revert/100)}`;
+      // return this.$i18n.t(`months.${key.substring(4)}`);
+    },
+
     dateOfPrize(d) {
       //let dd = new Date(d);
       //return `days.${key.substring(4)}`;
@@ -145,10 +160,23 @@ export default {
     /**
      * returns object groupped stickers by monthe, with keys like 'yyyym' or 'yyyymm' and values - arrays of stickers
      */
+    /*
     byMonthStickers: function () {
       return this.p_stickers.reduce((pre, cur) => { // reduceRight in back order - NOT already, we sorted it before
         let d = new Date(cur.dateIssued);
         let key = `${d.getFullYear()}${d.getMonth()}`;
+        if (!( key in pre)) pre[key] = [];
+        pre[key].push(cur);
+        return pre;
+      }, {});  // .sort((a,b) => a<b? 1:(a>b?-1:0));     // sort in backward order from the last months top
+    },
+    */
+    byMonthStickers: function () {
+      return this.p_stickers.reduce((pre, cur) => { // reduceRight in back order - NOT already, we sorted it before
+        let d = new Date(cur.dateIssued);
+        // NOW we need a special trick to have it ordered from hi to low, because Vue traverse Objects from low to hi and does not surpports Maps
+        let key = 500000 - (d.getFullYear() * 100 + d.getMonth());
+        // let key = `${d.getFullYear()}${d.getMonth()}`;
         if (!( key in pre)) pre[key] = [];
         pre[key].push(cur);
         return pre;

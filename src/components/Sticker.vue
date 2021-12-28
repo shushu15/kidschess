@@ -18,12 +18,11 @@ const namesStickers = [
     {n: 'mdiRocket', i: mdiRocket},
     {n: 'mdiAirplane', i: mdiAirplane},
     {n: 'mdiBird', i: mdiBird},
-    {n: 'mdiBird', i: mdiCarConvertible},   
+    {n: 'mdiCarConvertible', i: mdiCarConvertible},   
     {n: 'mdiEmoticonCoolOutline', i: mdiEmoticonCoolOutline},
     {n: 'mdiHeart', i: mdiHeart},
-    {n: 'mdiHeart', i: mdiCat},
-    {n: 'mdiHeart', i: mdiDog},
-
+    {n: 'mdiCat', i: mdiCat},
+    {n: 'mdiDog', i: mdiDog},
     ];
 
 export default {

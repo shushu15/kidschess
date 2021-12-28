@@ -81,6 +81,7 @@ import { mdiReload,mdiArrangeSendBackward,mdiArrangeBringForward,mdiKeyboardBack
 // import * as DB from '@/lib/db.js';
 
 
+
 export default {
   name: 'App',
   mixins: [TimerMixin], 
@@ -158,28 +159,46 @@ export default {
     // interface for TimerMixin 
     emitEvent(name, e) {
       if (name === 'timer-idle') {
-        console.log(`emitEvent in App: e.idle=${e.idle/1000}s e.uptime=${e.uptime/1000}s`); // eslint-disable-line no-console
+        // console.log(`emitEvent in App: e.idle=${e.idle/1000}s e.uptime=${e.uptime/1000}s`); // eslint-disable-line no-console
         // not less then 10 lauches, 10 min from game start, 1 month from the last show
         if ((e.uptime > KidsConst.SHARE_SHOW_TIMER)  && (+localStorage.launch_num >= 10)) {
-          if (!localStorage.share_shown || (localStorage.share_shown && Date.now() - localStorage.share_shown > 30*24*60*60*1000)) {
+          if (!localStorage.share_shown || (localStorage.share_shown && Date.now() - localStorage.share_shown > KidsConst.REMIND_SHARE)) {
             localStorage.share_shown = Date.now();
             this.$store.commit('toggleShare', { show: true });
           }
         }
-        // testing   
+        // testing   button 
+        /*
             setTimeout( () => {
-              this.$store.commit('setLastPrize', {value: this.$store.state.dbCache.stickers[0]});
+              let prize = this.$store.state.dbCache.stickers.length > 0 && this.$store.state.dbCache.stickers[0] ? 
+                this.$store.state.dbCache.stickers[0]:
+                        {color: "light-blue",
+                          dateIssued: 1640560420416,
+                          gameID: "322c7b6a-4323-4993-8f07-b063e15ac775",
+                          prize: "mdiFlower"};
+              console.log(`prize Button ${prize}`); // eslint-disable-line no-console
+              this.$store.commit('setLastPrize', {value: prize});
              setTimeout( () => {
                 this.$store.commit('setLastPrize', {value: undefined});
               }, 10000);
             }, 15000);
-        
+        */
         // end testing
+        // testing   database
+        /*
+        let d = this.$store.state.tasks[DB.getRandomInt(this.$store.state.tasks.length)].data;
+        let id = d[DB.getRandomInt(d.length)].id;
+        let issued = new Date(2021, DB.getRandomInt(12), DB.getRandomInt(30)).valueOf(); 
+        DB.forcePrize(id, issued);
+        console.log(`emitEvent for gameID=${id} issued=${issued}`); // eslint-disable-line no-console
+        */
+        // end testing database
+        
       }
     }, 
     cssProps() {
       return {
-        top: `${window.innerHeight - 110}px`,
+        top: `${window.innerHeight + window.scrollY - 110}px`,
       }
     }
     
@@ -234,6 +253,9 @@ export default {
     } 
     if (localStorage.launch_num === undefined) localStorage.launch_num = 1;
     else localStorage.launch_num = +localStorage.launch_num+1;
+    if (localStorage.collectStat !== undefined) {
+      this.$store.commit('collectStat', {value: localStorage.collectStat == 'true'});
+    } 
 
 
   },     

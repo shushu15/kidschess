@@ -137,7 +137,7 @@ export default {
     console.log(`speechSupported commit to :${value}`); // eslint-disable-line no-console
   },
   saveGameSign(state, {value, type}) {
-    if (type === undefined || type===KidsConst.SAVED_START)  // special case to set both values
+    if (type === undefined || type===KidsConst.SAVED_START)  // undefined - special case to set both values
       state.gameSaved.start = value;
     if (type === undefined || type===KidsConst.SAVED_FINISH)
       state.gameSaved.finish = value;

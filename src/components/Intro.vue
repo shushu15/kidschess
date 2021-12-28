@@ -29,7 +29,7 @@
                   v-text="$t('intro.title')"
                 >
                 </v-card-title>
-                <v-card-subtitle v-if="item.subtitle" class="text-subtitle-2">
+                <v-card-subtitle v-if="item.subtitle" class="text-subtitle-2 py-0">
                   {{ $t(item.subtitle) }}
                 </v-card-subtitle>
                 <v-card-title
@@ -138,4 +138,7 @@ export default {
     right: 0;
     z-index: 10;
   }
+.v-card__title {
+  word-break: normal!important;
+}  
 </style>

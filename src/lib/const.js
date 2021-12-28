@@ -34,8 +34,9 @@ export const TYPE_PRIZE = 3;
 export const SAVED_START = 1;
 export const SAVED_FINISH = 2;
 
-export const INACTIVE_USER_TIME_THRESHOLD = 15000; //30000;
-export const USER_ACTIVITY_THROTTLER_TIME = 5000; //10000;
+export const INACTIVE_USER_TIME_THRESHOLD = 30000;
+export const USER_ACTIVITY_THROTTLER_TIME = 10000;
 export const SHARE_SHOW_TIMER = 10 * 60 * 1000; // 10 minutes from game launch
+export const REMIND_SHARE = 30*24*60*60*1000; // remind onw time per month
 
 

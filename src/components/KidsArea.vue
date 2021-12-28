@@ -154,7 +154,7 @@
 import {  mapGetters } from 'vuex'; 
 import KidsBoard from './KidsBoard.vue';
 import InlineSvg from 'vue-inline-svg';
-import Sticker from './Sticker.vue';
+// import Sticker from './Sticker.vue';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
 import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
@@ -167,7 +167,7 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     components: {
       KidsBoard,
       InlineSvg,
-      Sticker
+      Sticker: () => import(/* webpackChunkName: "sticker", webpackPrefetch: true */ './Sticker.vue'),
 
     },
   props: {

@@ -91,9 +91,9 @@ export default {
     KidsArea: () => import(/* webpackChunkName: "kidsarea", webpackPrefetch: true */ './components/KidsArea.vue'),
     Navi: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Navi.vue'),
     Intro: () => import(/* webpackChunkName: "intro", webpackPrefetch: true */ './components/Intro.vue'),
-    Stats: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Stats.vue'),
-    ShareDlg: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/ShareDlg.vue'),
-    Sticker: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './components/Sticker.vue'),
+    Stats: () => import(/* webpackChunkName: "stats", webpackPrefetch: true */ './components/Stats.vue'),
+    ShareDlg: () => import(/* webpackChunkName: "share", webpackPrefetch: true */ './components/ShareDlg.vue'),
+    Sticker: () => import(/* webpackChunkName: "sticker", webpackPrefetch: true */ './components/Sticker.vue'),
 
   },
 

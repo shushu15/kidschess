@@ -97,7 +97,7 @@
 <script>
 
 
-import Sticker from './Sticker.vue';
+// import Sticker from './Sticker.vue';
 import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu, } from '@mdi/js';
 export default {
   name: 'Stats',
@@ -106,7 +106,8 @@ export default {
     p_games: Array, // should be sorted last up
   },
   components: {
-    Sticker,
+    Sticker: () => import(/* webpackChunkName: "sticker", webpackPrefetch: true */ './Sticker.vue'),
+
   },
   data() {
     return {

@@ -2,10 +2,10 @@
       <transition name="fade">
         <v-card class="title-screen">
           <v-card-text>
-              <div class="d-flex justify-center text-center"><h2>{{ $t('title.2') }}</h2></div>
+              <div class="d-flex justify-center text-center text-h6">{{ $t('title.2') }}</div>
           </v-card-text>  
-          <v-card-title  class="text-center" color="primary" >
-              <h2>{{ $t('title.kids') }}</h2>
+          <v-card-title  class="text-center text-h5" color="primary" >
+              {{ $t('title.kids') }}
           </v-card-title>
           <v-card-text>
               <div class="d-flex justify-center text-center body-1">{{ $t('title.1') }}</div>
@@ -141,6 +141,11 @@ export default {
     transform: translateY(0);
   } 
 }
+
+.v-card__title, .v-card__title {
+  word-break: normal!important;
+} 
+
 
 
 </style>

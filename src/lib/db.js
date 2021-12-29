@@ -261,7 +261,7 @@ function sumToPrize() {
 function recountCoeff(total, balance) {
   // need to translate 1 .. 0 to say 0.6 .. 0.1 
   let c = Math.abs(balance) / total / 2  + 0.1;
-  console.log(`recountCoeff ${c}`); // eslint-disable-line no-console
+  // console.log(`recountCoeff ${c}`); // eslint-disable-line no-console
   return  c;
 }
 

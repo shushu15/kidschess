@@ -373,7 +373,7 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
       }
     });
     if (+localStorage.launch_num === 1) {
-      setTimeout(() => { this.$store.commit('toggleIntro', { show: true }); }, 7000);     
+      setTimeout(() => { this.$store.commit('toggleIntro', { show: true }); }, 10000);     
     }
     if(this.$store.state.modeCollectStat) {
       setTimeout(() => { this.$store.dispatch('db_init'); }, 1000);     

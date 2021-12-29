@@ -49,7 +49,7 @@
   "message.yourmove": "tu turno",
   "message.board.two_players": "El tablero está actualmente en modo de dos jugadores. Puede cambiar al modo normal en el menú de configuración",
   "message.speech.nosupport": "La voz que habla en este idioma no es compatible con el navegador o el sistema: {0}",
-  "message.prize": "¡Felicidades! Ha recibido una nueva calcomanía. Juega diferentes juegos, termina el juego hasta el final y obtén calcomanías",
+  "message.prize": "¡Felicidades! Ha recibido una nueva calcomanía. Juega diferentes juegos para ambos lados hasta el final y obtén calcomanías.",
 
   "help.mainmenu": "main menu",
   "help.reload" : "repetir juego",

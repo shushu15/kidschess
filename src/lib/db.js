@@ -7,6 +7,7 @@ import { openDB } from 'idb';
  *  nToPrize - Number - number of games finished from last prize
  *  lastPlayed - Date.now() - date of last played (maybe only date, not time)
  *  prizeCounter - how many prizes with this leading game
+ *  WB - balance of white/black games for prize, W +1, B -1. Used to count coeff
  *  
  * prizes store fields
  *  prize - prize type
@@ -17,10 +18,11 @@ import { openDB } from 'idb';
 
 let db;
 let counterPrize = 0;
-const dbName = 'cr1-db';
+const dbName = 'kidschess-db';
 const storeGames = 'games_played';
 const storePrizes = 'prizes';
 const SUM_TO_PRIZE = [3,5,7];
+// const ONE_GAME_COEFF = 0.5; // coeff to reduce repeating game prizes (with multiply on prizes for this game)
 export const DB_OFF = -2;
 export const DB_ERR = -1;
 export const DB_NOTFOUND = 0;
@@ -40,7 +42,7 @@ export async function init(){
   // Set up the database
   let res =  DB_ERR;
   if (!('indexedDB' in window)) {
-    console.log('This browser doesn\'t support IndexedDB');
+    console.log('This browser doesn\'t support IndexedDB'); // eslint-disable-line no-console
     return DB_NOTFOUND;
   }  
   try {
@@ -54,17 +56,21 @@ export async function init(){
     });
     res =  DB_OK;
   } catch(err) {
-    console.log(`db init ${err.toString()}`);
+    console.log(`db init ${err.toString()}`); // eslint-disable-line no-console
   }
   return res;  
 }
+/*******
+ * @param gameID - String id from tasks[] in store, the current game id
+ * @param side - true: WHITE, false: BLACK
+ */
 export async function startGame(gameID){
   let res =  DB_ERR;
   try {
     let result = await db.get(storeGames, gameID);
     //fill result with initial values if returned no results
     if (!result) {
-      result = {gameID:gameID, nStarted:0, nCompleted:0, nToPrize:0, lastPlayed:undefined, prizeCounter:0};
+      result = {gameID:gameID, nStarted:0, nCompleted:0, nToPrize:0, lastPlayed:undefined, prizeCounter:0, WB:0};
     }
     result.nStarted++;
     result.lastPlayed = Date.now();
@@ -72,28 +78,33 @@ export async function startGame(gameID){
     res =  DB_OK;
     // console.log(`db startGame ${typeof result === 'object'? JSON.stringify(result): result}`);
   } catch(err) {
-    console.log(`db startGame catch error ${err.toString()}`);
+    console.log(`db startGame catch error ${err.toString()}`); // eslint-disable-line no-console
   }
   // console.log(`db startGame res=${res}`);
   return res;  
 }
 
-export async function finishGame(gameID){
+/*******
+ * @param gameID - String id from tasks[] in store, the current game id
+ * @param side - true: WHITE, false: BLACK
+ */
+ export async function finishGame(gameID, side){
   let res =  DB_ERR;
   try {
     let result = await db.get(storeGames, gameID);
     if (!result) { // in the case of switching storing in the middle of the game TODO - reinit database
       // console.log(`db finishGame NOF ${result}`);
-      result = {gameID:gameID, nStarted:1, nCompleted:0, nToPrize:0, lastPlayed:undefined, prizeCounter:0};
+      result = {gameID:gameID, nStarted:1, nCompleted:0, nToPrize:0, lastPlayed:undefined, prizeCounter:0, WB:0};
     }
     result.nCompleted++;
     result.nToPrize++;
     result.lastPlayed = Date.now();
+    result.WB += side? 1: -1; // for WHITE we +1 for BLACK -1
     await db.put(storeGames, result);
     res =  DB_OK;
     // console.log(`db finishGame ${typeof result === 'object'? JSON.stringify(result): result}`);
   } catch(err) {
-    console.log(`db finishGame catch error ${err.toString()}`);
+    console.log(`db finishGame catch error ${err.toString()}`); // eslint-disable-line no-console
   }
   // console.log(`db finishGame res=${res}`);
   return res;  
@@ -119,7 +130,7 @@ export async function finishGame(gameID){
       else 
         res =  DB_NOTFOUND;
     } catch(err) {
-      console.log(`db getGames ${err.toString()}`);
+      console.log(`db getGames ${err.toString()}`); // eslint-disable-line no-console
     }
   // }
   return res === DB_OK? result: res;  
@@ -147,7 +158,7 @@ export async function getPrizes(){
       else 
         res =  DB_NOTFOUND;
     } catch(err) {
-      console.log(`db getPrizes ${err.toString()}`);
+      console.log(`db getPrizes ${err.toString()}`); // eslint-disable-line no-console
     }
   // }
   return res === DB_OK? result: res;  
@@ -163,7 +174,7 @@ export async function getPrizes(){
     let nMaxGame, nToPrizeMax = 0, nToPrizeSum = 0;
     let cursor = await db.transaction(storeGames).store.openCursor();
     while (cursor) {   
-      let nToPrize = Math.round(cursor.value.nToPrize / (cursor.value.prizeCounter + 1)); // we count games played for prize div by the number of issued prizes for this game
+      let nToPrize = Math.round(cursor.value.nToPrize / (cursor.value.prizeCounter * recountCoeff(cursor.value.nToPrize, cursor.value.WB) + 1)); // we count games played for prize div by the number of issued prizes with coeff for this game
       // search for the game played most from last prize
       if (nToPrize > nToPrizeMax) {
         nToPrizeMax = nToPrize;
@@ -187,6 +198,7 @@ export async function getPrizes(){
         let record = cursor.value;
         if (record.nToPrize > 0 || record.gameID === nMaxGame) {
           record.nToPrize = 0;
+          record.WB = 0;
           record.prizeCounter++;
           await cursor.update(record);
         }
@@ -195,7 +207,7 @@ export async function getPrizes(){
       res = DB_OK;
     } else res = DB_NOTFOUND;   
   } catch(err) {
-    console.log(`db checkForPrize ${err.toString()}`);
+    console.log(`db checkForPrize ${err.toString()}`); // eslint-disable-line no-console
   }
   return res === DB_OK? prize: res;  
 
@@ -212,7 +224,7 @@ export async function forcePrize(gameID, dateIssued) {
       await db.add(storePrizes, prize);
       res = DB_OK;
   } catch(err) {
-    console.log(`db forcePrize ${err.toString()}`);
+    console.log(`db forcePrize ${err.toString()}`); // eslint-disable-line no-console
   }
   return res === DB_OK? prize: res;  
 
@@ -239,5 +251,17 @@ function getRandomInt(max) {
  */
 function sumToPrize() {
   return counterPrize===0? SUM_TO_PRIZE[0]: counterPrize<3? SUM_TO_PRIZE[1]: SUM_TO_PRIZE[2];
+}
+/*****
+ * @param int balance "+ more WHITE games, "-" more BLACK games, 0 equal for prize
+ * @param int total - total number of played games for prize
+ * 
+ * balance: W - B, total: W + B, example total==100 balance==50, thus W==75, B==25, so 0.5 is a good threshold
+ */
+function recountCoeff(total, balance) {
+  // need to translate 1 .. 0 to say 0.6 .. 0.1 
+  let c = Math.abs(balance) / total / 2  + 0.1;
+  console.log(`recountCoeff ${c}`); // eslint-disable-line no-console
+  return  c;
 }
 

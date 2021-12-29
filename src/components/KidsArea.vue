@@ -167,7 +167,7 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     components: {
       KidsBoard,
       InlineSvg,
-      Sticker: () => import(/* webpackChunkName: "sticker", webpackPrefetch: true */ './Sticker.vue'),
+      Sticker: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './Sticker.vue'),
 
     },
   props: {

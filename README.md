@@ -15,7 +15,7 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 
 ## Site 
 
-[ownlinks.com/kidschess](https://ownlinks.com/kidschess/)
+[kidschess.ownlinks.com/](https://kidschess.ownlinks.com/)
 
 ## Authors and acknowledgment
 
@@ -40,6 +40,8 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## TODO
+* 1.2.0 DB, Stickers, Stats, idle timer, show Share reminder, changed Share dlg, Stat window
+
 * 0.1.12 AI "thinking" on all big levels
 * 0.1.12 Stop games after finish
 * 0.1.12 Group icon "copy game" (change icon) and game record

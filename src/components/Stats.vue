@@ -106,7 +106,7 @@ export default {
     p_games: Array, // should be sorted last up
   },
   components: {
-    Sticker: () => import(/* webpackChunkName: "sticker", webpackPrefetch: true */ './Sticker.vue'),
+    Sticker: () => import(/* webpackChunkName: "navi", webpackPrefetch: true */ './Sticker.vue'),
 
   },
   data() {

@@ -146,7 +146,7 @@ export default {
           });
           break;
         case KidsConst.SAVED_FINISH: 
-          DB.finishGame(state.currentTask.id).then((res) => {
+          DB.finishGame(state.currentTask.id, state.currentTask.orientation===KidsConst.WHITE).then((res) => {
             if (res === DB.DB_ERR || res === DB.DB_NOTFOUND) {
               commit('collectStat',  {value: false});
               result = res;

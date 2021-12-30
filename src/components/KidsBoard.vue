@@ -87,6 +87,8 @@ export default {
     aiNextMove() {
       this.$store.commit('setGameActive', {value: true})
       let res = this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
+      // console.log(`aiNextMove res=${res}`);
+
       this.board.set({
         movable: {
           color: undefined, // disable moves
@@ -378,7 +380,7 @@ export default {
     this.unwatch = this.$store.watch(  // https://vuex.vuejs.org/api/#watch
       (state, getters) => getters.moveAI,
       (newValue /*, oldValue*/) => {
-        //console.log(`KidsBoard Watcher MoveAI ${newValue}`); // eslint-disable-line no-console ,
+        // console.log(`KidsBoard Watcher MoveAI ${newValue}`); // eslint-disable-line no-console ,
         if (newValue.length === 0) // '' clears on backmove
           return;
         if (newValue.length === 4) {

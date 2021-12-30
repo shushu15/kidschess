@@ -90,7 +90,10 @@
       <v-col cols="12" class="ma-0 pa-0">
         <v-fade-transition v-if="showBtnStart">
           <div >
-            <v-btn v-if="showBtnStart" rounded color="primary"  @click="bntGameStart">{{ $store.state.history.moves.length>0? $t('btn.game.continue') : $t('btn.game.start') }}</v-btn>
+            <v-btn v-if="showBtnStart" rounded color="primary" @click="bntGameStart">
+              {{ $store.state.history.moves.length>0? $t('btn.game.continue') : $t('btn.game.start') }}
+              <v-icon class="glowbtn">{{mdiGestureTap}}</v-icon>
+            </v-btn>
            </div>
          </v-fade-transition>     
       </v-col>
@@ -157,7 +160,7 @@ import InlineSvg from 'vue-inline-svg';
 // import Sticker from './Sticker.vue';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8 } from '@mdi/js';
+import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8,mdiGestureTap } from '@mdi/js';
 
 
 
@@ -187,7 +190,8 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
       mdiCircleSlice1,
       mdiCircleSlice3,
       mdiCircleSlice5,
-      mdiCircleSlice8
+      mdiCircleSlice8,
+      mdiGestureTap
     }
   },  
   /* data () {
@@ -508,6 +512,32 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
   90% { transform: translateY(-50vh);  }
   100% {  transform: translateY(0);  } 
  }
+
+.glowbtn {
+  animation: glowbtn 1s ease-in-out 1s infinite alternate;
+}
+@keyframes glowbtn {
+	0% {
+    color : white;
+	}
+	100% {
+    color : #2196F3;
+	}
+} 
+
+/*
+@keyframes glowbtn {
+	0% {
+		box-shadow: 0 0 8px hsl(199, 95%, 45%);
+	}
+	50% {
+		box-shadow: 0 0 12px hsl(199, 100%, 26%);
+	}
+	100% {
+		box-shadow: 0 0 8px blue;
+	}
+} 
+/*
 
  /*
   .snackbar_neg {

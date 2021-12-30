@@ -73,7 +73,7 @@
         <span> {{ network.name }}</span>
       </ShareNetwork>
       </v-card-text>
-      <v-card-text class="pt-0">
+      <v-card-text class="pa-0">
         <v-tooltip v-model="showCopy" z-index="10" top :open-on-hover="false" :open-on-click="false" >
           <template v-slot:activator="{ on, attrs }">
 
@@ -82,12 +82,20 @@
             :label="$t('share.copy')"
             filled
             readonly
-            @click="actCopy"  v-bind="attrs" v-on="on"
+            @click="actCopy(sharing.url[activeapp])"  v-bind="attrs" v-on="on"
           ></v-text-field>
+          <v-avatar
+            tile
+            color="white"
+            size="48"
+             @click="actCopy(sharing.qr[activeapp],true)" 
+          >
+            <img :src="sharing.qr[activeapp]" alt="QR">
+          </v-avatar>        
+
           </template>
           <span>{{this.copyMessage}}</span>
         </v-tooltip>
-
       </v-card-text>
     </v-card>
     </v-overlay>
@@ -116,6 +124,7 @@ export default {
       copyMessage: '',
       sharing: {
         url: ['https://play.google.com/store/apps/details?id=com.ownlinks.kidschess','https://kidschess.ownlinks.com',`https://www.microsoft.com/${this.langpath()}p/kidschess/9pdgwhlsqbf6`],
+        qr:['img/kidschess-google-qr.png','img/kidschess-pwa-qr.png','img/kidschess-microsoft-qr.png'],
         title: this.$i18n.t('share.title'),
         description: this.$i18n.t('share.description'),
         quote: this.$i18n.t('share.quote'),
@@ -145,17 +154,26 @@ export default {
     closeShare() {
       this.$store.commit('toggleShare', { show: false });
     },
-    actCopy() {
+    actCopy(src, binary=false) {
       let self = this;
       navigator.permissions.query({name: "clipboard-write"}).then(result => {
         if (result.state == "granted" || result.state == "prompt") {
           /* write to the clipboard now */
-          this.updateClipboard(this.sharing.url[this.activeapp], self);
+          this.updateClipboard(src, binary, self);
         }
       });
     },
-    updateClipboard(newClip, self) {
-      navigator.clipboard.writeText(newClip).then(function() {
+    async updateClipboard(newClip, binary, self) {
+      let P1;
+      if (binary) {
+        const response = await fetch(newClip);
+        const blob = await response.blob();
+        const data = [new window.ClipboardItem({ [blob.type]: blob })];  // blob.type =="image/png"
+        P1 = navigator.clipboard.write(data);
+      } else {
+        P1 = navigator.clipboard.writeText(newClip);
+      }
+      P1.then(function() {
           /* clipboard successfully set */
           self.copyMessage = self.$i18n.t('message.copy.ok');
           self.showCopy = true;
@@ -227,4 +245,8 @@ export default {
     text-transform: none !important;
     align-items: center;  /* vertical alignment of items */
   }  
+
+  .link-line {
+    flex-shrink:0;
+  }
   </style>

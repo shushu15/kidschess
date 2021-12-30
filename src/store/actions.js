@@ -19,11 +19,12 @@ export default {
           commit('setLongThinking', {value: true}); }, KidsConst.THINKING_DELAY); 
       commit('storeTimer', {timerID});   
     }
-    // console.log(`dispatch workerRequest:${command} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
+    // console.log(`dispatch workerSendPosition:${command} level ${getters.getEngineDeep}`); // eslint-disable-line no-console
 
   },
-  workerSendNewGame({state, dispatch}) {
-    //console.log('dispatch workerSendNewGame'); // eslint-disable-line no-console
+  workerSendNewGame({state, commit, dispatch}) {
+    // console.log('dispatch workerSendNewGame'); // eslint-disable-line no-console
+    commit('bestMove', { move: '' }); // clear last moveAI (watcher has problem is last move from prev game is equal to the new move)
     state.webWorkerAI.postMessage('ucinewgame');
     dispatch('workerSendMistakeLevel');
 //    state.webWorkerAI.postMessage(`debug on`);

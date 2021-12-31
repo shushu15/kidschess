@@ -46,12 +46,15 @@ export async function init(){
     return DB_NOTFOUND;
   }  
   try {
-    db = await openDB(dbName, 1, {
-      upgrade(db) {
+    db = await openDB(dbName, 2, {
+      upgrade(db, oldVersion, newVersion, transaction) {
         if (!db.objectStoreNames.contains(storeGames))
           db.createObjectStore(storeGames, { keyPath: "gameID" });
         if (!db.objectStoreNames.contains(storePrizes))
           db.createObjectStore(storePrizes, {autoIncrement: true});
+        if (oldVersion===1 && newVersion===2) {
+          transaction.done.then(()=> {res = migrate_1_2(db);});
+        }  
       },
     });
     res =  DB_OK;
@@ -174,7 +177,7 @@ export async function getPrizes(){
     let nMaxGame, nToPrizeMax = 0, nToPrizeSum = 0;
     let cursor = await db.transaction(storeGames).store.openCursor();
     while (cursor) {   
-      let nToPrize = Math.round(cursor.value.nToPrize / (cursor.value.prizeCounter * recountCoeff(cursor.value.nToPrize, cursor.value.WB) + 1)); // we count games played for prize div by the number of issued prizes with coeff for this game
+      let nToPrize = Math.round(cursor.value.nToPrize / (cursor.value.prizeCounter * recountCoeff(cursor.value.nToPrize, cursor.value.WB===undefined? 0: cursor.value.WB) + 1)); // we count games played for prize div by the number of issued prizes with coeff for this game
       // search for the game played most from last prize
       if (nToPrize > nToPrizeMax) {
         nToPrizeMax = nToPrize;
@@ -250,7 +253,10 @@ function getRandomInt(max) {
  * how many different games need to play to get prize
  */
 function sumToPrize() {
-  return counterPrize===0? SUM_TO_PRIZE[0]: counterPrize<3? SUM_TO_PRIZE[1]: SUM_TO_PRIZE[2];
+  // return counterPrize===0? SUM_TO_PRIZE[0]: counterPrize<3? SUM_TO_PRIZE[1]: SUM_TO_PRIZE[2];
+  let c=counterPrize===0? SUM_TO_PRIZE[0]: counterPrize<3? SUM_TO_PRIZE[1]: SUM_TO_PRIZE[2];
+  // console.log(`sumToPrize ${c}`); // eslint-disable-line no-console
+  return c;
 }
 /*****
  * @param int balance "+ more WHITE games, "-" more BLACK games, 0 equal for prize
@@ -260,8 +266,32 @@ function sumToPrize() {
  */
 function recountCoeff(total, balance) {
   // need to translate 1 .. 0 to say 0.6 .. 0.1 
-  let c = Math.abs(balance) / total / 2  + 0.1;
+  let c = (total===0? 0: Math.abs(balance) / total / 2)  + 0.1;
   // console.log(`recountCoeff ${c}`); // eslint-disable-line no-console
   return  c;
 }
+
+/*jshint -W119 */
+async function migrate_1_2(db) {
+/*jshint +W119 */
+  let res =  DB_ERR;
+  try {
+    let cursor = await db.transaction(storeGames, "readwrite").store.openCursor();
+    while (cursor) {
+      let record = cursor.value;
+      if (record.WB === undefined) {
+        record.WB = 0;
+        await cursor.update(record);
+      }
+      cursor = await cursor.continue();
+    }
+    console.log('db migrate_1_2 ok'); // eslint-disable-line no-console
+    res = DB_OK;
+  } catch(err) {
+    console.log(`db migrate_1_2 error ${err.toString()}`); // eslint-disable-line no-console
+  }
+  return res;
+
+}
+
 

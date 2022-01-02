@@ -50,7 +50,7 @@
   "message.board.two_players": "The board is currently in two-player mode. You can switch to normal mode in the settings menu",
   "message.speech.nosupport": "Voice speaking in this language is not supported in browser or system: {0}",
   "message.prize": "Congratulations! You have received a new sticker. Play different games for both sides to the end and get stickers",
-
+  "message.stat.off": "Game statistics collection is disabled or not supported. You will not be able to receive prize stickers. Enable in Menu - Settings - Statistics",
 
   "help.mainmenu": "main menu",
   "help.reload": "repeat game",

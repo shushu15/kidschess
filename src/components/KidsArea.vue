@@ -381,6 +381,8 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     }
     if(this.$store.state.modeCollectStat) {
       setTimeout(() => { this.$store.dispatch('db_init'); }, 1000);     
+    } else {
+      setTimeout(() => { this.$store.commit('snackbarMessage', {value: this.$i18n.t('message.stat.off')}); }, 8000);           
     }
   },
  //   created() {

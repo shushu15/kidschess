@@ -4,7 +4,7 @@
           <v-card-text>
               <div class="d-flex justify-center text-center text-h6">{{ $t('title.2') }}</div>
           </v-card-text>  
-          <v-card-title  class="text-center text-h5" color="primary" >
+          <v-card-title  class="text-center text-h5" style="font-weight: 500;" color="primary" >
               {{ $t('title.kids') }}
           </v-card-title>
           <v-card-text>

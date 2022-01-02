@@ -72,6 +72,7 @@ const state = {
       description: 'task.kingcloths.d',
       active: 0,
       avatar: require("@/assets/img/046-lion.svg"),
+      complex: 0,
       data: [
         { 
           title: 'task.kingcloths.1.t',
@@ -119,6 +120,7 @@ const state = {
         white: require("@/assets/img/029-goat.svg"),
         black: require("@/assets/img/098-wolf.svg"),
       },
+      complex: 0,
       data: [
         { 
           title: 'task.wolfkids.1.t',
@@ -164,6 +166,7 @@ const state = {
       description: 'task.elephant.d',
       active: 0,                
       avatar: require("@/assets/img/022-elephant.svg"),
+      complex: 0,
       data: [
         { 
           title: 'task.elephant.1.t',
@@ -260,6 +263,7 @@ const state = {
         white: require("@/assets/img/029-goat.svg"),
         black: require("@/assets/img/fox.svg"),
       },
+      complex: 1,
       data: [
         { 
           title: 'task.foxes.1.t',
@@ -293,6 +297,7 @@ const state = {
         white: require("@/assets/img/rabbit.svg"),
         black: require("@/assets/img/fox.svg"),
       },
+      complex: 1,
       data: [
         { 
           title: 'task.animals.1.t',
@@ -330,6 +335,7 @@ const state = {
       active: 0,                
       avatar: require("@/assets/img/heroe.svg"),
       rules: KidsConst.RULES_DEFAULT | KidsConst.RULES_3_REPETITION | KidsConst.RULES_MATERIAL_WIN,
+      complex: 2,
       data: [
         { 
           title: 'task.war.1.t',
@@ -401,6 +407,7 @@ const state = {
         black: require("@/assets/img/black-panther.svg"),
       },
       rules: KidsConst.RULES_CHESS,
+      complex: 2,
       data: [
         { 
           title: 'task.kings.1.t',
@@ -486,6 +493,7 @@ const state = {
     rules: KidsConst.RULES_CHESS,
     difficulty: 2,
     movesAI: true,
+    complex: 2,
   },
 
 };

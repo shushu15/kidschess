@@ -40,6 +40,9 @@
                   <v-card-text>
                     <i18n :path="item.text" tag="p">
                       <template v-slot:lnbr><br></template>
+                      <template v-slot:s_mdistar0><v-icon>{{mdiStarOutline}}</v-icon></template>
+                      <template v-slot:s_mdistar1><v-icon>{{mdiStarHalfFull}}</v-icon></template>
+                      <template v-slot:s_mdistar2><v-icon>{{mdiStar}}</v-icon></template>
                       <template v-slot:s_mdireload><v-icon>{{mdiReload}}</v-icon></template>
                       <template v-slot:s_mdimenu><v-icon>{{mdiMenu}}</v-icon></template>
                       <template v-slot:s_mdihelp><v-avatar color="pink lighten-3" size="24"><v-icon x-small>{{mdiHelp}}</v-icon></v-avatar></template>
@@ -57,13 +60,16 @@
 
 <script>
 
-import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu, } from '@mdi/js';
+import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu,mdiStarOutline,mdiStarHalfFull,mdiStar} from '@mdi/js';
 export default {
   name: 'Intro',
   data() {
     return {
       model: 0,
       mdiClose,
+      mdiStarOutline,
+      mdiStarHalfFull,
+      mdiStar,
       mdiReload,
       mdiArrangeBringForward,
       mdiHelp,

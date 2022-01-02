@@ -1,6 +1,7 @@
 <template>
     <v-list class="pt-0"
          nav
+         id="games"
     >
       <v-list-group
         v-for="task in tasksData"
@@ -15,6 +16,8 @@
           <v-list-item-content>
             <v-list-item-title v-text="$i18n.t(task.title)"></v-list-item-title>
           </v-list-item-content>
+          <v-list-item-icon><v-icon size="18">{{complex(task.complex)}}</v-icon>
+          </v-list-item-icon>
         </template>
 
         <v-list-item
@@ -37,6 +40,10 @@
         <v-list-item-content>
             <v-list-item-title v-text="$i18n.t(standardData.title)"></v-list-item-title>
         </v-list-item-content>
+        <v-list-item-icon><v-icon size="18">{{complex(standardData.complex)}}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-icon>
+          </v-list-item-icon>
       </v-list-item>
       <v-divider></v-divider>
       <v-list-item>
@@ -154,9 +161,9 @@ import InlineSvg from 'vue-inline-svg';
 import * as KidsConst from '@/lib/const.js';
 import { Trans } from '@/plugins/Translation.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiCog,mdiWeb,mdiCommentOutline,mdiStarFace,mdiShareVariant} from '@mdi/js';
+import { mdiCog,mdiWeb,mdiCommentOutline,mdiStarFace,mdiShareVariant,mdiStarOutline,mdiStarHalfFull,mdiStar} from '@mdi/js';
 
-
+let complexity = [mdiStarOutline,mdiStarHalfFull,mdiStar];
 
 export default {
   name: 'Navi',
@@ -226,7 +233,12 @@ export default {
     share(){
       this.$store.commit('toggleDrawer', { show: false });
       this.$store.commit('toggleShare', { show: true });
+    },
+    
+    complex(c) {
+      return complexity[c];
     }
+    
 
   },
   computed: {
@@ -293,3 +305,9 @@ export default {
 }
 
 </script>
+<style>
+#games .v-list-group .v-list-group__header .v-list-item__icon.v-list-group__header__append-icon {
+  min-width: 24px!important;
+  /* margin-left:0px;*/
+}
+</style>

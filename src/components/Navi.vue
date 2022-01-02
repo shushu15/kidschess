@@ -308,6 +308,6 @@ export default {
 <style>
 #games .v-list-group .v-list-group__header .v-list-item__icon.v-list-group__header__append-icon {
   min-width: 24px!important;
-  /* margin-left:0px;*/
+  margin-left:16px!important;
 }
 </style>

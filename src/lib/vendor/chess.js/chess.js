@@ -354,8 +354,8 @@ var Chess = function(fen) {
     }
 
     if (
-      (tokens[3][1] == '3' && tokens[1] == 'w') ||
-      (tokens[3][1] == '6' && tokens[1] == 'b')
+      (tokens[3][1] == '3' && tokens[1] == WHITE) ||
+      (tokens[3][1] == '6' && tokens[1] == BLACK)
     ) {
       return { valid: false, error_number: 11, error: errors[11] };
     }
@@ -526,7 +526,7 @@ var Chess = function(fen) {
         board[from].type === PAWN &&
         (rank(to) === RANK_8 || rank(to) === RANK_1)
       ) {
-        var pieces = [QUEEN, ROOK, BISHOP, KNIGHT];
+        let pieces = [QUEEN, ROOK, BISHOP, KNIGHT];
         for (let i = 0, len = pieces.length; i < len; i++) {
           moves.push(build_move(board, from, to, flags, pieces[i]));
         }
@@ -535,17 +535,18 @@ var Chess = function(fen) {
       }
     }
 
-    var moves = [];
-    var us = turn;
-    var them = swap_color(us);
-    var second_rank = { b: RANK_7, w: RANK_2 };
+    let moves = [];
+    let us = turn;
 
-    var first_sq = SQUARES.a8;
-    var last_sq = SQUARES.h1;
-    var single_square = false;
+    let them = swap_color(us);
+    let second_rank = { b: RANK_7, w: RANK_2 };
+
+    let first_sq = SQUARES.a8;
+    let last_sq = SQUARES.h1;
+    let single_square = false;
 
     /* do we want legal moves? */
-    var legal =
+    let legal =
       typeof options !== 'undefined' && 'legal' in options ? options.legal : true;
 
     /* are we generating moves for a single square? */
@@ -559,14 +560,14 @@ var Chess = function(fen) {
       }
     }
 
-    for (var i = first_sq; i <= last_sq; i++) {
+    for (let i = first_sq; i <= last_sq; i++) {
       /* did we run off the end of the board */
       if (i & 0x88) {
         i += 7;
         continue;
       }
 
-      var piece = board[i];
+      let piece = board[i];
       if (piece == null || piece.color !== us) {
         continue;
       }
@@ -575,12 +576,12 @@ var Chess = function(fen) {
         /* single square, non-capturing */
         let square = i + PAWN_OFFSETS[us][0];
         if (board[square] == null) {
-          add_move(board, moves, i, square, BITS.NORMAL);
+          add_move(board, moves, i, square, BITS.NORMAL, us);
 
           /* double square */
           square = i + PAWN_OFFSETS[us][1];
           if (second_rank[us] === rank(i) && board[square] == null) {
-            add_move(board, moves, i, square, BITS.BIG_PAWN);
+            add_move(board, moves, i, square, BITS.BIG_PAWN, us);
           }
         }
 
@@ -590,14 +591,14 @@ var Chess = function(fen) {
           if (square & 0x88) continue;
 
           if (board[square] != null && board[square].color === them) {
-            add_move(board, moves, i, square, BITS.CAPTURE);
+            add_move(board, moves, i, square, BITS.CAPTURE, us);
           } else if (square === ep_square) {
-            add_move(board, moves, i, ep_square, BITS.EP_CAPTURE);
+            add_move(board, moves, i, ep_square, BITS.EP_CAPTURE, us);
           }
         }
       } else {
-        for (var j = 0, len = PIECE_OFFSETS[piece.type].length; j < len; j++) {
-          var offset = PIECE_OFFSETS[piece.type][j];
+        for (let j = 0, len = PIECE_OFFSETS[piece.type].length; j < len; j++) {
+          let offset = PIECE_OFFSETS[piece.type][j];
           let square = i;
 
           while (true) {
@@ -605,10 +606,10 @@ var Chess = function(fen) {
             if (square & 0x88) break;
 
             if (board[square] == null) {
-              add_move(board, moves, i, square, BITS.NORMAL);
+              add_move(board, moves, i, square, BITS.NORMAL, us);
             } else {
               if (board[square].color === us) break;
-              add_move(board, moves, i, square, BITS.CAPTURE);
+              add_move(board, moves, i, square, BITS.CAPTURE, us);
               break;
             }
 
@@ -635,7 +636,7 @@ var Chess = function(fen) {
           !attacked(them, castling_from + 1) &&
           !attacked(them, castling_to)
         ) {
-          add_move(board, moves, kings[us], castling_to, BITS.KSIDE_CASTLE);
+          add_move(board, moves, kings[us], castling_to, BITS.KSIDE_CASTLE, us);
         }
       }
 
@@ -652,7 +653,7 @@ var Chess = function(fen) {
           !attacked(them, castling_from - 1) &&
           !attacked(them, castling_to)
         ) {
-          add_move(board, moves, kings[us], castling_to, BITS.QSIDE_CASTLE);
+          add_move(board, moves, kings[us], castling_to, BITS.QSIDE_CASTLE, us);
         }
       }
     }
@@ -665,7 +666,7 @@ var Chess = function(fen) {
     }
 
     /* filter out illegal moves */
-    var legal_moves = [];
+    let legal_moves = [];
     for (let i = 0, len = moves.length; i < len; i++) {
       make_move(moves[i]);
       if (!king_attacked(us)) {
@@ -1181,7 +1182,7 @@ var Chess = function(fen) {
   }
 
   function algebraic(i) {
-    var f = file(i),
+    let f = file(i),
       r = rank(i);
     return 'abcdefgh'.substring(f, f + 1) + '87654321'.substring(r, r + 1);
   }
@@ -1304,10 +1305,10 @@ var Chess = function(fen) {
        * unnecessary move keys resulting from a verbose call.
        */
 
-      var ugly_moves = generate_moves(options);
-      var moves = [];
+      let ugly_moves = generate_moves(options);
+      let moves = [];
 
-      for (var i = 0, len = ugly_moves.length; i < len; i++) {
+      for (let i = 0, len = ugly_moves.length; i < len; i++) {
         /* does the user want a full move object (most likely not), or just
          * SAN
          */
@@ -1449,9 +1450,9 @@ var Chess = function(fen) {
         var move = reversed_history.pop();
 
         /* if the position started with black to move, start PGN with 1. ... */
-        if (!history.length && move.color === 'b') {
+        if (!history.length && move.color === BLACK) {
           move_string = move_number + '. ...';
-        } else if (move.color === 'w') {
+        } else if (move.color === WHITE) {
           /* store the previous generated move_string if we have one */
           if (move_string.length) {
             moves.push(move_string);
@@ -1752,6 +1753,9 @@ var Chess = function(fen) {
 
     turn: function() {
       return turn;
+    },
+    swap_turn: function() {
+      turn = swap_color(turn);
     },
 
     move: function(move, options) {

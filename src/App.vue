@@ -256,6 +256,10 @@ export default {
     if (localStorage.collectStat !== undefined) {
       this.$store.commit('collectStat', {value: localStorage.collectStat == 'true'});
     } 
+    if (localStorage.threats_show !== undefined) {
+      this.$store.commit('toggleThreats', localStorage.threats_show == 'true');
+    } 
+
 
 
   },     

@@ -59,6 +59,7 @@
   "help.copygame" : "cкопировать игру в буфер",
   "help.speech" : "речь вкл/выкл",
   "help.level" : "сила игры",
+  "help.threats" : "показывать угрозы",
 
   "stats": {
     "stickers": "Стикеры",

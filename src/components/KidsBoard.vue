@@ -19,6 +19,7 @@ export default {
     orientation: String,
     id: String,
     forced: Date,
+    showThreats: Boolean,
   },
   methods: {
     initialMove() {
@@ -60,6 +61,7 @@ export default {
         this.calculatePromotions();
         this.$store.commit('addMove', {move: `${orig}${dest}`});
         this.$store.commit('setTurn', { turn: this.game.turn() });
+        this.afterMove();
         if (this.twoPlayers) {
           let res = this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
           this.board.set({
@@ -68,7 +70,7 @@ export default {
               color: res? undefined: this.toColor(),
               dests: res? undefined: this.possibleMoves(),
               events: { after: res? undefined: this.userPlay()},
-            }
+            },
           });
           /*
           if (res && !this.$store.state.gameSaved.finish && this.$store.state.modeCollectStat) {
@@ -216,6 +218,7 @@ export default {
           dests: this.possibleMoves(),
           events: { after: this.userPlay()},
         },
+
       });
       this.$store.commit('setTurn', { turn: this.game.turn() });
     },
@@ -404,6 +407,7 @@ export default {
               dests: this.possibleMoves(),
               events: { after: this.userPlay()},
             },
+
           });
         } else {
           console.log(`AI move unparced ${newValue}`); // eslint-disable-line no-console
@@ -417,11 +421,13 @@ export default {
               dests: this.possibleMoves(),
               events: { after: this.userPlay()},
             },
+
           });
         }
         this.calculatePromotions();
         this.$store.commit('setTurn', { turn: this.game.turn() });
         this.$store.commit('addMove', {move: newValue});
+        this.afterMove();
         let res = this.checkRules(KidsConst.HUMAN);
         if(res) { // stop game
           this.board.set({

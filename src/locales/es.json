@@ -59,6 +59,7 @@
   "help.copygame" : "copiar el juego al portapapeles",
   "help.speech" : "voz encender/apagar",
   "help.level" : "fuerza del juego",
+  "help.threats" : "mostrar amenazas",
 
   "stats": {
     "stickers": "Pegatinas",

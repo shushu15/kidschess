@@ -9,7 +9,7 @@ import Chess from '@/lib/vendor/chess.js/chess.js';
 // import {Chessground} from 'chessground';
 import {Chessground} from '@/lib/vendor/chessground/chessground.js';
 // const Chessground = require('@/lib/vendor/chessground/chessground.js').Chessground;
-import {uniques} from './Util.js';
+// import {uniques} from './Util.js';
 
 export default {
   name: 'chessboard',
@@ -51,7 +51,9 @@ export default {
       //console.log(`chessboard Watcher showThreats ${st}`); // eslint-disable-line no-console ,
       this.showThreats = st
       if (this.showThreats) {
-        this.paintThreats()
+        this.paintThreats();
+      } else {
+        this.board.setShapes([]);
       }
     },
   },
@@ -75,6 +77,7 @@ export default {
         this.game.load_pgn(originalPGN)
         return moves
       } else {
+        this.game.load_pgn(originalPGN)
         return []
       }
     },
@@ -82,19 +85,30 @@ export default {
       return (this.game.turn() === 'w') ? 'white' : 'black'
     },
     paintThreats () {
-      let moves = this.game.moves({verbose: true})
+      let turn = this.game.turn();
+      this.game.swap_turn();
+      let moves = this.game.moves({verbose: true, legal: true});
       let threats = []
       moves.forEach(function (move) {
-        threats.push({orig: move.to, brush: 'yellow'})
+        // threats.push({orig: move.to, brush: 'yellow'})
 
         if (move['captured']) {
-          threats.push({orig: move.from, dest: move.to, brush: 'red'})
+          threats.push({orig: move.from, dest: move.to, brush: turn=='w'? 'paleRed': 'paleBlue'})
         }
-        if (move['san'].includes('+')) {
-          threats.push({orig: move.from, dest: move.to, brush: 'blue'})
+        //if (move['san'].includes('+')) {
+        //  threats.push({orig: move.from, dest: move.to, brush: 'blue'})
+        //}
+      });
+      this.game.swap_turn();
+      moves = this.game.moves({verbose: true, legal: true});
+      moves.forEach(function (move) {
+        if (move['captured']) {
+          threats.push({orig: move.from, dest: move.to, brush: turn=='w'? 'paleBlue': 'paleRed'})
         }
-      })
-      this.board.setShapes(threats)
+      });
+      console.log(threats);
+      this.board.setShapes(threats);
+
     },
     calculatePromotions () {
       let moves = this.game.moves({verbose: true})
@@ -109,6 +123,7 @@ export default {
       let filteredPromotions = this.promotions.filter(move => move.from === orig && move.to === dest)
       return filteredPromotions.length > 0 // The current movement is a promotion
     },
+  
     changeTurn () {
       return (orig, dest) => {
         if (this.isPromotion(orig, dest)) {
@@ -131,11 +146,14 @@ export default {
       if (this.showThreats) {
         this.paintThreats()
       }
+      /*
       let threats = this.countThreats(this.toColor()) || {}
       threats['history'] = this.game.history()
       threats['fen'] = this.game.fen()
       this.$emit('onMove', threats)
+      */
     },
+    /*
     countThreats (color) {
       let threats = {}
       let captures = 0
@@ -164,6 +182,7 @@ export default {
       threats[`turn`] = color
       return threats
     },
+    */
     loadPosition () { // set a default value for the configuration object itself to allow call to loadPosition()
       this.game.load(this.fen)
       this.board = Chessground(this.$refs.board, {

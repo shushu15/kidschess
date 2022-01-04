@@ -114,6 +114,10 @@ export default {
   toggleShare(state, { show }) {
     state.showShare = (show === undefined) ? !state.showShare : show;
   },
+  toggleThreats(state, value ) {
+    state.threats = (value === undefined) ? !state.threats : value;
+  },
+
   setLastPrize(state, { value }) {
     state.lastPrize = value;   // set undefined to clear
   },

@@ -40,6 +40,7 @@ const state = {
   flashAnimal: false,
   timerID: undefined,
   timeCallAI: 0,
+  threats: false,
   history: {
     moves: [],
   },

@@ -9,7 +9,7 @@
 
       <v-col class="d-flex justify-center" cols="12">
         <div class="layer1 pa-4 ma-0 rounded-lg">       
-        <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' 
+        <KidsBoard ref="wrkBoard" :fen='getCurrentTask.fen' :orientation='getCurrentTask.orientation' :showThreats='this.$store.state.threats'
               :id='getCurrentTask.id' :forced="this.forced" @on-orientation="flippedBoard" @on-speak="speakGame" />
          <label class="thinking-opp caption glow" v-show="showClock('b') && longThinking">{{$t('message.thinking')}}</label>     
          <span class="ai-level">
@@ -27,6 +27,21 @@
           </v-icon>
           </v-badge>
         </span>
+         <span class="threats">
+          <v-badge
+            bottom
+            overlap
+            right
+            color="pink lighten-3"
+            :content="$t('help.threats')"
+            :value="this.$store.state.showHelp"
+          >
+          <v-icon @click="toggleThreats" :aria-label="$t('help.threats')">
+            {{ this.$store.state.threats? mdiFlash: mdiFlashOff }}
+          </v-icon>
+          </v-badge>
+        </span>
+
          <div class="clock-opp"><v-icon v-bind:class="{glow: !finishedGame && gameActive}" v-show="showClock('b')">
             {{ mdiAlarm }}
         </v-icon></div>     
@@ -160,7 +175,7 @@ import InlineSvg from 'vue-inline-svg';
 // import Sticker from './Sticker.vue';
 import * as KidsConst from '@/lib/const.js';
 import * as Speech from '@/lib/speech.js';
-import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8,mdiGestureTap } from '@mdi/js';
+import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoiceOff,mdiCircleSlice1,mdiCircleSlice3,mdiCircleSlice5,mdiCircleSlice8,mdiGestureTap,mdiFlash,mdiFlashOff } from '@mdi/js';
 
 
 
@@ -191,7 +206,9 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
       mdiCircleSlice3,
       mdiCircleSlice5,
       mdiCircleSlice8,
-      mdiGestureTap
+      mdiGestureTap,
+      mdiFlash, 
+      mdiFlashOff,
     }
   },  
   /* data () {
@@ -303,6 +320,10 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     },
     isPrizeMessage () {
       return this.$store.state.snackbar.type === KidsConst.TYPE_PRIZE;
+    },
+    toggleThreats() {
+      this.$store.commit('toggleThreats');
+      localStorage.threats_show = this.$store.state.threats;
     }
 
 
@@ -440,6 +461,11 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
     position: absolute;
     top: -10px;
     left: 0px;
+  } 
+  .threats {
+    position: absolute;
+    top: -10px;
+    left: 160px;
   } 
   .clock-my {
     position: absolute;

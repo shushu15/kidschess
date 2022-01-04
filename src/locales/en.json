@@ -59,6 +59,7 @@
   "help.copygame" : "copy game to clipboard",
   "help.speech" : "voice on/off",
   "help.level" : "game strength",
+  "help.threats" : "show threats",
 
   "stats": {
     "stickers": "Stickers",

@@ -592,7 +592,9 @@ var Chess = function(fen) {
 
           if (board[square] != null && board[square].color === them) {
             add_move(board, moves, i, square, BITS.CAPTURE, us);
-          } else if (square === ep_square) {
+          // SHU } else if (square === ep_square) {
+          } else if (square === ep_square &&
+            ((us===WHITE && ep_square <= SQUARES.h5)  || (us===BLACK && ep_square >= SQUARES.a4))) {
             add_move(board, moves, i, ep_square, BITS.EP_CAPTURE, us);
           }
         }

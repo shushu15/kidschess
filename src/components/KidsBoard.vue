@@ -63,7 +63,7 @@ export default {
         this.$store.commit('setTurn', { turn: this.game.turn() });
         this.afterMove();
         if (this.twoPlayers) {
-          let res = this.checkRules(KidsConst.ROBOT);  // check rules before AI move on its turn
+          let res = this.checkRules(this.toColor());  // check rules before AI move on its turn
           this.board.set({
             turnColor: this.toColor(),
             movable: {
@@ -225,6 +225,9 @@ export default {
     getHistory() {
       return this.game.history();
     },
+    expandColor(c) {
+      return c==='w'? KidsConst.WHITE: c==='b'? KidsConst.BLACK: undefined;
+    },
     /***
      * check for chess or specil rules game end
      * side - KidsConst.HUMAN | KidsConst.ROBOT for one-player games
@@ -233,6 +236,7 @@ export default {
      * *****/
     checkRules(side){
       //TODO: do not check if finishedGame. reset finishedGame on back move (with checking of move number finishedGame occurs)
+      // console.log(`side = ${side}`)      
       let rules = this.getTaskRules;
       let speechMess = '';
       if (rules & KidsConst.RULES_CHESS) { // regular chess rules
@@ -271,17 +275,46 @@ export default {
       if (rules & KidsConst.RULES_SAFE_PROMOTION) {
         let history = this.game.history({verbose: true});
         // console.log(`history ${JSON.stringify(history)}`);
+        /*
         if (history.length > 1 && history[history.length-2].flags.indexOf('p') >=0 && history[history.length-1].flags.indexOf('p') == -1 &&
             history[history.length-2].to !== history[history.length-1].to && 
             (history.length === 2 || (history.length > 2 && history[history.length-3].flags.indexOf('p') == -1))) { // no pair promotion
+            */
+        let forceFinish = undefined;   
+        if (history.length > 0 && history[history.length-1].flags.indexOf('p') >=0) // there was promotion
+        {
+          let i=2;
+          while (history.length-i >= 0 && history[history.length-i].flags.indexOf('p') >= 0) i++; // i == odd shows subsequental promotions
+          if (i % 2 == 0) { // no pair promotion
+            // check possible moves
+            let moves = this.game.moves({verbose: true, legal: true});
+            if (moves.find( (move) => { 
+              return (move['captured'] && (move.to === history[history.length-1].to) || move['san'].includes('=')); }) === undefined) {
+              // not possible to capture or promote 
+              forceFinish = this.expandColor(history[history.length-1].color); 
+              // console.log(`history 1 ${JSON.stringify(history[history.length-1])}`);
+
+            }
+
+          }
+        }
+        // now the old checking if could capture promoted piece, but didn't
+        if (!forceFinish && (history.length > 1 && history[history.length-2].flags.indexOf('p') >=0 && history[history.length-1].flags.indexOf('p') == -1 &&
+            history[history.length-2].to !== history[history.length-1].to && 
+            (history.length === 2 || (history.length > 2 && history[history.length-3].flags.indexOf('p') == -1)))) { // no pair promotion
+            forceFinish = this.expandColor(history[history.length-2].color); 
+            // console.log(`history 2 ${JSON.stringify(history[history.length-2])}`);
+        }
+        if (forceFinish) {
+          // console.log(`forceFinish ${forceFinish}`);
           this.$store.commit('finishedGame', {value: true});
           if (this.twoPlayers)
             this.$store.commit('snackbarMessage', 
-              {value: speechMess = `${side===KidsConst.WHITE? this.$i18n.t('result.white_won'):this.$i18n.t('result.black_won')} - ${this.$i18n.t('reason.safe_promotion')}` });
+              {value: speechMess = `${forceFinish===KidsConst.WHITE? this.$i18n.t('result.white_won'):this.$i18n.t('result.black_won')} - ${this.$i18n.t('reason.safe_promotion')}` });
           else
             this.$store.commit('snackbarMessage', 
-              {value: speechMess =`${side===KidsConst.HUMAN? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}`,
-               type: side===KidsConst.HUMAN? KidsConst.TYPE_POSITIVE: KidsConst.TYPE_NEGATIVE });
+              {value: speechMess =`${this.getOrientation === forceFinish? this.$i18n.t('result.won'):this.$i18n.t('result.lost')} - ${this.$i18n.t('reason.safe_promotion')}`,
+               type: this.getOrientation === forceFinish? KidsConst.TYPE_POSITIVE: KidsConst.TYPE_NEGATIVE });
           this.$emit('on-speak', speechMess);
           return true;
         }
@@ -299,27 +332,31 @@ export default {
                     (fen.match(/r/g) || []).length * KidsConst.ROOK_WEIGHT +
                     (fen.match(/b/g) || []).length * KidsConst.BISHOP_WEIGHT +
                     (fen.match(/k/g) || []).length * KidsConst.KNIGHT_WEIGHT;
-            let mess = '';
-            let type = KidsConst.TYPE_NONE;
-            if (wWeight === bWeight) {
-              mess = this.$i18n.t('result.draw');
-            } else if (this.twoPlayers) {
-              mess = wWeight - bWeight > 0?  this.$i18n.t('result.white_won'):  this.$i18n.t('result.black_won');
-            } else {
-                if ((wWeight - bWeight > 0 && this.getOrientation === KidsConst.WHITE) ||
-                (wWeight - bWeight < 0 && this.getOrientation === KidsConst.BLACK)) {
-                  mess = this.$i18n.t('result.won');
-                  type = KidsConst.TYPE_POSITIVE;
-                } else {
-                  mess = this.$i18n.t('result.lost'); 
-                  type = KidsConst.TYPE_NEGATIVE;
-                }       
+            // check if no capture possible
+            let moves = this.game.moves({verbose: true, legal: true});
+            if (moves.find( (move) => { return (move['captured'] || move['san'].includes('+')); }) === undefined) {
+              let mess = '';
+              let type = KidsConst.TYPE_NONE;
+              if (wWeight === bWeight) {
+                mess = this.$i18n.t('result.draw');
+              } else if (this.twoPlayers) {
+                mess = wWeight - bWeight > 0?  this.$i18n.t('result.white_won'):  this.$i18n.t('result.black_won');
+              } else {
+                  if ((wWeight - bWeight > 0 && this.getOrientation === KidsConst.WHITE) ||
+                  (wWeight - bWeight < 0 && this.getOrientation === KidsConst.BLACK)) {
+                    mess = this.$i18n.t('result.won');
+                    type = KidsConst.TYPE_POSITIVE;
+                  } else {
+                    mess = this.$i18n.t('result.lost'); 
+                    type = KidsConst.TYPE_NEGATIVE;
+                  }       
+              }
+              this.$store.commit('finishedGame', {value: true});
+              this.$store.commit('snackbarMessage', 
+                {value: speechMess = `${mess} - ${this.$i18n.t('reason.material')}`, type });
+              this.$emit('on-speak', speechMess);
+              return true;
             }
-            this.$store.commit('finishedGame', {value: true});
-            this.$store.commit('snackbarMessage', 
-              {value: speechMess = `${mess} - ${this.$i18n.t('reason.material')}`, type });
-            this.$emit('on-speak', speechMess);
-            return true;
           }
 
         }

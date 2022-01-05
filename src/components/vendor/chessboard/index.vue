@@ -96,7 +96,7 @@ export default {
           threats.push({orig: move.from, dest: move.to, brush: turn=='w'? 'paleRed': 'paleBlue'})
         }
         //if (move['san'].includes('+')) {
-        //  threats.push({orig: move.from, dest: move.to, brush: 'blue'})
+        //  threats.push({orig: move.from, dest: move.to, brush: turn=='w'? 'paleRed': 'paleBlue'})
         //}
       });
       this.game.swap_turn();
@@ -105,8 +105,11 @@ export default {
         if (move['captured']) {
           threats.push({orig: move.from, dest: move.to, brush: turn=='w'? 'paleBlue': 'paleRed'})
         }
+        //if (move['san'].includes('+')) {
+        //  threats.push({orig: move.from, dest: move.to, brush: turn=='w'? 'paleBlue': 'paleRed'})
+        //}
       });
-      console.log(threats);
+      // console.log(threats);
       this.board.setShapes(threats);
 
     },

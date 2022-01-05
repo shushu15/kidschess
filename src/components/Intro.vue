@@ -49,6 +49,7 @@
                       <template v-slot:s_mdiarrange><v-icon>{{mdiArrangeBringForward}}</v-icon></template>
                       <template v-slot:s_mdislice><v-icon>{{mdiCircleSlice3}}</v-icon></template>
                       <template v-slot:s_mdivoice><v-icon>{{mdiAccountVoice}}</v-icon></template>
+                      <template v-slot:s_mdiflash><v-icon>{{mdiFlash}}</v-icon></template>
                     </i18n>
                   </v-card-text>
           </v-card>       
@@ -60,7 +61,7 @@
 
 <script>
 
-import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu,mdiStarOutline,mdiStarHalfFull,mdiStar} from '@mdi/js';
+import { mdiClose,mdiReload,mdiArrangeBringForward,mdiHelp,mdiAccountVoice,mdiCircleSlice3,mdiMenu,mdiStarOutline,mdiStarHalfFull,mdiStar,mdiFlash} from '@mdi/js';
 export default {
   name: 'Intro',
   data() {
@@ -76,6 +77,7 @@ export default {
       mdiAccountVoice,
       mdiCircleSlice3,
       mdiMenu,
+      mdiFlash,
       items: [
         {
           title: "intro.t0", // 'KidsChess - это программа-тренажер',

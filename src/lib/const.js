@@ -23,7 +23,7 @@ export const BLACK = 'black';
 export const THINKING_DELAY = 2000;
 export const THINKING_LEVEL = 7;
 
-export const MOVETIME = 15000;
+export const MOVETIME = 18000;
 export const AUTO = 'auto';
 
 export const TYPE_NONE = 0;

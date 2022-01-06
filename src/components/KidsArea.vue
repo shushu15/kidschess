@@ -36,7 +36,7 @@
             :content="$t('help.threats')"
             :value="this.$store.state.showHelp"
           >
-          <v-icon @click="toggleThreats" :aria-label="$t('help.threats')">
+          <v-icon color="blue" @click="toggleThreats" :aria-label="$t('help.threats')">
             {{ this.$store.state.threats? mdiFlash: mdiFlashOff }}
           </v-icon>
           </v-badge>

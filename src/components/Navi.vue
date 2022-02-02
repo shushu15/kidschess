@@ -180,6 +180,7 @@ export default {
         ['lang.en', 'en24o.png', 'en'],
         ['lang.ru', 'ru24o.png', 'ru'],
         ['lang.es', 'es24o.png', 'es'],
+        ['lang.pt', 'pt24o.png', 'pt'],
       ],
       mdiCog,
       mdiWeb,

@@ -30,6 +30,7 @@ WebApp contains a set of chess-based small games for the little ones for the bet
 * Chess validation: [chess.js ](//github.com/jhlywa/chess.js) - with changes to play w/o Kings
 * Social sharing: [vue-social-sharing](//github.com/nicolasbeauvais/vue-social-sharing)
 * Icons: [Flaticon](https://www.flaticon.com/), [Freepik](https://www.freepik.com)
+* Translation into portuguese: Vagner Cassola
 
 ## Repository
 

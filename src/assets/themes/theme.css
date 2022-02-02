@@ -13,29 +13,44 @@
 }
 @media (min-width: 360px) and (min-height: 360px){ 
   .cg-board-wrap {
-    width: 320px;
-    height: 320px;
+    width: calc(68px + 70vmin); /*320px;*/
+    height: calc(68px + 70vmin); /*320px;*/
   }
 }
-  
+
+@media (min-width: 400px) and (min-height: 400px){ 
+  .cg-board-wrap {
+    width: calc(108px + 60vmin);
+    height: calc(108px + 60vmin);
+  }
+}
+
+@media (min-width: 520px) and (min-height: 520px){ 
+  .cg-board-wrap {
+    width: calc(134px + 55vmin);
+    height: calc(134px + 55vmin);
+  }
+}
+
 @media (min-width: 640px) and (min-height: 640px){ 
   .cg-board-wrap {
-    width: min(50vw, 50vh);
-    height: min(50vw, 50vh);
+    width: calc(340px + 30vmin);
+    height: calc(340px + 30vmin);
   }
 }
 @media (min-width: 800px) and (min-height: 800px){ 
   .cg-board-wrap {
-    width: calc(80 + min(40vw, 40vh));
-    height: calc(80 + min(40vw, 40vh));
+    width: calc(420px + 20vmin);
+    height: calc(420px + 20vmin);
   }
 }
+/*
 @media (min-width: 900px) and (min-height: 900px){ 
   .cg-board-wrap {
     width: calc(130 + min(30vw, 30vh));
     height: calc(130 + min(30vw, 30vh));
   }
-}
+}*/
 cg-board {
   position: absolute;
   top: 0;

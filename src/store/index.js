@@ -11,7 +11,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  version: '1.2.0e',
+  version: '1.2.1a',
   isTitleShowing: true,
   isScreenReady: false,
   isDemo: false,
@@ -27,7 +27,7 @@ const state = {
   // TODO: Dynamically add depth on simple positions (field in tasks)
   engineDeep: [ 
     {depth: 1, mistake: 2, hint: '', reduce: 0},  // this entry is omitted, level starts from 1
-    {depth: 1, mistake: 2, hint: 'level.1', reduce: 0}, 
+    {depth: 1, mistake: 2, hint: 'level.1', reduce: 0},
     {depth: 1, mistake: 0, hint: 'level.2', reduce: 0},
     {depth: 7, mistake: 0, hint: 'level.3', reduce: 1},
     {depth: 14, mistake: 0, hint: 'level.4', reduce: 2},

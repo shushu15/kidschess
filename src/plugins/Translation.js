@@ -2,7 +2,7 @@
 
 // import i18n from '@/plugins/i18n';
 
-const SUPPORTED_LANGUAGES = ['en','ru','es'];
+const SUPPORTED_LANGUAGES = ['en','ru','es','pt'];
 const DEFAULT_LANGUAGE = 'en';
 
 export const Trans = { 

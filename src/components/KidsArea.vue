@@ -444,7 +444,7 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
   }  
   .anim {
     position: absolute;
-    top: 400px;
+    top: calc(310px + 30vmin); /* 400px; */
     left: 0;
   }
   .clock-opp {
@@ -465,7 +465,8 @@ import { mdiAlarm,mdiStepBackward,mdiHelp,mdiContentCopy,mdiAccountVoice,mdiVoic
   .threats {
     position: absolute;
     top: -10px;
-    left: 160px;
+    left: 50%; /*160px;*/
+    transform: translate(-50%, 0);
   } 
   .clock-my {
     position: absolute;

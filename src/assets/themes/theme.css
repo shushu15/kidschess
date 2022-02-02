@@ -34,14 +34,14 @@
 
 @media (min-width: 640px) and (min-height: 640px){ 
   .cg-board-wrap {
-    width: calc(340px + 30vmin);
-    height: calc(340px + 30vmin);
+    width: calc(294px + 30vmin);
+    height: calc(294px + 30vmin);
   }
 }
 @media (min-width: 800px) and (min-height: 800px){ 
   .cg-board-wrap {
-    width: calc(420px + 20vmin);
-    height: calc(420px + 20vmin);
+    width: calc(374px + 20vmin);
+    height: calc(374px + 20vmin);
   }
 }
 /*

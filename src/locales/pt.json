@@ -26,7 +26,7 @@
   "menu.about.used2": "Tabuleiro: vue-chessboard <a href='//github.com/vitogit/vue-chessboard'>github.com/vitogit/vue-chessboard</a>, chessground <a href='//github.com/ornicar/chessground'>github.com/ornicar/chessground</a>",
   "menu.about.used3": "Validação do xadrez: chess.js <a href='//github.com/jhlywa/chess.js'>github.com/jhlywa/chess.js</a>",
   "menu.about.used4": "Ícones: <a href='https://www.flaticon.com/'>Flaticon</a>, tradução para português: Vagner Cassola",
-  "menu.about.contact": "Autor das idéias e jogos Clube de Xadrez Rifat Aysin <a href='https://vk.com/club199085279'>VK</a>, <a href='https://www.facebook.com/Шахматный-клуб-Рифата-Шахматы-детям-106777628182223'>FB</a>, desenvolvido por Alex Vasilev: <a href='mailto:alme20@yandex.ru'>alme20@yandex.ru</a>. Suporte: <a href='mailto:admin@ownlinks.com'>admin@ownlinks.com</a>. Página: <a href='https://ownlinks.com/kidschess/'>https://ownlinks.com/kidschess/</a>",
+  "menu.about.contact": "Autor das idéias e jogos Clube de Xadrez Rifat Aysin <a href='https://vk.com/club199085279'>VK</a>, <a href='https://www.facebook.com/Шахматный-клуб-Рифата-Шахматы-детям-106777628182223'>FB</a>, desenvolvido por Alex Vasilev: <a href='mailto:alme20@yandex.ru'>alme20@yandex.ru</a>. Suporte: <a href='mailto:admin@ownlinks.com'>admin@ownlinks.com</a>. Página: <a href='https://ownlinks.com/chess/'>ownlinks.com/chess/</a>",
   "menu.about.version": "Versão",
   "menu.settings" : "Configurações",
   "menu.settings.two" : "Dois jogadores",
@@ -158,7 +158,7 @@
       },
       "2": {
         "t": "Dragão de Fogo",
-        "d": "O Dragão de Fogo com oito cabeças (peões) está tentando rastejar com pelo menos uma de suas cabeças para o palácio real (a última linha horizontal), e o(a) Bravo(a) Principe/Princesa (dama) deve evitar isso e cortar todas as cabeças do Dragão de Fogo."
+        "d": "O Dragão de Fogo com oito cabeças (peões) está tentando rastejar com pelo menos uma de suas cabeças para o palácio real (a última linha horizontal). E a Brava Princesa (dama) deve evitar isso e cortar todas as cabeças do Dragão de Fogo."
       },
       "3": {
         "t": "Quatro Crianças",

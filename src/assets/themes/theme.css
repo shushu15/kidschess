@@ -27,21 +27,21 @@
 
 @media (min-width: 520px) and (min-height: 520px){ 
   .cg-board-wrap {
-    width: calc(134px + 55vmin);
-    height: calc(134px + 55vmin);
+    width: calc(160px + 50vmin);
+    height: calc(160px + 50vmin);
   }
 }
 
 @media (min-width: 640px) and (min-height: 640px){ 
   .cg-board-wrap {
-    width: calc(294px + 30vmin);
-    height: calc(294px + 30vmin);
+    width: calc(352px + 20vmin);
+    height: calc(352px + 20vmin);
   }
 }
 @media (min-width: 800px) and (min-height: 800px){ 
   .cg-board-wrap {
-    width: calc(374px + 20vmin);
-    height: calc(374px + 20vmin);
+    width: calc(432px + 10vmin);
+    height: calc(432px + 10vmin);
   }
 }
 /*

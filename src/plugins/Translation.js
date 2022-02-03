@@ -2,7 +2,7 @@
 
 // import i18n from '@/plugins/i18n';
 
-const SUPPORTED_LANGUAGES = ['en','ru','es','pt'];
+const SUPPORTED_LANGUAGES = {'en':['us'], 'ru':[], 'es':[], 'pt':['br']};
 const DEFAULT_LANGUAGE = 'en';
 
 export const Trans = { 
@@ -44,6 +44,26 @@ export const Trans = {
       lang,
       langNoISO: lang.includes('-')? lang.split('-')[0] : lang.includes('_')? lang.split('_')[0]: lang,
     };
+  },
+  /**
+   * Returns the users preferred locale
+   */
+   getUserLocale() {
+    const langISO = window.navigator.language || window.navigator.userLanguage || Trans.defaultLanguage;
+    let [lang, locale] = ((langISO.replace('-', '_')).toLowerCase()).split('_');
+    return {
+      lang, locale,
+    }
+  },
+  getUserSupportedLocale(ln) {
+    const userPreferredLocale = Trans.getUserLocale();
+    const lang = ln || Trans.getUserSupportedLang();
+    let locale = lang
+    if (lang === userPreferredLocale.lang && Object.prototype.hasOwnProperty.call(Trans.supportedLanguages, lang)) {
+      if (Trans.supportedLanguages[lang].includes(userPreferredLocale.locale)) // found supported locale
+        locale = userPreferredLocale.locale;
+    }
+    return locale;
   },
   /**
    * Sets the language to various services (axios, the html tag etc)
@@ -95,7 +115,9 @@ export const Trans = {
    * @return {boolean}
    */
   isLangSupported(lang) {
-    return Trans.supportedLanguages.includes(lang);
+    // return Trans.supportedLanguages.includes(lang);
+    // Trans.supportedLanguages.hasOwnProperty(lang) 
+    return Object.prototype.hasOwnProperty.call(Trans.supportedLanguages, lang);
   },
   /**
    * Checks if the route's param is supported, if not, redirects to the first supported one.

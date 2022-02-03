@@ -176,11 +176,16 @@ export default {
   data: function() { // need "this" thus change from arrow function
     return {
       languages: [
-        ['menu.language.auto', `${Trans.getUserSupportedLang()}24o.png`, KidsConst.AUTO],
-        ['lang.en', 'en24o.png', 'en'],
+        ['menu.language.auto', `${Trans.getUserSupportedLocale()}24o.png`, KidsConst.AUTO],
+        ['lang.en', `${Trans.getUserSupportedLocale('en')}24o.png`, 'en'],
+        ['lang.ru', `${Trans.getUserSupportedLocale('ru')}24o.png`, 'ru'],
+        ['lang.es', `${Trans.getUserSupportedLocale('es')}24o.png`, 'es'],
+        ['lang.pt', `${Trans.getUserSupportedLocale('pt')}24o.png`, 'pt'],
+
+        /* ['lang.en', 'en24o.png', 'en'],
         ['lang.ru', 'ru24o.png', 'ru'],
         ['lang.es', 'es24o.png', 'es'],
-        ['lang.pt', 'pt24o.png', 'pt'],
+        ['lang.pt', 'pt24o.png', 'pt'], */
       ],
       mdiCog,
       mdiWeb,
@@ -285,7 +290,8 @@ export default {
       }
     },
     getCurrentFlag() {
-      return `img/${this.$i18n.locale}24o.png`;
+      // return `img/${this.$i18n.locale}24o.png`; 
+      return `img/${Trans.getUserSupportedLocale(this.$i18n.locale)}24o.png`;
     }
 
 

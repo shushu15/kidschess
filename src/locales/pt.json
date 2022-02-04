@@ -12,11 +12,11 @@
   "btn.menu" : "Menu Principal",
   "btn.switch_color": "Trocar de cores",
   "btn.repeat" : "Repetir o jogo",
-  "btn.moveback" : "Voltar o movimento",
-  "btn.copygame" : "Compiar o jogo",
-  "btn.speech" : "acompanhamento por voz",
+  "btn.moveback" : "Voltar movimento",
+  "btn.copygame" : "Copiar o jogo",
+  "btn.speech" : "Leitor automático",
   "btn.level" : "Mudar o nível do jogo",
-  "btn.skipsplash" : "Pular a tele inicial",
+  "btn.skipsplash" : "Pular a tela inicial",
   "btn.help.ui" : "Ajuda com a interface do programa",
   "btn.stickers": "Veja as suas figurinhas",
   "menu.level": "Nível",
@@ -32,7 +32,7 @@
   "menu.settings.two" : "Dois jogadores",
   "menu.settings.flipfigures" : "Vire as peças",
   "menu.settings.noback" : "Sem retrocesso",
-  "menu.settings.speech" : "Falar",
+  "menu.settings.speech" : "Ouvir",
   "menu.settings.stat" : "Estatísticas",
   "menu.share" : "Compartilhe",
   "menu.intro": "Visão Geral",
@@ -49,17 +49,17 @@
   "message.thinking": "pensando...",
   "message.yourmove": "sua vez",
   "message.board.two_players": "O tabuleiro está atualmente no modo dois jogares. Você pode alterar para o modo normal no menu de configurações",
-  "message.speech.nosupport": "O acompanhamento por voz neste idioma não é compatível com o seu navegador ou sistema: {0}",
-  "message.prize": "Parabéns! Você recebeu uma nova figurinha. Joge jogos diferentes de ambos os lados até o fim e ganhe novas figurinhas",
+  "message.speech.nosupport": "O leitor automático neste idioma não é compatível com o seu navegador ou sistema: {0}",
+  "message.prize": "Parabéns! Você recebeu uma nova figurinha. Jogue outros jogos de ambos os lados e ganhe novas figurinhas",
   "message.stat.off": "A coleta de estatísticas dos jogos esta desabilitada ou não é suportada. Você não pode receber figurinhas de prêmio. Ative o Menu - Configuração - Estatísticas",
 
   "help.mainmenu": "menu principal",
   "help.reload": "repetir o jogo",
   "help.changepieces": "mudar a cor das peças",
-  "help.moveback": "voltar o movimento",
+  "help.moveback": "voltar movimento",
   "help.copygame" : "copiar jogo para a área de transferência",
   "help.speech" : "voz ligada/desligada",
-  "help.level" : "nivel do jogo",
+  "help.level" : "nível do jogo",
   "help.threats" : "mostrar ameaças",
 
   "stats": {
@@ -73,7 +73,7 @@
   },
 
   "level" : {
-    "1": "novato",
+    "1": "iniciante",
     "2": "normal",
     "3": "difícil",
     "4": "mestre"
@@ -88,8 +88,8 @@
   "reason": {
     "threefold": "repetição tripla",
     "nomoves": "sem movimentos",
-    "safe_promotion" : "promoção do peão",
-    "material" : "material insuficiente para",
+    "safe_promotion" : "peão promovido",
+    "material" : "valor do material restante",
     "insufficient_material": "material insuficiente para ganhar",
     "stalemate": "afogamento",
     "no_win_in_x_moves": "sem xeque-mate em {0} movimentos"
@@ -100,26 +100,26 @@
 
   "share": {
     "head" : "Conte aos amigos",
-    "subhead": "Compartilhe a página KidsChess - isso nos ajuda a desenvolver o aplicativo gratuítamente. Selecione a plataforma:",
+    "subhead": "Compartilhe a página KidsChess - isso nos ajuda a continuar desenvolvendo o aplicativo de forma gratuíta. Selecione a plataforma:",
     "title" : "KidsChess: Jogos de xadrez para crianças",
     "description": "Clube Rifat. Aprendizagem de xadrez para os mais pequenos. Os jogos ensinam as crianças a prestar atenção, entender melhor a força relativa das peças e a importância dos peões passados",
-    "quote": "Jogo KidsChess. Partidas curtas, divertidas e instrutivAs com um pequeno número de peças: os diferentes personagens do jogo ajudarão os jovens enxadristas a aumentar seu interesse em aprender xadrez",
+    "quote": "Jogo KidsChess para crianças. Jogos simples, divertidos e instrutivos com diferentes personagens que ajudarão os jovens enxadristas a aumentar seu interesse em aprender xadrez",
     "hashtags": "xadrez,crianças,aprendizagem,jogos",
     "copy": "ou clique para copiar o link"
   },
   "intro.title": "Visão geral do programa",
   "intro": {
     "t0": "KidsChess é um treinador de xadrez",
-    "s0": "leia uma visão geral do programa (tempo de leitura: 1 minuto). Feche para começar a jogar",
-    "text0": "O objetivo principal do programa é o treinamento da luta entre as peças contras os peões na ausência de parceiros de combate reais. Alguns jogos são destinados exclusivamente para iniciante, enquanto outros são adequados para jogadores de xadrez mais avançados. Todos os jogos são fáceis de jogar num tabuleiro real sem a necessidade de dispositivos eletrônicos.",
+    "s0": "visão geral do programa, tempo de leitura: 1 minuto. Feche para começar a jogar",
+    "text0": "O objetivo principal do programa é o treinamento da luta entre as peças contra os peões sem a necessidade de um parceiro real para jogar. Alguns jogos são destinados exclusivamente para iniciantes, enquanto outros são adequados para jogadores de xadrez mais avançados. Todos os jogos são fáceis de jogar num tabuleiro real sem a necessidade de dispositivos eletrônicos.",
     "t1": "Tela do jogo",
-    "text1": "Você verá um tabuleiro de xadrez com a posição inicial da último partida jogada. Abaixo do tabuleiro uma pequena descrição das regras para o jogo selecionado. Clicando no ícone {s_mdihelp} abaixo do tabuleiro, você pode pode ver a finalidade de todos os outros botões e icones.",
+    "text1": "Você verá um tabuleiro de xadrez com a posição inicial da última partida jogada. Abaixo do tabuleiro uma pequena descrição das regras para o jogo selecionado. Clicando no ícone {s_mdihelp} abaixo do tabuleiro, você pode pode ver a finalidade de todos os outros botões e icones.",
     "t2": "Como fazer um movimento?",
     "text2": "Quando você clica numa peça de xadrez o KidsChess mostra os movimentos possíveis. Para mover, clique na peça e, em seguida, na casa para onde ele deve ir. Ou simplesmente arraste a peça até a casa destino. Para capturar, coloque sua peça sobre a peça do adversário.",
     "t3": "Botões de ação",
-    "text3": "MENU {s_mdimenu} (canto superior esquerdo) - permite você selecionar o jogo. O menu contém capítulos com jogos similares de dificuldade variável:{s_mdistar0}{s_mdistar1}{s_mdistar2}. Você precida selecionar o capítulo e então selecionar o jogo.{lnbr} COR DAS PEÇAS {s_mdiarrange} (canto superior direito) - o programa permite treinar com as peças brancas ou pretas.{lnbr}REINICIAR O JOGO {s_mdireload} (canto superior direito) - iniciar o jogo atual do início.{lnbr} NÍVEL DO JOGO {s_mdislice} (no menu ou à esquerda acima do tabuleiro) - você pode selecionar o nível apropriado que o seu oponente virtual irá jogar.{lnbr}AMEAÇAS {s_mdiflash} (acima do tabuleiro) - mostrar os ataques.{lnbr}VOZ {s_mdivoice} - abaixo do tabuleiro - ouvir a leitura automática das regras do jogo.",
+    "text3": "MENU {s_mdimenu} (canto superior esquerdo) - permite você selecionar o jogo. O menu contém capítulos com jogos similares de dificuldade variável:{s_mdistar0}{s_mdistar1}{s_mdistar2}. Você precisa selecionar o capítulo e então selecionar o jogo.{lnbr} COR DAS PEÇAS {s_mdiarrange} (canto superior direito) - o programa permite treinar com as peças brancas ou pretas.{lnbr}REINICIAR O JOGO {s_mdireload} (canto superior direito) - iniciar o jogo atual do início.{lnbr} NÍVEL DO JOGO {s_mdislice} (no menu ou à esquerda acima do tabuleiro) - você pode selecionar o nível apropriado que o seu oponente virtual irá jogar.{lnbr}AMEAÇAS {s_mdiflash} (acima do tabuleiro) - mostrar os ataques.{lnbr}VOZ {s_mdivoice} - abaixo do tabuleiro - ouvir a leitura automática das regras do jogo.",
     "t4": "O que mais está no menu",
-    "text4": "Há também as CONFIGURAÇÕES no {s_mdimenu} MENU, permitindo{lnbr}- desabilidar a função voltar um movimento,{lnbr}- configurar o programa para duas pessoas jogarem juntas (embora os autores recomendem fortemente que é melhor os dois jogadores jogar ao vivo, num tabuleiro real!){lnbr}- alterar o idioma do programa{lnbr}E MAIS{lnbr}- Xadrez: jogar uma partida de xadrez{lnbr}- Menu introdução: para repetir essa introdução{lnbr}- Conquistas: ver as figurinhas e jogos jogados{lnbr}- e outros."
+    "text4": "Há também as CONFIGURAÇÕES no {s_mdimenu} MENU, permitindo{lnbr}- desabilitar a função voltar um movimento,{lnbr}- configurar o programa para duas pessoas jogarem juntas (embora os autores recomendam fortemente que é melhor os dois jogadores jogar ao vivo, num tabuleiro real!){lnbr}- alterar o idioma do programa{lnbr}E MAIS{lnbr}- Xadrez: jogar uma partida de xadrez{lnbr}- Menu introdução: para repetir essa introdução{lnbr}- Conquistas: ver as figurinhas e jogos jogados{lnbr}- e outros."
     
   },
 
@@ -133,7 +133,7 @@
         "d": "Os peões sempre vencem"
       },
       "2": {
-        "t": "Bermuda do Rei",
+        "t": "Bermudão do Rei",
         "d": "Os peões devem vencer"
       },
       "3": {
@@ -146,14 +146,14 @@
       },
       "5": {
         "t": "Saia do Rei",
-        "d": "Jogando com precisão, os peões devem vencer. Jogo mais difícil"
+        "d": "Jogando com precisão os peões devem vencer. Este é o jogo mais difícil"
       }
     },
     "wolfkids": {
-      "t": "Lobo e as Crianças",
+      "t": "Lobo e os Cabritinhos",
       "d": "Objetivo do jogo: capturar completamente (ou bloquear) o oponente ou a promoção segura de um peão",
       "1": {
-        "t": "Três Crianças",
+        "t": "Três Cabritinhos",
         "d": "A torre contra 3 peões conectados. A torre deve vencer"
       },
       "2": {
@@ -161,21 +161,21 @@
         "d": "O Dragão de Fogo com oito cabeças (peões) está tentando rastejar com pelo menos uma de suas cabeças para o palácio real (a última linha horizontal). E a Brava Princesa (dama) deve evitar isso e cortar todas as cabeças do Dragão de Fogo."
       },
       "3": {
-        "t": "Quatro Crianças",
+        "t": "Quatro Cabritinhos",
         "d": "O lobo deve vencer"
       },
       "4": {
-        "t": "Cinco Crianças",
+        "t": "Cinco Cabritinhos",
         "d": "As chances são quase iguais"
       },
       "5": {
-        "t": "Seis Crianças",
-        "d": "As crianças devem vencer"
+        "t": "Seis Cabritinhos",
+        "d": "Os cabritinhos devem vencer"
       }
     },
     "elephant": {
       "t": "Roupas do Elefante",
-      "d": "Objetivo do jogo: captura mútua ou alcance seguro da casa de promoção por qualquer um dos peões. Branco começa.",
+      "d": "Objetivo do jogo: captura mútua ou alcance seguro da casa de promoção por qualquer um dos peões. As brancas começam.",
       "1": {
         "t": "Sunga do Elefante",
         "d": "As brancas devem vencer"
@@ -201,11 +201,11 @@
         "d": "As brancas vencem facilmente se não cometerem erros"
       },
       "7": {
-        "t": "Bermuda do Elefante",
+        "t": "Bermudão do Elefante",
         "d": "As brancas vencem jogando com precisão"
       },
       "8": {
-        "t": "Bermuda do Elefante 2",
+        "t": "Bermudão do Elefante 2",
         "d": "As brancas vencem jogando com precisão"
       },
       "9": {
@@ -229,41 +229,41 @@
       "t": "Raposas Zangadas",
       "d": "Objetivo do jogo: capturar todos os peões ou algum peão alcançar de forma segura uma casa de promoção.",
       "1": {
-        "t": "Rapozas e 4 Crianças",
-        "d": "Rapozas-bispos vencem facilmente"
+        "t": "Raposas e 4 Cabritinhos",
+        "d": "Raposas-bispos vencem facilmente"
       },
       "2": {
-        "t": "Rapozas e 5 Crianças",
-        "d": "Rapozas-bispos devem vencer"
+        "t": "Raposas e 5 Cabritinhos",
+        "d": "Raposas-bispos devem vencer"
       },
       "3": {
-        "t": "Rapozas e 6 Crianças",
-        "d": "Crianças devem vencer"
+        "t": "Raposas e 6 Cabritinhos",
+        "d": "Os cabritinhos devem vencer"
       }
     },
     "animals": {
       "t": "Animais da floresta",
       "d": "Objetivo do jogo: capturar todos os peões ou algum peão alcançar de forma segura uma casa de promoção.",
       "1": {
-        "t": "Rapoza, Lobo e 4 Coelhos",
-        "d": "A Rapoza e o Lobo devem vencer"
+        "t": "Raposa, Lobo e 4 Coelhos",
+        "d": "A Raposa e o Lobo devem vencer"
       },
       "2": {
-        "t": "Rapoza, Lobo e 4 Coelhos",
-        "d": "A Rapoza e o Lobo devem vencer"
+        "t": "Raposa, Lobo e 4 Coelhos",
+        "d": "A Raposa e o Lobo devem vencer"
       },
       "3": {
-        "t": "Rapoza, Lobo e 5 Coelhos",
+        "t": "Raposa, Lobo e 5 Coelhos",
         "d": "As chances são quase iguais"
       },
       "4": {
-        "t": "Rapoza, Lobo e 5 Coelhos",
+        "t": "Raposa, Lobo e 5 Coelhos",
         "d": "As chances são quase iguais"
       }
     },
     "war": {
       "t": "Guerra e Paz",
-      "d": "O objetivo do jogo é a destruição completa do adversário ou a promoção segura do peão (para que o adversário não o capture com um movimento de retaliação). Se não houver mais peões no tabuleiro, a vitória é determinada pelo valor das peças restantes (Cavalo=3, Bispo=3, Torre=5)",
+      "d": "O objetivo do jogo é a destruição completa do adversário ou a promoção segura de um peão (para que o adversário não consiga capturar ele). Se não houver mais peões no tabuleiro, a vitória é determinada pelo valor das peças restantes (Cavalo=3, Bispo=3, Torre=5)",
       "1": {
         "t": "Batalha",
         "d": ""
